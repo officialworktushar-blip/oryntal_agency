@@ -29,35 +29,35 @@ export default function AssetPlaceholder({
       className={`group relative flex items-center justify-center overflow-hidden rounded-2xl border border-dashed ${
         dark
           ? "border-white/25 bg-white/5"
-          : "border-brand-300/70 bg-gradient-to-br from-brand-50 to-white"
+          : "border-brand/30 bg-gradient-to-br from-brand-wash to-white"
       } ${className ?? ""}`}
     >
       <div
         aria-hidden
         className={`pointer-events-none absolute inset-0 opacity-70 ${
           dark
-            ? "bg-[radial-gradient(circle_at_30%_20%,rgba(138,102,250,0.25),transparent_55%)]"
-            : "bg-[radial-gradient(circle_at_30%_20%,rgba(138,102,250,0.18),transparent_55%)]"
+            ? "bg-[radial-gradient(circle_at_30%_20%,rgba(103,61,230,0.25),transparent_55%)]"
+            : "bg-[radial-gradient(circle_at_30%_20%,rgba(103,61,230,0.18),transparent_55%)]"
         }`}
       />
       <div className="relative mx-4 max-w-sm text-center">
         <span
           className={`mx-auto grid h-12 w-12 place-items-center rounded-2xl ${
-            dark ? "bg-white/10 text-white" : "bg-brand-100 text-brand-700"
+            dark ? "bg-white/10 text-white" : "bg-brand-soft text-brand-hover"
           }`}
         >
           <Icon className="h-6 w-6" />
         </span>
         <p
           className={`mt-4 text-sm font-semibold ${
-            dark ? "text-white" : "text-brand-900"
+            dark ? "text-white" : "text-brand-dark"
           }`}
         >
           {title}
         </p>
         <p
           className={`mt-1.5 text-xs leading-relaxed ${
-            dark ? "text-brand-100/80" : "text-slate-500"
+            dark ? "text-brand-soft/80" : "text-muted"
           }`}
         >
           {description}

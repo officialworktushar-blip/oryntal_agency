@@ -49,53 +49,53 @@ export default function ContactPage() {
             <div className="card flex h-full flex-col gap-6 p-6 sm:p-8">
               <div>
                 <h2 className="text-lg font-bold text-ink">Get in touch</h2>
-                <p className="mt-2 text-sm leading-relaxed text-slate-500">
+                <p className="mt-2 text-sm leading-relaxed text-muted">
                   Prefer to talk directly? Reach out via email, phone, or
                   WhatsApp.
                 </p>
               </div>
 
-              <ul className="space-y-4 text-sm text-slate-600">
+              <ul className="space-y-4 text-sm text-muted">
                 <li className="flex items-start gap-3">
-                  <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+                  <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                   <a
                     href={`mailto:${site.email}`}
-                    className="transition-colors hover:text-brand-700"
+                    className="transition-colors hover:text-brand-hover"
                   >
                     {site.email}
                   </a>
                 </li>
                 <li className="flex items-start gap-3">
-                  <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+                  <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                   <a
                     href={`tel:${site.phone.replace(/[^+\d]/g, "")}`}
-                    className="transition-colors hover:text-brand-700"
+                    className="transition-colors hover:text-brand-hover"
                   >
                     {site.phone}
                   </a>
                 </li>
                 <li className="flex items-start gap-3">
-                  <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+                  <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                   <a
                     href="https://wa.me/15550123456"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="transition-colors hover:text-brand-700"
+                    className="transition-colors hover:text-brand-hover"
                   >
                     Chat on WhatsApp
                   </a>
                 </li>
                 <li className="flex items-start gap-3">
-                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                   <span>{site.location}</span>
                 </li>
               </ul>
 
-              <div className="mt-auto rounded-2xl border border-brand-100 bg-brand-50 p-5">
-                <h3 className="text-sm font-bold text-brand-700">
+              <div className="mt-auto rounded-2xl border border-brand-soft bg-brand-wash p-5">
+                <h3 className="text-sm font-bold text-brand-hover">
                   Let&apos;s plan your 3-month Custom Business Consultation
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-brand-800/80">
+                <p className="mt-2 text-sm leading-relaxed text-brand-hover/80">
                   We&apos;ll review your goals, current systems, and priorities,
                   then share a clear roadmap with actionable next steps.
                 </p>
@@ -116,7 +116,7 @@ export default function ContactPage() {
           <Reveal delay={0.06} className="lg:col-span-3">
             <div className="card p-6 sm:p-8">
               <h2 className="text-lg font-bold text-ink">Lead Capture Form</h2>
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-muted">
                 Share a few details so we can tailor the consultation to your
                 business.
               </p>
@@ -160,7 +160,7 @@ export default function ContactPage() {
                     id="service"
                     name="service"
                     required
-                    className="w-full rounded-xl border border-brand-100 bg-surface px-4 py-3 text-sm text-ink outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
+                    className="w-full rounded-xl border border-brand-soft bg-white px-4 py-3 text-sm text-ink outline-none transition focus:border-brand/50 focus:ring-2 focus:ring-brand/30"
                   >
                     <option value="" disabled selected>
                       Select a service
@@ -185,7 +185,7 @@ export default function ContactPage() {
                     name="message"
                     rows={5}
                     placeholder="Tell us about your goals, timeline, or current setup."
-                    className="w-full rounded-xl border border-brand-100 bg-surface px-4 py-3 text-sm text-ink outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
+                    className="w-full rounded-xl border border-brand-soft bg-white px-4 py-3 text-sm text-ink outline-none transition focus:border-brand/50 focus:ring-2 focus:ring-brand/30"
                   />
                 </div>
 
@@ -195,7 +195,7 @@ export default function ContactPage() {
                 </button>
 
                 {status === "sent" && (
-                  <p className="text-sm font-medium text-brand-700">
+                  <p className="text-sm font-medium text-brand-hover">
                     Thanks! This is a demo form — connect it to your backend,
                     CRM, or email service to go live.
                   </p>
@@ -222,7 +222,7 @@ function Field({ id, label, type = "text", placeholder, required }: FieldProps) 
     <div>
       <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-ink">
         {label}
-        {required && <span className="ml-1 text-brand-600">*</span>}
+        {required && <span className="ml-1 text-brand">*</span>}
       </label>
       <input
         id={id}
@@ -230,7 +230,7 @@ function Field({ id, label, type = "text", placeholder, required }: FieldProps) 
         type={type}
         required={required}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-brand-100 bg-surface px-4 py-3 text-sm text-ink outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-200"
+        className="w-full rounded-xl border border-brand-soft bg-white px-4 py-3 text-sm text-ink outline-none transition focus:border-brand/50 focus:ring-2 focus:ring-brand/30"
       />
     </div>
   );

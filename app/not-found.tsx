@@ -8,7 +8,7 @@ export default function NotFound() {
       <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
         This page went off-course
       </h1>
-      <p className="mt-4 max-w-md text-slate-500">
+      <p className="mt-4 max-w-md text-muted">
         The page you&apos;re looking for doesn&apos;t exist or has moved.
       </p>
       <Link href="/" className="btn-primary mt-8">

@@ -9,30 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Design tokens (CSS variables so components never hard-code hex)
+        // Design tokens — RGB channels so opacity modifiers (bg-brand/20) work
         brand: {
-          DEFAULT: "var(--brand)",
-          hover: "var(--brand-hover)",
-          dark: "var(--brand-dark)",
-          soft: "var(--brand-soft)",
-          wash: "var(--brand-wash)",
-          50: "var(--brand-wash)",
-          100: "var(--brand-soft)",
-          200: "#DCD1FD",
-          300: "#C4B0FB",
-          400: "#A487F6",
-          500: "#8560EF",
-          600: "var(--brand)",
-          700: "var(--brand-hover)",
-          800: "#42199F",
-          900: "#341480",
-          950: "var(--brand-dark)",
+          DEFAULT: "rgb(var(--brand-rgb) / <alpha-value>)",
+          hover: "rgb(var(--brand-hover-rgb) / <alpha-value>)",
+          dark: "rgb(var(--brand-dark-rgb) / <alpha-value>)",
+          soft: "rgb(var(--brand-soft-rgb) / <alpha-value>)",
+          wash: "rgb(var(--brand-wash-rgb) / <alpha-value>)",
         },
-        ink: "var(--ink)",
-        muted: "var(--muted)",
-        line: "var(--line)",
-        surface: "var(--surface)",
-        success: "var(--success)",
+        ink: "rgb(var(--ink-rgb) / <alpha-value>)",
+        muted: "rgb(var(--muted-rgb) / <alpha-value>)",
+        line: "rgb(var(--line-rgb) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],

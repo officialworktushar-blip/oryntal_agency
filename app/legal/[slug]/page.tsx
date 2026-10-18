@@ -44,7 +44,7 @@ export default async function LegalPage({
           {doc.sections.map((section) => (
             <div key={section.heading} className="card p-6 sm:p-8">
               <h2 className="text-lg font-bold text-ink">{section.heading}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-500">
+              <p className="mt-2 text-sm leading-relaxed text-muted">
                 {section.body}
               </p>
             </div>

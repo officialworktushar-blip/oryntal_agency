@@ -99,20 +99,20 @@ export default function ServicesPage() {
             <Reveal key={service.title} delay={i * 0.05}>
               <div className="card grid gap-8 p-6 sm:p-8 lg:grid-cols-2">
                 <div>
-                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600">
+                  <span className="grid h-12 w-12 place-items-center rounded-xl bg-brand-wash text-brand">
                     <service.icon className="h-6 w-6" />
                   </span>
                   <h2 className="mt-4 text-xl font-bold text-ink">
                     {service.title}
                   </h2>
-                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-500">
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
                     {service.description}
                   </p>
 
                   <ul className="mt-6 space-y-3">
                     {service.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3 text-sm text-slate-600">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+                      <li key={feature} className="flex items-start gap-3 text-sm text-muted">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
                         {feature}
                       </li>
                     ))}

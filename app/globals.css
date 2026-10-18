@@ -8,16 +8,15 @@
 --------------------------------------------------------------------------- */
 @layer base {
   :root {
-    --brand: #673de6;
-    --brand-hover: #5025d1;
-    --brand-dark: #2f1c6a;
-    --brand-soft: #ebe4ff;
-    --brand-wash: #f6f3ff;
-    --ink: #1d1e20;
-    --muted: #6d7081;
-    --line: #e3e4e8;
-    --surface: #ffffff;
-    --success: #00b090;
+    /* RGB channels so Tailwind opacity modifiers (e.g. bg-brand/20) work */
+    --brand-rgb: 103 61 230; /* #673DE6 */
+    --brand-hover-rgb: 80 37 209; /* #5025D1 */
+    --brand-dark-rgb: 47 28 106; /* #2F1C6A */
+    --brand-soft-rgb: 235 228 255; /* #EBE4FF */
+    --brand-wash-rgb: 246 243 255; /* #F6F3FF */
+    --ink-rgb: 29 30 32; /* #1D1E20 */
+    --muted-rgb: 109 112 129; /* #6D7081 */
+    --line-rgb: 227 228 232; /* #E3E4E8 */
 
     color-scheme: light;
   }
@@ -28,7 +27,7 @@
   }
 
   body {
-    @apply bg-surface text-ink antialiased;
+    @apply bg-white text-ink antialiased;
     font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   }
 
@@ -89,13 +88,17 @@
     @apply text-sm text-muted transition-colors hover:text-brand;
   }
 
-  /* Text link with an arrow that nudges on hover */
+  /* Text link with an arrow that nudges on hover (use with .group on parent) */
   .link-arrow {
-    @apply group inline-flex items-center gap-2 text-sm font-medium text-brand transition-colors hover:text-brand-hover;
+    @apply inline-flex items-center gap-2 text-sm font-medium text-brand transition-colors hover:text-brand-hover;
   }
 
   .link-arrow > svg {
-    @apply transition-transform duration-200 group-hover:translate-x-1;
+    @apply transition-transform duration-200;
+  }
+
+  .link-arrow:hover > svg {
+    @apply translate-x-1;
   }
 
   /* Soft purple radial glow — hero / CTA only */
