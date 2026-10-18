@@ -2,10 +2,18 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Loader2, Sparkles } from "lucide-react";
+import Image from "next/image";
+import { Loader2 } from "lucide-react";
 import ChatPanel, { type ChatMessage } from "@/components/chat/ChatPanel";
 
 const MAX_CHARS = 500;
+
+const PLACEHOLDERS = [
+  "How Oryntal orients your business",
+  "Ask Oryntal about your business pain points",
+  "Connect with Oryntal for tech consultancy",
+  "Ask Oryntal: what do you want to build or automate?",
+];
 
 export default function HeroChat() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -16,6 +24,15 @@ export default function HeroChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+
+  // Cycle the placeholder text every 2s
+  useEffect(() => {
+    const id = setInterval(() => {
+      setPlaceholderIndex((i) => (i + 1) % PLACEHOLDERS.length);
+    }, 2000);
+    return () => clearInterval(id);
+  }, []);
 
   // Lock body scroll while the mobile bottom sheet is open
   useEffect(() => {
@@ -154,20 +171,27 @@ export default function HeroChat() {
       <form
         onSubmit={handleSubmit}
         role="search"
-        aria-label="Ask ORYNTAL assistant"
-        className="flex h-16 w-full min-w-0 items-center gap-3 rounded-full border border-white/15 bg-white/5 py-2 pl-5 pr-2 shadow-[inset_0_0_24px_rgba(255,255,255,0.04)] backdrop-blur-md"
+        aria-label="Ask Oryntal assistant"
+        className="flex h-16 w-full min-w-0 items-center gap-3 rounded-full border border-white/25 py-2 pl-4 pr-2 backdrop-blur-md shadow-[0_0_20px_rgba(255,255,255,0.12),inset_0_0_20px_rgba(255,255,255,0.06)]"
       >
         <label htmlFor="hero-chat-input" className="sr-only">
-          Ask ORYNTAL what you want to build or automate
+          Ask Oryntal what you want to build or automate
         </label>
-        <Sparkles className="size-5 shrink-0 text-white" aria-hidden />
+        <Image
+          src="/oryntal-logo.png"
+          alt=""
+          width={28}
+          height={28}
+          className="size-7 shrink-0 object-contain"
+          aria-hidden
+        />
         <input
           id="hero-chat-input"
           ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value.slice(0, MAX_CHARS))}
-          placeholder="Ask ORYNTAL: what do you want to build or automate?"
+          placeholder={PLACEHOLDERS[placeholderIndex]}
           className="h-full min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-white/60 sm:text-base focus-visible:outline-none"
         />
         <button
