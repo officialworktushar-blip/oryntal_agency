@@ -9,8 +9,14 @@ export default function Footer() {
     <footer className="border-t border-line bg-white">
       <div className="container-x grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
         <div className="lg:col-span-2">
-          <Link href="/" aria-label="ORYNTAL home">
-            <Image src="/real_logo.png" alt="ORYNTAL" width={140} height={36} priority />
+          <Link href="/" aria-label="Oryntal home" className="inline-block">
+            <Image
+              src="/oryntal-logo.png"
+              alt="Oryntal"
+              width={48}
+              height={48}
+              className="h-12 w-12 object-contain"
+            />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
             ORYNTAL builds websites, AI systems, and business automation for

@@ -2,30 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { m, useReducedMotion } from "framer-motion";
 import { Loader2, Sparkles } from "lucide-react";
 import ChatPanel, { type ChatMessage } from "@/components/chat/ChatPanel";
 
-const SUGGESTIONS = [
-  "What can ORYNTAL build for my business?",
-  "Which solution fits a small business?",
-  "How does the 3-month engagement work?",
-  "Can you automate WhatsApp orders and payments?",
-];
-
 const MAX_CHARS = 500;
 
-const chipVariants = {
-  hidden: { opacity: 0, y: 8 },
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.35, delay: 0.4 + i * 0.08, ease: "easeOut" as const },
-  }),
-};
-
 export default function HeroChat() {
-  const reduced = useReducedMotion();
   const inputRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
@@ -166,10 +148,8 @@ export default function HeroChat() {
     inputRef.current?.focus();
   }
 
-  const showChips = messages.length === 0 && !isStreaming;
-
   return (
-    <div className="relative mx-auto w-full max-w-3xl lg:mx-0 lg:min-w-0">
+    <div className="relative w-full lg:min-w-0 lg:flex-1">
       {/* Glass pill */}
       <form
         onSubmit={handleSubmit}
@@ -202,26 +182,6 @@ export default function HeroChat() {
         </button>
       </form>
 
-      {/* Suggestion chips (before first message) */}
-      {showChips && (
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-          {SUGGESTIONS.map((s, i) => (
-            <m.button
-              key={s}
-              type="button"
-              custom={i}
-              variants={reduced ? undefined : chipVariants}
-              initial={reduced ? undefined : "hidden"}
-              animate={reduced ? undefined : "show"}
-              onClick={() => void send(s)}
-              className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm text-white/85 transition-colors duration-200 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-            >
-              {s}
-            </m.button>
-          ))}
-        </div>
-      )}
-
       {/* Chat panel overlay */}
       <ChatPanel
         isOpen={isOpen}
@@ -241,7 +201,7 @@ export function HeroChatNote() {
     <>
       <div className="hidden shrink-0 text-left lg:block">
         <p className="text-sm font-bold text-white">Solutions, not just software</p>
-        <p className="mt-0.5 text-xs text-white/85">
+        <p className="mt-0.5 text-sm text-white/85">
           from your first website to custom AI systems.{" "}
           <Link
             href="#services"

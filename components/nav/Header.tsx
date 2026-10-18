@@ -71,15 +71,18 @@ export default function Header() {
           )}
         />
         <div className="mx-auto flex h-[72px] w-full max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-          <Link href="/" aria-label="ORYNTAL home" className="shrink-0">
+          <Link href="/" aria-label="Oryntal home" className="flex shrink-0 items-center gap-2.5">
             <Image
-              src="/real_logo.png"
-              alt="ORYNTAL"
-              width={140}
-              height={36}
+              src="/oryntal-logo.png"
+              alt="Oryntal"
+              width={40}
+              height={40}
               priority
-              className="h-9 w-auto brightness-0 invert"
+              className="h-9 w-9 object-contain"
             />
+            <span className="text-xl font-semibold tracking-tight text-white">
+              Oryntal
+            </span>
           </Link>
 
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">

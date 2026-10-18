@@ -76,14 +76,17 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             className="nav-gradient fixed inset-y-0 right-0 z-[60] flex w-full max-w-sm flex-col shadow-pop"
           >
             <div className="flex h-[72px] shrink-0 items-center justify-between border-b border-white/10 px-4">
-              <Link href="/" aria-label="ORYNTAL home" onClick={onClose}>
+              <Link href="/" aria-label="Oryntal home" onClick={onClose} className="flex items-center gap-2.5">
                 <Image
-                  src="/real_logo.png"
-                  alt="ORYNTAL"
-                  width={120}
-                  height={31}
-                  className="h-8 w-auto brightness-0 invert"
+                  src="/oryntal-logo.png"
+                  alt="Oryntal"
+                  width={32}
+                  height={32}
+                  className="h-8 w-8 object-contain"
                 />
+                <span className="text-lg font-semibold tracking-tight text-white">
+                  Oryntal
+                </span>
               </Link>
               <button
                 type="button"
