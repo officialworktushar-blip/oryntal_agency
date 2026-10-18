@@ -9,7 +9,7 @@ export default function JsonLd() {
         "@id": `${site.url}/#organization`,
         name: site.name,
         url: site.url,
-        logo: `${site.url}/oryntal-logo.png`,
+        logo: `${site.url}/real_logo.png`,
         description: site.description,
         sameAs: [site.social.linkedin, site.social.twitter, site.social.instagram],
         contactPoint: {

@@ -78,7 +78,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             <div className="flex h-[72px] shrink-0 items-center justify-between border-b border-white/10 px-4">
               <Link href="/" aria-label="ORYNTAL home" onClick={onClose}>
                 <Image
-                  src="/logo.png"
+                  src="/real_logo.png"
                   alt="ORYNTAL"
                   width={120}
                   height={31}
