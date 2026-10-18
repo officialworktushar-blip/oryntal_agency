@@ -3,10 +3,36 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { m } from "framer-motion";
+import { Menu, Sparkles, X } from "lucide-react";
 import MegaMenu from "@/components/nav/MegaMenu";
 import MobileDrawer from "@/components/nav/MobileDrawer";
 import { cn } from "@/lib/cn";
+
+function NavLink({ href, label }: { href: string; label: string }) {
+  const pathname = usePathname();
+  const active = pathname === href;
+
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "relative inline-flex items-center text-base font-medium transition-colors",
+        active ? "text-white" : "text-white/90 hover:text-white"
+      )}
+    >
+      {label}
+      {active ? (
+        <m.span
+          layoutId="nav-underline"
+          className="nav-underline absolute inset-x-0 -bottom-2 h-0.5 rounded-full"
+          transition={{ type: "spring", stiffness: 400, damping: 32 }}
+        />
+      ) : null}
+    </Link>
+  );
+}
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -15,7 +41,7 @@ export default function Header() {
 
   useEffect(() => {
     function onScroll() {
-      setScrolled(window.scrollY > 8);
+      setScrolled(window.scrollY > 4);
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -23,59 +49,61 @@ export default function Header() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 bg-white/90 backdrop-blur-md transition-all duration-200",
-        scrolled || megaOpen
-          ? "border-b border-line shadow-[0_1px_0_rgba(0,0,0,0.02)]"
-          : "border-b border-transparent"
-      )}
-      onMouseLeave={() => setMegaOpen(false)}
-    >
-      <div className="container-x flex h-16 items-center justify-between gap-4">
-        <Link href="/" aria-label="ORYNTAL home" className="shrink-0">
-          <Image src="/logo.png" alt="ORYNTAL" width={140} height={36} priority />
-        </Link>
+    <>
+      <header
+        className={cn(
+          "nav-gradient sticky top-0 z-50 border-b border-white/[0.08] transition-shadow duration-200",
+          scrolled || megaOpen
+            ? "backdrop-blur-md shadow-[0_16px_40px_-24px_rgba(0,0,0,0.75)]"
+            : "shadow-none"
+        )}
+        onMouseLeave={() => setMegaOpen(false)}
+      >
+        <div className="mx-auto flex h-[72px] w-full max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8">
+          <Link href="/" aria-label="ORYNTAL home" className="shrink-0">
+            <Image
+              src="/logo.png"
+              alt="ORYNTAL"
+              width={140}
+              height={36}
+              priority
+              className="h-9 w-auto brightness-0 invert"
+            />
+          </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
-          <MegaMenu open={megaOpen} onOpenChange={setMegaOpen} />
-          <Link
-            href="/packages"
-            className="rounded-lg px-3 py-2 text-sm font-medium text-ink transition-colors hover:text-brand"
-          >
-            Pricing
-          </Link>
-          <Link
-            href="/#how-it-works"
-            className="rounded-lg px-3 py-2 text-sm font-medium text-ink transition-colors hover:text-brand"
-          >
-            How it works
-          </Link>
-          <Link
-            href="/contact"
-            className="rounded-lg px-3 py-2 text-sm font-medium text-ink transition-colors hover:text-brand"
-          >
-            Contact
-          </Link>
-        </nav>
+          <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
+            <NavLink href="/" label="Home" />
+            <MegaMenu open={megaOpen} onOpenChange={setMegaOpen} />
+            <NavLink href="/services/business-packages" label="Pricing" />
+            <NavLink href="/#how-it-works" label="How it works" />
+            <NavLink href="/contact" label="Contact" />
+          </nav>
 
-        <div className="flex items-center gap-2">
-          <Link href="/contact" className="btn-primary hidden sm:inline-flex">
-            Book a consultation
-          </Link>
-          <button
-            type="button"
-            aria-label="Open menu"
-            aria-expanded={drawerOpen}
-            onClick={() => setDrawerOpen((v) => !v)}
-            className="rounded-lg p-2 text-ink transition-colors hover:text-brand lg:hidden"
-          >
-            <Menu className="size-6" />
-          </button>
+          <div className="ml-auto flex items-center gap-3">
+            <Link
+              href="/contact"
+              className="nav-cta hidden rounded-full p-[1px] lg:inline-flex"
+            >
+              <span className="nav-cta-inner inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white">
+                <Sparkles className="size-4" strokeWidth={2} />
+                Book a consultation
+              </span>
+            </Link>
+
+            <button
+              type="button"
+              aria-label={drawerOpen ? "Close menu" : "Open menu"}
+              aria-expanded={drawerOpen}
+              onClick={() => setDrawerOpen((v) => !v)}
+              className="rounded-lg p-2 text-white transition-colors hover:text-white/75 lg:hidden"
+            >
+              {drawerOpen ? <X className="size-6" /> : <Menu className="size-6" />}
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
 
       <MobileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
-    </header>
+    </>
   );
 }

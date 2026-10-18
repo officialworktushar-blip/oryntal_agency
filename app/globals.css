@@ -18,6 +18,17 @@
     --muted-rgb: 109 112 129; /* #6D7081 */
     --line-rgb: 227 228 232; /* #E3E4E8 */
 
+    /* Dark navbar */
+    --nav-from: #0b0720;
+    --nav-via: #1a0f45;
+    --nav-to: #5b34d6;
+    --nav-active: #8b6cff;
+    --nav-cta-from: #7c5cff;
+    --nav-cta-to: #4da3ff;
+    --nav-cta-surface: #140c38;
+    --nav-cta-surface-hover: #1f1450;
+    --nav-cta-glow: 0 0 24px rgba(124, 92, 255, 0.45);
+
     color-scheme: light;
   }
 
@@ -44,6 +55,16 @@
 
   :focus-visible {
     @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-white;
+  }
+
+  /* Anchor targets clear the 72px sticky header */
+  main [id],
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  header :focus-visible {
+    @apply ring-white ring-offset-0;
   }
 }
 
@@ -108,6 +129,38 @@
       rgba(103, 61, 230, 0.14) 0%,
       rgba(103, 61, 230, 0) 70%
     );
+  }
+
+  /* Dark navbar */
+  .nav-gradient {
+    background-image: linear-gradient(
+      90deg,
+      var(--nav-from) 0%,
+      var(--nav-via) 55%,
+      var(--nav-to) 100%
+    );
+  }
+
+  .nav-underline {
+    background-color: var(--nav-active);
+  }
+
+  .nav-cta {
+    background-image: linear-gradient(90deg, var(--nav-cta-from), var(--nav-cta-to));
+    transition: box-shadow 0.2s ease;
+  }
+
+  .nav-cta:hover {
+    box-shadow: var(--nav-cta-glow);
+  }
+
+  .nav-cta-inner {
+    background-color: var(--nav-cta-surface);
+    transition: background-color 0.2s ease;
+  }
+
+  .nav-cta:hover .nav-cta-inner {
+    background-color: var(--nav-cta-surface-hover);
   }
 }
 
