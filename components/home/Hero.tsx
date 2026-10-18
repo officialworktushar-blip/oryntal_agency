@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { m, useReducedMotion, type Variants } from "framer-motion";
-import { Search, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import ServicesExpandingCards from "@/components/home/ServicesExpandingCards";
+import HeroChat, { HeroChatNote } from "@/components/chat/HeroChat";
 
 const headline: Variants = {
   hidden: {},
@@ -26,13 +25,6 @@ const line1 = ["Orient", "your", "business."];
 
 export default function Hero() {
   const reduced = useReducedMotion();
-  const router = useRouter();
-  const [message, setMessage] = useState("");
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    router.push(`/contact?message=${encodeURIComponent(message.trim())}`);
-  }
 
   return (
     <section className="hero-gradient relative -mt-[72px] pt-[72px] text-white">
@@ -57,60 +49,11 @@ export default function Hero() {
         />
       </div>
 
-      <div className="container-x relative z-10 flex flex-col items-center pb-20 pt-10 text-center md:pb-28 md:pt-14">
-        {/* Glass search pill + pricing note */}
-        <div className="mt-6 flex w-full max-w-4xl flex-col items-center gap-4 lg:flex-row lg:items-center lg:gap-6">
-          <form
-            onSubmit={handleSubmit}
-            role="search"
-            className="flex h-16 w-full min-w-0 items-center gap-3 rounded-full border border-white/15 bg-white/5 py-2 pl-5 pr-2 shadow-[inset_0_0_24px_rgba(255,255,255,0.04)] backdrop-blur-md"
-          >
-            <label htmlFor="hero-search" className="sr-only">
-              Tell us what you want to build or automate
-            </label>
-            <Search className="size-5 shrink-0 text-white" aria-hidden />
-            <input
-              id="hero-search"
-              type="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Tell us what you want to build or automate"
-              className="h-full min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-white/60 sm:text-base"
-            />
-            <button
-              type="submit"
-              className="shrink-0 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-ink transition-transform duration-200 hover:scale-[1.03]"
-            >
-              Get started
-            </button>
-          </form>
-
-          <div className="hidden shrink-0 text-left lg:block">
-            <p className="text-sm font-bold text-white">Packages from ₹30,000</p>
-            <p className="mt-0.5 text-xs text-white/75">
-              Custom proposals for complex needs ·{" "}
-              <Link
-                href="/services/business-packages"
-                className="font-medium text-white underline underline-offset-2 hover:text-white/85"
-              >
-                See packages
-              </Link>
-            </p>
-          </div>
-
-          {/* Stacked under the pill on mobile */}
-          <div className="text-center lg:hidden">
-            <p className="text-sm font-bold text-white">Packages from ₹30,000</p>
-            <p className="mt-0.5 text-xs text-white/75">
-              Custom proposals for complex needs ·{" "}
-              <Link
-                href="/services/business-packages"
-                className="font-medium text-white underline underline-offset-2"
-              >
-                See packages
-              </Link>
-            </p>
-          </div>
+      <div className="container-x relative z-10 flex flex-col items-center pb-20 pt-6 text-center md:pb-28 md:pt-8">
+        {/* AI chat pill + right-side note */}
+        <div className="flex w-full max-w-5xl flex-col items-center gap-4 lg:flex-row lg:items-center lg:gap-6">
+          <HeroChat />
+          <HeroChatNote />
         </div>
 
         {/* Headline */}
@@ -118,7 +61,7 @@ export default function Hero() {
           initial={reduced ? "show" : "hidden"}
           animate="show"
           variants={headline}
-          className="mt-10 max-w-4xl text-5xl font-medium leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-[76px]"
+          className="mt-12 max-w-4xl text-5xl font-medium leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-[76px]"
         >
           {line1.map((w) => (
             <m.span
@@ -137,7 +80,7 @@ export default function Hero() {
           handled, and your team gets time back for growth.
         </p>
 
-        <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
           <Link
             href="/contact"
             className="rounded-lg bg-white px-7 py-3.5 text-base font-medium text-ink shadow-[0_10px_30px_-12px_rgba(255,255,255,0.5)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-14px_rgba(255,255,255,0.65)]"
