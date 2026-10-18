@@ -77,15 +77,21 @@ export default function VideoSection() {
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {/* Logo */}
-          <m.div variants={reveal} className="flex justify-center">
+          {/* Logo + wordmark */}
+          <m.div
+            variants={reveal}
+            className="flex items-center justify-center gap-3"
+          >
             <Image
-              src="/logo.png"
-              alt="ORYNTAL"
+              src="/oryntal-logo.png"
+              alt="Oryntal"
               width={40}
               height={40}
-              className="h-10 w-auto"
+              className="h-10 w-10 object-contain"
             />
+            <span className="text-2xl font-semibold tracking-tight text-ink">
+              Oryntal
+            </span>
           </m.div>
 
           {/* Headline — the two lines reveal separately */}
