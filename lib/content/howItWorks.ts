@@ -4,17 +4,27 @@ export type HowItWorksTab = {
   id: "build" | "launch" | "grow" | "manage";
   label: string;
   step: string;
+  layout?: "typing-stack";
   title: string;
   description: string;
-  bullets: HowItWorksBullet[];
+  bullets?: HowItWorksBullet[];
   cta: {
     label: string;
     href: string;
   };
-  media: {
+  media?: {
     label: string;
     hint: string;
   };
+  chipsIntro?: string;
+  chips?: Array<{ icon: string; label: string }>;
+  slides?: Array<{
+    prompt: string;
+    alt: string;
+    badge?: string;
+    media: { label: string; hint: string };
+    mediaSrc?: string;
+  }>;
 };
 
 export const howItWorksTabs: HowItWorksTab[] = [
@@ -69,25 +79,71 @@ export const howItWorksTabs: HowItWorksTab[] = [
     id: "grow",
     label: "Grow",
     step: "Step 3 of 4",
-    title: "Capture leads and cut the repetitive work.",
+    layout: "typing-stack" as const,
+    title: "Growth isn't louder marketing. It's fewer missed conversations.",
     description:
-      "Lead capture, AI agents, chatbots, and workflow automation handle routine tasks so your team can focus on customers and growth.",
-    bullets: [
-      "Lead capture forms and WhatsApp integration",
-      "AI agents and chatbots",
-      "Order and workflow automation",
-      "QR2 Review for customer feedback (for eligible clients)",
-      "Supplier and sourcing connections where suitable",
-    ],
+      "Every unanswered message and forgotten follow-up is revenue walking away. ORYNTAL builds AI agents, chatbots, and automation that respond instantly, capture every lead, and free your team for the work only people can do.",
     cta: {
-      label: "Explore AI and automation",
-      href: "/services/individual-services",
+      label: "Automate my growth",
+      href: "/contact?interest=ai-automation",
     },
-    media: {
-      label:
-        "Add: 20-30s video of an AI chatbot or agent handling a customer enquiry (MP4 1280x720, muted loop)",
-      hint: "Show: chatbot conversation, lead captured, automation running.",
-    },
+    chipsIntro:
+      "AI chatbots, WhatsApp automation, lead capture, and order workflows, scoped to your business.",
+    chips: [
+      { icon: "MessageCircle", label: "WhatsApp" },
+      { icon: "Bot", label: "AI agents" },
+      { icon: "Workflow", label: "Automation" },
+      { icon: "QrCode", label: "Reviews" },
+    ],
+    slides: [
+      {
+        prompt: "Set up a WhatsApp chatbot that answers customer questions and captures every lead.",
+        alt: "WhatsApp chatbot answering a customer enquiry and capturing a lead",
+        media: {
+          label:
+            "Add: WhatsApp chat UI mockup, customer enquiry answered automatically (landscape 3:2, 1200x800)",
+          hint: "Replace with a real screenshot or photo; keep the key content in the centre.",
+        },
+      },
+      {
+        prompt: "Build an AI agent that follows up with new leads automatically.",
+        alt: "AI agent following up with new business leads",
+        media: {
+          label:
+            "Add: AI agent conversation or dashboard mockup (landscape 3:2, 1200x800)",
+          hint: "Replace with a real screenshot or photo; keep the key content in the centre.",
+        },
+      },
+      {
+        prompt: "Automate order confirmations, payment updates, and shipping notifications.",
+        alt: "Automated order, payment and shipping notification workflow",
+        media: {
+          label:
+            "Add: order automation flow mockup: order, payment, shipping update (landscape 3:2, 1200x800)",
+          hint: "Replace with a real screenshot or photo; keep the key content in the centre.",
+        },
+      },
+      {
+        prompt: "Add a QR code so happy customers can leave a review in seconds.",
+        alt: "Customer scanning a QR code to leave a review",
+        badge: "QR2 Review: complimentary for eligible clients",
+        media: {
+          label:
+            "Add: phone mockup scanning a QR code to open a review page (landscape 3:2, 1200x800)",
+          hint: "Replace with a real screenshot or photo; keep the key content in the centre.",
+        },
+      },
+      {
+        prompt: "Help me find suppliers and wholesale partners for my products.",
+        alt: "Business sourcing suppliers and wholesale partners",
+        badge: "Through ORYNTAL's available contacts, where suitable",
+        media: {
+          label:
+            "Add: sourcing visual: packaging, products, logistics (landscape 3:2, 1200x800)",
+          hint: "Replace with a real screenshot or photo; keep the key content in the centre.",
+        },
+      },
+    ],
   },
   {
     id: "manage",
