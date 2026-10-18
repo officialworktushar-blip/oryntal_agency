@@ -1,13 +1,13 @@
 export const navLinks = [
-  { href: "/", label: "Home" },
   { href: "/packages", label: "Packages" },
   { href: "/services", label: "Services" },
   { href: "/products", label: "Products" },
-  { href: "/process", label: "Process" },
+  { href: "/contact", label: "Consultation" },
 ] as const;
 
 export const site = {
   name: "ORYNTAL",
+  url: "https://oryntal.com",
   tagline: "Orient Your Business.",
   description:
     "ORYNTAL is a growth agency helping ambitious businesses orient their strategy, brand, and digital presence for measurable results.",

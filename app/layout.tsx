@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -32,6 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="flex min-h-dvh flex-col bg-surface">
+        <JsonLd />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
