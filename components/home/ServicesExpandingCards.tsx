@@ -35,7 +35,7 @@ export default function ServicesExpandingCards() {
   return (
     <div
       id="services"
-      className="mx-auto mt-14 w-full max-w-7xl scroll-mt-24 md:mt-20"
+      className="mt-14 w-full scroll-mt-24 md:mt-20"
     >
       <p className="mb-6 text-center text-xs uppercase tracking-widest text-white/70">
         Explore our 4 service domains

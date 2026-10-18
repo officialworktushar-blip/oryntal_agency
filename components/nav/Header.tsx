@@ -71,7 +71,11 @@ export default function Header() {
           )}
         />
         <div className="mx-auto flex h-[72px] w-full max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-          <Link href="/" aria-label="Oryntal home" className="flex shrink-0 items-center gap-2.5">
+          <Link
+            href="/"
+            aria-label="Oryntal home"
+            className="-ml-2 flex shrink-0 items-center gap-2.5 lg:-ml-4"
+          >
             <Image
               src="/oryntal-logo.png"
               alt="Oryntal"

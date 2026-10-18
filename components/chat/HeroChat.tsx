@@ -8,6 +8,8 @@ import ChatPanel, { type ChatMessage } from "@/components/chat/ChatPanel";
 
 const MAX_CHARS = 500;
 
+const PLACEHOLDER_INTERVAL_MS = 120000;
+
 const PLACEHOLDERS = [
   "How Oryntal orients your business",
   "Ask Oryntal about your business pain points",
@@ -26,11 +28,11 @@ export default function HeroChat() {
   const [error, setError] = useState<string | null>(null);
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
 
-  // Cycle the placeholder text every 2s
+  // Cycle the placeholder text in a loop
   useEffect(() => {
     const id = setInterval(() => {
       setPlaceholderIndex((i) => (i + 1) % PLACEHOLDERS.length);
-    }, 2000);
+    }, PLACEHOLDER_INTERVAL_MS);
     return () => clearInterval(id);
   }, []);
 
@@ -192,7 +194,7 @@ export default function HeroChat() {
           value={input}
           onChange={(e) => setInput(e.target.value.slice(0, MAX_CHARS))}
           placeholder={PLACEHOLDERS[placeholderIndex]}
-          className="h-full min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-white/60 sm:text-base focus-visible:outline-none"
+          className="h-full min-w-0 flex-1 bg-transparent text-sm text-white outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-white/60 sm:text-base"
         />
         <button
           type="submit"

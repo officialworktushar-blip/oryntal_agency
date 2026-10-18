@@ -56,7 +56,7 @@ export default function Hero() {
           <HeroChatNote />
         </div>
 
-        <div className="container-x flex flex-col items-center pb-20 text-center md:pb-28">
+        <div className="container-x flex flex-col items-center text-center">
           {/* Headline */}
           <m.h1
             initial={reduced ? "show" : "hidden"}
@@ -100,8 +100,10 @@ export default function Hero() {
             <ShieldCheck className="size-4 shrink-0" aria-hidden />
             Clear scope and pricing before we start
           </p>
+        </div>
 
-          {/* 4 expanding service cards */}
+        {/* 4 expanding service cards — same width as the chat bar */}
+        <div className="px-4 pb-20 sm:px-6 lg:px-8 md:pb-28">
           <ServicesExpandingCards />
         </div>
       </div>
