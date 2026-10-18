@@ -29,6 +29,15 @@
     --nav-cta-surface-hover: #1f1450;
     --nav-cta-glow: 0 0 24px rgba(124, 92, 255, 0.45);
 
+    /* Hero gradient (deep navy → purple, lavender glow at the bottom) */
+    --hero-base: #1a0f45;
+    --hero-glow-lavender: rgba(129, 98, 232, 0.7);
+    --hero-glow-lavender-soft: rgba(150, 120, 255, 0.55);
+    --hero-purple-bright: #5b34d6;
+    --hero-purple-mid: #4a28b0;
+    --hero-navy: #0c0726;
+    --hero-linear: linear-gradient(180deg, #120a35 0%, #2a1670 55%, #1a0f45 100%);
+
     color-scheme: light;
   }
 
@@ -63,7 +72,8 @@
     scroll-margin-top: 5rem;
   }
 
-  header :focus-visible {
+  header :focus-visible,
+  .hero-gradient :focus-visible {
     @apply ring-white ring-offset-0;
   }
 }
@@ -161,6 +171,49 @@
 
   .nav-cta:hover .nav-cta-inner {
     background-color: var(--nav-cta-surface-hover);
+  }
+
+  /* Landing hero — deep navy to purple with lavender glows at the bottom */
+  .hero-gradient {
+    background-color: var(--hero-base);
+    background-image:
+      radial-gradient(
+        55% 45% at 50% 100%,
+        var(--hero-glow-lavender) 0%,
+        rgba(129, 98, 232, 0) 70%
+      ),
+      radial-gradient(
+        45% 50% at 100% 100%,
+        var(--hero-glow-lavender-soft) 0%,
+        rgba(150, 120, 255, 0) 70%
+      ),
+      radial-gradient(
+        42% 72% at 100% 25%,
+        var(--hero-purple-bright) 0%,
+        rgba(91, 52, 214, 0) 75%
+      ),
+      radial-gradient(
+        52% 78% at 0% 55%,
+        var(--hero-purple-mid) 0%,
+        rgba(74, 40, 176, 0) 75%
+      ),
+      radial-gradient(
+        48% 42% at 50% 0%,
+        var(--hero-navy) 0%,
+        rgba(12, 7, 38, 0) 80%
+      ),
+      var(--hero-linear);
+  }
+
+  /* Fine film-grain overlay for the hero */
+  .hero-noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 }
 

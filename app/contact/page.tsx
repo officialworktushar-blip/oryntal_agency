@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
-
   Mail,
   MessageCircle,
   Phone,
@@ -25,6 +25,9 @@ const servicesInterested = [
   "Recommendation System",
   "Other",
 ] as const;
+
+const textareaClass =
+  "w-full rounded-xl border border-brand-soft bg-white px-4 py-3 text-sm text-ink outline-none transition focus:border-brand/50 focus:ring-2 focus:ring-brand/30";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sent">("idle");
@@ -180,13 +183,19 @@ export default function ContactPage() {
                   >
                     Additional Details (Optional)
                   </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    placeholder="Tell us about your goals, timeline, or current setup."
-                    className="w-full rounded-xl border border-brand-soft bg-white px-4 py-3 text-sm text-ink outline-none transition focus:border-brand/50 focus:ring-2 focus:ring-brand/30"
-                  />
+                  <Suspense
+                    fallback={
+                      <textarea
+                        id="message"
+                        name="message"
+                        rows={5}
+                        placeholder="Tell us about your goals, timeline, or current setup."
+                        className={textareaClass}
+                      />
+                    }
+                  >
+                    <MessageField />
+                  </Suspense>
                 </div>
 
                 <button type="submit" className="btn-primary w-full sm:w-auto">
@@ -216,6 +225,26 @@ type FieldProps = {
   placeholder?: string;
   required?: boolean;
 };
+
+/** Prefills the message box from ?message= (e.g. the hero search pill). */
+function MessageField() {
+  const searchParams = useSearchParams();
+  const [message, setMessage] = useState(
+    () => searchParams.get("message") ?? ""
+  );
+
+  return (
+    <textarea
+      id="message"
+      name="message"
+      rows={5}
+      value={message}
+      onChange={(event) => setMessage(event.target.value)}
+      placeholder="Tell us about your goals, timeline, or current setup."
+      className={textareaClass}
+    />
+  );
+}
 
 function Field({ id, label, type = "text", placeholder, required }: FieldProps) {
   return (

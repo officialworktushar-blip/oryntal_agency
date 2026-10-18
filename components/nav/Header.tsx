@@ -35,30 +35,41 @@ function NavLink({ href, label }: { href: string; label: string }) {
 }
 
 export default function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     function onScroll() {
-      setScrolled(window.scrollY > 4);
+      setScrolled(window.scrollY > 24);
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Home, at the very top of the page: let the hero gradient show through.
+  const transparent = pathname === "/" && !scrolled && !megaOpen;
+
   return (
     <>
       <header
         className={cn(
-          "nav-gradient sticky top-0 z-50 border-b border-white/[0.08] transition-shadow duration-200",
-          scrolled || megaOpen
-            ? "backdrop-blur-md shadow-[0_16px_40px_-24px_rgba(0,0,0,0.75)]"
-            : "shadow-none"
+          "sticky top-0 z-50 border-b transition-colors duration-300",
+          transparent ? "border-transparent" : "border-white/[0.08]"
         )}
         onMouseLeave={() => setMegaOpen(false)}
       >
+        <div
+          aria-hidden
+          className={cn(
+            "nav-gradient absolute inset-0 -z-10 transition-opacity duration-300",
+            transparent
+              ? "opacity-0"
+              : "opacity-100 backdrop-blur-md shadow-[0_16px_40px_-24px_rgba(0,0,0,0.75)]"
+          )}
+        />
         <div className="mx-auto flex h-[72px] w-full max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8">
           <Link href="/" aria-label="ORYNTAL home" className="shrink-0">
             <Image

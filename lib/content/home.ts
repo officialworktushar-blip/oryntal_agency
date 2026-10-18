@@ -6,20 +6,6 @@ export type LandingStats = {
   label: string;
 };
 
-export const hero = {
-  pill: "Technology · AI · Automation · Business Systems",
-  heading: "Orient your business. Automate what slows it down.",
-  subheading:
-    "ORYNTAL builds websites, AI systems, and automation for growing businesses — fixed-scope packages, or custom development when your process is complex.",
-  primaryCta: { href: "/packages", label: "View packages" },
-  secondaryCta: { href: "/contact", label: "Book a consultation" },
-  microTrust: "Fixed-scope packages from ₹30,000 · Custom proposals for complex needs",
-  image: {
-    label: "Hero browser mockup · 1600×1000",
-    hint: "Screenshot of a client dashboard or ORYNTAL-built system in use.",
-  },
-};
-
 export const socialProof = {
   eyebrow: "Trusted by growing businesses",
   stats: [
