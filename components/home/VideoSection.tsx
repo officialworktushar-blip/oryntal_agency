@@ -59,7 +59,7 @@ export default function VideoSection() {
   }, [open]);
 
   return (
-    <section className="video-gradient video-grain relative overflow-hidden pt-20 md:pt-28">
+    <section className="video-gradient video-grain relative overflow-hidden pt-20 pb-10 md:pt-28 md:pb-12">
       {/* 120px fade into the section above (white) */}
       <div
         aria-hidden
