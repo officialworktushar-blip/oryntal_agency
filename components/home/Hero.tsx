@@ -23,7 +23,6 @@ const word: Variants = {
 };
 
 const line1 = ["Orient", "your", "business."];
-const line2 = ["Automate", "what", "slows", "it", "down."];
 
 export default function Hero() {
   const reduced = useReducedMotion();
@@ -119,39 +118,26 @@ export default function Hero() {
           initial={reduced ? "show" : "hidden"}
           animate="show"
           variants={headline}
-          className="mt-12 max-w-5xl text-5xl font-medium leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-[88px]"
+          className="mt-10 max-w-4xl text-5xl font-medium leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-[76px]"
         >
-          <span className="block">
-            {line1.map((w) => (
-              <m.span
-                key={w}
-                variants={reduced ? undefined : word}
-                className="inline-block"
-              >
-                {w}&nbsp;
-              </m.span>
-            ))}
-          </span>
-          <span className="block">
-            {line2.map((w) => (
-              <m.span
-                key={w}
-                variants={reduced ? undefined : word}
-                className="inline-block"
-              >
-                {w}&nbsp;
-              </m.span>
-            ))}
-          </span>
+          {line1.map((w) => (
+            <m.span
+              key={w}
+              variants={reduced ? undefined : word}
+              className="inline-block"
+            >
+              {w}&nbsp;
+            </m.span>
+          ))}
         </m.h1>
 
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl">
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl">
           ORYNTAL builds websites, AI systems, and business automation around
-          the way your business actually works, so your team spends less time
-          on repetitive tasks and more time on growth.
+          the way your business actually works — so repetitive work gets
+          handled, and your team gets time back for growth.
         </p>
 
-        <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
+        <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
           <Link
             href="/contact"
             className="rounded-lg bg-white px-7 py-3.5 text-base font-medium text-ink shadow-[0_10px_30px_-12px_rgba(255,255,255,0.5)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-14px_rgba(255,255,255,0.65)]"

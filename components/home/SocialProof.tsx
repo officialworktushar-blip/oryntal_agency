@@ -2,10 +2,7 @@
 
 import { BadgeCheck } from "lucide-react";
 import Marquee from "@/components/motion/Marquee";
-import CountUp from "@/components/motion/CountUp";
-import Reveal from "@/components/motion/Reveal";
 import { clientLogos, testimonials, type ClientLogo } from "@/lib/clients";
-import { socialProof } from "@/lib/content/home";
 
 function LogoTile({ item }: { item: ClientLogo }) {
   return (
@@ -20,12 +17,7 @@ export default function SocialProof() {
   return (
     <section aria-label="Social proof" className="border-y border-line bg-white py-14">
       <div className="container-x">
-        <p className="text-center text-xs font-medium uppercase tracking-[0.14em] text-muted">
-          {socialProof.eyebrow}
-        </p>
-
         <Marquee
-          className="mt-8"
           items={clientLogos}
           renderItem={(item) => <LogoTile item={item} />}
         />
@@ -48,27 +40,6 @@ export default function SocialProof() {
             ))}
           </div>
         ) : null}
-
-        <Reveal className="mt-12">
-          <dl className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {socialProof.stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="flex flex-col items-center rounded-2xl border border-line bg-brand-wash px-6 py-8 text-center"
-              >
-                <dd className="text-4xl font-bold tracking-tight text-brand">
-                  <CountUp
-                    to={stat.value}
-                    prefix={stat.prefix}
-                    suffix={stat.suffix}
-                    separator={stat.separator}
-                  />
-                </dd>
-                <dt className="mt-2 text-sm text-muted">{stat.label}</dt>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
       </div>
     </section>
   );

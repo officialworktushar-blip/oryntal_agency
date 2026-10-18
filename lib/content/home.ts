@@ -1,19 +1,7 @@
-export type LandingStats = {
-  value: number;
-  prefix?: string;
-  suffix?: string;
-  separator?: boolean;
-  label: string;
-};
-
 export const socialProof = {
   eyebrow: "Trusted by growing businesses",
-  stats: [
-    { value: 4, label: "service domains" },
-    { value: 3, label: "packages, from ₹30,000" },
-    { value: 3, label: "months, discovery to handover" },
-  ] as LandingStats[],
 };
+
 export const videoSection = {
   eyebrow: "Watch the transformation",
   heading: "From scattered manual work to one connected system",
