@@ -38,6 +38,13 @@
     --hero-navy: #0c0726;
     --hero-linear: linear-gradient(180deg, #120a35 0%, #2a1670 55%, #1a0f45 100%);
 
+    /* Hero service cards — lilac "stacked blocks" palette */
+    --card-lilac-1: #dad4ff; /* base */
+    --card-lilac-2: #c9bfff;
+    --card-lilac-3: #b7a9ff;
+    --card-lilac-4: #a596ff;
+    --card-lilac-5: #8e7bff;
+
     color-scheme: light;
   }
 

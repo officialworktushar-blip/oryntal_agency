@@ -1,0 +1,76 @@
+import type { LucideIcon } from "lucide-react";
+import { Boxes, Compass, Layers, Package } from "lucide-react";
+
+export type DomainCard = {
+  id: string;
+  title: string;
+  href: string;
+  description: string;
+  icon: LucideIcon;
+  imageLabel: string;
+  preview: string[];
+};
+
+export const domainCards: DomainCard[] = [
+  {
+    id: "business-packages",
+    title: "Business Packages",
+    href: "/services/business-packages",
+    description:
+      "Fixed-scope packages from ₹30,000, built for every stage of your business.",
+    icon: Package,
+    imageLabel:
+      "Add: photo or illustration for Business Packages (portrait, 700x900)",
+    preview: [
+      "Digital Foundation, ₹30,000",
+      "Business Automation, ₹70,000",
+      "Premium Custom System, ₹3,00,000-₹4,00,000",
+    ],
+  },
+  {
+    id: "individual-services",
+    title: "Individual Technology Services",
+    href: "/services/individual-services",
+    description:
+      "Pick only what you need: web and apps, AI, integrations, sourcing support.",
+    icon: Layers,
+    imageLabel:
+      "Add: photo or illustration for Individual Services (portrait, 700x900)",
+    preview: [
+      "Websites & Apps",
+      "AI & Automation",
+      "APIs & Integrations",
+      "Sourcing Support",
+    ],
+  },
+  {
+    id: "products",
+    title: "Pre-Built Products & AI Models",
+    href: "/services/products",
+    description:
+      "Ready-to-use products like QR2 Review, built for real business workflows.",
+    icon: Boxes,
+    imageLabel:
+      "Add: product mockup for QR2 Review / Pre-Built Products (portrait, 700x900)",
+    preview: [
+      "QR2 Review: Complimentary for eligible clients",
+      "Client Database & Call-Handling: In development",
+      "Recommendation System: In development",
+    ],
+  },
+  {
+    id: "consultation",
+    title: "Custom Consultation & Development",
+    href: "/services/consultation",
+    description:
+      "A three-month engagement designed around your operations.",
+    icon: Compass,
+    imageLabel:
+      "Add: photo or illustration for Custom Consultation (portrait, 700x900)",
+    preview: [
+      "Month 1: Understand & plan",
+      "Month 2: Build",
+      "Month 3: Integrate & test",
+    ],
+  },
+];

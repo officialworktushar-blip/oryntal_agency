@@ -1,25 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {
-  m,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-  type Variants,
-} from "framer-motion";
-import {
-  Bot,
-  LayoutDashboard,
-  LayoutTemplate,
-  MessageCircle,
-  Search,
-  ShieldCheck,
-} from "lucide-react";
-import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
-import { cn } from "@/lib/cn";
+import { m, useReducedMotion, type Variants } from "framer-motion";
+import { Search, ShieldCheck } from "lucide-react";
+import ServicesExpandingCards from "@/components/home/ServicesExpandingCards";
 
 const headline: Variants = {
   hidden: {},
@@ -39,55 +25,10 @@ const word: Variants = {
 const line1 = ["Orient", "your", "business."];
 const line2 = ["Automate", "what", "slows", "it", "down."];
 
-const chips = [
-  {
-    label: "CRM Dashboard",
-    icon: LayoutDashboard,
-    className: "left-[-3%] top-[12%] sm:left-[-6%]",
-    duration: 4.5,
-    delay: 0,
-    range: [40, -80] as [number, number],
-    mobile: true,
-  },
-  {
-    label: "Landing Page",
-    icon: LayoutTemplate,
-    className: "right-[-3%] top-[6%] sm:right-[-7%]",
-    duration: 5.2,
-    delay: 0.7,
-    range: [55, -110] as [number, number],
-    mobile: true,
-  },
-  {
-    label: "AI Assistant",
-    icon: Bot,
-    className: "left-[-4%] bottom-[14%] sm:left-[-8%]",
-    duration: 5.8,
-    delay: 1.4,
-    range: [30, -60] as [number, number],
-    mobile: false,
-  },
-  {
-    label: "WhatsApp Automation",
-    icon: MessageCircle,
-    className: "right-[-4%] bottom-[9%] sm:right-[-9%]",
-    duration: 6,
-    delay: 2.1,
-    range: [65, -130] as [number, number],
-    mobile: false,
-  },
-];
-
 export default function Hero() {
   const reduced = useReducedMotion();
   const router = useRouter();
   const [message, setMessage] = useState("");
-
-  const frameRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: frameRef,
-    offset: ["start end", "end start"],
-  });
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -95,27 +36,19 @@ export default function Hero() {
   }
 
   return (
-    <section className="hero-gradient relative -mt-[72px] min-h-[640px] pt-[72px] text-white md:min-h-[760px]">
+    <section className="hero-gradient relative -mt-[72px] pt-[72px] text-white">
       {/* Decorative layer: drifting blobs + grain (clipped to the hero) */}
       <div className="hero-noise pointer-events-none absolute inset-0 overflow-hidden">
         <m.div
           aria-hidden
           className="absolute -left-24 bottom-[-15%] size-[520px] rounded-full bg-brand opacity-[0.35] blur-3xl"
-          animate={
-            reduced ? undefined : { x: [0, 40, 0], y: [0, -40, 0] }
-          }
-          transition={{
-            duration: 14,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          animate={reduced ? undefined : { x: [0, 40, 0], y: [0, -40, 0] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
         />
         <m.div
           aria-hidden
           className="absolute -right-16 bottom-[-25%] size-[440px] rounded-full bg-[#9678ff] opacity-[0.35] blur-3xl"
-          animate={
-            reduced ? undefined : { x: [0, -40, 0], y: [0, -36, 0] }
-          }
+          animate={reduced ? undefined : { x: [0, -40, 0], y: [0, -36, 0] }}
           transition={{
             duration: 18,
             repeat: Infinity,
@@ -125,7 +58,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="container-x relative z-10 flex flex-col items-center pb-0 pt-10 text-center md:pt-14">
+      <div className="container-x relative z-10 flex flex-col items-center pb-20 pt-10 text-center md:pb-28 md:pt-14">
         {/* Glass search pill + pricing note */}
         <div className="mt-6 flex w-full max-w-4xl flex-col items-center gap-4 lg:flex-row lg:items-center lg:gap-6">
           <form
@@ -190,14 +123,22 @@ export default function Hero() {
         >
           <span className="block">
             {line1.map((w) => (
-              <m.span key={w} variants={reduced ? undefined : word} className="inline-block">
+              <m.span
+                key={w}
+                variants={reduced ? undefined : word}
+                className="inline-block"
+              >
                 {w}&nbsp;
               </m.span>
             ))}
           </span>
           <span className="block">
             {line2.map((w) => (
-              <m.span key={w} variants={reduced ? undefined : word} className="inline-block">
+              <m.span
+                key={w}
+                variants={reduced ? undefined : word}
+                className="inline-block"
+              >
                 {w}&nbsp;
               </m.span>
             ))}
@@ -230,66 +171,9 @@ export default function Hero() {
           Clear scope and pricing before we start
         </p>
 
-        {/* Browser-frame hero visual — overlaps into the next section */}
-        <div ref={frameRef} className="relative z-10 mt-14 -mb-20 w-full max-w-5xl px-2 sm:px-8">
-          <div className="overflow-hidden rounded-3xl border border-white/15 bg-white/5 shadow-2xl backdrop-blur-md">
-            <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-3">
-              <span className="size-2.5 rounded-full bg-white/25" />
-              <span className="size-2.5 rounded-full bg-white/20" />
-              <span className="size-2.5 rounded-full bg-white/15" />
-              <span className="ml-3 h-4 flex-1 rounded bg-white/10" />
-            </div>
-            <MediaPlaceholder
-              type="image"
-              aspect="16/9"
-              dark
-              label="Add: ORYNTAL hero visual, dashboard + website + AI assistant composite (1600x900)"
-              className="rounded-none border-white/30"
-            />
-          </div>
-
-          {/* Floating chips */}
-          {chips.map((chip) => (
-            <Chip key={chip.label} chip={chip} progress={scrollYProgress} />
-          ))}
-        </div>
+        {/* 4 expanding service cards */}
+        <ServicesExpandingCards />
       </div>
     </section>
-  );
-}
-
-type ChipProps = {
-  chip: (typeof chips)[number];
-  progress: ReturnType<typeof useScroll>["scrollYProgress"];
-};
-
-function Chip({ chip, progress }: ChipProps) {
-  const reduced = useReducedMotion();
-  const Icon = chip.icon;
-  const y = useTransform(progress, [0, 1], reduced ? [0, 0] : chip.range);
-
-  return (
-    <m.span
-      style={{ y }}
-      className={cn(
-        "absolute items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white shadow-lg backdrop-blur-md",
-        chip.mobile ? "flex" : "hidden lg:flex",
-        chip.className
-      )}
-    >
-      <m.span
-        className="flex items-center gap-2"
-        animate={reduced ? undefined : { y: [0, -8, 0] }}
-        transition={{
-          duration: chip.duration,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: chip.delay,
-        }}
-      >
-        <Icon className="size-3.5 shrink-0" strokeWidth={1.75} aria-hidden />
-        {chip.label}
-      </m.span>
-    </m.span>
   );
 }

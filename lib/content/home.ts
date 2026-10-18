@@ -24,14 +24,6 @@ export const videoSection = {
   posterLabel: "Product demo poster frame · 1600×900",
 };
 
-export const servicesSection = {
-  eyebrow: "Full-stack services",
-  heading: "Everything you need to go digital, automate, and scale",
-  description:
-    "Four service domains, one team. Start with a ready-made package, hire us for a single capability, or bring us a problem worth solving properly.",
-  footnote: "Pricing and timelines are confirmed after a short scoping call.",
-};
-
 export const howItWorks = {
   eyebrow: "How we work",
   heading: "A clear process, from first conversation to launch",
