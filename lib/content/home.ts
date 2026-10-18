@@ -3,13 +3,16 @@ export const socialProof = {
 };
 
 export const videoSection = {
-  eyebrow: "Watch the transformation",
-  heading: "From scattered manual work to one connected system",
+  headingTop: "Watch the transformation",
+  headingGradient: "From scattered manual work to one connected system",
   description:
     "See how ORYNTAL takes a business from disconnected tools and manual processes to a single connected system — website, CRM, automation, and AI working together.",
-  // TODO: drop the real product demo video here (MP4/WebM, or an external URL).
-  videoSrc: undefined as string | undefined,
-  posterLabel: "Product demo poster frame · 1600×900",
+  placeholderLabel: "Add: 60-90s ORYNTAL intro / demo reel (MP4 + poster image)",
+  placeholderHint:
+    "Suggested shots: website build, WhatsApp order notification, AI chatbot answering a customer, dashboard.",
+  // TODO: drop the real product demo video + poster here (MP4/WebM URL + poster image).
+  videoSrc: "",
+  posterSrc: "",
 };
 
 export const howItWorks = {

@@ -45,6 +45,11 @@
     --card-lilac-4: #a596ff;
     --card-lilac-5: #8e7bff;
 
+    /* Gradient headline text — blue → violet → magenta */
+    --grad-text-1: #3b8bff;
+    --grad-text-2: #7b4dff;
+    --grad-text-3: #d63be0;
+
     color-scheme: light;
   }
 
@@ -222,6 +227,62 @@
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+
+  /* Reusable brand gradient text (blue → violet → magenta) with a slow drift */
+  .text-gradient-brand {
+    display: inline;
+    background-image: linear-gradient(
+      90deg,
+      var(--grad-text-1) 0%,
+      var(--grad-text-2) 45%,
+      var(--grad-text-3) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    animation: grad-text-drift 12s ease-in-out infinite alternate;
+  }
+
+  /* Video section — soft lavender glow in the top-left and bottom-right corners */
+  .video-gradient {
+    background-color: #f2efff;
+    background-image:
+      radial-gradient(
+        60% 70% at 0% 0%,
+        rgba(160, 145, 255, 0.85) 0%,
+        rgba(160, 145, 255, 0) 70%
+      ),
+      radial-gradient(
+        55% 65% at 100% 100%,
+        rgba(165, 148, 255, 0.8) 0%,
+        rgba(165, 148, 255, 0) 70%
+      ),
+      radial-gradient(
+        40% 50% at 50% 45%,
+        rgba(255, 255, 255, 0.7) 0%,
+        rgba(255, 255, 255, 0) 80%
+      ),
+      linear-gradient(180deg, #f4f1ff 0%, #efebff 100%);
+  }
+
+  /* Barely-visible film grain for the video section */
+  .video-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Video play button — soft pulsing halo */
+  .play-pulse {
+    animation: play-pulse 2s ease-out infinite;
+  }
 }
 
 @layer utilities {
@@ -252,10 +313,34 @@
   }
 }
 
+@keyframes grad-text-drift {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes play-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
 /* Reduced motion: kill decorative animation site-wide */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .text-gradient-brand {
+    animation: none;
   }
 
   *,
