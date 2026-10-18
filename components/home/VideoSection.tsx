@@ -59,18 +59,14 @@ export default function VideoSection() {
   }, [open]);
 
   return (
-    <section className="video-gradient video-grain relative overflow-hidden py-20 md:py-28">
-      {/* 120px fades into the neighbouring sections (white above, dark below) */}
+    <section className="video-gradient video-grain relative overflow-hidden pt-20 md:pt-28">
+      {/* 120px fade into the section above (white) */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-[120px] bg-[linear-gradient(180deg,#ffffff_0%,rgba(255,255,255,0)_100%)]"
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[120px] bg-[linear-gradient(0deg,#2F1C6A_0%,rgba(47,28,106,0)_100%)]"
-      />
 
-      <div className="container-x relative">
+      <div className="container-x relative pb-0">
         <m.div
           variants={container}
           initial="hidden"
