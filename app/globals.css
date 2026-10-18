@@ -2,46 +2,151 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------------------------------------------------------------------------
+   ORYNTAL design tokens
+   Sampled from /public/logo.png (rendered #673DE6) — Hostinger-family violet.
+--------------------------------------------------------------------------- */
 @layer base {
   :root {
+    --brand: #673de6;
+    --brand-hover: #5025d1;
+    --brand-dark: #2f1c6a;
+    --brand-soft: #ebe4ff;
+    --brand-wash: #f6f3ff;
+    --ink: #1d1e20;
+    --muted: #6d7081;
+    --line: #e3e4e8;
+    --surface: #ffffff;
+    --success: #00b090;
+
     color-scheme: light;
   }
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     @apply bg-surface text-ink antialiased;
+    font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   }
 
   ::selection {
-    @apply bg-brand-600 text-white;
+    @apply bg-brand text-white;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply tracking-tight;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-white;
   }
 }
 
 @layer components {
   .container-x {
-    @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+  }
+
+  .section-pad {
+    @apply py-20 md:py-28;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-cta transition-colors duration-200 hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-5 py-3 text-sm font-medium text-white shadow-cta transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-hover hover:shadow-lift active:translate-y-0;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-brand-200 bg-white px-6 py-3 text-sm font-semibold text-brand-700 transition-colors duration-200 hover:border-brand-300 hover:bg-brand-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-brand bg-white px-5 py-3 text-sm font-medium text-brand transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-wash active:translate-y-0;
+  }
+
+  .btn-white {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-medium text-brand transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-soft active:translate-y-0;
+  }
+
+  .btn-outline-white {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/70 px-5 py-3 text-sm font-medium text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10 active:translate-y-0;
   }
 
   .card {
-    @apply rounded-2xl border border-brand-100 bg-white shadow-card;
+    @apply rounded-2xl border border-line bg-white shadow-card;
+  }
+
+  .card-hover {
+    @apply transition-all duration-200 hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-lift;
   }
 
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.22em] text-brand-600;
+    @apply text-xs font-medium uppercase tracking-[0.14em] text-brand;
   }
 
   .link-muted {
-    @apply text-sm text-slate-500 transition-colors hover:text-brand-600;
+    @apply text-sm text-muted transition-colors hover:text-brand;
+  }
+
+  /* Text link with an arrow that nudges on hover */
+  .link-arrow {
+    @apply group inline-flex items-center gap-2 text-sm font-medium text-brand transition-colors hover:text-brand-hover;
+  }
+
+  .link-arrow > svg {
+    @apply transition-transform duration-200 group-hover:translate-x-1;
+  }
+
+  /* Soft purple radial glow — hero / CTA only */
+  .glow-brand {
+    background: radial-gradient(
+      60% 55% at 50% 0%,
+      rgba(103, 61, 230, 0.14) 0%,
+      rgba(103, 61, 230, 0) 70%
+    );
+  }
+}
+
+@layer utilities {
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 7%,
+      #000 93%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      #000 7%,
+      #000 93%,
+      transparent 100%
+    );
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Reduced motion: kill decorative animation site-wide */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

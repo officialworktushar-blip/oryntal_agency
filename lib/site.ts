@@ -2,17 +2,18 @@ export const navLinks = [
   { href: "/packages", label: "Packages" },
   { href: "/services", label: "Services" },
   { href: "/products", label: "Products" },
-  { href: "/contact", label: "Consultation" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 export const site = {
   name: "ORYNTAL",
-  url: "https://oryntal.com",
+  url: "https://oryntalagency.vercel.app",
   tagline: "Orient Your Business.",
   description:
-    "ORYNTAL is a growth agency helping ambitious businesses orient their strategy, brand, and digital presence for measurable results.",
+    "ORYNTAL builds websites, AI systems, and business automation for growing businesses. Packages from ₹30,000.",
   email: "hello@oryntal.com",
-  phone: "+1 (555) 012-3456",
+  // TODO: replace with the real business phone number before launch.
+  phone: "",
   location: "Remote-first · Serving clients worldwide",
   social: {
     linkedin: "https://www.linkedin.com",
