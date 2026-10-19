@@ -55,6 +55,19 @@
     --grad-border-2: #c13be0;
     --grad-border-3: #7b4dff;
 
+    /* Manage tab - dark purple band + tall-card shades */
+    --manage-1: #1a0f45;
+    --manage-2: #5b34d6;
+    --manage-3: #7a52f0;
+    --manage-4: #0c0726;
+    --manage-5: #2a1670;
+    --manage-card-active: #7b68ff;
+    --manage-card-0: #22114f;
+    --manage-card-1: #1b0e42;
+    --manage-card-2: #271363;
+    --manage-card-3: #160b38;
+    --manage-card-4: #20104a;
+
     color-scheme: light;
   }
 
@@ -287,6 +300,50 @@
   /* Video play button — soft pulsing halo */
   .play-pulse {
     animation: play-pulse 2s ease-out infinite;
+  }
+
+  /* Manage tab - dark navy top-left, bright purple to the right / bottom-right */
+  .manage-gradient {
+    background-color: var(--manage-1);
+    background-image:
+      radial-gradient(
+        55% 60% at 100% 100%,
+        rgba(122, 82, 240, 0.85) 0%,
+        rgba(122, 82, 240, 0) 70%
+      ),
+      radial-gradient(
+        45% 55% at 100% 20%,
+        var(--manage-2) 0%,
+        rgba(91, 52, 214, 0) 75%
+      ),
+      radial-gradient(
+        50% 60% at 55% 55%,
+        rgba(95, 55, 200, 0.55) 0%,
+        rgba(95, 55, 200, 0) 75%
+      ),
+      radial-gradient(
+        45% 50% at 0% 0%,
+        var(--manage-4) 0%,
+        rgba(12, 7, 38, 0) 80%
+      ),
+      linear-gradient(
+        135deg,
+        #120a35 0%,
+        var(--manage-5) 60%,
+        var(--manage-1) 100%
+      );
+  }
+
+  /* Faint film grain for the Manage band */
+  .manage-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 }
 

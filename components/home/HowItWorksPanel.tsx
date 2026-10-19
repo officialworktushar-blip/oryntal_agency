@@ -23,7 +23,7 @@ type HowItWorksPanelProps = {
 };
 
 /**
- * The shared "media left / copy right" panel used by the Build and Manage tabs.
+ * The shared "media left / copy right" panel used by the Build tab.
  */
 export default function HowItWorksPanel({
   tab,

@@ -3,11 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { m, useReducedMotion, type Variants, AnimatePresence } from "framer-motion";
-import { howItWorksTabs, type HowItWorksTab, type GrowTypingTab } from "@/lib/content/howItWorks";
+import { howItWorksTabs, type HowItWorksTab, type GrowTypingTab, type ManageAccordionTab } from "@/lib/content/howItWorks";
 import { cn } from "@/lib/cn";
 import GrowTypingStack from "./GrowTypingStack";
 import HowItWorksPanel from "./HowItWorksPanel";
 import LaunchShowcase from "./LaunchShowcase";
+import ManageBars from "./ManageBars";
 
 const tabItem: Variants = {
   hidden: { opacity: 0, y: 16, filter: "blur(4px)" },
@@ -217,6 +218,7 @@ export default function HowItWorks() {
                 const isActive = activeTab === tab.id;
                 const isGrowStack = tab.layout === "typing-stack";
                 const isBrowserShowcase = tab.layout === "browser-showcase";
+                const isAccordionBars = tab.layout === "accordion-bars";
 
                 return (
                   <div
@@ -226,7 +228,13 @@ export default function HowItWorks() {
                     aria-labelledby={`howitworks-tab-${tab.id}`}
                     hidden={!isActive}
                   >
-                    {isGrowStack ? (
+                    {isAccordionBars ? (
+                      /* Manage — dark band with a horizontal accordion of tall cards */
+                      <ManageBars
+                        tab={tab as ManageAccordionTab}
+                        isActive={isActive}
+                      />
+                    ) : isGrowStack ? (
                       /* Grow — typing stack panel */
                       <GrowTypingStack
                         tab={tab as GrowTypingTab}
@@ -248,7 +256,7 @@ export default function HowItWorks() {
                         }
                       />
                     ) : (
-                      /* Build / Manage — media left, copy right */
+                      /* Build — media left, copy right */
                       <>
                         <AnimatePresence mode="wait">
                           {isActive && (

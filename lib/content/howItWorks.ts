@@ -14,7 +14,7 @@ export type HowItWorksTab = {
   id: "build" | "launch" | "grow" | "manage";
   label: string;
   step: string;
-  layout?: "typing-stack" | "browser-showcase";
+  layout?: "typing-stack" | "browser-showcase" | "accordion-bars";
   title: string;
   description: string;
   bullets?: HowItWorksBullet[];
@@ -38,6 +38,26 @@ export type GrowTypingTab = HowItWorksTab & {
   chipsIntro: string;
   chips: HowItWorksChip[];
   slides: HowItWorksSlide[];
+};
+
+/** One tall card of the Manage tab — a "prompt + answer" example. */
+export type ManageCard = {
+  id: string;
+  title: string;
+  sub: string;
+  user: string;
+  assistantIntro: string;
+  assistantItems: string[];
+  badge?: string;
+};
+
+/** Manage tab — dark purple band with a horizontal accordion of tall cards. */
+export type ManageAccordionTab = HowItWorksTab & {
+  id: "manage";
+  layout: "accordion-bars";
+  keywordLine: string;
+  disclaimer: string;
+  cards: ManageCard[];
 };
 
 export const buildTab: HowItWorksTab = {
@@ -172,29 +192,85 @@ export const growTab: GrowTypingTab = {
   ],
 };
 
-export const manageTab: HowItWorksTab = {
+export const manageTab: ManageAccordionTab = {
   id: "manage",
   label: "Manage",
   step: "Step 4 of 4",
-  title: "Run everything from one connected workflow.",
+  layout: "accordion-bars",
+  title: "Scattered tools don't run a business. One system does.",
   description:
-    "Dashboards, admin panels, databases, and integrations keep orders, clients, and data in one place instead of scattered across tools.",
-  bullets: [
-    "Centralised workflow across your tools",
-    "Admin and user dashboards",
-    "Databases and data sheet management",
-    "Analytics and business intelligence",
-    "Client database and call handling (in development)",
-  ],
+    "Orders in one app, clients in a spreadsheet, conversations on a phone. ORYNTAL connects them into dashboards, admin panels, and databases you can actually run the business from.",
   cta: {
     label: "Talk about a custom system",
     href: "/services/consultation",
   },
-  media: {
-    label:
-      "Add: 20-30s video or screenshot of an ORYNTAL admin dashboard (MP4/PNG 1280x720)",
-    hint: "Show: dashboard, orders, client records.",
-  },
+  keywordLine:
+    "Admin dashboards · Databases · Analytics & BI · CRM integrations · Workflow automation",
+  disclaimer:
+    "Illustrative examples of what an ORYNTAL-built system can do. Exact capabilities are defined in your agreed scope.",
+  cards: [
+    {
+      id: "orders",
+      title: "Track every order",
+      sub: "See new orders, payment status, and shipping progress in one dashboard instead of five tabs.",
+      user: "Show me today's orders that are paid but not yet shipped.",
+      assistantIntro: "Sure thing, I'll pull up:",
+      assistantItems: [
+        "Paid orders",
+        "Pending dispatch",
+        "Shipping updates to send",
+      ],
+    },
+    {
+      id: "clients",
+      title: "Know every client",
+      sub: "Keep client records, conversations, and follow-ups organised so nothing slips through the cracks.",
+      badge: "Client Database & Call-Handling: in development",
+      user: "Which clients haven't heard from us in a while?",
+      assistantIntro: "Of course, I'd check:",
+      assistantItems: [
+        "Last contact date",
+        "Open follow-ups",
+        "Clients worth re-engaging",
+      ],
+    },
+    {
+      id: "numbers",
+      title: "Read your numbers",
+      sub: "Turn scattered data into analytics and reports you can use to make decisions.",
+      user: "Which products are selling best this month?",
+      assistantIntro: "Sure thing, I'll compare:",
+      assistantItems: [
+        "Sales by product",
+        "Repeat customers",
+        "Trends worth acting on",
+      ],
+    },
+    {
+      id: "team",
+      title: "Control who sees what",
+      sub: "Custom admin and user panels give every person the right view and the right permissions.",
+      user: "Give my packing team access to orders only.",
+      assistantIntro: "Got it, I'd set up:",
+      assistantItems: [
+        "A role for the packing team",
+        "Access to orders only",
+        "Admin-only settings",
+      ],
+    },
+    {
+      id: "connect",
+      title: "Connect your tools",
+      sub: "APIs, CRM, WhatsApp, payments, and databases working together as one workflow.",
+      user: "Add new website leads to my CRM and alert me on WhatsApp.",
+      assistantIntro: "Sure thing, the workflow would:",
+      assistantItems: [
+        "Capture the lead",
+        "Add it to your CRM",
+        "Send you a WhatsApp alert",
+      ],
+    },
+  ],
 };
 
 export const howItWorksTabs: HowItWorksTab[] = [
