@@ -122,7 +122,7 @@ export default function ServicesExpandingCards() {
                         sizes="(max-width: 768px) 100vw, 25vw"
                         className={
                           card.image
-                            ? "h-full w-full rounded-none border-0"
+                            ? "relative h-full w-full rounded-none border-0"
                             : "h-full w-full rounded-none border-dashed border-white/60 bg-transparent text-brand-dark [&_span:first-child]:bg-transparent"
                         }
                       />

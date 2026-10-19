@@ -73,8 +73,6 @@ export default function FinalCta() {
 
   const cursorX = useSpring(0, { stiffness: 120, damping: 20 });
   const cursorY = useSpring(0, { stiffness: 120, damping: 20 });
-  const setCursorX = cursorX.set;
-  const setCursorY = cursorY.set;
 
   /* Autoplay — only when in view, page visible, pointer outside, not paused. */
   useEffect(() => {
@@ -126,9 +124,9 @@ export default function FinalCta() {
 
     const compRect = comp.getBoundingClientRect();
     const btnRect = btn.getBoundingClientRect();
-    setCursorX(btnRect.right - compRect.left - 8);
-    setCursorY(btnRect.bottom - compRect.top - 8);
-  }, [activeIndex, setCursorX, setCursorY]);
+    cursorX.set(btnRect.right - compRect.left - 8);
+    cursorY.set(btnRect.bottom - compRect.top - 8);
+  }, [activeIndex, cursorX, cursorY]);
 
   useEffect(() => {
     measure();
