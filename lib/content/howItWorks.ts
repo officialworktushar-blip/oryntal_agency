@@ -13,7 +13,6 @@ export type HowItWorksChip = { icon: string; label: string };
 export type HowItWorksTab = {
   id: "build" | "launch" | "grow" | "manage";
   label: string;
-  step: string;
   layout?: "typing-stack" | "browser-showcase" | "accordion-bars";
   title: string;
   description: string;
@@ -63,7 +62,6 @@ export type ManageAccordionTab = HowItWorksTab & {
 export const buildTab: HowItWorksTab = {
   id: "build",
   label: "Build",
-  step: "Step 1 of 4",
   title: "We understand your business, then build around it.",
   description:
     "Before any design or code, we map how your business runs: your processes, stakeholders, and bottlenecks. Then we design and develop the website, app, or system you have agreed on.",
@@ -87,7 +85,6 @@ export const buildTab: HowItWorksTab = {
 export const launchTab: HowItWorksTab = {
   id: "launch",
   label: "Launch",
-  step: "Step 2 of 4",
   layout: "browser-showcase",
   title: "Launch day shouldn't feel like a leap of faith.",
   description:
@@ -122,7 +119,6 @@ export const launchTab: HowItWorksTab = {
 export const growTab: GrowTypingTab = {
   id: "grow",
   label: "Grow",
-  step: "Step 3 of 4",
   layout: "typing-stack",
   title: "Growth isn't louder marketing. It's fewer missed conversations.",
   description:
@@ -195,7 +191,6 @@ export const growTab: GrowTypingTab = {
 export const manageTab: ManageAccordionTab = {
   id: "manage",
   label: "Manage",
-  step: "Step 4 of 4",
   layout: "accordion-bars",
   title: "Scattered tools don't run a business. One system does.",
   description:
@@ -272,10 +267,3 @@ export const manageTab: ManageAccordionTab = {
     },
   ],
 };
-
-export const howItWorksTabs: HowItWorksTab[] = [
-  buildTab,
-  launchTab,
-  growTab,
-  manageTab,
-];

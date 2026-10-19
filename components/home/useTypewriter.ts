@@ -11,7 +11,6 @@ export type TypewriterOptions = {
   /** card-transition grace period before the first character appears. */
   startDelayMs?: number;
   isPaused?: boolean;
-  isActive?: boolean;
   isVisible?: boolean;
   onCycleComplete?: () => void;
   mode?: "reduced" | "normal";
@@ -31,7 +30,6 @@ export function useTypewriter({
   holdMs = 2200,
   startDelayMs = 450,
   isPaused = false,
-  isActive = true,
   isVisible = true,
   onCycleComplete,
   mode = "normal",
@@ -83,7 +81,7 @@ export function useTypewriter({
       return;
     }
 
-    if (!isActive || !isVisible) return;
+    if (!isVisible) return;
 
     if (isPaused) {
       // Never leave the prompt box empty while paused.
@@ -119,7 +117,6 @@ export function useTypewriter({
   }, [
     text,
     reduced,
-    isActive,
     isVisible,
     isPaused,
     tick,

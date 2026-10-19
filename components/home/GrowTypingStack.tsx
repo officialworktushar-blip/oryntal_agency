@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+import StageHeader from "./StageHeader";
 import { useTypewriter } from "./useTypewriter";
 import type { GrowTypingTab } from "@/lib/content/howItWorks";
 import { cn } from "@/lib/cn";
@@ -47,29 +48,14 @@ const stackOffsets: StackOffset[] = [
   { y: -52, scale: 0.9, z: 10, overlay: 0.2 },
 ];
 
-const revealGroup: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
-};
-
-const revealItem: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
 type GrowTypingStackProps = {
   tab: GrowTypingTab;
-  /** true while the Grow tab is the selected panel */
-  isActive?: boolean;
+  headingId: string;
 };
 
 export default function GrowTypingStack({
   tab,
-  isActive = true,
+  headingId,
 }: GrowTypingStackProps) {
   const slides = tab.slides;
   const slideCount = slides.length;
@@ -87,6 +73,29 @@ export default function GrowTypingStack({
   const activeSlide = slides[activeIndex];
   const paused = isPaused || isHovered || isFocused;
 
+  const revealGroup: Variants = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
+  };
+
+  const revealItem: Variants = {
+    hidden: reduced ? { opacity: 0 } : { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
+
+  const mediaVariants: Variants = {
+    hidden: reduced ? { opacity: 0 } : { opacity: 0, x: -40 },
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
   const goToNext = useCallback(() => {
     setActiveIndex((prev) => (prev + 1) % slideCount);
   }, [slideCount]);
@@ -94,7 +103,6 @@ export default function GrowTypingStack({
   const { displayed, restart } = useTypewriter({
     text: activeSlide?.prompt ?? "",
     isPaused: paused,
-    isActive,
     isVisible: inView && pageVisible,
     onCycleComplete: goToNext,
     mode: reduced ? "reduced" : "normal",
@@ -158,7 +166,14 @@ export default function GrowTypingStack({
 
       <div className="grid gap-10 lg:grid-cols-[1.25fr_1fr] lg:items-center lg:gap-8">
         {/* ---------------------------------------------------------- LEFT */}
-        <div ref={rootRef} className="relative mx-auto w-full max-w-[760px] pb-14">
+        <m.div
+          ref={rootRef}
+          variants={mediaVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-15% 0px" }}
+          className="relative mx-auto w-full max-w-[760px] pb-14"
+        >
           <div
             className="relative aspect-[3/2.1]"
             role="group"
@@ -322,13 +337,14 @@ export default function GrowTypingStack({
               );
             })}
           </div>
-        </div>
+        </m.div>
 
         {/* --------------------------------------------------------- RIGHT */}
         <m.div
           variants={revealGroup}
-          initial={isActive ? "show" : "hidden"}
-          animate={isActive ? "show" : "hidden"}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-15% 0px" }}
           className="flex flex-col"
         >
           <m.div variants={revealItem} className="mb-6">
@@ -339,12 +355,13 @@ export default function GrowTypingStack({
             />
           </m.div>
 
-          <m.h3
-            variants={revealItem}
-            className="text-4xl font-medium leading-[1.1] tracking-[-0.03em] text-ink md:text-5xl"
-          >
-            {tab.title}
-          </m.h3>
+          <m.div variants={revealItem}>
+            <StageHeader
+              label={tab.label}
+              title={tab.title}
+              headingId={headingId}
+            />
+          </m.div>
 
           <m.p
             variants={revealItem}

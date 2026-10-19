@@ -2,7 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, m, useInView, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  m,
+  useInView,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
 import {
   ArrowRight,
   ChevronLeft,
@@ -16,6 +22,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
+import StageHeader from "./StageHeader";
 import type { HowItWorksTab } from "@/lib/content/howItWorks";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -24,16 +31,19 @@ const iconMap: Record<string, LucideIcon> = {
   Truck,
 };
 
+export type LaunchShowcaseTab = HowItWorksTab & {
+  layout: "browser-showcase";
+  media: { label: string; hint: string };
+  keywordLine: string;
+  browser: { url: string };
+  toasts: Array<{ icon: string; title: string; sub: string }>;
+  videoSrc?: string;
+  posterSrc?: string;
+};
+
 type LaunchShowcaseProps = {
-  tab: HowItWorksTab & {
-    layout: "browser-showcase";
-    media: { label: string; hint: string };
-    keywordLine: string;
-    browser: { url: string };
-    toasts: Array<{ icon: string; title: string; sub: string }>;
-    videoSrc?: string;
-    posterSrc?: string;
-  };
+  tab: LaunchShowcaseTab;
+  headingId: string;
 };
 
 const toastVariants = {
@@ -47,27 +57,51 @@ const toastVariants = {
   exit: { opacity: 0, y: -8, transition: { duration: 0.3 } },
 };
 
-export default function LaunchShowcase({ tab }: LaunchShowcaseProps) {
+export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) {
   const [toastIndex, setToastIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const isInView = useInView(containerRef, { amount: 0.3 });
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotion() ?? false;
 
   const hasVideo = Boolean(tab.videoSrc);
   const toasts = tab.toasts;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+  const copyGroup: Variants = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
+  };
+
+  const copyItem: Variants = {
+    hidden: reduced ? { opacity: 0 } : { opacity: 0, y: 24 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
+  const mediaVariants: Variants = {
+    hidden: reduced ? { opacity: 0 } : { opacity: 0, x: 40 },
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
 
   const goToNextToast = useCallback(() => {
     setToastIndex((prev) => (prev + 1) % toasts.length);
   }, [toasts.length]);
 
   useEffect(() => {
-    if (reduced || isPaused || !isInView) return;
+    if (reduced || isPaused || !isInView || !pageVisible) return;
     const timer = setTimeout(goToNextToast, 2200);
     return () => clearTimeout(timer);
-  }, [toastIndex, reduced, isPaused, isInView, goToNextToast]);
+  }, [toastIndex, reduced, isPaused, isInView, pageVisible, goToNextToast]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -76,21 +110,21 @@ export default function LaunchShowcase({ tab }: LaunchShowcaseProps) {
       video.pause();
       return;
     }
-    if (!isPaused && isInView) {
+    if (!isPaused && isInView && pageVisible) {
       video.play().catch(() => {});
     } else {
       video.pause();
     }
-  }, [isInView, isPaused, reduced]);
+  }, [isInView, isPaused, pageVisible, reduced]);
 
   useEffect(() => {
     const onVisibilityChange = () => {
-      if (document.visibilityState === "hidden") {
-        setIsPaused(true);
-      }
+      setPageVisible(document.visibilityState === "visible");
     };
+    onVisibilityChange();
     document.addEventListener("visibilitychange", onVisibilityChange);
-    return () => document.removeEventListener("visibilitychange", onVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", onVisibilityChange);
   }, []);
 
   const jsonLd = {
@@ -117,25 +151,52 @@ export default function LaunchShowcase({ tab }: LaunchShowcaseProps) {
         className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16 lg:items-center"
       >
         {/* Left */}
-        <div className="order-1">
-          <h3 className="text-4xl font-medium leading-[1.12] tracking-[-0.03em] text-ink md:text-[46px] max-w-xl">
-            {tab.title}
-          </h3>
-          <p className="mt-6 text-lg leading-relaxed text-muted max-w-xl">
-            {tab.description}
-          </p>
-          <Link
-            href={tab.cta.href}
-            className="group mt-10 flex items-center justify-between border-b border-line py-5 text-xl text-ink outline-none transition-colors hover:border-[#673DE6] focus-visible:ring-2 focus-visible:ring-brand max-w-xl"
+        <m.div
+          variants={copyGroup}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-15% 0px" }}
+          className="order-1"
+        >
+          <m.div variants={copyItem}>
+            <StageHeader
+              label={tab.label}
+              title={tab.title}
+              headingId={headingId}
+              className="max-w-xl"
+            />
+          </m.div>
+          <m.p
+            variants={copyItem}
+            className="mt-6 text-lg leading-relaxed text-muted max-w-xl"
           >
-            <span>{tab.cta.label}</span>
-            <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-1.5" />
-          </Link>
-          <p className="mt-6 text-sm text-muted/80 max-w-xl">{tab.keywordLine}</p>
-        </div>
+            {tab.description}
+          </m.p>
+          <m.div variants={copyItem}>
+            <Link
+              href={tab.cta.href}
+              className="group mt-10 flex items-center justify-between border-b border-line py-5 text-xl text-ink outline-none transition-colors hover:border-[#673DE6] focus-visible:ring-2 focus-visible:ring-brand max-w-xl"
+            >
+              <span>{tab.cta.label}</span>
+              <ArrowRight className="size-5 transition-transform duration-200 group-hover:translate-x-1.5" />
+            </Link>
+          </m.div>
+          <m.p
+            variants={copyItem}
+            className="mt-6 text-sm text-muted/80 max-w-xl"
+          >
+            {tab.keywordLine}
+          </m.p>
+        </m.div>
 
         {/* Right */}
-        <div className="order-2">
+        <m.div
+          variants={mediaVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-15% 0px" }}
+          className="order-2"
+        >
           <div className="relative flex aspect-[4/3.3] min-h-[360px] items-center justify-center overflow-hidden rounded-[32px] p-6 sm:p-10 lg:p-12">
             <div
               aria-hidden
@@ -157,7 +218,9 @@ export default function LaunchShowcase({ tab }: LaunchShowcaseProps) {
                 </div>
                 <div className="flex items-center gap-1.5 rounded-md bg-white/70 px-2 py-0.5">
                   <Lock className="size-3 text-gray-500" />
-                  <span className="text-[11px] text-gray-600">{tab.browser.url}</span>
+                  <span className="text-[11px] text-gray-600">
+                    {tab.browser.url}
+                  </span>
                 </div>
                 <div className="w-[60px]" />
               </div>
@@ -221,7 +284,8 @@ export default function LaunchShowcase({ tab }: LaunchShowcaseProps) {
               </AnimatePresence>
             </div>
             <p className="sr-only">
-              Illustrative notifications: payment received, WhatsApp confirmation sent, order dispatched.
+              Illustrative notifications: payment received, WhatsApp
+              confirmation sent, order dispatched.
             </p>
 
             {/* Pause */}
@@ -232,10 +296,14 @@ export default function LaunchShowcase({ tab }: LaunchShowcaseProps) {
               onClick={() => setIsPaused((p) => !p)}
               className="absolute bottom-4 right-4 z-20 grid size-10 place-items-center rounded-full border border-white bg-white/60 text-ink shadow-sm backdrop-blur transition-colors hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
             >
-              {isPaused ? <Play className="size-4" /> : <Pause className="size-4" />}
+              {isPaused ? (
+                <Play className="size-4" />
+              ) : (
+                <Pause className="size-4" />
+              )}
             </button>
           </div>
-        </div>
+        </m.div>
       </div>
     </>
   );

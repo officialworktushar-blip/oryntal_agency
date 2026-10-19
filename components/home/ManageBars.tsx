@@ -6,6 +6,7 @@ import Link from "next/link";
 import { m, useInView, useReducedMotion, type Transition, type Variants } from "framer-motion";
 import { ArrowRight, ChevronDown, Pause, Play, User } from "lucide-react";
 import type { ManageAccordionTab, ManageCard } from "@/lib/content/howItWorks";
+import StageHeader from "./StageHeader";
 import { cn } from "@/lib/cn";
 
 /* Uneven bar heights (percent) when the cursor is outside the row. */
@@ -179,11 +180,10 @@ function ManageChat({ card, isOpen, reduced, layout }: ManageChatProps) {
 
 type ManageBarsProps = {
   tab: ManageAccordionTab;
-  /** true while the Manage tab is the selected panel */
-  isActive?: boolean;
+  headingId: string;
 };
 
-export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
+export default function ManageBars({ tab, headingId }: ManageBarsProps) {
   const cards = tab.cards;
   const count = cards.length;
 
@@ -199,6 +199,7 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
   const reduced = useReducedMotion() ?? false;
   const rootRef = useRef<HTMLDivElement>(null);
   const inView = useInView(rootRef, { amount: 0.35 });
+  const revealed = useInView(rootRef, { once: true, margin: "-15% 0px" });
   const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
@@ -221,22 +222,13 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
-  /* Leaving the tab drops any click-pinned state. */
-  useEffect(() => {
-    if (!isActive) {
-      setPinned(false);
-      setEngaged(false);
-    }
-  }, [isActive]);
-
-  /* Autoplay only while idle: in view, on the Manage tab, desktop, not paused. */
+  /* Autoplay only while idle: in view, desktop, not paused. */
   useEffect(() => {
     if (
       reduced ||
       isPaused ||
       engaged ||
       pinned ||
-      !isActive ||
       !isDesktop ||
       !inView ||
       !pageVisible ||
@@ -254,7 +246,6 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
     isPaused,
     engaged,
     pinned,
-    isActive,
     isDesktop,
     inView,
     pageVisible,
@@ -419,6 +410,8 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
                   ? "100%"
                   : `${pinned ? SUPPRESSED_HEIGHT : collapsed}%`,
               backgroundColor: isOpen ? ACTIVE_COLOUR : CARD_COLOURS[index],
+              opacity: revealed ? 1 : 0,
+              y: revealed || reduced ? 0 : 24,
             }}
             transition={
               reduced
@@ -426,8 +419,18 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
                     flexGrow: { duration: 0 },
                     height: { duration: 0 },
                     backgroundColor: { duration: 0.15 },
+                    opacity: { duration: 0.3, delay: index * 0.08 },
+                    y: { duration: 0 },
                   }
-                : SPRING
+                : {
+                    ...SPRING,
+                    opacity: {
+                      duration: 0.6,
+                      ease: "easeOut",
+                      delay: index * 0.08,
+                    },
+                    y: { duration: 0.6, ease: "easeOut", delay: index * 0.08 },
+                  }
             }
             style={{ flexBasis: 0 }}
             onPointerEnter={() => scheduleHover(index)}
@@ -490,14 +493,26 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
             animate={{
               height: isOpen ? "auto" : 72,
               backgroundColor: isOpen ? ACTIVE_COLOUR : CARD_COLOURS[index],
+              opacity: revealed ? 1 : 0,
+              y: revealed || reduced ? 0 : 24,
             }}
             transition={
               reduced
                 ? {
                     height: { duration: 0 },
                     backgroundColor: { duration: 0.15 },
+                    opacity: { duration: 0.3, delay: index * 0.08 },
+                    y: { duration: 0 },
                   }
-                : SPRING
+                : {
+                    ...SPRING,
+                    opacity: {
+                      duration: 0.6,
+                      ease: "easeOut",
+                      delay: index * 0.08,
+                    },
+                    y: { duration: 0.6, ease: "easeOut", delay: index * 0.08 },
+                  }
             }
             className="relative overflow-hidden rounded-3xl border border-white/5"
           >
@@ -550,16 +565,43 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
         className="manage-gradient manage-grain relative overflow-hidden rounded-[32px] p-6 text-white md:p-10 lg:p-12"
       >
         <div className="relative z-10">
-          <div className="max-w-2xl">
-            <h3 className="text-4xl font-medium leading-[1.12] tracking-[-0.03em] text-white md:text-[46px]">
-              {tab.title}
-            </h3>
+          <m.div
+            initial={false}
+            animate={{
+              opacity: revealed ? 1 : 0,
+              y: revealed || reduced ? 0 : 24,
+            }}
+            transition={
+              reduced
+                ? { duration: 0.3 }
+                : { duration: 0.6, ease: "easeOut" }
+            }
+            className="max-w-2xl"
+          >
+            <StageHeader
+              label={tab.label}
+              title={tab.title}
+              headingId={headingId}
+              tone="dark"
+            />
             <p className="mt-5 text-lg text-white/75">{tab.description}</p>
-          </div>
+          </m.div>
 
           {isDesktop ? renderBars() : renderAccordion()}
 
-          <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <m.div
+            initial={false}
+            animate={{
+              opacity: revealed ? 1 : 0,
+              y: revealed || reduced ? 0 : 24,
+            }}
+            transition={
+              reduced
+                ? { duration: 0.3 }
+                : { duration: 0.6, ease: "easeOut", delay: 0.2 }
+            }
+            className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
+          >
             <Link
               href={tab.cta.href}
               className="group inline-flex w-fit items-center gap-2 text-lg text-white underline decoration-white/50 underline-offset-[6px] outline-none transition-colors hover:decoration-white focus-visible:ring-2 focus-visible:ring-white/70"
@@ -570,7 +612,7 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
             <p className="max-w-md text-sm text-white/60 lg:text-right">
               {tab.keywordLine}
             </p>
-          </div>
+          </m.div>
 
           <p className="mt-3 text-xs text-white/50">{tab.disclaimer}</p>
         </div>
