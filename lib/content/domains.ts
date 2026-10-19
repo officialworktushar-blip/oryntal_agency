@@ -7,7 +7,6 @@ export type DomainCard = {
   href: string;
   description: string;
   icon: LucideIcon;
-  imageLabel: string;
   /** Real image for the card frame; placeholder shows when missing. */
   image?: string;
   preview: string[];
@@ -21,8 +20,6 @@ export const domainCards: DomainCard[] = [
     description:
       "Fixed-scope packages from ₹30,000, built for every stage of your business.",
     icon: Package,
-    imageLabel:
-      "Add: photo or illustration for Business Packages (portrait, 700x900)",
     image: "/domain1.webp",
     preview: [
       "Digital Foundation, ₹30,000",
@@ -37,8 +34,6 @@ export const domainCards: DomainCard[] = [
     description:
       "Pick only what you need: web and apps, AI, integrations, sourcing support.",
     icon: Layers,
-    imageLabel:
-      "Add: photo or illustration for Individual Services (portrait, 700x900)",
     preview: [
       "Websites & Apps",
       "AI & Automation",
@@ -53,8 +48,6 @@ export const domainCards: DomainCard[] = [
     description:
       "Ready-to-use products like QR2 Review, built for real business workflows.",
     icon: Boxes,
-    imageLabel:
-      "Add: product mockup for QR2 Review / Pre-Built Products (portrait, 700x900)",
     preview: [
       "QR2 Review: Complimentary for eligible clients",
       "Client Database & Call-Handling: In development",
@@ -68,8 +61,6 @@ export const domainCards: DomainCard[] = [
     description:
       "A three-month engagement designed around your operations.",
     icon: Compass,
-    imageLabel:
-      "Add: photo or illustration for Custom Consultation (portrait, 700x900)",
     preview: [
       "Month 1: Understand & plan",
       "Month 2: Build",

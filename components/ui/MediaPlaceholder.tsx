@@ -86,7 +86,9 @@ export default function MediaPlaceholder({
       >
         <Icon className={cn("size-6", dark ? "text-white" : "text-brand")} strokeWidth={1.75} />
       </span>
-      <span className="max-w-sm text-sm font-semibold">{label}</span>
+      {label ? (
+        <span className="max-w-sm text-sm font-semibold">{label}</span>
+      ) : null}
       {hint ? (
         <span className={cn("max-w-sm text-xs", dark ? "text-white/60" : "text-muted")}>
           {hint}

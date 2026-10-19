@@ -116,7 +116,7 @@ export default function ServicesExpandingCards() {
                     >
                       <MediaPlaceholder
                         type="image"
-                        label={card.imageLabel}
+                        label=""
                         src={card.image}
                         alt={card.title}
                         sizes="(max-width: 768px) 100vw, 25vw"
