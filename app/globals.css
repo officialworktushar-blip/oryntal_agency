@@ -50,6 +50,11 @@
     --grad-text-2: #7b4dff;
     --grad-text-3: #d63be0;
 
+    /* Prompt-box gradient border (Grow tab) — violet → magenta → violet */
+    --grad-border-1: #7b4dff;
+    --grad-border-2: #c13be0;
+    --grad-border-3: #7b4dff;
+
     color-scheme: light;
   }
 
@@ -311,6 +316,11 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  /* Blinking caret for the Grow tab prompt box (1s, hard steps) */
+  .typing-caret {
+    animation: caret-blink 1s steps(1, end) infinite;
+  }
 }
 
 @keyframes grad-text-drift {
@@ -329,6 +339,17 @@
   }
   100% {
     transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes caret-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
     opacity: 0;
   }
 }

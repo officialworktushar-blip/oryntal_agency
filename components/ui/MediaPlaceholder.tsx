@@ -14,6 +14,10 @@ type MediaPlaceholderProps = {
   /** When a real asset exists, render it instead of the placeholder. */
   src?: string;
   alt?: string;
+  /** next/image sizes attribute (image + src only). */
+  sizes?: string;
+  /** next/image loading strategy (image + src only). Defaults to "lazy". */
+  loading?: "lazy" | "eager";
   className?: string;
   dark?: boolean;
 };
@@ -25,6 +29,8 @@ export default function MediaPlaceholder({
   hint,
   src,
   alt,
+  sizes,
+  loading = "lazy",
   className,
   dark = false,
 }: MediaPlaceholderProps) {
@@ -50,7 +56,8 @@ export default function MediaPlaceholder({
             src={src}
             alt={alt ?? label}
             fill
-            sizes="(max-width: 768px) 100vw, 66vw"
+            sizes={sizes ?? "(max-width: 768px) 100vw, 66vw"}
+            loading={loading}
             className="object-cover"
           />
         )}

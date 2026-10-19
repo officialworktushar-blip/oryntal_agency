@@ -2,24 +2,26 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 export type TypewriterOptions = {
   text: string;
+  /** ms per character (before jitter). */
   typingSpeedMs?: number;
+  /** ± jitter applied to every character delay. */
   typingJitterMs?: number;
+  /** how long the finished line stays on screen before the next slide. */
   holdMs?: number;
-  pauseBeforeClearMs?: number;
+  /** card-transition grace period before the first character appears. */
+  startDelayMs?: number;
   isPaused?: boolean;
   isActive?: boolean;
   isVisible?: boolean;
   onCycleComplete?: () => void;
-  disabled?: boolean;
   mode?: "reduced" | "normal";
 };
 
-type Phase = "typing" | "hold" | "waiting";
+type Phase = "delay" | "typing" | "hold";
 
-function nextJitter(base: number, jitter: number): number {
-  if (jitter <= 0) return base;
-  const half = jitter / 2;
-  return base + (Math.random() * jitter - half);
+function jitter(base: number, amount: number): number {
+  if (amount <= 0) return base;
+  return base + Math.random() * amount - amount / 2;
 }
 
 export function useTypewriter({
@@ -27,131 +29,110 @@ export function useTypewriter({
   typingSpeedMs = 32,
   typingJitterMs = 12,
   holdMs = 2200,
-  pauseBeforeClearMs = 0,
+  startDelayMs = 450,
   isPaused = false,
   isActive = true,
   isVisible = true,
   onCycleComplete,
-  disabled = false,
   mode = "normal",
 }: TypewriterOptions) {
   const [displayed, setDisplayed] = useState("");
-  const [phase, setPhase] = useState<Phase>("waiting");
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const indexRef = useRef(0);
-  const mountedRef = useRef(true);
+  const [tick, setTick] = useState(0);
 
-  const clearTimeoutSafe = useCallback(() => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
+  const phaseRef = useRef<Phase>("delay");
+  const indexRef = useRef(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cycleRef = useRef<(() => void) | undefined>(onCycleComplete);
+
+  const reduced = mode === "reduced";
+
+  useEffect(() => {
+    cycleRef.current = onCycleComplete;
+  }, [onCycleComplete]);
+
+  const clearTimer = useCallback(() => {
+    if (timerRef.current !== null) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
     }
   }, []);
 
-  const reset = useCallback(() => {
-    clearTimeoutSafe();
+  const restart = useCallback(() => {
+    clearTimer();
     indexRef.current = 0;
+    phaseRef.current = "delay";
     setDisplayed("");
-    setPhase("typing");
-  }, [clearTimeoutSafe]);
+    setTick((value) => value + 1);
+  }, [clearTimer]);
 
-  useEffect(() => {
-    mountedRef.current = true;
-    return () => {
-      mountedRef.current = false;
-      clearTimeoutSafe();
-    };
-  }, [clearTimeoutSafe]);
+  // Unmount cleanup.
+  useEffect(() => clearTimer, [clearTimer]);
 
+  // New slide: clear the line instantly, then wait out the card transition.
   useEffect(() => {
-    if (mode === "reduced" || disabled) {
-      clearTimeoutSafe();
-      indexRef.current = text.length;
-      setDisplayed(text);
-      setPhase("hold");
+    restart();
+  }, [text, restart]);
+
+  // Engine — a single timeout chain driven by refs so pausing/resuming
+  // always picks up exactly where it left off.
+  useEffect(() => {
+    clearTimer();
+
+    if (reduced) {
+      setDisplayed((prev) => (prev === text ? prev : text));
       return;
     }
 
-    if (!isActive || !isVisible) {
-      return;
-    }
+    if (!isActive || !isVisible) return;
 
     if (isPaused) {
-      clearTimeoutSafe();
-      return;
-    }
-
-    // start typing fresh if empty and waiting
-    if (phase === "waiting") {
-      indexRef.current = 0;
-      setDisplayed("");
-      setPhase("typing");
-      return;
-    }
-
-    if (phase === "typing") {
-      if (indexRef.current >= text.length) {
-        setPhase("hold");
-        return;
+      // Never leave the prompt box empty while paused.
+      if (indexRef.current === 0) {
+        setDisplayed((prev) => (prev === "" ? text : prev));
       }
-      const char = text.charAt(indexRef.current);
-      indexRef.current += 1;
-      setDisplayed((prev) => prev + char);
-      const delay = nextJitter(typingSpeedMs, typingJitterMs);
-      timeoutRef.current = setTimeout(() => {
-        if (mountedRef.current) {
-          setPhase("typing");
-        }
-      }, delay);
       return;
     }
 
-    if (phase === "hold") {
-      clearTimeoutSafe();
-      const delayHold = Math.max(0, pauseBeforeClearMs + holdMs);
-      timeoutRef.current = setTimeout(() => {
-        if (mountedRef.current) {
-          onCycleComplete?.();
-        }
-      }, delayHold);
+    if (phaseRef.current === "delay") {
+      timerRef.current = setTimeout(() => {
+        phaseRef.current = "typing";
+        indexRef.current = 0;
+        setDisplayed("");
+        setTick((value) => value + 1);
+      }, startDelayMs);
       return;
     }
+
+    if (indexRef.current < text.length) {
+      timerRef.current = setTimeout(() => {
+        indexRef.current += 1;
+        setDisplayed(text.slice(0, indexRef.current));
+        setTick((value) => value + 1);
+      }, jitter(typingSpeedMs, typingJitterMs));
+      return;
+    }
+
+    phaseRef.current = "hold";
+    timerRef.current = setTimeout(() => {
+      cycleRef.current?.();
+    }, holdMs);
   }, [
     text,
+    reduced,
+    isActive,
+    isVisible,
+    isPaused,
+    tick,
+    startDelayMs,
     typingSpeedMs,
     typingJitterMs,
     holdMs,
-    pauseBeforeClearMs,
-    isPaused,
-    isActive,
-    isVisible,
-    onCycleComplete,
-    disabled,
-    mode,
-    phase,
-    clearTimeoutSafe,
+    clearTimer,
   ]);
-
-  useEffect(() => {
-    // Reset when text changes (new slide)
-    clearTimeoutSafe();
-    indexRef.current = 0;
-    setDisplayed("");
-    setPhase("typing");
-  }, [text, clearTimeoutSafe]);
-
-  const restart = useCallback(() => {
-    clearTimeoutSafe();
-    indexRef.current = 0;
-    setDisplayed("");
-    setPhase("typing");
-  }, [clearTimeoutSafe]);
 
   return {
     displayed,
     fullText: text,
-    isTyping: phase === "typing",
-    isHolding: phase === "hold",
     restart,
   };
 }
