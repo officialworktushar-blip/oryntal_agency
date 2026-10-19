@@ -63,6 +63,7 @@ export const domainCards: DomainCard[] = [
     description:
       "A three-month engagement designed around your operations.",
     icon: Compass,
+    image: "/domain4.webp",
     preview: [
       "Month 1: Understand & plan",
       "Month 2: Build",
