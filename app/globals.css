@@ -73,6 +73,13 @@
     --int-bg-2: #120c2e;
     --int-bg-3: #0f0a26;
 
+    /* Final CTA band — dark navy left, brightest purple right edge */
+    --cta-1: #0f0a26;
+    --cta-2: #5b34d6;
+    --cta-3: #7a52f0;
+    --cta-4: #5f37c8;
+    --cta-5: #0b0720;
+
     color-scheme: light;
   }
 
@@ -130,14 +137,6 @@
     @apply inline-flex items-center justify-center gap-2 rounded-lg border border-brand bg-white px-5 py-3 text-sm font-medium text-brand transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-wash active:translate-y-0;
   }
 
-  .btn-white {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-medium text-brand transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-soft active:translate-y-0;
-  }
-
-  .btn-outline-white {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/70 px-5 py-3 text-sm font-medium text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10 active:translate-y-0;
-  }
-
   .card {
     @apply rounded-2xl border border-line bg-white shadow-card;
   }
@@ -165,15 +164,6 @@
 
   .link-arrow:hover > svg {
     @apply translate-x-1;
-  }
-
-  /* Soft purple radial glow — hero / CTA only */
-  .glow-brand {
-    background: radial-gradient(
-      60% 55% at 50% 0%,
-      rgba(103, 61, 230, 0.14) 0%,
-      rgba(103, 61, 230, 0) 70%
-    );
   }
 
   /* Dark navbar */
@@ -331,6 +321,49 @@
     z-index: 0;
     pointer-events: none;
     opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Final CTA band — dark navy on the left, brightest purple on the right */
+  .cta-gradient {
+    background-color: var(--cta-1);
+    background-image:
+      radial-gradient(
+        55% 70% at 100% 40%,
+        var(--cta-2) 0%,
+        rgba(91, 52, 214, 0) 75%
+      ),
+      radial-gradient(
+        45% 55% at 100% 100%,
+        rgba(122, 82, 240, 0.8) 0%,
+        rgba(122, 82, 240, 0) 70%
+      ),
+      radial-gradient(
+        40% 50% at 70% 10%,
+        rgba(95, 55, 200, 0.45) 0%,
+        rgba(95, 55, 200, 0) 75%
+      ),
+      radial-gradient(
+        50% 70% at 0% 50%,
+        var(--cta-5) 0%,
+        rgba(11, 7, 32, 0) 80%
+      ),
+      linear-gradient(
+        100deg,
+        var(--cta-1) 0%,
+        #1a0f45 55%,
+        #3b22a0 100%
+      );
+  }
+
+  /* Faint film grain for the final CTA band */
+  .cta-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.05;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 

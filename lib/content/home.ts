@@ -52,15 +52,3 @@ export const howItWorks = {
     },
   ],
 };
-
-export const finalCta = {
-  heading: "Ready to orient your business?",
-  description:
-    "Tell us what is slowing you down. We will show you what to build, automate, or buy first — and what it costs.",
-  primary: { href: "/contact", label: "Book a free consultation" },
-  secondary: { href: "/packages", label: "See packages" },
-  image: {
-    label: "Team collaboration photo · 1200×900",
-    hint: "Optional: a real photo of the team or a client workshop.",
-  },
-};
