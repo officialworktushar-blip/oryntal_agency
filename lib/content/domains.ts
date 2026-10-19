@@ -34,6 +34,7 @@ export const domainCards: DomainCard[] = [
     description:
       "Pick only what you need: web and apps, AI, integrations, sourcing support.",
     icon: Layers,
+    image: "/domain2.webp",
     preview: [
       "Websites & Apps",
       "AI & Automation",
@@ -48,6 +49,7 @@ export const domainCards: DomainCard[] = [
     description:
       "Ready-to-use products like QR2 Review, built for real business workflows.",
     icon: Boxes,
+    image: "/domain3.webp",
     preview: [
       "QR2 Review: Complimentary for eligible clients",
       "Client Database & Call-Handling: In development",
