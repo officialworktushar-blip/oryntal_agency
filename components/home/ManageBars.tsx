@@ -11,6 +11,9 @@ import { cn } from "@/lib/cn";
 /* Uneven bar heights (percent) when the cursor is outside the row. */
 const COLLAPSED_HEIGHTS = [100, 52, 100, 76, 100];
 
+/* After a click every non-active bar sits at this same suppressed height. */
+const SUPPRESSED_HEIGHT = 52;
+
 /* Literal mirrors of --manage-card-* (framer can only interpolate real colours). */
 const CARD_COLOURS = ["#22114F", "#1B0E42", "#271363", "#160B38", "#20104A"];
 
@@ -186,6 +189,9 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
 
   const [active, setActive] = useState(0);
   const [engaged, setEngaged] = useState(false);
+  /* Set by a click: only `active` is full size, the rest stay suppressed
+     (all at the same height) until the cursor leaves the row. */
+  const [pinned, setPinned] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -215,12 +221,21 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
+  /* Leaving the tab drops any click-pinned state. */
+  useEffect(() => {
+    if (!isActive) {
+      setPinned(false);
+      setEngaged(false);
+    }
+  }, [isActive]);
+
   /* Autoplay only while idle: in view, on the Manage tab, desktop, not paused. */
   useEffect(() => {
     if (
       reduced ||
       isPaused ||
       engaged ||
+      pinned ||
       !isActive ||
       !isDesktop ||
       !inView ||
@@ -238,6 +253,7 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
     reduced,
     isPaused,
     engaged,
+    pinned,
     isActive,
     isDesktop,
     inView,
@@ -378,13 +394,19 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
     <div
       className="relative mt-10 flex h-[540px] items-end gap-2.5"
       onPointerEnter={() => setEngaged(true)}
-      onPointerLeave={() => setEngaged(false)}
+      onPointerLeave={() => {
+        setEngaged(false);
+        setPinned(false);
+      }}
       onFocus={() => setEngaged(true)}
       onBlur={handleBlur}
     >
       {cards.map((card, index) => {
         const isOpen = index === active;
         const collapsed = COLLAPSED_HEIGHTS[index] ?? 100;
+        /* While pinned, hovering may switch the open card but the row keeps
+           its suppressed heights until the cursor leaves and comes back. */
+        const allLevel = engaged && !pinned;
 
         return (
           <m.div
@@ -392,7 +414,10 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
             initial={false}
             animate={{
               flexGrow: isOpen ? 2.3 : 1,
-              height: engaged || isOpen ? "100%" : `${collapsed}%`,
+              height:
+                isOpen || allLevel
+                  ? "100%"
+                  : `${pinned ? SUPPRESSED_HEIGHT : collapsed}%`,
               backgroundColor: isOpen ? ACTIVE_COLOUR : CARD_COLOURS[index],
             }}
             transition={
@@ -422,9 +447,11 @@ export default function ManageBars({ tab, isActive = true }: ManageBarsProps) {
               onClick={() => {
                 cancelHover();
                 setActive(index);
+                setPinned(true);
               }}
               onKeyDown={(event) => handleKeyDown(event, index)}
               onFocus={() => {
+                setPinned(false);
                 setEngaged(true);
                 setActive(index);
               }}
