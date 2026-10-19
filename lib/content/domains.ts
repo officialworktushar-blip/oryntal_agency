@@ -8,6 +8,8 @@ export type DomainCard = {
   description: string;
   icon: LucideIcon;
   imageLabel: string;
+  /** Real image for the card frame; placeholder shows when missing. */
+  image?: string;
   preview: string[];
 };
 
@@ -21,6 +23,7 @@ export const domainCards: DomainCard[] = [
     icon: Package,
     imageLabel:
       "Add: photo or illustration for Business Packages (portrait, 700x900)",
+    image: "/domain1.webp",
     preview: [
       "Digital Foundation, ₹30,000",
       "Business Automation, ₹70,000",

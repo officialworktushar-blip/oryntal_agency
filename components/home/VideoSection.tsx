@@ -60,12 +60,6 @@ export default function VideoSection() {
 
   return (
     <section className="video-gradient video-grain relative overflow-hidden pt-20 pb-10 md:pt-28 md:pb-12">
-      {/* 120px fade into the section above (white) */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[120px] bg-[linear-gradient(180deg,#ffffff_0%,rgba(255,255,255,0)_100%)]"
-      />
-
       <div className="container-x relative pb-0">
         <m.div
           variants={container}

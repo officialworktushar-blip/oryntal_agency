@@ -68,6 +68,11 @@
     --manage-card-3: #160b38;
     --manage-card-4: #20104a;
 
+    /* Integrations band — dark navy with a purple glow behind the arc */
+    --int-bg-1: #110b2b;
+    --int-bg-2: #120c2e;
+    --int-bg-3: #0f0a26;
+
     color-scheme: light;
   }
 
@@ -292,6 +297,38 @@
     content: "";
     position: absolute;
     inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Integrations band — dark navy meeting the Video section with a straight edge */
+  .integrations-bg {
+    background-color: var(--int-bg-1);
+    background-image:
+      radial-gradient(
+        60% 55% at 50% 38%,
+        rgba(91, 52, 214, 0.35) 0%,
+        rgba(91, 52, 214, 0) 70%
+      ),
+      radial-gradient(
+        40% 40% at 50% 100%,
+        rgba(40, 24, 100, 0.55) 0%,
+        rgba(40, 24, 100, 0) 80%
+      ),
+      linear-gradient(
+        180deg,
+        var(--int-bg-2) 0%,
+        var(--int-bg-3) 100%
+      );
+  }
+
+  /* Barely-visible film grain for the integrations band */
+  .integrations-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
     pointer-events: none;
     opacity: 0.04;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");

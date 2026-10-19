@@ -117,7 +117,14 @@ export default function ServicesExpandingCards() {
                       <MediaPlaceholder
                         type="image"
                         label={card.imageLabel}
-                        className="h-full w-full rounded-none border-dashed border-white/60 bg-transparent text-brand-dark [&_span:first-child]:bg-transparent"
+                        src={card.image}
+                        alt={card.title}
+                        sizes="(max-width: 768px) 100vw, 25vw"
+                        className={
+                          card.image
+                            ? "h-full w-full rounded-none border-0"
+                            : "h-full w-full rounded-none border-dashed border-white/60 bg-transparent text-brand-dark [&_span:first-child]:bg-transparent"
+                        }
                       />
                     </m.div>
 
