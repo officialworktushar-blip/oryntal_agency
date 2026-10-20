@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { m, useReducedMotion } from "framer-motion";
 import { Check, ShieldCheck } from "lucide-react";
-import HeroComposition from "@/components/services/digital-foundation/HeroComposition";
+import HeroOrbit from "@/components/services/digital-foundation/HeroOrbit";
 import { digitalFoundation } from "@/lib/content/packages/digitalFoundation";
 
 const LILAC = "#9B95FF";
@@ -12,6 +12,7 @@ export default function DigitalFoundationHero() {
   const reduced = useReducedMotion() ?? false;
   const {
     packageName,
+    heroLine,
     priceLabel,
     priceNote,
     checklist,
@@ -42,28 +43,36 @@ export default function DigitalFoundationHero() {
       aria-labelledby="df-hero-title"
       className="df-hero-gradient df-hero-grain df-hero-fade relative -mt-[72px] overflow-hidden pb-40 pt-[72px] text-white md:pb-52"
     >
-      <div className="container-x relative grid min-h-[640px] items-center gap-10 lg:grid-cols-[0.85fr_1.35fr] lg:gap-6">
+      <div className="container-x relative grid min-h-[600px] items-center gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
         {/* LEFT */}
-        <div className="relative z-10">
-          <h1
-            id="df-hero-title"
-            className="text-5xl font-normal leading-[1.08] tracking-[-0.03em] lg:text-[64px]"
-          >
-            <m.span className="block" style={{ color: LILAC }} {...line(0.1)}>
+        <div className="relative z-10 min-w-0">
+          <h1 id="df-hero-title" className="mt-4 font-normal tracking-[-0.03em]">
+            <m.span
+              className="block whitespace-normal text-4xl leading-[1.1] sm:whitespace-nowrap md:text-[clamp(28px,3vw,50px)]"
+              style={{ color: LILAC }}
+              {...line(0.1)}
+            >
               {packageName}
+            </m.span>
+            <m.span
+              className="mt-3 block max-w-xl font-normal leading-snug tracking-[-0.02em] text-white/90"
+              style={{ fontSize: "clamp(20px, 2.1vw, 30px)" }}
+              {...line(0.18)}
+            >
+              {heroLine}
             </m.span>
           </h1>
 
-          <ul className="mt-8 space-y-3.5">
+          <ul className="mt-6 max-w-[640px] space-y-2">
             {checklist.map((item, i) => (
               <m.li
                 key={item}
                 initial={{ opacity: 0, x: reduced ? 0 : -12 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 + i * 0.07, ease: "easeOut" }}
-                className="flex items-center gap-3 text-lg text-white"
+                transition={{ duration: 0.4, delay: 0.3 + i * 0.06, ease: "easeOut" }}
+                className="flex items-start gap-2.5 text-base leading-snug text-white md:text-[17px]"
               >
-                <Check className="size-[18px] shrink-0" style={{ color: LILAC }} strokeWidth={2} aria-hidden="true" />
+                <Check className="mt-[3px] size-4 shrink-0" style={{ color: LILAC }} strokeWidth={2} aria-hidden="true" />
                 {item}
               </m.li>
             ))}
@@ -74,7 +83,7 @@ export default function DigitalFoundationHero() {
             initial={{ opacity: 0, y: reduced ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.55, ease: "easeOut" }}
-            className="mt-9 flex items-center gap-3 text-lg"
+            className="mt-7 flex items-center gap-3 text-lg"
           >
             <span className="text-white">Package price</span>
             <span className="relative inline-flex items-center rounded-lg bg-[#673DE6] py-2 pl-5 pr-4 font-bold text-white">
@@ -96,7 +105,7 @@ export default function DigitalFoundationHero() {
             initial={{ opacity: 0, y: reduced ? 0 : 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.65, ease: "easeOut" }}
-            className="mt-8 flex flex-col gap-3 md:flex-row md:items-center"
+            className="mt-6 flex flex-col gap-3 md:flex-row md:items-center"
           >
             <Link
               href={primaryCta.href}
@@ -118,7 +127,7 @@ export default function DigitalFoundationHero() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.8 }}
           >
-            <p className="mt-5 flex items-center gap-2 text-white/85">
+            <p className="mt-4 flex items-center gap-2 text-white/85">
               <ShieldCheck className="size-[18px]" strokeWidth={1.75} aria-hidden="true" />
               {trustLine}
             </p>
@@ -127,8 +136,8 @@ export default function DigitalFoundationHero() {
         </div>
 
         {/* RIGHT */}
-        <div className="relative lg:-mr-16 xl:-mr-28">
-          <HeroComposition />
+        <div className="relative flex justify-center lg:justify-end">
+          <HeroOrbit />
         </div>
       </div>
     </section>

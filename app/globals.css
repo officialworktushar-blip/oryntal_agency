@@ -96,6 +96,11 @@
     --df-5: #c9d8e6;
     --df-6: #e4ecf4;
 
+    /* Digital Foundation hero — orbit design */
+    --orbit-glow: 99 61 230; /* #673DE6 */
+    --orbit-ring: 123 92 255; /* #7B5CFF */
+    --orbit-bg: 8 6 22;
+
     color-scheme: light;
   }
 
@@ -312,6 +317,39 @@
   @media (max-width: 767px) {
     .df-sidebar {
       display: none;
+    }
+  }
+
+  /* Digital Foundation hero — tilted "orbit" stage */
+  .df-orbit-stage {
+    transform: rotate(-5deg);
+    -webkit-mask-image: radial-gradient(
+      closest-side,
+      #000 70%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(closest-side, #000 70%, transparent 100%);
+  }
+
+  @media (min-width: 768px) {
+    .df-orbit-stage {
+      transform: rotate(-7deg);
+    }
+  }
+
+  .df-orbit-tile {
+    width: 8%;
+    min-width: 40px;
+  }
+
+  .df-orbit-tilebox {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .df-orbit-tile {
+      width: 9.5%;
+      min-width: 42px;
     }
   }
 
