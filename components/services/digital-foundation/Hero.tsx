@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { m, useReducedMotion } from "framer-motion";
-import { ChevronRight, Check, ShieldCheck } from "lucide-react";
+import { Check, ShieldCheck } from "lucide-react";
 import HeroComposition from "@/components/services/digital-foundation/HeroComposition";
 import { digitalFoundation } from "@/lib/content/packages/digitalFoundation";
 
@@ -19,7 +19,6 @@ export default function DigitalFoundationHero() {
     secondaryCta,
     trustLine,
     feeNote,
-    crumbs,
   } = digitalFoundation;
 
   const line = (delay: number) => ({
@@ -41,36 +40,14 @@ export default function DigitalFoundationHero() {
   return (
     <section
       aria-labelledby="df-hero-title"
-      className="df-hero-gradient df-hero-grain df-hero-fade relative overflow-hidden pb-40 pt-[72px] text-white md:pb-52"
+      className="df-hero-gradient df-hero-grain df-hero-fade relative -mt-[72px] overflow-hidden pb-40 pt-[72px] text-white md:pb-52"
     >
       <div className="container-x relative grid min-h-[640px] items-center gap-10 lg:grid-cols-[0.85fr_1.35fr] lg:gap-6">
         {/* LEFT */}
         <div className="relative z-10">
-          <m.nav aria-label="Breadcrumb" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-            <ol className="flex flex-wrap items-center gap-1.5 text-sm text-white/60">
-              {crumbs.map((crumb, i) => {
-                const last = i === crumbs.length - 1;
-                return (
-                  <li key={crumb.label} className="flex items-center gap-1.5">
-                    {crumb.href ? (
-                      <Link href={crumb.href} className="transition-colors hover:text-white">
-                        {crumb.label}
-                      </Link>
-                    ) : (
-                      <span aria-current="page" className="text-white">
-                        {crumb.label}
-                      </span>
-                    )}
-                    {!last ? <ChevronRight className="size-3.5 text-white/40" aria-hidden="true" /> : null}
-                  </li>
-                );
-              })}
-            </ol>
-          </m.nav>
-
           <h1
             id="df-hero-title"
-            className="mt-6 text-5xl font-normal leading-[1.08] tracking-[-0.03em] lg:text-[64px]"
+            className="text-5xl font-normal leading-[1.08] tracking-[-0.03em] lg:text-[64px]"
           >
             <m.span className="block" style={{ color: LILAC }} {...line(0.1)}>
               {packageName}
