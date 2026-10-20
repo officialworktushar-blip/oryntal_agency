@@ -25,6 +25,9 @@ export type HowItWorksTab = {
     label: string;
     hint: string;
   };
+  /** Optional muted loop shown in the stage media frame when a src exists. */
+  videoSrc?: string;
+  posterSrc?: string;
   chipsIntro?: string;
   chips?: HowItWorksChip[];
   slides?: HowItWorksSlide[];

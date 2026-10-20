@@ -16,8 +16,6 @@ import {
   CreditCard,
   Lock,
   MessageCircle,
-  Pause,
-  Play,
   Truck,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -37,8 +35,6 @@ export type LaunchShowcaseTab = HowItWorksTab & {
   keywordLine: string;
   browser: { url: string };
   toasts: Array<{ icon: string; title: string; sub: string }>;
-  videoSrc?: string;
-  posterSrc?: string;
 };
 
 type LaunchShowcaseProps = {
@@ -59,11 +55,12 @@ const toastVariants = {
 
 export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) {
   const [toastIndex, setToastIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  /* Hover / focus inside the stage temporarily pauses the toast loop. */
+  const [engaged, setEngaged] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const isInView = useInView(containerRef, { amount: 0.3 });
+  const isInView = useInView(containerRef, { amount: 0.25 });
   const reduced = useReducedMotion() ?? false;
 
   const hasVideo = Boolean(tab.videoSrc);
@@ -98,24 +95,22 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
   }, [toasts.length]);
 
   useEffect(() => {
-    if (reduced || isPaused || !isInView || !pageVisible) return;
+    if (reduced || engaged || !isInView || !pageVisible) return;
     const timer = setTimeout(goToNextToast, 2200);
     return () => clearTimeout(timer);
-  }, [toastIndex, reduced, isPaused, isInView, pageVisible, goToNextToast]);
+  }, [toastIndex, reduced, engaged, isInView, pageVisible, goToNextToast]);
 
+  /* Video runs by itself: plays while the stage is on screen and the tab is
+     visible, pauses otherwise (performance only — not a user control). */
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    if (reduced) {
+    if (reduced || !isInView || !pageVisible) {
       video.pause();
       return;
     }
-    if (!isPaused && isInView && pageVisible) {
-      video.play().catch(() => {});
-    } else {
-      video.pause();
-    }
-  }, [isInView, isPaused, pageVisible, reduced]);
+    video.play().catch(() => {});
+  }, [isInView, pageVisible, reduced]);
 
   useEffect(() => {
     const onVisibilityChange = () => {
@@ -148,6 +143,14 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
       />
       <div
         ref={containerRef}
+        onPointerEnter={() => setEngaged(true)}
+        onPointerLeave={() => setEngaged(false)}
+        onFocus={() => setEngaged(true)}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+            setEngaged(false);
+          }
+        }}
         className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-16 lg:items-center"
       >
         {/* Left */}
@@ -230,6 +233,7 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
                     ref={videoRef}
                     src={tab.videoSrc}
                     poster={tab.posterSrc || undefined}
+                    autoPlay={!reduced}
                     muted
                     loop
                     playsInline
@@ -287,21 +291,6 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
               Illustrative notifications: payment received, WhatsApp
               confirmation sent, order dispatched.
             </p>
-
-            {/* Pause */}
-            <button
-              type="button"
-              aria-label={isPaused ? "Play animation" : "Pause animation"}
-              aria-pressed={isPaused}
-              onClick={() => setIsPaused((p) => !p)}
-              className="absolute bottom-4 right-4 z-20 grid size-10 place-items-center rounded-full border border-white bg-white/60 text-ink shadow-sm backdrop-blur transition-colors hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-            >
-              {isPaused ? (
-                <Play className="size-4" />
-              ) : (
-                <Pause className="size-4" />
-              )}
-            </button>
           </div>
         </m.div>
       </div>

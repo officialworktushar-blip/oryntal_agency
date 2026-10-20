@@ -4,6 +4,7 @@ import Link from "next/link";
 import { m, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { connections } from "@/lib/content/connections";
+import { industries } from "@/lib/content/industries";
 import IntegrationsArc from "./IntegrationsArc";
 
 function nameSentence() {
@@ -12,6 +13,12 @@ function nameSentence() {
   const last = names[names.length - 1];
   const head = names.slice(0, -1).join(", ");
   return `ORYNTAL integrates tools such as ${head}, and ${last}.`;
+}
+
+function industrySentence() {
+  const names = industries.map((item) => item.name);
+  if (names.length === 0) return "";
+  return `ORYNTAL builds websites, AI systems, and automation for industries such as ${names.join(", ")}.`;
 }
 
 export default function Integrations() {
@@ -67,7 +74,8 @@ export default function Integrations() {
             className="mx-auto mt-5 max-w-2xl text-base text-white/75 md:text-lg"
           >
             We connect payments, WhatsApp, CRM, AI, and data tools into one
-            workflow, so your business runs without switching between apps.
+            workflow, for businesses in e-commerce, real estate, B2B, startups,
+            and more.
           </m.p>
 
           <m.div variants={item} className="mt-6">
@@ -91,7 +99,9 @@ export default function Integrations() {
           </m.p>
         </m.div>
 
-        <p className="sr-only">{nameSentence()}</p>
+        <p className="sr-only">
+          {nameSentence()} {industrySentence()}
+        </p>
       </div>
     </section>
   );

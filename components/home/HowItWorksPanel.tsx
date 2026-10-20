@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { m, useReducedMotion, type Variants } from "framer-motion";
+import { m, useInView, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 import StageHeader from "./StageHeader";
@@ -22,6 +23,30 @@ export default function HowItWorksPanel({
 }: HowItWorksPanelProps) {
   const reduced = useReducedMotion() ?? false;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+  const mediaRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [pageVisible, setPageVisible] = useState(true);
+  const inView = useInView(mediaRef, { amount: 0.25 });
+
+  useEffect(() => {
+    const onVisibility = () =>
+      setPageVisible(document.visibilityState === "visible");
+    onVisibility();
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
+
+  /* Runs by itself while the stage is on screen and the tab is visible. */
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (reduced || !inView || !pageVisible) {
+      video.pause();
+      return;
+    }
+    video.play().catch(() => {});
+  }, [inView, pageVisible, reduced]);
 
   const mediaVariants: Variants = {
     hidden: reduced ? { opacity: 0 } : { opacity: 0, x: -40 },
@@ -89,18 +114,34 @@ export default function HowItWorksPanel({
           viewport={{ once: true, margin: "-15% 0px" }}
           className="relative aspect-video rounded-3xl bg-white/70 shadow-[0_20px_60px_rgba(103,61,230,0.12)] ring-1 ring-white/70"
         >
-          {tab.media && (
-            <MediaPlaceholder
-              type="video"
-              aspect="16/9"
-              label={tab.media.label}
-              hint={tab.media.hint}
-              className="h-full w-full justify-end rounded-3xl border-[#673DE6]/40 bg-transparent pb-12 text-[#2F1C6A] [&>span:first-child]:hidden"
-            />
-          )}
+          <div ref={mediaRef} className="absolute inset-0 overflow-hidden rounded-3xl">
+            {tab.videoSrc ? (
+              <video
+                ref={videoRef}
+                src={tab.videoSrc}
+                poster={tab.posterSrc || undefined}
+                autoPlay={!reduced}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              tab.media && (
+                <MediaPlaceholder
+                  type="video"
+                  aspect="16/9"
+                  label={tab.media.label}
+                  hint={tab.media.hint}
+                  className="h-full w-full justify-end rounded-3xl border-[#673DE6]/40 bg-transparent pb-12 text-[#2F1C6A] [&>span:first-child]:hidden"
+                />
+              )
+            )}
+          </div>
 
           {/* Glass chip */}
-          <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-medium text-ink shadow-md backdrop-blur">
+          <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1.5 text-xs font-medium text-ink shadow-md backdrop-blur">
             <span className="size-1.5 rounded-full bg-[#673DE6]" />
             <span>{tab.label}</span>
           </div>

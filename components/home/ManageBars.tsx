@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { m, useInView, useReducedMotion, type Transition, type Variants } from "framer-motion";
-import { ArrowRight, ChevronDown, Pause, Play, User } from "lucide-react";
+import { ArrowRight, ChevronDown, User } from "lucide-react";
 import type { ManageAccordionTab, ManageCard } from "@/lib/content/howItWorks";
 import StageHeader from "./StageHeader";
 import { cn } from "@/lib/cn";
@@ -192,7 +192,6 @@ export default function ManageBars({ tab, headingId }: ManageBarsProps) {
   /* Set by a click: only `active` is full size, the rest stay suppressed
      (all at the same height) until the cursor leaves the row. */
   const [pinned, setPinned] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -222,11 +221,10 @@ export default function ManageBars({ tab, headingId }: ManageBarsProps) {
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
-  /* Autoplay only while idle: in view, desktop, not paused. */
+  /* Autoplay while idle: in view, desktop, page visible, pointer/focus out. */
   useEffect(() => {
     if (
       reduced ||
-      isPaused ||
       engaged ||
       pinned ||
       !isDesktop ||
@@ -243,7 +241,6 @@ export default function ManageBars({ tab, headingId }: ManageBarsProps) {
     return () => clearInterval(timer);
   }, [
     reduced,
-    isPaused,
     engaged,
     pinned,
     isDesktop,
@@ -468,21 +465,17 @@ export default function ManageBars({ tab, headingId }: ManageBarsProps) {
           </m.div>
         );
       })}
-
-      <button
-        type="button"
-        aria-label={isPaused ? "Play animation" : "Pause animation"}
-        aria-pressed={isPaused}
-        onClick={() => setIsPaused((value) => !value)}
-        className="absolute bottom-4 right-4 z-30 grid size-10 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition-colors hover:bg-white/25 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/70"
-      >
-        {isPaused ? <Play className="size-4" /> : <Pause className="size-4" />}
-      </button>
     </div>
   );
 
   const renderAccordion = () => (
-    <div className="mt-10 flex flex-col gap-3">
+    <div
+      className="mt-10 flex flex-col gap-3"
+      onPointerEnter={() => setEngaged(true)}
+      onPointerLeave={() => setEngaged(false)}
+      onFocus={() => setEngaged(true)}
+      onBlur={handleBlur}
+    >
       {cards.map((card, index) => {
         const isOpen = index === active;
 

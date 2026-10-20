@@ -14,8 +14,6 @@ import {
   Bot,
   ChevronRight,
   MessageCircle,
-  Pause,
-  Play,
   QrCode,
   TrendingUp,
   Workflow,
@@ -61,7 +59,6 @@ export default function GrowTypingStack({
   const slideCount = slides.length;
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
@@ -71,7 +68,8 @@ export default function GrowTypingStack({
   const inView = useInView(rootRef, { amount: 0.35 });
 
   const activeSlide = slides[activeIndex];
-  const paused = isPaused || isHovered || isFocused;
+  /* Hover / focus over the stack still temporarily pauses the typing loop. */
+  const paused = isHovered || isFocused;
 
   const revealGroup: Variants = {
     hidden: {},
@@ -299,21 +297,6 @@ export default function GrowTypingStack({
               <p key={`prompt-${idx}`}>{slide.prompt}</p>
             ))}
           </div>
-
-          {/* Pause / play */}
-          <button
-            type="button"
-            aria-label={isPaused ? "Play animation" : "Pause animation"}
-            aria-pressed={isPaused}
-            onClick={() => setIsPaused((value) => !value)}
-            className="absolute bottom-0 right-0 grid size-10 place-items-center rounded-full bg-black/10 text-ink backdrop-blur transition-colors hover:bg-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-          >
-            {isPaused ? (
-              <Play className="size-4" />
-            ) : (
-              <Pause className="size-4" />
-            )}
-          </button>
 
           {/* Dots */}
           <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2">
