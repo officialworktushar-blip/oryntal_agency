@@ -73,8 +73,7 @@
     --int-bg-2: #120c2e;
     --int-bg-3: #0f0a26;
 
-    /* Integrations industry arc — outer track line + dark glass industry tiles */
-    --int-track: rgba(185, 168, 255, 0.35);
+    /* Integrations industry tiles — dark glass floating around the tools arc */
     --int-tile-grad: linear-gradient(160deg, #2b2347 0%, #1b1433 100%);
     --int-tile-border: rgba(255, 255, 255, 0.1);
     --int-tile-border-hot: rgba(255, 255, 255, 0.25);

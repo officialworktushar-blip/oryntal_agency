@@ -66,60 +66,187 @@ const MOBILE_TOP_DEPTH = 46;
 const MOBILE_TILE_BASE = 20;
 
 /* ---------------------------------------------------------------
-   Outer industry arc — a parabola concentric with the tools arc.
-   Positions are percentages of the stage; the stage design height
-   is 470px (aspect 1240/470) on md+ and 0.95 of the width below.
+   Industry tiles: scattered anchors that float gently around the
+   tools arc (never on a fixed path). Positions are percentages of
+   the stage; the stage is aspect 1240/470 on md+ and 0.95 of the
+   width below md.
 ---------------------------------------------------------------- */
-const T_HALF = 1.15;
-const FADE_T = 0.9;
-const DESIGN_HEIGHT = 470;
-const IND_TOP_BASE = 6;
-const IND_TOP_DEPTH = 180;
-const IND_TOP_CAP = 1.3;
-/* A full loop around the arc takes ~110 seconds. */
-const DRIFT_SPEED = 1 / 110;
+
 /* How many industries are shown below md. */
 const MOBILE_INDUSTRY_COUNT = 6;
 
-type ArcShape = { spread: number; maxW: number; count: number };
+/* Same size list the tools arc uses, so we can avoid overlapping it. */
+const TOOL_SIZES = [0.4, 0.5, 0.62, 0.76, 0.88, 1, 0.88, 0.76, 0.62, 0.5, 0.4];
 
-const DESKTOP_SHAPE: ArcShape = { spread: 46, maxW: 8, count: 10 };
-const MOBILE_SHAPE: ArcShape = {
-  spread: 44,
-  maxW: 14,
-  count: MOBILE_INDUSTRY_COUNT,
+const DESKTOP_BOX_FRAC = 330 / 470; /* tools inner box / stage height */
+const DESKTOP_BOX_TOP = 100 * (1 - DESKTOP_BOX_FRAC);
+const MOBILE_BOX_FRAC = 330 / 1240 / 0.95;
+const MOBILE_BOX_TOP = 100 * (1 - MOBILE_BOX_FRAC);
+/* Design widths used to convert px paddings into percentages. */
+const DESKTOP_DESIGN_W = 1240;
+const MOBILE_DESIGN_W = 328;
+
+/* Tile height in stage-height % for a given width in stage-width %. */
+function heightPctOf(w: number, mobile: boolean) {
+  return w * (mobile ? 1 / 0.95 : DESKTOP_DESIGN_W / 470);
+}
+
+/* Deterministic pseudo-random in [0, 1). */
+function rand(seed: number, salt: number) {
+  const v = Math.sin(seed * 127.1 + salt * 311.7 + 13.37) * 43758.5453;
+  return v - Math.floor(v);
+}
+
+/* Topmost tool-tile edge (stage-height %) near a given x (stage-width %). */
+function toolTopNear(x: number, mobile: boolean) {
+  let top = 100;
+  for (let i = 0; i < TOOL_SIZES.length; i += 1) {
+    let t: number;
+    let xi: number;
+    let wi: number;
+    let base: number;
+    let depth: number;
+    let boxTop: number;
+    let boxFrac: number;
+    if (mobile) {
+      if (i < 2 || i > 8) continue;
+      t = (i - 5) / 3;
+      xi = 50 + t * 44;
+      wi = TOOL_SIZES[i] * 20;
+      base = 8;
+      depth = 46;
+      boxTop = MOBILE_BOX_TOP;
+      boxFrac = MOBILE_BOX_FRAC;
+    } else {
+      t = (i - 5) / 5;
+      xi = 50 + t * 46;
+      wi = TOOL_SIZES[i] * 9.4;
+      base = 6;
+      depth = 52;
+      boxTop = DESKTOP_BOX_TOP;
+      boxFrac = DESKTOP_BOX_FRAC;
+    }
+    if (Math.abs(x - xi) > wi / 2 + (mobile ? 5 : 4)) continue;
+    top = Math.min(top, boxTop + (base + depth * t * t) * boxFrac);
+  }
+  return top;
+}
+
+type IndustryAnchor = {
+  /** Anchor x in stage-width %. */
+  x: number;
+  /** Anchor y in stage-height %. */
+  y: number;
+  /** Tile width in stage-width %. */
+  w: number;
+  /** Bob amplitudes + speeds + phases for the slow floating motion. */
+  ax: number;
+  ay: number;
+  wx: number;
+  wy: number;
+  px: number;
+  py: number;
 };
 
-/* x%, top% (of stage height), width% and opacity for a given t in [-1.15, 1.15]. */
-function industryGeom(t: number, shape: ArcShape) {
-  const spacing = ((2.3 / shape.count) * shape.spread);
-  const centreW = Math.min(shape.maxW, 0.8 * spacing);
-  const shrink = 1 - 0.45 * Math.min(Math.abs(t), 1);
-  const w = centreW * shrink;
-  const x = 50 + t * shape.spread;
-  const top =
-    ((IND_TOP_BASE + IND_TOP_DEPTH * Math.min(t * t, IND_TOP_CAP)) /
-      DESIGN_HEIGHT) *
-    100;
-  const absT = Math.abs(t);
-  const opacity =
-    absT <= FADE_T ? 1 : Math.max(0, (T_HALF - absT) / (T_HALF - FADE_T));
-  return { x, top, w, opacity };
-}
+type Box = { l: number; r: number; t: number; b: number };
 
-function tForPhase(u: number) {
-  return -T_HALF + 2 * T_HALF * u;
-}
+/* Scattered anchors above / beside the tools arc, with clearance. */
+function scatterAnchors(count: number, mobile: boolean): IndustryAnchor[] {
+  const maxW = mobile ? 14 : 8;
+  const xMin = mobile ? 8 : 4;
+  const xMax = mobile ? 92 : 96;
+  const designW = mobile ? MOBILE_DESIGN_W : DESKTOP_DESIGN_W;
+  const pxH = (designW * (mobile ? 0.95 : 470 / 1240)) / 100; /* px per height % */
+  const labelH = (mobile ? 22 : 25) / pxH;
+  const clearH = (mobile ? 22 : 24) / pxH;
+  const cellW = (xMax - xMin) / count;
 
-/* The dotted track line samples the exact same function as the tiles. */
-function trackPathD(shape: ArcShape) {
-  const steps = 48;
-  let d = "";
-  for (let i = 0; i <= steps; i++) {
-    const g = industryGeom(tForPhase(i / steps), shape);
-    d += `${i === 0 ? "M" : "L"}${g.x.toFixed(3)} ${g.top.toFixed(3)} `;
+  const anchors: IndustryAnchor[] = [];
+  const boxes: Box[] = [];
+
+  for (let i = 0; i < count; i += 1) {
+    let pick: IndustryAnchor | null = null;
+    let box: Box | null = null;
+    let best: { anchor: IndustryAnchor; box: Box; score: number } | null =
+      null;
+
+    for (let attempt = 0; attempt < 16; attempt += 1) {
+      /* Stratified x: every tile owns a column, so they never cluster. */
+      const x = xMin + (i + 0.12 + 0.76 * rand(i, attempt * 3 + 1)) * cellW;
+      const w = maxW * (0.66 + 0.34 * rand(i, attempt * 3 + 2));
+      const h = heightPctOf(w, mobile);
+      const topLimit = toolTopNear(x, mobile) - h - labelH - clearH;
+      if (topLimit < 1.2) continue;
+      const y = 1.2 + rand(i, attempt * 3 + 3) * (topLimit - 1.2);
+      const candidate: IndustryAnchor = {
+        x,
+        y,
+        w,
+        ax: 0.35 + rand(i, 11) * 0.65,
+        ay: 0.45 + rand(i, 12) * 0.75,
+        wx: (2 * Math.PI) / (7 + rand(i, 13) * 8),
+        wy: (2 * Math.PI) / (9 + rand(i, 14) * 9),
+        px: rand(i, 15) * Math.PI * 2,
+        py: rand(i, 16) * Math.PI * 2,
+      };
+      const candidateBox = {
+        l: x - w / 2 - 1,
+        r: x + w / 2 + 1,
+        t: y - 1.5,
+        b: y + h + labelH + 1.5,
+      };
+      /* Two boxes overlap only when they collide on both axes. */
+      let worstOverlap = 0;
+      let fits = true;
+      for (const p of boxes) {
+        const xGap = Math.max(candidateBox.l - p.r, p.l - candidateBox.r);
+        const yGap = Math.max(candidateBox.t - p.b, p.t - candidateBox.b);
+        if (xGap <= 0 && yGap <= 0) {
+          fits = false;
+          worstOverlap = Math.max(worstOverlap, Math.min(-xGap, -yGap));
+        }
+      }
+      if (fits) {
+        pick = candidate;
+        box = candidateBox;
+        break;
+      }
+      if (!best || -worstOverlap > best.score) {
+        best = { anchor: candidate, box: candidateBox, score: -worstOverlap };
+      }
+    }
+
+    if (!pick && best) {
+      pick = best.anchor;
+      box = best.box;
+    }
+
+    if (!pick || !box) {
+      const w = maxW * 0.72;
+      pick = {
+        x: 50,
+        y: 2,
+        w,
+        ax: 0.5,
+        ay: 0.6,
+        wx: (2 * Math.PI) / 10,
+        wy: (2 * Math.PI) / 12,
+        px: rand(i, 15) * Math.PI * 2,
+        py: rand(i, 16) * Math.PI * 2,
+      };
+      box = {
+        l: 50 - w / 2,
+        r: 50 + w / 2,
+        t: 2,
+        b: 2 + heightPctOf(w, mobile) + labelH,
+      };
+    }
+
+    anchors.push(pick);
+    boxes.push(box);
   }
-  return d.trim();
+
+  return anchors;
 }
 
 function TileIcon({ name, color }: { name: string; color: string }) {
@@ -320,7 +447,7 @@ function IndustryTile({
     >
       <span className="sr-only">{item.name}</span>
 
-      {/* Entrance only — the drift itself writes transform/opacity on the li. */}
+      {/* Entrance only — the float loop itself writes transform on the li. */}
       <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: revealed ? 1 : 0 }}
@@ -374,7 +501,6 @@ export default function IntegrationsArc() {
   /* Frozen while the pointer rests on an industry tile. */
   const [frozen, setFrozen] = useState(false);
 
-  const shape = isMobile ? MOBILE_SHAPE : DESKTOP_SHAPE;
   const visibleIndustries = isMobile
     ? industries.slice(0, MOBILE_INDUSTRY_COUNT)
     : industries;
@@ -385,6 +511,7 @@ export default function IntegrationsArc() {
   const lastFrame = useRef<number | null>(null);
   const runningRef = useRef(false);
   const applyRef = useRef<() => void>(() => {});
+  const anchorsRef = useRef<IndustryAnchor[]>([]);
 
   const rawParallax = useMotionValue(0);
   const parallax = useSpring(rawParallax, {
@@ -393,25 +520,31 @@ export default function IntegrationsArc() {
     mass: 0.4,
   });
 
-  /* Position/size/opacity for every tile from the shared geometry. */
+  /* Every tile floats gently around its scattered anchor. */
   applyRef.current = () => {
     const { w: stageW, h: stageH } = stageSize.current;
     if (!stageW || !stageH) return;
-    for (let i = 0; i < shape.count; i += 1) {
+    const anchors = anchorsRef.current;
+    for (let i = 0; i < anchors.length; i += 1) {
       const node = tileRefs.current[i];
-      if (!node) continue;
-      const u = reduced
-        ? (i + 0.5) / shape.count
-        : (((i / shape.count + elapsed.current * DRIFT_SPEED) % 1) + 1) % 1;
-      const g = industryGeom(tForPhase(u), shape);
-      const widthPx = (g.w / 100) * stageW;
-      const xPx = (g.x / 100) * stageW - widthPx / 2;
-      const yPx = (g.top / 100) * stageH;
-      node.style.width = `${g.w}%`;
-      node.style.transform = `translate3d(${xPx.toFixed(2)}px, ${yPx.toFixed(2)}px, 0)`;
-      node.style.opacity = reduced ? "1" : g.opacity.toFixed(3);
+      const anchor = anchors[i];
+      if (!node || !anchor) continue;
+      const x = reduced
+        ? anchor.x
+        : anchor.x + anchor.ax * Math.sin(elapsed.current * anchor.wx + anchor.px);
+      const y = reduced
+        ? anchor.y
+        : anchor.y + anchor.ay * Math.sin(elapsed.current * anchor.wy + anchor.py);
+      const widthPx = (anchor.w / 100) * stageW;
+      node.style.width = `${anchor.w}%`;
+      node.style.transform = `translate3d(${((x / 100) * stageW - widthPx / 2).toFixed(2)}px, ${((y / 100) * stageH).toFixed(2)}px, 0)`;
     }
   };
+
+  useIsoLayoutEffect(() => {
+    anchorsRef.current = scatterAnchors(visibleIndustries.length, isMobile);
+    applyRef.current();
+  }, [visibleIndustries.length, isMobile]);
 
   useIsoLayoutEffect(() => {
     applyRef.current();
@@ -490,46 +623,12 @@ export default function IntegrationsArc() {
       onPointerLeave={() => rawParallax.set(0)}
       className="relative mx-auto aspect-[1/0.95] w-full max-w-[1240px] md:aspect-[1240/470]"
     >
-      {/* Outer arc: industry tiles drifting along a dotted track */}
+      {/* Industry tiles floating scattered around the tools arc */}
       <div
         onPointerEnter={() => setFrozen(true)}
         onPointerLeave={() => setFrozen(false)}
         className="pointer-events-none absolute inset-x-0 top-0 z-10 h-full"
       >
-        <m.svg
-          aria-hidden="true"
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: revealed ? 1 : 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="pointer-events-none absolute inset-0 h-full w-full"
-        >
-          <defs>
-            <linearGradient
-              id="integrations-industry-track"
-              gradientUnits="userSpaceOnUse"
-              x1="0"
-              y1="0"
-              x2="100"
-              y2="0"
-            >
-              <stop offset="0" stopColor="var(--int-track)" stopOpacity="0" />
-              <stop offset="0.5" stopColor="var(--int-track)" />
-              <stop offset="1" stopColor="var(--int-track)" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <path
-            d={trackPathD(shape)}
-            fill="none"
-            stroke="url(#integrations-industry-track)"
-            strokeWidth="2"
-            strokeDasharray="1 9"
-            strokeLinecap="round"
-            vectorEffect="non-scaling-stroke"
-          />
-        </m.svg>
-
         <ul
           role="list"
           aria-label="Industries ORYNTAL builds for"
