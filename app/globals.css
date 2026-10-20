@@ -313,13 +313,6 @@
     background-image: linear-gradient(180deg, var(--df-6) 0%, #ffffff 100%);
   }
 
-  /* The dashboard sidebar is hidden on small screens */
-  @media (max-width: 767px) {
-    .df-sidebar {
-      display: none;
-    }
-  }
-
   /* Digital Foundation hero — tilted "orbit" stage */
   .df-orbit-stage {
     transform: rotate(-5deg);

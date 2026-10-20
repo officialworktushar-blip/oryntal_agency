@@ -143,6 +143,7 @@ export const growTab: GrowTypingTab = {
       prompt:
         "Set up a WhatsApp chatbot that answers customer questions and captures every lead.",
       alt: "WhatsApp chatbot answering a customer enquiry and capturing a lead",
+      mediaSrc: "/grow/grow1.webp",
       media: {
         label:
           "Add: WhatsApp chat UI mockup, customer enquiry answered automatically (landscape 3:2, 1200x800)",
@@ -152,6 +153,7 @@ export const growTab: GrowTypingTab = {
     {
       prompt: "Build an AI agent that follows up with new leads automatically.",
       alt: "AI agent following up with new business leads",
+      mediaSrc: "/grow/grow2.webp",
       media: {
         label:
           "Add: AI agent conversation or dashboard mockup (landscape 3:2, 1200x800)",
@@ -162,6 +164,7 @@ export const growTab: GrowTypingTab = {
       prompt:
         "Automate order confirmations, payment updates, and shipping notifications.",
       alt: "Automated order, payment and shipping notification workflow",
+      mediaSrc: "/grow/grow3.webp",
       media: {
         label:
           "Add: order automation flow mockup: order, payment, shipping update (landscape 3:2, 1200x800)",
@@ -172,6 +175,7 @@ export const growTab: GrowTypingTab = {
       prompt: "Add a QR code so happy customers can leave a review in seconds.",
       alt: "Customer scanning a QR code to leave a review",
       badge: "QR2 Review: complimentary for eligible clients",
+      mediaSrc: "/grow/grow4.webp",
       media: {
         label:
           "Add: phone mockup scanning a QR code to open a review page (landscape 3:2, 1200x800)",
@@ -182,6 +186,7 @@ export const growTab: GrowTypingTab = {
       prompt: "Help me find suppliers and wholesale partners for my products.",
       alt: "Business sourcing suppliers and wholesale partners",
       badge: "Through ORYNTAL's available contacts, where suitable",
+      mediaSrc: "/grow/grow5.webp",
       media: {
         label:
           "Add: sourcing visual: packaging, products, logistics (landscape 3:2, 1200x800)",
