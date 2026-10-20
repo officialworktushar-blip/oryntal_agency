@@ -88,6 +88,14 @@
     --cta-4: #5f37c8;
     --cta-5: #0b0720;
 
+    /* Digital Foundation hero — near-black → steel blue → pale blue-white */
+    --df-1: #0b0d12;
+    --df-2: #0e1218;
+    --df-3: #1b2838;
+    --df-4: #5e7c98;
+    --df-5: #c9d8e6;
+    --df-6: #e4ecf4;
+
     color-scheme: light;
   }
 
@@ -247,6 +255,64 @@
     opacity: 0.06;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Digital Foundation hero — near-black → steel blue → pale blue-white bottom */
+  .df-hero-gradient {
+    background-color: var(--df-1);
+    background-image:
+      radial-gradient(
+        60% 40% at 50% 100%,
+        var(--df-6) 0%,
+        rgba(230, 238, 246, 0) 75%
+      ),
+      radial-gradient(
+        45% 35% at 15% 100%,
+        rgba(120, 150, 180, 0.55) 0%,
+        rgba(120, 150, 180, 0) 70%
+      ),
+      radial-gradient(
+        40% 40% at 90% 60%,
+        rgba(40, 60, 85, 0.55) 0%,
+        rgba(40, 60, 85, 0) 75%
+      ),
+      linear-gradient(
+        180deg,
+        var(--df-1) 0%,
+        var(--df-2) 38%,
+        var(--df-3) 62%,
+        var(--df-4) 82%,
+        var(--df-5) 94%,
+        var(--df-6) 100%
+      );
+  }
+
+  /* Faint film grain over the Digital Foundation hero */
+  .df-hero-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* 48px pale → white fade that hands off to the next (white) section */
+  .df-hero-fade::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 48px;
+    pointer-events: none;
+    background-image: linear-gradient(180deg, var(--df-6) 0%, #ffffff 100%);
+  }
+
+  /* The dashboard sidebar is hidden on small screens */
+  @media (max-width: 767px) {
+    .df-sidebar {
+      display: none;
+    }
   }
 
   /* Reusable brand gradient text (blue → violet → magenta) with a slow drift */

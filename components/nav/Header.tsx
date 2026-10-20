@@ -49,8 +49,10 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Home, at the very top of the page: let the hero gradient show through.
-  const transparent = pathname === "/" && !scrolled && !megaOpen;
+  // Pages whose hero starts dark: let the gradient show through at the very top.
+  const transparentTopRoutes = ["/", "/services/business-packages/digital-foundation"];
+  const transparent =
+    transparentTopRoutes.includes(pathname) && !scrolled && !megaOpen;
 
   return (
     <>

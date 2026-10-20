@@ -38,7 +38,7 @@ export const menuDomains: NavMenuDomain[] = [
     href: "/services/business-packages",
     items: [
       {
-        href: "/services/business-packages",
+        href: "/services/business-packages/digital-foundation",
         label: "Digital Foundation Package",
         description: "₹30,000",
         icon: Rocket,

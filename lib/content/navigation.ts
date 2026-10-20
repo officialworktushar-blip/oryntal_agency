@@ -46,7 +46,7 @@ export const domains: NavDomain[] = [
       "Fixed-scope, ready-to-launch packages for the most common business needs.",
     items: [
       {
-        href: "/services/business-packages#digital-foundation",
+        href: "/services/business-packages/digital-foundation",
         label: "Digital Foundation",
         description: "Business site with lead capture, live in about 2 weeks.",
         icon: Rocket,
