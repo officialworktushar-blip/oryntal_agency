@@ -109,11 +109,15 @@ export const digitalFoundation: DigitalFoundationContent = {
   price: 30000,
   priceLabel: "₹30,000",
   priceNote: "one-time",
-  heroLine: "A professional online presence, built right from day one.",
+  heroLine: "",
   checklist: [
     "A professional website designed around your business",
-    "Lead capture and WhatsApp integration built in",
-    "SSL security and registration guidance included",
+    "Lead capture forms that turn visitors into enquiries",
+    "WhatsApp and essential business links built in",
+    "Basic automation for repetitive tasks, where feasible",
+    "SSL/HTTPS and essential security set up from day one",
+    "MSME/Udyam registration guidance, where applicable",
+    "Digital setup guidance to get your business online",
   ],
   primaryCta: {
     label: "Get started",

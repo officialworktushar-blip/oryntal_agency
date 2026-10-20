@@ -14,7 +14,6 @@ export default function DigitalFoundationHero() {
     packageName,
     priceLabel,
     priceNote,
-    heroLine,
     checklist,
     primaryCta,
     secondaryCta,
@@ -75,9 +74,6 @@ export default function DigitalFoundationHero() {
           >
             <m.span className="block" style={{ color: LILAC }} {...line(0.1)}>
               {packageName}
-            </m.span>
-            <m.span className="block text-white" {...line(0.18)}>
-              {heroLine}
             </m.span>
           </h1>
 
