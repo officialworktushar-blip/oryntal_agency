@@ -174,7 +174,6 @@ export const growTab: GrowTypingTab = {
     {
       prompt: "Add a QR code so happy customers can leave a review in seconds.",
       alt: "Customer scanning a QR code to leave a review",
-      badge: "QR2 Review: complimentary for eligible clients",
       mediaSrc: "/grow/grow4.webp",
       media: {
         label:
@@ -185,7 +184,6 @@ export const growTab: GrowTypingTab = {
     {
       prompt: "Help me find suppliers and wholesale partners for my products.",
       alt: "Business sourcing suppliers and wholesale partners",
-      badge: "Through ORYNTAL's available contacts, where suitable",
       mediaSrc: "/grow/grow5.webp",
       media: {
         label:
