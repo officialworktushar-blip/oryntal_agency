@@ -1,24 +1,38 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { BadgeCheck } from "lucide-react";
 import Marquee from "@/components/motion/Marquee";
 import { clientLogos, testimonials, type ClientLogo } from "@/lib/clients";
+import { cn } from "@/lib/cn";
 
 /**
  * Bare client logo — no tile, no background, no border.
- * Greyed out by default, full colour on hover.
+ * Black & white (greyscale) until the cursor is on that exact logo,
+ * then it alone returns to full colour and lifts slightly.
  */
 function LogoTile({ item }: { item: ClientLogo }) {
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <div className="group flex h-14 w-36 items-center justify-center sm:w-40">
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="flex h-14 w-28 items-center justify-center sm:w-36"
+    >
       <Image
         src={item.logo}
         alt={item.name}
         width={item.width}
         height={item.height}
-        sizes="160px"
-        className="max-h-10 w-auto max-w-[150px] object-contain opacity-60 grayscale transition-[opacity,filter,transform] duration-300 ease-out group-hover:opacity-100 group-hover:grayscale-0 motion-safe:group-hover:scale-105"
+        sizes="120px"
+        className={cn(
+          "max-h-[45px] w-auto max-w-[100px] object-contain transition-[opacity,filter,transform] duration-300 ease-out sm:max-w-[120px]",
+          hovered
+            ? "relative z-10 opacity-100 grayscale-0 motion-safe:scale-105"
+            : "opacity-60 grayscale"
+        )}
       />
     </div>
   );
@@ -31,6 +45,7 @@ export default function SocialProof() {
         <Marquee
           items={clientLogos}
           renderItem={(item) => <LogoTile item={item} />}
+          gap="0.875rem"
         />
 
         {testimonials.length > 0 ? (

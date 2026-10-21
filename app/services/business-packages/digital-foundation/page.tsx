@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import DigitalFoundationHero from "@/components/services/digital-foundation/Hero";
+import Included from "@/components/services/digital-foundation/Included";
 import { digitalFoundation } from "@/lib/content/packages/digitalFoundation";
 
 const title =
@@ -52,6 +53,19 @@ export default function DigitalFoundationPage() {
     ],
   };
 
+  const itemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${packageName} — what's included`,
+    numberOfItems: digitalFoundation.included.items.length,
+    itemListElement: digitalFoundation.included.items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.title,
+      description: item.description,
+    })),
+  };
+
   return (
     <main>
       <script
@@ -62,11 +76,16 @@ export default function DigitalFoundationPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
+      />
 
       <DigitalFoundationHero />
 
-      {/* TODO next sections: #included, #who-its-for, #process, #faq, CTA */}
-      <div id="included" className="scroll-mt-24" />
+      <Included />
+
+      {/* TODO next sections: #who-its-for, #process, #faq, CTA */}
     </main>
   );
 }

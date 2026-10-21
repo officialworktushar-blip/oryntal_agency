@@ -41,7 +41,7 @@ export default function DigitalFoundationHero() {
   return (
     <section
       aria-labelledby="df-hero-title"
-      className="df-hero-gradient df-hero-grain df-hero-fade relative -mt-[72px] overflow-hidden pb-40 pt-[72px] text-white md:pb-52"
+      className="df-hero-gradient df-hero-grain relative -mt-[72px] overflow-hidden pb-40 pt-[72px] text-white md:pb-52"
     >
       <div className="container-x relative grid min-h-[600px] items-center gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
         {/* LEFT */}

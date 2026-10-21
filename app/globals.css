@@ -93,6 +93,15 @@
     --orbit-ring: 123 92 255; /* #7B5CFF */
     --orbit-bg: 8 6 22;
 
+    /* Digital Foundation — "What's included" stage */
+    --dfi-1: #0b0d12;
+    --dfi-2: #101722;
+    --dfi-3: #172231;
+    --dfi-4: #2a3a4d;
+    --dfi-5: #7e97ae;
+    --dfi-6: #c9d8e6;
+    --dfi-pale: #e4ecf4;
+
     color-scheme: light;
   }
 
@@ -294,17 +303,6 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* 48px pale → white fade that hands off to the next (white) section */
-  .df-hero-fade::before {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    bottom: 0;
-    height: 48px;
-    pointer-events: none;
-    background-image: linear-gradient(180deg, var(--df-6) 0%, #ffffff 100%);
-  }
-
   /* Digital Foundation hero — tilted "orbit" stage */
   .df-orbit-stage {
     transform: rotate(-5deg);
@@ -336,6 +334,67 @@
       width: 9.5%;
       min-width: 42px;
     }
+  }
+
+  /* Digital Foundation — "What's included" stage
+     Pale seam at the top (continues the hero), deep night for the stage,
+     then back to pale so the section hands off to the next white one. */
+  .df-included-gradient {
+    background-color: var(--dfi-1);
+    background-image:
+      radial-gradient(
+        60% 22% at 50% 0%,
+        rgba(126, 151, 174, 0.28) 0%,
+        rgba(126, 151, 174, 0) 72%
+      ),
+      radial-gradient(
+        44% 38% at 88% 16%,
+        rgba(23, 34, 49, 0.9) 0%,
+        rgba(23, 34, 49, 0) 76%
+      ),
+      radial-gradient(
+        50% 36% at 6% 74%,
+        rgba(23, 34, 49, 0.9) 0%,
+        rgba(23, 34, 49, 0) 76%
+      ),
+      radial-gradient(
+        46% 26% at 50% 100%,
+        rgba(126, 151, 174, 0.26) 0%,
+        rgba(126, 151, 174, 0) 72%
+      ),
+      linear-gradient(
+        180deg,
+        var(--dfi-pale) 0px,
+        var(--dfi-6) 32px,
+        var(--dfi-5) 56px,
+        var(--dfi-4) 78px,
+        var(--dfi-3) 102px,
+        var(--dfi-1) 132px,
+        var(--dfi-2) 44%,
+        var(--dfi-1) 72%,
+        var(--dfi-2) 92%,
+        var(--dfi-1) 100%
+      );
+  }
+
+  /* Faint film grain over the "What's included" stage */
+  .df-included-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* 56px pale → white handoff into the next (white) section */
+  .df-included-fade {
+    background-image: linear-gradient(
+      180deg,
+      rgba(228, 236, 244, 0) 0%,
+      var(--dfi-pale) 52%,
+      #ffffff 100%
+    );
   }
 
   /* Reusable brand gradient text (blue → violet → magenta) with a slow drift */
@@ -544,6 +603,21 @@
   /* Blinking caret for the Grow tab prompt box (1s, hard steps) */
   .typing-caret {
     animation: caret-blink 1s steps(1, end) infinite;
+  }
+
+  /* Travelling pulse along the stage connectors (path is normalised to length 1) */
+  .dfi-flow {
+    stroke-dasharray: 0.03 1;
+    animation: dfi-flow 4.4s linear infinite;
+  }
+}
+
+@keyframes dfi-flow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -1;
   }
 }
 

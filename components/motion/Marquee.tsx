@@ -38,7 +38,7 @@ export default function Marquee<T>({
   return (
     <div className={cn("marquee-mask relative overflow-hidden", className)}>
       <div
-        className="group flex w-max animate-marquee motion-reduce:animate-none motion-reduce:justify-center"
+        className="flex w-max animate-marquee motion-reduce:animate-none motion-reduce:justify-center"
         style={{ animationDuration: duration }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLElement).style.animationPlayState = "paused";
