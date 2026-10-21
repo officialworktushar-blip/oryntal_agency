@@ -93,8 +93,6 @@ export type ShowcaseNavRow = {
   icon: ShowcaseIcon;
   /** Included item this row highlights. "Overview" highlights nothing. */
   includedId?: IncludedItem["id"];
-  /** Row top, in dashboard window pixels. */
-  top: number;
   /** Trailing chevron. */
   trailingIcon?: ShowcaseIcon;
   /** Highlights together with the primary row of the same item. */
@@ -464,13 +462,12 @@ export const digitalFoundation: DigitalFoundationContent = {
     navGroups: [
       {
         rows: [
-          { id: "overview", label: "Overview", icon: Home, top: 43 },
+          { id: "overview", label: "Overview", icon: Home },
           {
             id: "website",
             label: "Website",
             icon: Globe,
             includedId: "website",
-            top: 64,
           },
         ],
       },
@@ -481,21 +478,18 @@ export const digitalFoundation: DigitalFoundationContent = {
             label: "Lead capture",
             icon: UserPlus,
             includedId: "leads",
-            top: 95,
           },
           {
             id: "whatsapp",
             label: "WhatsApp",
             icon: MessageCircle,
             includedId: "connect",
-            top: 115,
           },
           {
             id: "business-links",
             label: "Business links",
             icon: Link2,
             includedId: "connect",
-            top: 136,
             secondary: true,
           },
         ],
@@ -507,14 +501,12 @@ export const digitalFoundation: DigitalFoundationContent = {
             label: "Automation",
             icon: Workflow,
             includedId: "automate",
-            top: 167,
           },
           {
             id: "security",
             label: "Security",
             icon: ShieldCheck,
             includedId: "secure",
-            top: 188,
           },
         ],
       },
@@ -525,7 +517,6 @@ export const digitalFoundation: DigitalFoundationContent = {
             label: "Registrations",
             icon: FileCheck2,
             includedId: "register",
-            top: 218,
             trailingIcon: ChevronDown,
           },
           {
@@ -533,7 +524,6 @@ export const digitalFoundation: DigitalFoundationContent = {
             label: "Setup guidance",
             icon: Compass,
             includedId: "setup",
-            top: 239,
           },
         ],
       },

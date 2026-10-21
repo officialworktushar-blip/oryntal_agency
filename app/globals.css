@@ -452,6 +452,42 @@
     );
   }
 
+  /* Dashboard window — illustrative mini charts.
+     These run on CSS keyframes whose end state is the visible state, so the
+     charts stay drawn even when the entrance animation never starts. */
+  .df-chart-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    animation: df-chart-draw 0.9s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation-delay: var(--df-chart-delay, 0ms);
+  }
+
+  .df-chart-area {
+    opacity: 1;
+    animation: df-chart-fade 0.6s ease both;
+    animation-delay: var(--df-chart-delay, 0ms);
+  }
+
+  .df-chart-dot {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: df-chart-pop 0.35s ease-out both;
+    animation-delay: var(--df-chart-delay, 0ms);
+  }
+
+  .df-chart-pulse {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: df-chart-pulse 2.4s ease-out infinite;
+    animation-delay: var(--df-chart-delay, 0ms);
+    animation-play-state: paused;
+  }
+
+  .df-chart-pulse[data-active="true"] {
+    animation-play-state: running;
+  }
+
   /* Reusable brand gradient text (blue → violet → magenta) with a slow drift */
   .text-gradient-brand {
     display: inline;
@@ -664,6 +700,50 @@
   .dfi-flow {
     stroke-dasharray: 0.03 1;
     animation: dfi-flow 4.4s linear infinite;
+  }
+}
+
+@keyframes df-chart-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes df-chart-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes df-chart-pop {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes df-chart-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
   }
 }
 
