@@ -4,7 +4,6 @@ import Link from "next/link";
 import { m, useReducedMotion, type Variants } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
 import ServicesExpandingCards from "@/components/home/ServicesExpandingCards";
-import HeroIndustryFloat from "@/components/home/HeroIndustryFloat";
 import HeroChat, { HeroChatNote } from "@/components/chat/HeroChat";
 
 const headline: Variants = {
@@ -49,9 +48,6 @@ export default function Hero() {
           }}
         />
       </div>
-
-      {/* Industry niches drifting in space — 5 on the left, 5 on the right */}
-      <HeroIndustryFloat />
 
       <div className="relative z-10">
         {/* AI chat pill + right-side note — spans edge to edge with a small side gap */}

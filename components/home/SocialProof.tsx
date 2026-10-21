@@ -1,14 +1,25 @@
 "use client";
 
+import Image from "next/image";
 import { BadgeCheck } from "lucide-react";
 import Marquee from "@/components/motion/Marquee";
 import { clientLogos, testimonials, type ClientLogo } from "@/lib/clients";
 
+/**
+ * Bare client logo — no tile, no background, no border.
+ * Greyed out by default, full colour on hover.
+ */
 function LogoTile({ item }: { item: ClientLogo }) {
   return (
-    <div className="flex h-12 w-40 items-center justify-center rounded-lg border border-line bg-white grayscale opacity-60 transition-all duration-300 hover:grayscale-0 hover:opacity-100">
-      {/* TODO: swap for <Image src={item.logo} ...> once real client SVGs/PNGs are supplied. */}
-      <span className="text-sm font-semibold tracking-wide text-muted">{item.name}</span>
+    <div className="group flex h-14 w-36 items-center justify-center sm:w-40">
+      <Image
+        src={item.logo}
+        alt={item.name}
+        width={item.width}
+        height={item.height}
+        sizes="160px"
+        className="max-h-10 w-auto max-w-[150px] object-contain opacity-60 grayscale transition-[opacity,filter,transform] duration-300 ease-out group-hover:opacity-100 group-hover:grayscale-0 motion-safe:group-hover:scale-105"
+      />
     </div>
   );
 }
