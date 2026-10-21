@@ -94,8 +94,8 @@ export default function Header() {
           <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
             <NavLink href="/" label="Home" />
             <MegaMenu open={megaOpen} onOpenChange={setMegaOpen} />
-            <NavLink href="/services/business-packages" label="Pricing" />
-            <NavLink href="/#how-it-works" label="How it works" />
+            <NavLink href="/services" label="About" />
+            <NavLink href="/#how-it-works" label="Case Study" />
             <NavLink href="/contact" label="Contact" />
           </nav>
 

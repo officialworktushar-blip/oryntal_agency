@@ -62,7 +62,7 @@ export default function Footer() {
           <ul className="mt-4 flex flex-col gap-2.5">
             <li>
               <Link href="/#how-it-works" className="link-muted">
-                How it works
+                Case Study
               </Link>
             </li>
             <li>

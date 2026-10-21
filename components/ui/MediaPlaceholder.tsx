@@ -20,6 +20,8 @@ type MediaPlaceholderProps = {
   loading?: "lazy" | "eager";
   className?: string;
   dark?: boolean;
+  /** Tighter padding, smaller icon and text for use inside small cards. */
+  compact?: boolean;
 };
 
 export default function MediaPlaceholder({
@@ -33,6 +35,7 @@ export default function MediaPlaceholder({
   loading = "lazy",
   className,
   dark = false,
+  compact = false,
 }: MediaPlaceholderProps) {
   if (src) {
     return (
@@ -70,7 +73,8 @@ export default function MediaPlaceholder({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center gap-3 rounded-3xl border-[1.5px] border-dashed p-6 text-center",
+        "flex flex-col items-center justify-center rounded-3xl border-[1.5px] border-dashed text-center",
+        compact ? "gap-1.5 p-3" : "gap-3 p-6",
         dark
           ? "border-white/25 bg-white/5 text-white/80"
           : "border-brand/40 bg-brand-wash text-ink",
@@ -80,22 +84,49 @@ export default function MediaPlaceholder({
     >
       <span
         className={cn(
-          "grid size-12 place-items-center rounded-xl",
+          "grid place-items-center rounded-xl",
+          compact ? "size-7" : "size-12",
           dark ? "bg-white/10" : "bg-brand-soft"
         )}
       >
-        <Icon className={cn("size-6", dark ? "text-white" : "text-brand")} strokeWidth={1.75} />
+        <Icon
+          className={cn(
+            compact ? "size-3.5" : "size-6",
+            dark ? "text-white" : "text-brand"
+          )}
+          strokeWidth={1.75}
+        />
       </span>
       {label ? (
-        <span className="max-w-sm text-sm font-semibold">{label}</span>
+        <span
+          className={cn(
+            "max-w-sm font-semibold",
+            compact ? "text-[11px] leading-snug" : "text-sm"
+          )}
+        >
+          {label}
+        </span>
       ) : null}
       {hint ? (
-        <span className={cn("max-w-sm text-xs", dark ? "text-white/60" : "text-muted")}>
+        <span
+          className={cn(
+            "max-w-sm",
+            compact ? "text-[10px] leading-snug" : "text-xs",
+            dark ? "text-white/60" : "text-muted"
+          )}
+        >
           {hint}
         </span>
       ) : null}
       {type === "video" ? (
-        <PlayCircle className={cn("mt-1 size-5 opacity-60", dark ? "text-white" : "text-brand")} strokeWidth={1.75} />
+        <PlayCircle
+          className={cn(
+            "opacity-60",
+            compact ? "mt-0.5 size-4" : "mt-1 size-5",
+            dark ? "text-white" : "text-brand"
+          )}
+          strokeWidth={1.75}
+        />
       ) : null}
     </div>
   );

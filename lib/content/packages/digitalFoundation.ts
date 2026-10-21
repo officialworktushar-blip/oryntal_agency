@@ -67,19 +67,22 @@ export type RockSpec = {
   y: number;
   /** Width, % of the design box width. */
   w: number;
-  /** Parallax depth — higher moves further with scroll. */
-  depth: number;
+  /** Stacking order inside the stage. */
+  z?: number;
+  /** Static rotation in degrees. */
+  tilt?: number;
   /** One rock carries a pale icy facet. */
   icy?: boolean;
-  /** Hidden on small screens (< md). */
-  desktopOnly?: boolean;
+  /** Shown from the large breakpoint up only. */
+  lgOnly?: boolean;
   /** Optional image instead of the procedural shape. */
   src?: string;
 };
 
 export type IncludedContent = {
   eyebrow: string;
-  title: string;
+  /** Heading, split over two centred lines. */
+  titleLines: [string, string];
   intro: string;
   items: IncludedItem[];
   footer: {
@@ -89,6 +92,14 @@ export type IncludedContent = {
     feeNote: string;
   };
   rocks: RockSpec[];
+};
+
+/** Closing block of the "What's included" section. */
+export const includedFooter = {
+  ideal:
+    "Ideal for startups, local businesses, service providers, and small businesses looking to establish their online presence.",
+  cta: { label: "Get started", href: "/contact?interest=digital-foundation-package" },
+  secondary: { label: "View all packages", href: "/services/business-packages" },
 };
 
 export const digitalFoundation: DigitalFoundationContent = {
@@ -194,86 +205,79 @@ export const digitalFoundation: DigitalFoundationContent = {
   },
   included: {
     eyebrow: "What's included",
-    title: "Everything in the Digital Foundation Package",
+    titleLines: ["Everything you need to go online,", "set up right from day one."],
     intro:
-      "Seven pieces that work together as one foundation — a credible website, a way to capture leads, the connections customers expect, and the groundwork that keeps it all running.",
+      "Designed for businesses that want to establish a professional online presence and build the essential digital systems needed to operate online.",
     items: [
       {
         id: "website",
         label: "Website",
-        title: "A professional website, built around your business",
-        description:
-          "Clean, responsive pages that explain what you do and look credible on any screen, ready for the traffic you send them.",
-        bullet: "A professional website designed around your business.",
+        title: "A professional website",
+        description: "Designed around your services, products, and requirements.",
+        bullet: "A professional website designed around your business",
         icon: Globe,
       },
       {
         id: "leads",
-        label: "Leads",
-        title: "Lead capture that turns visitors into enquiries",
-        description:
-          "Forms placed where people are ready to act, collecting the details you need to follow up and a clear next step.",
-        bullet: "Lead capture forms that turn visitors into enquiries.",
+        label: "Lead capture",
+        title: "Lead capture, built in",
+        description: "Inquiry forms and basic lead collection, ready from day one.",
+        bullet: "Lead capture forms that turn visitors into enquiries",
         icon: UserPlus,
       },
       {
         id: "connect",
-        label: "Connect",
-        title: "WhatsApp and business links, built in",
+        label: "Integrations",
+        title: "WhatsApp and business links",
         description:
-          "One-tap messaging, click-to-call and links to your Google, Instagram and Facebook presence, all in one place.",
-        bullet: "WhatsApp and essential business links built in.",
+          "WhatsApp, essential business links, and relevant basic third-party integrations.",
+        bullet: "WhatsApp and essential business links built in",
         icon: MessageCircle,
       },
       {
         id: "automate",
-        label: "Automate",
-        title: "Basic automation for repetitive tasks",
-        description:
-          "Practical automations for the follow-ups and hand-offs that used to eat up your time, where feasible.",
-        bullet: "Basic automation for repetitive tasks, where feasible.",
+        label: "Automation",
+        title: "Less repetitive work",
+        description: "Selected repetitive tasks automated, where feasible.",
+        bullet: "Basic automation for repetitive tasks, where feasible",
         icon: Workflow,
       },
       {
         id: "secure",
-        label: "Secure",
-        title: "SSL, HTTPS and everyday security",
-        description:
-          "Certificates, secure connections and sensible defaults configured from day one, so visitors browse with confidence.",
-        bullet: "SSL/HTTPS and essential security set up from day one.",
+        label: "Security",
+        title: "Secure from day one",
+        description: "SSL/HTTPS configuration and essential security setup.",
+        bullet: "SSL/HTTPS and essential security set up from day one",
         icon: ShieldCheck,
       },
       {
         id: "register",
-        label: "Register",
-        title: "MSME and Udyam registration guidance",
+        label: "Registrations",
+        title: "Registration guidance",
         description:
-          "Step-by-step guidance for the registrations your business may need, and what to prepare before you apply.",
-        bullet: "MSME/Udyam registration guidance, where applicable.",
+          "Guidance on MSME/Udyam registration and relevant documentation, where applicable.",
+        bullet: "MSME/Udyam registration guidance, where applicable",
         icon: FileCheck2,
       },
       {
         id: "setup",
-        label: "Setup",
-        title: "Digital setup guidance, so you start right",
+        label: "Setup guidance",
+        title: "Set up right",
         description:
-          "A walkthrough of the tools, logins and habits that keep your business online and up to date without guesswork.",
-        bullet: "Digital setup guidance to get your business online right.",
+          "Assistance in establishing the essential digital infrastructure your business needs.",
+        bullet: "Digital setup guidance to get your business online right",
         icon: Compass,
       },
     ],
     footer: {
-      ideal:
-        "Every business deserves a solid digital foundation. We build one that looks credible, works hard, and is ready to grow with you.",
-      cta: { label: "Get started", href: "/contact?interest=digital-foundation-package" },
-      secondary: { label: "View all packages", href: "/services/business-packages" },
+      ...includedFooter,
       feeNote: "Third-party services, if any, may carry separate provider fees.",
     },
     rocks: [
-      { id: "rock-1", x: -2, y: 2, w: 14, depth: 0.5 },
-      { id: "rock-2", x: 4, y: 22, w: 8, depth: 0.8, desktopOnly: true },
-      { id: "rock-3", x: 14, y: 56, w: 13, depth: 1.2, icy: true },
-      { id: "rock-4", x: 72, y: 58, w: 10, depth: 0.9, desktopOnly: true },
+      { id: "rock-1", x: -1, y: 4, w: 13, z: 0, tilt: -6 },
+      { id: "rock-2", x: 7, y: 6, w: 8, z: 0, tilt: 8, lgOnly: true },
+      { id: "rock-3", x: 3, y: 60, w: 12, z: 15, tilt: -4, icy: true },
+      { id: "rock-4", x: 74, y: 62, w: 9, z: 10, tilt: 5, lgOnly: true },
     ],
   },
 };
