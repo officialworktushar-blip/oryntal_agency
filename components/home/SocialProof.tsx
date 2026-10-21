@@ -19,16 +19,16 @@ function LogoTile({ item }: { item: ClientLogo }) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex h-14 w-28 items-center justify-center sm:w-36"
+      className="flex h-[67px] w-[134px] items-center justify-center sm:w-[173px]"
     >
       <Image
         src={item.logo}
         alt={item.name}
         width={item.width}
         height={item.height}
-        sizes="120px"
+        sizes="144px"
         className={cn(
-          "max-h-[45px] w-auto max-w-[100px] object-contain transition-[opacity,filter,transform] duration-300 ease-out sm:max-w-[120px]",
+          "max-h-[54px] w-auto max-w-[120px] object-contain transition-[opacity,filter,transform] duration-300 ease-out sm:max-w-[144px]",
           hovered
             ? "relative z-10 opacity-100 grayscale-0 motion-safe:scale-105"
             : "opacity-60 grayscale"
