@@ -4,7 +4,6 @@ import Link from "next/link";
 import { m, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { connections } from "@/lib/content/connections";
-import { industries } from "@/lib/content/industries";
 import IntegrationsArc from "./IntegrationsArc";
 
 function nameSentence() {
@@ -13,12 +12,6 @@ function nameSentence() {
   const last = names[names.length - 1];
   const head = names.slice(0, -1).join(", ");
   return `ORYNTAL integrates tools such as ${head}, and ${last}.`;
-}
-
-function industrySentence() {
-  const names = industries.map((item) => item.name);
-  if (names.length === 0) return "";
-  return `ORYNTAL builds websites, AI systems, and automation for industries such as ${names.join(", ")}.`;
 }
 
 export default function Integrations() {
@@ -99,9 +92,7 @@ export default function Integrations() {
           </m.p>
         </m.div>
 
-        <p className="sr-only">
-          {nameSentence()} {industrySentence()}
-        </p>
+        <p className="sr-only">{nameSentence()}</p>
       </div>
     </section>
   );
