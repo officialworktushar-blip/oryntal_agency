@@ -95,12 +95,14 @@
 
     /* Digital Foundation — "What's included" stage
        Near-black at the top, steel blue through the middle, pale at the bottom. */
-    --dfi-1: #0b0d12;
-    --dfi-2: #0d1117;
-    --dfi-3: #121b27;
-    --dfi-4: #243a52;
-    --dfi-5: #5e7c98;
-    --dfi-6: #b7cadb;
+    --dfi-1: #0a0c10;
+    --dfi-2: #0c0f14;
+    --dfi-3: #101822;
+    --dfi-4: #1e3047;
+    --dfi-5: #3d5b7a;
+    --dfi-6: #6f8fae;
+    --dfi-7: #a5bed4;
+    --dfi-8: #d3e1ed;
     --dfi-pale: #e4ecf4;
 
     color-scheme: light;
@@ -337,38 +339,73 @@
     }
   }
 
-  /* Digital Foundation — "What's included" stage
-     Near-black behind the heading and the upper half of the window, steel blue
-     behind the lower half, pale at the bottom where the CTA block sits.
-     The top edge is a clean straight line against the hero's pale bottom. */
-  .df-included-gradient {
+  /* Digital Foundation — "What's included" section, three stacked blocks.
+     HEAD: near-black, holds the eyebrow, heading and intro.
+     STAGE: the illustrative dashboard stage, dark at the top and steel blue
+     at the bottom, where the window, product card and tiles sit.
+     FOOT: pale blue, holds the caption, the CTA block and the fee note. */
+
+  /* HEAD block */
+  .df-incl-head-bg {
     background-color: var(--dfi-1);
-    background-image:
-      radial-gradient(
-        70% 30% at 50% 100%,
-        var(--dfi-pale) 0%,
-        rgba(230, 238, 246, 0) 75%
-      ),
-      radial-gradient(
-        45% 30% at 12% 88%,
-        rgba(120, 150, 180, 0.55) 0%,
-        rgba(120, 150, 180, 0) 70%
-      ),
-      radial-gradient(
-        45% 35% at 92% 62%,
-        rgba(40, 60, 85, 0.55) 0%,
-        rgba(40, 60, 85, 0) 75%
-      ),
-      linear-gradient(
-        180deg,
-        var(--dfi-1) 0%,
-        var(--dfi-2) 20%,
-        var(--dfi-3) 36%,
-        var(--dfi-4) 52%,
-        var(--dfi-5) 66%,
-        var(--dfi-6) 77%,
-        var(--dfi-pale) 89%
-      );
+    background-image: linear-gradient(
+      180deg,
+      var(--dfi-1) 0%,
+      var(--dfi-2) 100%
+    );
+  }
+
+  /* STAGE block */
+  .df-incl-stage-bg {
+    background-color: var(--dfi-3);
+    background-image: linear-gradient(
+      180deg,
+      var(--dfi-2) 0%,
+      var(--dfi-3) 28%,
+      var(--dfi-4) 54%,
+      var(--dfi-5) 76%,
+      var(--dfi-6) 100%
+    );
+  }
+
+  /* Soft vignette so the centre of the stage stays the brightest area */
+  .df-incl-stage-vignette {
+    background-image: radial-gradient(
+      75% 100% at 50% 45%,
+      rgba(0, 0, 0, 0) 45%,
+      rgba(0, 0, 0, 0.28) 100%
+    );
+  }
+
+  /* Faint film grain over the stage */
+  .df-incl-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* FOOT block */
+  .df-incl-foot-bg {
+    background-color: var(--dfi-6);
+    background-image: linear-gradient(
+      180deg,
+      var(--dfi-6) 0%,
+      var(--dfi-7) 32%,
+      var(--dfi-8) 68%,
+      var(--dfi-pale) 100%
+    );
+  }
+
+  /* Soft white wash so dark text keeps AA contrast in the mid-tone band */
+  .df-incl-foot-wash {
+    background-image: radial-gradient(
+      58% 70% at 50% 50%,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0) 72%
+    );
   }
 
   /* Digital Foundation — "What we connect" band
@@ -402,16 +439,6 @@
     inset: 0;
     pointer-events: none;
     opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* Faint film grain over the "What's included" stage */
-  .df-included-grain::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.05;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 

@@ -22,6 +22,8 @@ type MediaPlaceholderProps = {
   dark?: boolean;
   /** Tighter padding, smaller icon and text for use inside small cards. */
   compact?: boolean;
+  /** "compact" is a tiny, dashed placeholder used inside illustrative cards. */
+  variant?: "default" | "compact";
 };
 
 export default function MediaPlaceholder({
@@ -36,6 +38,7 @@ export default function MediaPlaceholder({
   className,
   dark = false,
   compact = false,
+  variant = "default",
 }: MediaPlaceholderProps) {
   if (src) {
     return (
@@ -69,6 +72,28 @@ export default function MediaPlaceholder({
   }
 
   const Icon = type === "video" ? Video : ImageIcon;
+
+  if (variant === "compact") {
+    return (
+      <div
+        className={cn(
+          "flex flex-col items-center justify-center rounded-[9px] border border-dashed border-[rgba(103,61,230,0.4)] bg-white/70 text-center",
+          className
+        )}
+        style={{ aspectRatio: aspect }}
+      >
+        <Icon
+          className="size-[9px] text-[#2F1C6A]"
+          strokeWidth={1.75}
+        />
+        {label ? (
+          <span className="mt-1 max-w-[92%] text-[8px] leading-[1.35] text-[#2F1C6A]">
+            {label}
+          </span>
+        ) : null}
+      </div>
+    );
+  }
 
   return (
     <div

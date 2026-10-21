@@ -1,10 +1,12 @@
 import type { LucideIcon } from "lucide-react";
 import {
   CalendarCheck,
+  ChevronDown,
   ClipboardList,
   Compass,
   FileCheck2,
   Globe,
+  Home,
   Link2,
   Mail,
   MessageCircle,
@@ -59,6 +61,7 @@ export type DigitalFoundationContent = {
     tiles: OrbitTile[];
   };
   included: IncludedContent;
+  showcase: ShowcaseContent;
   connections: ConnectionsContent;
 };
 
@@ -76,25 +79,129 @@ export type IncludedItem = {
   icon: LucideIcon;
 };
 
-/** A faceted rock placed in the stage background. */
-export type RockSpec = {
+/** Brand logos and lucide glyphs both render with className + style. */
+export type ShowcaseIcon = ComponentType<{
+  className?: string;
+  style?: CSSProperties;
+  strokeWidth?: number;
+}>;
+
+/** One row of the illustrative dashboard sidebar. */
+export type ShowcaseNavRow = {
   id: string;
-  /** Left edge, % of the design box width. */
+  label: string;
+  icon: ShowcaseIcon;
+  /** Included item this row highlights. "Overview" highlights nothing. */
+  includedId?: IncludedItem["id"];
+  /** Row top, in dashboard window pixels. */
+  top: number;
+  /** Trailing chevron. */
+  trailingIcon?: ShowcaseIcon;
+  /** Highlights together with the primary row of the same item. */
+  secondary?: boolean;
+};
+
+/** Sidebar rows, split into the groups drawn in the dashboard. */
+export type ShowcaseNavGroup = {
+  rows: ShowcaseNavRow[];
+};
+
+/** One setup card inside the dashboard. */
+export type ShowcaseStat = {
+  id: string;
+  icon: ShowcaseIcon;
+  label: string;
+  value: string;
+  chip: string;
+  muted: string;
+};
+
+/** Column header of the enquiries table. */
+export type ShowcaseColumn = {
+  label: string;
   x: number;
-  /** Top edge, % of the design box height. */
+};
+
+/** A floating monochrome tile beside the dashboard. */
+export type ShowcaseTile = {
+  id: string;
+  label: string;
+  icon?: ShowcaseIcon;
+  /** Logo image used instead of an icon. */
+  src?: string;
+  /** Tile top-left, in canvas pixels. */
+  x: number;
   y: number;
-  /** Width, % of the design box width. */
+  /** Included item this tile belongs to. */
+  includedId?: IncludedItem["id"];
+};
+
+/** A faceted rock placed in the stage background. */
+export type ShowcaseRock = {
+  id: string;
+  /** Rock top-left, in canvas pixels. */
+  x: number;
+  y: number;
+  /** Rock size, in canvas pixels. */
   w: number;
+  h: number;
   /** Stacking order inside the stage. */
-  z?: number;
+  z: number;
   /** Static rotation in degrees. */
-  tilt?: number;
-  /** One rock carries a pale icy facet. */
-  icy?: boolean;
-  /** Shown from the large breakpoint up only. */
-  lgOnly?: boolean;
+  rotation: number;
+  /** Seed for the procedural facets. */
+  seed: number;
+  kind: "obsidian" | "ice";
   /** Optional image instead of the procedural shape. */
   src?: string;
+};
+
+/** A small chip of stone next to a rock. */
+export type ShowcaseDebris = {
+  id: string;
+  x: number;
+  y: number;
+  size: number;
+};
+
+/** Copy for the illustrative dashboard and floating card. */
+export type ShowcaseCopy = {
+  brand: string;
+  product: string;
+  ask: string;
+  welcome: string;
+  welcomeSub: string;
+  yourWebsite: string;
+  siteUrl: string;
+  setupOverview: string;
+  viewDetails: string;
+  enquiries: string;
+  cardCaption: string;
+  cardImageLabel: string;
+  windowLabel: string;
+  canvasLabel: string;
+};
+
+/** The illustrative stage: dashboard window, product card, tiles and rocks. */
+export type ShowcaseContent = {
+  copy: ShowcaseCopy;
+  navGroups: ShowcaseNavGroup[];
+  stats: ShowcaseStat[];
+  tableColumns: ShowcaseColumn[];
+  tiles: ShowcaseTile[];
+  card: {
+    title: string;
+    status: string;
+    src?: string;
+  };
+  rocks: ShowcaseRock[];
+  debris: ShowcaseDebris[];
+  chart: {
+    path: string;
+    baselineY: number;
+    endX: number;
+    endY: number;
+  };
 };
 
 export type IncludedContent = {
@@ -109,7 +216,6 @@ export type IncludedContent = {
     secondary: { label: string; href: string };
     feeNote: string;
   };
-  rocks: RockSpec[];
 };
 
 /** Groups used by the "What we connect" filter chips. */
@@ -334,12 +440,247 @@ export const digitalFoundation: DigitalFoundationContent = {
       ...includedFooter,
       feeNote: "Third-party services, if any, may carry separate provider fees.",
     },
-    rocks: [
-      { id: "rock-1", x: -1, y: 4, w: 13, z: 0, tilt: -6 },
-      { id: "rock-2", x: 7, y: 6, w: 8, z: 0, tilt: 8, lgOnly: true },
-      { id: "rock-3", x: 3, y: 60, w: 12, z: 15, tilt: -4, icy: true },
-      { id: "rock-4", x: 74, y: 62, w: 9, z: 10, tilt: 5, lgOnly: true },
+  },
+  showcase: {
+    copy: {
+      brand: "ORYNTAL",
+      product: "Digital Foundation",
+      ask: "Ask ORYNTAL",
+      welcome: "Welcome back",
+      welcomeSub: "Here is how your online presence is set up",
+      yourWebsite: "Your website",
+      siteUrl: "yourbusiness.com",
+      setupOverview: "Setup overview",
+      viewDetails: "View details",
+      enquiries: "Recent enquiries",
+      cardCaption:
+        "Illustrative preview. Your setup is tailored to your business.",
+      cardImageLabel:
+        "Add: screenshot of a finished client website, homepage (4:3, 800x600)",
+      windowLabel: "Illustrative preview of the ORYNTAL digital dashboard",
+      canvasLabel:
+        "Illustration of an ORYNTAL-built business dashboard connected to WhatsApp, Google, Instagram and Facebook",
+    },
+    navGroups: [
+      {
+        rows: [
+          { id: "overview", label: "Overview", icon: Home, top: 43 },
+          {
+            id: "website",
+            label: "Website",
+            icon: Globe,
+            includedId: "website",
+            top: 64,
+          },
+        ],
+      },
+      {
+        rows: [
+          {
+            id: "leads",
+            label: "Lead capture",
+            icon: UserPlus,
+            includedId: "leads",
+            top: 95,
+          },
+          {
+            id: "whatsapp",
+            label: "WhatsApp",
+            icon: MessageCircle,
+            includedId: "connect",
+            top: 115,
+          },
+          {
+            id: "business-links",
+            label: "Business links",
+            icon: Link2,
+            includedId: "connect",
+            top: 136,
+            secondary: true,
+          },
+        ],
+      },
+      {
+        rows: [
+          {
+            id: "automation",
+            label: "Automation",
+            icon: Workflow,
+            includedId: "automate",
+            top: 167,
+          },
+          {
+            id: "security",
+            label: "Security",
+            icon: ShieldCheck,
+            includedId: "secure",
+            top: 188,
+          },
+        ],
+      },
+      {
+        rows: [
+          {
+            id: "registrations",
+            label: "Registrations",
+            icon: FileCheck2,
+            includedId: "register",
+            top: 218,
+            trailingIcon: ChevronDown,
+          },
+          {
+            id: "guidance",
+            label: "Setup guidance",
+            icon: Compass,
+            includedId: "setup",
+            top: 239,
+          },
+        ],
+      },
     ],
+    stats: [
+      {
+        id: "website",
+        icon: Globe,
+        label: "Website",
+        value: "Live",
+        chip: "Healthy",
+        muted: "from day one",
+      },
+      {
+        id: "leads",
+        icon: UserPlus,
+        label: "Lead capture",
+        value: "Form active",
+        chip: "Ready",
+        muted: "inquiry forms",
+      },
+      {
+        id: "secure",
+        icon: ShieldCheck,
+        label: "Security",
+        value: "HTTPS on",
+        chip: "Secure",
+        muted: "SSL set up",
+      },
+    ],
+    tableColumns: [
+      { label: "Source", x: 8 },
+      { label: "Date", x: 50 },
+      { label: "Contact", x: 107 },
+      { label: "Status", x: 237 },
+      { label: "Follow-up", x: 292 },
+    ],
+    tiles: [
+      {
+        id: "oryntal",
+        label: "ORYNTAL",
+        src: "/oryntal-logo.png",
+        x: 850,
+        y: 77,
+      },
+      { id: "google", label: "Google", icon: SiGoogle, x: 850, y: 135 },
+      { id: "whatsapp", label: "WhatsApp", icon: SiWhatsapp, x: 909, y: 37 },
+      { id: "instagram", label: "Instagram", icon: SiInstagram, x: 909, y: 95 },
+      { id: "facebook", label: "Facebook", icon: SiFacebook, x: 909, y: 153 },
+    ],
+    card: {
+      title: "Your business website",
+      status: "Live on HTTPS",
+    },
+    rocks: [
+      {
+        id: "rock-tl-1",
+        x: 10,
+        y: 5,
+        w: 62,
+        h: 67,
+        z: 5,
+        rotation: -8,
+        seed: 11,
+        kind: "obsidian",
+      },
+      {
+        id: "rock-tl-2",
+        x: 93,
+        y: 8,
+        w: 79,
+        h: 64,
+        z: 5,
+        rotation: 6,
+        seed: 23,
+        kind: "obsidian",
+      },
+      {
+        id: "rock-ice",
+        x: 48,
+        y: 100,
+        w: 47,
+        h: 68,
+        z: 5,
+        rotation: -12,
+        seed: 37,
+        kind: "ice",
+      },
+      {
+        id: "rock-bl",
+        x: 78,
+        y: 315,
+        w: 110,
+        h: 105,
+        z: 30,
+        rotation: 5,
+        seed: 41,
+        kind: "obsidian",
+      },
+      {
+        id: "rock-rt",
+        x: 772,
+        y: 162,
+        w: 60,
+        h: 50,
+        z: 5,
+        rotation: 10,
+        seed: 53,
+        kind: "obsidian",
+      },
+      {
+        id: "rock-rm",
+        x: 825,
+        y: 285,
+        w: 47,
+        h: 65,
+        z: 5,
+        rotation: -6,
+        seed: 67,
+        kind: "obsidian",
+      },
+      {
+        id: "rock-rb",
+        x: 798,
+        y: 345,
+        w: 42,
+        h: 45,
+        z: 5,
+        rotation: 12,
+        seed: 71,
+        kind: "obsidian",
+      },
+    ],
+    debris: [
+      { id: "debris-1", x: 128, y: 305, size: 6 },
+      { id: "debris-2", x: 96, y: 332, size: 4 },
+      { id: "debris-3", x: 86, y: 412, size: 6 },
+      { id: "debris-4", x: 190, y: 392, size: 5 },
+      { id: "debris-5", x: 60, y: 368, size: 4 },
+      { id: "debris-6", x: 205, y: 415, size: 4 },
+    ],
+    chart: {
+      path: "M0 36 C14 36 22 40 34 40 S56 26 76 24 S106 10 124 8",
+      baselineY: 36,
+      endX: 124,
+      endY: 8,
+    },
   },
   connections: {
     eyebrow: "Connections",
