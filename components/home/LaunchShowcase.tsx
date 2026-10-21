@@ -64,6 +64,7 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
   const reduced = useReducedMotion() ?? false;
 
   const hasVideo = Boolean(tab.videoSrc);
+  const mediaAspect = tab.mediaAspect ?? "16 / 9";
   const toasts = tab.toasts;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
@@ -159,7 +160,7 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-15% 0px" }}
-          className="order-1"
+          className="order-1 min-w-0"
         >
           <m.div variants={copyItem}>
             <StageHeader
@@ -198,9 +199,9 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-15% 0px" }}
-          className="order-2"
+          className="order-2 min-w-0"
         >
-          <div className="relative flex aspect-[4/3.3] min-h-[360px] items-center justify-center overflow-hidden rounded-[32px] p-6 sm:p-10 lg:p-12">
+          <div className="relative flex w-full aspect-[4/3.3] min-h-[360px] items-center justify-center overflow-hidden rounded-[32px] p-6 sm:p-10 lg:p-12">
             <div
               aria-hidden
               className="absolute inset-0"
@@ -210,7 +211,7 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
               }}
             />
             {/* Browser */}
-            <div className="relative z-10 w-full max-w-[640px] translate-y-4">
+            <div className="relative z-10 w-full max-w-[640px]">
               <div className="flex h-9 items-center justify-between rounded-t-xl bg-[#E4E5E9] px-3">
                 <div className="flex items-center gap-2">
                   <span className="size-[11px] rounded-full bg-[#FF5F57]" />
@@ -227,7 +228,10 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
                 </div>
                 <div className="w-[60px]" />
               </div>
-              <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-b from-[#1F2A3D] to-[#5A7596]">
+              <div
+                className="relative overflow-hidden bg-gradient-to-b from-[#1F2A3D] to-[#5A7596]"
+                style={{ aspectRatio: mediaAspect }}
+              >
                 {hasVideo ? (
                   <video
                     ref={videoRef}
@@ -238,12 +242,13 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
                     loop
                     playsInline
                     preload="metadata"
-                    className="h-full w-full object-cover"
+                    aria-label="Screen recording of a live store: payment, WhatsApp confirmation and shipping update"
+                    className="h-full w-full object-contain"
                   />
                 ) : (
                   <MediaPlaceholder
                     type="video"
-                    aspect="16/9"
+                    aspect={mediaAspect}
                     label={tab.media.label}
                     hint={tab.media.hint}
                     className="h-full w-full justify-end border-white/40 bg-transparent pb-12 text-white/85 [&>span:first-child]:hidden"
@@ -255,7 +260,7 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
             {/* Toasts */}
             <div
               aria-hidden="true"
-              className="absolute right-4 top-[14%] z-20 w-[200px] sm:right-8 sm:w-[250px] lg:right-10"
+              className="absolute right-4 top-[30%] z-20 w-[200px] sm:right-8 sm:w-[250px] lg:right-10"
             >
               <AnimatePresence mode="wait">
                 {toasts[toastIndex] && (
@@ -288,8 +293,10 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
               </AnimatePresence>
             </div>
             <p className="sr-only">
-              Illustrative notifications: payment received, WhatsApp
-              confirmation sent, order dispatched.
+              Screen recording of a live store: a customer pays, a WhatsApp
+              confirmation is sent, and the order is dispatched. Illustrative
+              notifications: payment received, WhatsApp confirmation sent, order
+              dispatched.
             </p>
           </div>
         </m.div>

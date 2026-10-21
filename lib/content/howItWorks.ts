@@ -28,6 +28,8 @@ export type HowItWorksTab = {
   /** Optional muted loop shown in the stage media frame when a src exists. */
   videoSrc?: string;
   posterSrc?: string;
+  /** Aspect ratio of the media frame, e.g. "1918 / 746". Defaults to 16/9. */
+  mediaAspect?: string;
   chipsIntro?: string;
   chips?: HowItWorksChip[];
   slides?: HowItWorksSlide[];
@@ -115,8 +117,11 @@ export const launchTab: HowItWorksTab = {
       "Add: 20-30s screen recording of a live store/site: customer pays, WhatsApp confirmation arrives, shipping update (MP4 1280x720, muted loop)",
     hint: "Show: checkout, payment success, WhatsApp message, tracking update. Keep key content centred.",
   },
-  videoSrc: "",
-  posterSrc: "",
+  /* Real capture: 1918x746, 14s, muted loop. The frame follows the file so
+     nothing is cropped. */
+  videoSrc: "/launch.webm",
+  posterSrc: "/launch-poster.png",
+  mediaAspect: "1918 / 746",
 } as HowItWorksTab;
 
 export const growTab: GrowTypingTab = {

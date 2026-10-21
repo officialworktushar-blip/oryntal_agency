@@ -371,6 +371,40 @@
       );
   }
 
+  /* Digital Foundation — "What we connect" band
+     A deep navy band that starts with a clean straight edge below the pale
+     "What's included" section, with a lilac glow at the top and a violet
+     glow in the bottom-right corner. */
+  .df-connect-bg {
+    --dfc-1: #110b2b;
+    --dfc-2: #120c2e;
+    --dfc-3: #0f0a26;
+
+    background-color: var(--dfc-1);
+    background-image:
+      radial-gradient(
+        60% 40% at 50% 0%,
+        rgba(91, 52, 214, 0.28) 0%,
+        rgba(91, 52, 214, 0) 70%
+      ),
+      radial-gradient(
+        45% 40% at 100% 100%,
+        rgba(122, 82, 240, 0.25) 0%,
+        rgba(122, 82, 240, 0) 70%
+      ),
+      linear-gradient(180deg, var(--dfc-2) 0%, var(--dfc-3) 100%);
+  }
+
+  /* Faint film grain over the "What we connect" band */
+  .df-connect-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
   /* Faint film grain over the "What's included" stage */
   .df-included-grain::after {
     content: "";

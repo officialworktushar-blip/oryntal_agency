@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import DigitalFoundationHero from "@/components/services/digital-foundation/Hero";
 import Included from "@/components/services/digital-foundation/Included";
+import Connections from "@/components/services/digital-foundation/Connections";
 import { digitalFoundation } from "@/lib/content/packages/digitalFoundation";
 
 const title =
@@ -66,6 +67,19 @@ export default function DigitalFoundationPage() {
     })),
   };
 
+  const connectionList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${packageName} — connections`,
+    numberOfItems: digitalFoundation.connections.items.length,
+    itemListElement: digitalFoundation.connections.items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      description: item.sub,
+    })),
+  };
+
   return (
     <main>
       <script
@@ -80,10 +94,16 @@ export default function DigitalFoundationPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(connectionList) }}
+      />
 
       <DigitalFoundationHero />
 
       <Included />
+
+      <Connections />
 
       {/* TODO next sections: #who-its-for, #process, #faq, CTA */}
     </main>
