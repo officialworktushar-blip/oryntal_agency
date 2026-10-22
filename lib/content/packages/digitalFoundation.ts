@@ -61,6 +61,7 @@ export type DigitalFoundationContent = {
     tiles: OrbitTile[];
   };
   included: IncludedContent;
+  deliverables: DeliverablesContent;
   showcase: ShowcaseContent;
   connections: ConnectionsContent;
   comparison: ComparisonContent;
@@ -293,6 +294,31 @@ export type ComparisonContent = {
   footnote: string;
 };
 
+/** How the illustrative panel of a "What you get" card is arranged. */
+export type DeliverableLayout = "trio" | "wide";
+
+/** One card of the "What you get" section. */
+export type DeliverableCard = {
+  id: string;
+  layout: DeliverableLayout;
+  title: string;
+  bullets: string[];
+  /** Accessible label of the illustrative panel above the card. */
+  panelLabel: string;
+};
+
+export type DeliverablesContent = {
+  /** Small chip above the heading. */
+  pill: string;
+  /** Heading, split over two centred lines. */
+  headingLine1: string;
+  headingLine2: string;
+  sub: string;
+  /** Caption under the grid. */
+  footnote: string;
+  cards: DeliverableCard[];
+};
+
 /** Closing block of the "What's included" section. */
 export const includedFooter = {
   ideal:
@@ -464,6 +490,65 @@ export const digitalFoundation: DigitalFoundationContent = {
       ...includedFooter,
       feeNote: "Third-party services, if any, may carry separate provider fees.",
     },
+  },
+  // Illustrations only. Keep every widget free of invented numbers, percentages
+  // and guarantees — statuses and words carry the meaning.
+  deliverables: {
+    pill: "What you get",
+    headingLine1: "What you walk away with:",
+    headingLine2: "a business that's ready to be found.",
+    sub: "Everything below is part of your Digital Foundation Package, set up for you and ready to use.",
+    footnote:
+      "Previews are illustrative. Final scope, features, and any third-party costs are confirmed in your proposal.",
+    cards: [
+      {
+        id: "website",
+        layout: "trio",
+        title: "A website built around your business",
+        bullets: [
+          "A new website designed around your services and products",
+          "Pages shaped by your requirements, not a generic layout",
+          "A clear, professional first impression for every visitor",
+        ],
+        panelLabel:
+          "Illustration showing website status, your pages and a design built around your business",
+      },
+      {
+        id: "leads",
+        layout: "wide",
+        title: "Turn visitors into conversations",
+        bullets: [
+          "Inquiry forms and basic lead collection built in",
+          "WhatsApp integration, so customers reach you where they already are",
+          "Essential business links and relevant basic third-party integrations",
+        ],
+        panelLabel: "Illustration of an active lead capture status",
+      },
+      {
+        id: "secure",
+        layout: "trio",
+        title: "Less manual work, secure from day one",
+        bullets: [
+          "Basic automation of selected repetitive tasks, where feasible",
+          "SSL/HTTPS configuration so your site loads securely",
+          "Essential security setup included",
+        ],
+        panelLabel:
+          "Illustration of HTTPS security, an automation flow and essential security",
+      },
+      {
+        id: "start",
+        layout: "wide",
+        title: "Start on solid ground",
+        bullets: [
+          "MSME/Udyam registration guidance, where applicable",
+          "Help identifying relevant registrations and documentation",
+          "Guidance on the essential digital infrastructure your business needs",
+        ],
+        panelLabel:
+          "Illustration of registration and setup guidance checklist",
+      },
+    ],
   },
   showcase: {
     copy: {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import DigitalFoundationHero from "@/components/services/digital-foundation/Hero";
 import Included from "@/components/services/digital-foundation/Included";
+import Deliverables from "@/components/services/digital-foundation/Deliverables";
 import Connections from "@/components/services/digital-foundation/Connections";
 import Comparison from "@/components/services/digital-foundation/Comparison";
 import { digitalFoundation } from "@/lib/content/packages/digitalFoundation";
@@ -103,6 +104,8 @@ export default function DigitalFoundationPage() {
       <DigitalFoundationHero />
 
       <Included />
+
+      <Deliverables />
 
       <Connections />
 

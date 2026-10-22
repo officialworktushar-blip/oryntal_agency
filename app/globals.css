@@ -127,6 +127,36 @@
     --cmp-partial: #ffc53d; /* limited */
     --cmp-overhang: 72px; /* how far the highlighted column runs past the rows */
 
+    /* Digital Foundation — "What you get" cards
+       Purple panel gradient, the white widget surfaces that sit on it, and the
+       status colours the widgets use. */
+    --dfd-1: #9a8dfb; /* panel gradient, start */
+    --dfd-2: #8476f4; /* panel gradient, middle */
+    --dfd-3: #7a6af1; /* panel gradient, end */
+    --dfd-4: #6c47e0; /* widget accent purple */
+    --dfd-surface: rgba(244, 243, 253, 0.96);
+    --dfd-surface-border: rgba(255, 255, 255, 0.75);
+    --dfd-shadow: 0 8px 24px rgba(60, 40, 160, 0.2);
+    --dfd-card-bg: #f4f4f5;
+    --dfd-ink: #1b1b1f;
+    --dfd-ink-soft: rgba(27, 27, 31, 0.8);
+    --dfd-muted: #6b7480;
+    --dfd-teal: #11b198;
+    --dfd-teal-ink: #12805c;
+    --dfd-green: #34c77b;
+    --dfd-tick: #0e9f6e;
+    --dfd-lilac: #e7e3fb;
+    --dfd-lilac-soft: #efedfc;
+    --dfd-chip: #e1daff;
+    --dfd-chip-ink: #4a2fb8;
+    --dfd-violet-ink: #3b2e8f;
+    --dfd-line: #b9aef5;
+    --dfd-track: rgba(120, 110, 220, 0.12);
+    --dfd-tile-1: #7a5cf5;
+    --dfd-tile-2: #5b3be0;
+    --dfd-tile-shadow: 0 14px 30px rgba(50, 25, 150, 0.45);
+    --dfd-lift-shadow: 0 24px 50px rgba(70, 50, 170, 0.16);
+
     color-scheme: light;
   }
 
@@ -568,6 +598,128 @@
     }
   }
 
+  /* "What you get" — the purple panel that tops each deliverable card */
+  .df-card-purple {
+    background-image: linear-gradient(
+      135deg,
+      var(--dfd-1) 0%,
+      var(--dfd-2) 42%,
+      var(--dfd-3) 100%
+    );
+  }
+
+  /* Lighter diagonal shapes layered over the purple panel */
+  .dfd-shape {
+    position: absolute;
+    pointer-events: none;
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .dfd-shape-l1 {
+    top: 0;
+    left: 0;
+    width: 42%;
+    height: 68%;
+    clip-path: polygon(0 0, 24% 0, 0 46%);
+    background-color: rgba(255, 255, 255, 0.13);
+  }
+
+  .dfd-shape-l2 {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(52% 0, 66% 0, 38% 100%, 24% 100%);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .dfd-shape-l3 {
+    right: 0;
+    bottom: 0;
+    width: 46%;
+    height: 62%;
+    clip-path: polygon(100% 100%, 100% 58%, 80% 100%);
+    background-color: rgba(255, 255, 255, 0.14);
+  }
+
+  @media (hover: hover) {
+    .dfd-card:hover {
+      box-shadow: var(--dfd-lift-shadow);
+    }
+
+    .dfd-card:hover .dfd-shape-l1 {
+      transform: translate(-6px, 6px);
+    }
+
+    .dfd-card:hover .dfd-shape-l2 {
+      transform: translate(6px, -6px);
+    }
+
+    .dfd-card:hover .dfd-shape-l3 {
+      transform: translate(6px, -6px);
+    }
+  }
+
+  /* The white widget surface that sits on the purple panel */
+  .dfd-widget {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    background-color: var(--dfd-surface);
+    border: 1px solid var(--dfd-surface-border);
+    box-shadow: var(--dfd-shadow);
+    color: var(--dfd-ink);
+    font-family: var(--font-sans);
+  }
+
+  /* Widget pop-in, gauges/charts drawing in, bullets sliding in.
+     The base state is fully visible: the animations only run once the card
+     reports that it is in view (see .dfd-card[data-inview="true"]). */
+  .dfd-card:not([data-inview="true"]) .dfd-pop,
+  .dfd-card:not([data-inview="true"]) .dfd-draw-in,
+  .dfd-card:not([data-inview="true"]) .dfd-bullet,
+  .dfd-card:not([data-inview="true"]) .dfd-rise,
+  .dfd-card:not([data-inview="true"]) {
+    animation: none;
+  }
+
+  .dfd-pop {
+    animation: dfd-pop-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--dfd-delay, 0ms);
+  }
+
+  /* The card itself rises into place. `backwards` (not `both`) so the card
+     falls back to its normal styles once the animation is over and the hover
+     lift can take over the transform. */
+  .dfd-rise {
+    animation: dfd-rise-in 650ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: var(--dfd-delay, 0ms);
+  }
+
+  .dfd-chip-pulse {
+    animation: dfd-chip-pulse 2.6s ease-out infinite;
+  }
+
+  .dfd-draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+
+  .dfd-draw-in {
+    animation: dfd-draw-in 1000ms ease-out both;
+    animation-delay: var(--dfd-draw-delay, 0ms);
+  }
+
+  .dfd-bullet {
+    animation: dfd-bullet-in 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--dfd-delay, 0ms);
+  }
+
+  .dfd-float {
+    animation: dfd-float 6s ease-in-out infinite alternate;
+    animation-delay: var(--dfd-delay, 0ms);
+  }
+
   /* 56px pale → white handoff into the next (white) section */
   .df-included-fade {
     background-image: linear-gradient(
@@ -901,6 +1053,70 @@
   }
 }
 
+/* "What you get" — widgets pop in, then their gauges and charts draw */
+@keyframes dfd-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dfd-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dfd-chip-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  70%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes dfd-draw-in {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dfd-bullet-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dfd-float {
+  from {
+    transform: translateY(-3px);
+  }
+  to {
+    transform: translateY(3px);
+  }
+}
+
 @keyframes play-pulse {
   0% {
     transform: scale(1);
@@ -936,6 +1152,15 @@
   /* The highlighted column keeps a static border instead of a travelling light */
   .df-cmp-col::before {
     animation: none !important;
+  }
+
+  /* "What you get" — no floating, no drifting shapes */
+  .dfd-float {
+    animation: none !important;
+  }
+
+  .dfd-shape {
+    transition: none !important;
   }
 
   *,
