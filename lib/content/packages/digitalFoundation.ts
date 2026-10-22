@@ -63,6 +63,7 @@ export type DigitalFoundationContent = {
   included: IncludedContent;
   showcase: ShowcaseContent;
   connections: ConnectionsContent;
+  comparison: ComparisonContent;
 };
 
 /** One deliverable shown in the "What's included" stage. */
@@ -257,6 +258,39 @@ export type ConnectionsContent = {
   note: string;
   upsell: { text: string; linkLabel: string; href: string };
   items: ConnectionItem[];
+};
+
+/** Status of one side of a comparison row. */
+export type ComparisonStatus = "yes" | "no" | "partial";
+
+/** One row of the "typical setup vs. ORYNTAL" comparison. */
+export type ComparisonRow = {
+  id: string;
+  /** Row label, shown in the left column. */
+  label: string;
+  /** What the ORYNTAL package covers. */
+  us: string;
+  usStatus: "yes";
+  /** What a typical DIY or template setup looks like. */
+  them: string;
+  themStatus: "no" | "partial";
+};
+
+export type ComparisonContent = {
+  /** Small chip above the heading. */
+  pill: string;
+  /** Heading, split over two centred lines. */
+  headingLine1: string;
+  headingLine2: string;
+  sub: string;
+  /** Column headers. */
+  columns: { us: string; them: string };
+  /** Caption under the ORYNTAL column header. */
+  badge: string;
+  rows: ComparisonRow[];
+  cta: { label: string; href: string };
+  secondary: { label: string; href: string };
+  footnote: string;
 };
 
 /** Closing block of the "What's included" section. */
@@ -815,5 +849,72 @@ export const digitalFoundation: DigitalFoundationContent = {
         color: "#673DE6",
       },
     ],
+  },
+  // Keep comparisons honest and generic. Do not name competitors or add unverifiable claims.
+  comparison: {
+    pill: "Why ORYNTAL",
+    headingLine1: "A typical setup vs.",
+    headingLine2: "ORYNTAL Digital Foundation",
+    sub: "Same goal, a very different starting point. Here is how a professionally set up foundation compares with a typical do-it-yourself or template setup.",
+    columns: {
+      us: "ORYNTAL Digital Foundation",
+      them: "A typical DIY or template setup",
+    },
+    badge:
+      "Ideal for startups, local businesses, service providers, and small businesses",
+    rows: [
+      {
+        id: "fit",
+        label: "Fit for your business",
+        us: "Designed around your services, products, and requirements",
+        usStatus: "yes",
+        them: "One-size-fits-all template",
+        themStatus: "no",
+      },
+      {
+        id: "setup",
+        label: "Setting everything up",
+        us: "Website, lead capture, WhatsApp, and security in one package",
+        usStatus: "yes",
+        them: "Pieced together from separate tools and vendors",
+        themStatus: "partial",
+      },
+      {
+        id: "pricing",
+        label: "Scope and pricing",
+        us: "Fixed scope and price, agreed before we start",
+        usStatus: "yes",
+        them: "Costs that can grow as you add things",
+        themStatus: "partial",
+      },
+      {
+        id: "start",
+        label: "Getting started",
+        us: "Guidance on MSME/Udyam registration and digital setup",
+        usStatus: "yes",
+        them: "You work out the basics yourself",
+        themStatus: "no",
+      },
+      {
+        id: "repetitive",
+        label: "Repetitive work",
+        us: "Basic automation of selected tasks, where feasible",
+        usStatus: "yes",
+        them: "Manual follow-ups and copy-paste",
+        themStatus: "no",
+      },
+      {
+        id: "growth",
+        label: "Growing later",
+        us: "A clear path to automation and custom systems",
+        usStatus: "yes",
+        them: "Often a rebuild or a switch of tools",
+        themStatus: "partial",
+      },
+    ],
+    cta: { label: "Get started", href: "/contact?interest=digital-foundation-package" },
+    secondary: { label: "Compare all packages", href: "/services/business-packages" },
+    footnote:
+      "This comparison is general and describes typical DIY or template setups, not any specific provider. Final scope, features, and third-party costs are confirmed in your proposal.",
   },
 };

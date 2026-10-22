@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Registered so the shimmer angle can be animated (fallback: a static border). */
+@property --cmp-shimmer {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 /* ---------------------------------------------------------------------------
    ORYNTAL design tokens
    Sampled from /public/logo.png (rendered #673DE6) — Hostinger-family violet.
@@ -104,6 +111,21 @@
     --dfi-7: #a5bed4;
     --dfi-8: #d3e1ed;
     --dfi-pale: #e4ecf4;
+
+    /* Digital Foundation — comparison band
+       Deep navy that flows out of the "What we connect" band, plus the
+       status colours and panel tints used by the comparison table. */
+    --dfx-1: #120d2e;
+    --dfx-2: #110b2b;
+    --dfx-3: #130e31;
+    --cmp-col-bg: #180f42; /* solid base of the highlighted column */
+    --cmp-border: #8b7cff; /* highlighted column border */
+    --cmp-border-soft: rgba(139, 124, 255, 0.6);
+    --cmp-card-bg: #1d1745; /* mobile card for the ORYNTAL column */
+    --cmp-yes: #2ec27e; /* included */
+    --cmp-no: #f0455a; /* not included */
+    --cmp-partial: #ffc53d; /* limited */
+    --cmp-overhang: 72px; /* how far the highlighted column runs past the rows */
 
     color-scheme: light;
   }
@@ -442,6 +464,110 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
+  /* Digital Foundation — comparison band
+     The band above it is already deep navy, so this one flows from it:
+     a soft violet glow at the top, a violet wash in the bottom-left
+     corner, and a faint grain over the whole thing. */
+  .df-compare-bg {
+    background-color: var(--dfx-1);
+    background-image:
+      radial-gradient(
+        50% 45% at 50% 0%,
+        rgba(91, 52, 214, 0.22) 0%,
+        rgba(91, 52, 214, 0) 70%
+      ),
+      radial-gradient(
+        40% 40% at 0% 100%,
+        rgba(74, 40, 176, 0.28) 0%,
+        rgba(74, 40, 176, 0) 75%
+      ),
+      linear-gradient(180deg, var(--dfx-2) 0%, var(--dfx-3) 100%);
+  }
+
+  /* Faint film grain over the comparison band */
+  .df-compare-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Comparison table — a real <table> laid out as a CSS grid.
+     The rows use `display: contents` so every cell is a grid item and
+     the highlighted ORYNTAL column can be drawn behind them. */
+  .df-cmp-table {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr 1fr;
+    grid-auto-rows: minmax(92px, auto);
+    width: 100%;
+  }
+
+  .df-cmp-table > thead,
+  .df-cmp-table > tbody,
+  .df-cmp-table tr {
+    display: contents;
+  }
+
+  /* Highlighted ORYNTAL column.
+     Sits behind the middle grid column and runs past the last row. */
+  .df-cmp-col {
+    position: absolute;
+    top: 0;
+    bottom: calc(-1 * var(--cmp-overhang));
+    left: 34.43%;
+    width: 32.79%;
+    z-index: 10;
+    pointer-events: none;
+    border: 1.5px solid var(--cmp-border);
+    border-radius: 28px;
+    background-color: var(--cmp-col-bg);
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(91, 52, 214, 0.4) 0%,
+        rgba(91, 52, 214, 0) 45%
+      ),
+      linear-gradient(180deg, rgba(40, 28, 110, 0.55) 0%, rgba(40, 28, 110, 0.55) 100%);
+    box-shadow: 0 0 80px rgba(99, 61, 230, 0.25);
+  }
+
+  /* Slow light travelling along the highlighted column border */
+  .df-cmp-col::before {
+    content: "";
+    position: absolute;
+    inset: -1.5px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(
+      from var(--cmp-shimmer, 0deg),
+      rgba(185, 174, 255, 0) 0deg,
+      rgba(185, 174, 255, 0.9) 32deg,
+      rgba(185, 174, 255, 0) 88deg,
+      rgba(185, 174, 255, 0) 360deg
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: df-cmp-shimmer 8s linear infinite;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .df-cmp-table {
+      grid-auto-rows: minmax(84px, auto);
+    }
+
+    .df-cmp-col {
+      --cmp-overhang: 56px;
+    }
+  }
+
   /* 56px pale → white handoff into the next (white) section */
   .df-included-fade {
     background-image: linear-gradient(
@@ -756,6 +882,16 @@
   }
 }
 
+/* Light travelling around the highlighted comparison column */
+@keyframes df-cmp-shimmer {
+  from {
+    --cmp-shimmer: 0deg;
+  }
+  to {
+    --cmp-shimmer: 360deg;
+  }
+}
+
 @keyframes grad-text-drift {
   from {
     background-position: 0% 50%;
@@ -795,6 +931,11 @@
 
   .text-gradient-brand {
     animation: none;
+  }
+
+  /* The highlighted column keeps a static border instead of a travelling light */
+  .df-cmp-col::before {
+    animation: none !important;
   }
 
   *,

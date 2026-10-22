@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import DigitalFoundationHero from "@/components/services/digital-foundation/Hero";
 import Included from "@/components/services/digital-foundation/Included";
 import Connections from "@/components/services/digital-foundation/Connections";
+import Comparison from "@/components/services/digital-foundation/Comparison";
 import { digitalFoundation } from "@/lib/content/packages/digitalFoundation";
 
 const title =
@@ -104,6 +105,8 @@ export default function DigitalFoundationPage() {
       <Included />
 
       <Connections />
+
+      <Comparison />
 
       {/* TODO next sections: #who-its-for, #process, #faq, CTA */}
     </main>
