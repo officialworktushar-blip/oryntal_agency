@@ -108,9 +108,6 @@
     --dfi-4: #1e3047;
     --dfi-5: #3d5b7a;
     --dfi-6: #6f8fae;
-    --dfi-7: #a5bed4;
-    --dfi-8: #d3e1ed;
-    --dfi-pale: #e4ecf4;
 
     /* Digital Foundation — comparison band
        Deep navy that flows out of the "What we connect" band, plus the
@@ -455,27 +452,6 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* FOOT block */
-  .df-incl-foot-bg {
-    background-color: var(--dfi-6);
-    background-image: linear-gradient(
-      180deg,
-      var(--dfi-6) 0%,
-      var(--dfi-7) 32%,
-      var(--dfi-8) 68%,
-      var(--dfi-pale) 100%
-    );
-  }
-
-  /* Soft white wash so dark text keeps AA contrast in the mid-tone band */
-  .df-incl-foot-wash {
-    background-image: radial-gradient(
-      58% 70% at 50% 50%,
-      rgba(255, 255, 255, 0.5) 0%,
-      rgba(255, 255, 255, 0) 72%
-    );
-  }
-
   /* Digital Foundation — "What we connect" band
      A deep navy band that starts with a clean straight edge below the pale
      "What's included" section, with a lilac glow at the top and a violet
@@ -759,16 +735,6 @@
   .dfd-float {
     animation: dfd-float 6s ease-in-out infinite alternate;
     animation-delay: var(--dfd-delay, 0ms);
-  }
-
-  /* 56px pale → white handoff into the next (white) section */
-  .df-included-fade {
-    background-image: linear-gradient(
-      180deg,
-      rgba(228, 236, 244, 0) 0%,
-      var(--dfi-pale) 52%,
-      #ffffff 100%
-    );
   }
 
   /* Dashboard window — illustrative mini charts.

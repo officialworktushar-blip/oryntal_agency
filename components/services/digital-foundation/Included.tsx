@@ -1,15 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { m, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import {
-  digitalFoundation,
-  includedFooter,
-} from "@/lib/content/packages/digitalFoundation";
-import { cn } from "@/lib/cn";
+import { digitalFoundation } from "@/lib/content/packages/digitalFoundation";
 import ShowcaseCanvas from "./ShowcaseCanvas";
-import FeatureCaption from "./FeatureCaption";
 
 const AUTOPLAY_MS = 3800;
 const OVERVIEW_DWELL_MS = 1200;
@@ -130,7 +124,7 @@ export default function Included() {
       </div>
 
       {/* STAGE */}
-      <div className="df-incl-stage-bg df-incl-grain relative overflow-hidden pb-6">
+      <div className="df-incl-stage-bg df-incl-grain relative overflow-hidden pb-16 md:pb-24">
         <div
           aria-hidden="true"
           className="df-incl-stage-vignette pointer-events-none absolute inset-0"
@@ -158,96 +152,6 @@ export default function Included() {
         </div>
       </div>
 
-      {/* FOOT */}
-      <div className="df-incl-foot-bg relative pt-10 pb-24 md:pb-32">
-        <div
-          aria-hidden="true"
-          className="df-included-fade pointer-events-none absolute inset-x-0 bottom-0 h-14"
-        />
-
-        <div className="container-x relative">
-          {/* Caption for the highlighted deliverable */}
-          <div className="relative">
-            <div
-              aria-hidden="true"
-              className="df-incl-foot-wash pointer-events-none absolute -inset-x-10 -inset-y-12"
-            />
-            <FeatureCaption
-              items={included.items}
-              activeId={activeId}
-              onSelect={select}
-            />
-          </div>
-          {/* Mobile: every deliverable as a card */}
-          <div className="md:hidden">
-            <div className="grid grid-cols-2 gap-3">
-              {included.items.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => select(item.id)}
-                    className={cn(
-                      "rounded-2xl border border-white bg-[rgba(255,255,255,0.7)] p-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#673DE6]",
-                      index === included.items.length - 1 && "col-span-2",
-                    )}
-                  >
-                    <span className="grid size-9 place-items-center rounded-xl bg-white/85">
-                      <Icon className="size-4 text-[#673DE6]" strokeWidth={1.8} />
-                    </span>
-                    <p className="mt-3 text-sm font-semibold leading-snug text-[#0F1B2B]">
-                      {item.title}
-                    </p>
-                    <p className="mt-1 text-sm leading-relaxed text-[#2B3F55]">
-                      {item.description}
-                    </p>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Closing block, sitting in the pale zone at the bottom */}
-          <div className="relative mt-10 md:mt-14">
-            <div
-              aria-hidden="true"
-              className="df-incl-foot-wash pointer-events-none absolute -inset-x-8 -inset-y-10"
-            />
-
-            <m.div
-              initial={{ opacity: 0, y: reduced ? 0 : 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="relative mx-auto max-w-2xl text-center"
-            >
-              <p className="text-base leading-relaxed text-[#2B3F55] md:text-lg">
-                {includedFooter.ideal}
-              </p>
-
-              <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Link
-                  href={includedFooter.cta.href}
-                  className="inline-flex items-center justify-center rounded-2xl bg-[#673DE6] px-10 py-4 text-lg font-medium text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_44px_rgba(103,61,230,0.45)] focus-visible:ring-2 focus-visible:ring-[#673DE6] focus-visible:ring-offset-2"
-                >
-                  {includedFooter.cta.label}
-                </Link>
-                <Link
-                  href={includedFooter.secondary.href}
-                  className="inline-flex items-center justify-center rounded-2xl border border-[#2B3F55]/25 px-7 py-4 text-lg text-[#2B3F55] transition-colors duration-200 hover:bg-white/50 focus-visible:ring-2 focus-visible:ring-[#673DE6] focus-visible:ring-offset-2"
-                >
-                  {includedFooter.secondary.label}
-                </Link>
-              </div>
-
-              <p className="mt-4 text-xs text-[#3E5266]">
-                {included.footer.feeNote}
-              </p>
-            </m.div>
-          </div>
-        </div>
-      </div>
     </section>
   );
 }
