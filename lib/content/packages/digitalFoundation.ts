@@ -417,14 +417,6 @@ export const digitalFoundation: DigitalFoundationContent = {
         icon: Globe,
       },
       {
-        id: "leads",
-        label: "Lead capture",
-        title: "Lead capture, built in",
-        description: "Inquiry forms and basic lead collection, ready from day one.",
-        bullet: "Lead capture forms that turn visitors into enquiries",
-        icon: UserPlus,
-      },
-      {
         id: "connect",
         label: "Integrations",
         title: "WhatsApp and business links",
@@ -507,12 +499,6 @@ export const digitalFoundation: DigitalFoundationContent = {
       },
       {
         rows: [
-          {
-            id: "leads",
-            label: "Lead capture",
-            icon: UserPlus,
-            includedId: "leads",
-          },
           {
             id: "whatsapp",
             label: "WhatsApp",
