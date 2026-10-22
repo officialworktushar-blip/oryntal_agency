@@ -66,6 +66,7 @@ export type DigitalFoundationContent = {
   connections: ConnectionsContent;
   comparison: ComparisonContent;
   experts: ExpertsContent;
+  globalReach: GlobalReachContent;
 };
 
 /** One deliverable shown in the "What's included" stage. */
@@ -317,6 +318,39 @@ export type ExpertsContent = {
     primary: { label: string; href: string };
     trust: string;
   };
+};
+
+export type GlobalReachFlag =
+  | "IN"
+  | "AE"
+  | "GB"
+  | "DE"
+  | "US"
+  | "SG"
+  | "AU"
+  | "BR";
+
+export type GlobalReachPin = {
+  id: string;
+  name: string;
+  flag: GlobalReachFlag;
+  lng: number;
+  lat: number;
+};
+
+export type GlobalReachContent = {
+  label: string;
+  chip: {
+    icon: "Globe";
+    text: string;
+    sub: string;
+  };
+  heading: string;
+  body: string;
+  cta: { label: string; href: string };
+  trust: string;
+  mapCaption: string;
+  pins: GlobalReachPin[];
 };
 
 /** How the illustrative panel of a "What you get" card is arranged. */
@@ -1071,5 +1105,32 @@ export const digitalFoundation: DigitalFoundationContent = {
       },
       trust: "Clear scope and pricing before we start",
     },
+  },
+  globalReach: {
+    // CONFIRM: flags are decorative markets we are open to serving, NOT client claims. Edit this list to match where you actually want to work.
+    label: "How we work:",
+    chip: {
+      icon: "Globe",
+      text: "Remote-first",
+      sub: "Serving clients worldwide",
+    },
+    heading: "Start local. Reach further.",
+    body: "A professional website, WhatsApp, and lead capture put your business within reach of customers well beyond your neighbourhood. We work remotely with businesses worldwide, so where you are never limits what you launch.",
+    cta: {
+      label: "Get started",
+      href: "/contact?interest=digital-foundation-package",
+    },
+    trust: "Clear scope and pricing before we start",
+    mapCaption: "ORYNTAL works remotely with businesses worldwide.",
+    pins: [
+      { id: "in", name: "India", flag: "IN", lng: 78.9, lat: 21.0 },
+      { id: "ae", name: "UAE", flag: "AE", lng: 54.4, lat: 24.4 },
+      { id: "gb", name: "United Kingdom", flag: "GB", lng: -2.0, lat: 54.0 },
+      { id: "de", name: "Germany", flag: "DE", lng: 10.4, lat: 51.0 },
+      { id: "us", name: "United States", flag: "US", lng: -98.0, lat: 39.0 },
+      { id: "sg", name: "Singapore", flag: "SG", lng: 103.8, lat: 1.4 },
+      { id: "au", name: "Australia", flag: "AU", lng: 134.0, lat: -25.0 },
+      { id: "br", name: "Brazil", flag: "BR", lng: -51.9, lat: -14.2 },
+    ],
   },
 };

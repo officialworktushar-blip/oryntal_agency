@@ -140,6 +140,16 @@
     --dfe-chip-lilac-ink: #4a2fb8;
     --dfe-teal: #11b198;
 
+    /* Digital Foundation — "Remote-first / Global reach" band */
+    --gr-bg: #050507;
+    --gr-panel: #111113;
+    --gr-chip: #1c1c1f;
+    --gr-chip-icon: #2a2450;
+    --gr-chip-icon-ink: #9b95ff;
+    --gr-pin-1: #241c46;
+    --gr-pin-2: #15112b;
+    --gr-pin-ok: #2ec27e;
+
     /* Digital Foundation — "What you get" cards
        Purple panel gradient, the white widget surfaces that sit on it, and the
        status colours the widgets use. */
@@ -539,6 +549,122 @@
   /* Consultant mockups - the pulse that travels along the automation flow */
   .dfe-flow-pulse {
     animation: dfe-flow-pulse 3.2s linear infinite;
+  }
+
+  /* "Remote-first / Global reach" flag pins */
+  .gr-pin {
+    position: absolute;
+    left: 0;
+    top: 0;
+    will-change: transform, opacity;
+    transform: translate3d(-1000px, -1000px, 0);
+  }
+
+  .gr-pin-tile {
+    position: relative;
+    display: flex;
+    width: 54px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    background-image: linear-gradient(
+      145deg,
+      var(--gr-pin-1) 0%,
+      var(--gr-pin-2) 100%
+    );
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: perspective(300px) rotateX(8deg) rotateY(-10deg) scale(0.6);
+    transition:
+      transform 0.55s cubic-bezier(0.22, 1.25, 0.36, 1),
+      opacity 0.45s ease;
+    transition-delay: 0ms;
+    will-change: transform;
+  }
+
+  .gr-pin-in .gr-pin-tile {
+    opacity: 1;
+    transform: perspective(300px) rotateX(8deg) rotateY(-10deg) scale(1);
+    transition-delay: calc(650ms + var(--pin-i) * 90ms);
+  }
+
+  .gr-pin-tile:hover {
+    opacity: 1;
+    transform: perspective(300px) rotateX(8deg) rotateY(-10deg)
+      translateY(-4px) scale(1.08);
+    transition-delay: 0ms;
+  }
+
+  .gr-pin-flag {
+    position: relative;
+    display: block;
+    width: 40px;
+    height: 26px;
+    overflow: hidden;
+    border-radius: 3px;
+  }
+
+  .gr-pin-shine {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.18),
+      transparent 55%
+    );
+    pointer-events: none;
+  }
+
+  .gr-pin-anchor {
+    position: absolute;
+    left: -3px;
+    top: -3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background-color: var(--gr-pin-ok);
+    box-shadow: 0 0 8px rgba(46, 194, 126, 0.7);
+  }
+
+  .gr-pin-ring {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(46, 194, 126, 0.8);
+    border-radius: 9999px;
+    opacity: 0;
+  }
+
+  .gr-pulses .gr-pin-ring {
+    animation: gr-pin-pulse 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+    animation-delay: calc(var(--pin-i) * 160ms + 900ms);
+  }
+
+  .gr-pin-label {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    align-items: center;
+    white-space: nowrap;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 4px 10px;
+    font-size: 12px;
+    line-height: 1.2;
+    color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 4px);
+    backdrop-filter: blur(8px);
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .gr-pin-tile:hover .gr-pin-label {
+    opacity: 1;
+    transform: translate(-50%, 0);
   }
 
   /* Comparison table — a real <table> laid out as a CSS grid.
@@ -1071,6 +1197,17 @@
 }
 
 /* "What you get" — widgets pop in, then their gauges and charts draw */
+@keyframes gr-pin-pulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+
 @keyframes dfd-pop-in {
   from {
     opacity: 0;
@@ -1178,6 +1315,10 @@
 
   .dfd-shape {
     transition: none !important;
+  }
+
+  .gr-pin-in .gr-pin-tile {
+    transition-delay: 0ms !important;
   }
 
   *,
