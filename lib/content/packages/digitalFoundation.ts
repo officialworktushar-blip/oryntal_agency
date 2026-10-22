@@ -65,6 +65,7 @@ export type DigitalFoundationContent = {
   showcase: ShowcaseContent;
   connections: ConnectionsContent;
   comparison: ComparisonContent;
+  experts: ExpertsContent;
 };
 
 /** One deliverable shown in the "What's included" stage. */
@@ -292,6 +293,30 @@ export type ComparisonContent = {
   cta: { label: string; href: string };
   secondary: { label: string; href: string };
   footnote: string;
+};
+
+/** Decorative mock shown at the bottom of an open consultant bar. */
+export type ExpertMock = "prompt" | "leads" | "channels" | "flow" | "checklist";
+
+/** One consultant topic in the "Talk to a consultant" section. */
+export type ExpertBar = {
+  id: string;
+  title: string;
+  description: string;
+  linkLabel: string;
+  href: string;
+  mock: ExpertMock;
+};
+
+export type ExpertsContent = {
+  heading: string;
+  sub: string;
+  bars: ExpertBar[];
+  cta: {
+    text: string;
+    primary: { label: string; href: string };
+    trust: string;
+  };
 };
 
 /** How the illustrative panel of a "What you get" card is arranged. */
@@ -987,5 +1012,64 @@ export const digitalFoundation: DigitalFoundationContent = {
     secondary: { label: "Compare all packages", href: "/services/business-packages" },
     footnote:
       "This comparison is general and describes typical DIY or template setups, not any specific provider. Final scope, features, and third-party costs are confirmed in your proposal.",
+  },
+  experts: {
+    heading: "Not sure where to start? Talk to a consultant",
+    sub: "Tell us about your business and we'll recommend the simplest next step. Pick a topic to see how we help.",
+    bars: [
+      {
+        id: "website",
+        title: "Website planner",
+        description:
+          "We'll turn your services and products into a clear, professional website plan, so visitors understand what you offer in seconds.",
+        linkLabel: "Plan my website",
+        href: "/contact?interest=digital-foundation-package&topic=website",
+        mock: "prompt",
+      },
+      {
+        id: "leads",
+        title: "Lead capture advisor",
+        description:
+          "We'll set up inquiry forms and lead collection, so every interested visitor has an easy way to reach you.",
+        linkLabel: "Capture more enquiries",
+        href: "/contact?interest=digital-foundation-package&topic=lead-capture",
+        mock: "leads",
+      },
+      {
+        id: "connect",
+        title: "WhatsApp & links",
+        description:
+          "We'll connect WhatsApp and your essential business links, so customers can reach you where they already are.",
+        linkLabel: "Connect my channels",
+        href: "/contact?interest=digital-foundation-package&topic=whatsapp-and-links",
+        mock: "channels",
+      },
+      {
+        id: "automate",
+        title: "Automation guide",
+        description:
+          "We'll find the repetitive tasks slowing you down and automate the right ones, where feasible.",
+        linkLabel: "Find my quick wins",
+        href: "/contact?interest=digital-foundation-package&topic=automation",
+        mock: "flow",
+      },
+      {
+        id: "start",
+        title: "Registration & setup guide",
+        description:
+          "We'll guide you through MSME/Udyam registration and the digital basics, where applicable, so you start on solid ground.",
+        linkLabel: "Get set up right",
+        href: "/contact?interest=digital-foundation-package&topic=registration-and-setup",
+        mock: "checklist",
+      },
+    ],
+    cta: {
+      text: "Prefer to talk it through? Tell us about your business and we'll map the next step with you.",
+      primary: {
+        label: "Book a consultation",
+        href: "/contact?interest=digital-foundation-package",
+      },
+      trust: "Clear scope and pricing before we start",
+    },
   },
 };

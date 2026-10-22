@@ -4,6 +4,7 @@ import Included from "@/components/services/digital-foundation/Included";
 import Deliverables from "@/components/services/digital-foundation/Deliverables";
 import Connections from "@/components/services/digital-foundation/Connections";
 import Comparison from "@/components/services/digital-foundation/Comparison";
+import Experts from "@/components/services/digital-foundation/Experts";
 import { digitalFoundation } from "@/lib/content/packages/digitalFoundation";
 
 const title =
@@ -110,6 +111,8 @@ export default function DigitalFoundationPage() {
       <Connections />
 
       <Comparison />
+
+      <Experts />
 
       {/* TODO next sections: #who-its-for, #process, #faq, CTA */}
     </main>

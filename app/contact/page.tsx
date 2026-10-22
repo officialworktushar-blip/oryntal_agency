@@ -226,12 +226,25 @@ type FieldProps = {
   required?: boolean;
 };
 
-/** Prefills the message box from ?message= (e.g. the hero search pill). */
+const TOPIC_PREFILL: Record<string, string> = {
+  website: "planning my website",
+  "lead-capture": "capturing more enquiries",
+  "whatsapp-and-links": "connecting WhatsApp and my business links",
+  automation: "automating repetitive tasks",
+  "registration-and-setup": "MSME/Udyam registration and digital setup",
+};
+
+/** Prefills the message box from ?message= or ?topic= (e.g. the hero search pill). */
 function MessageField() {
   const searchParams = useSearchParams();
-  const [message, setMessage] = useState(
-    () => searchParams.get("message") ?? ""
-  );
+  const [message, setMessage] = useState(() => {
+    const fromMessage = searchParams.get("message");
+    if (fromMessage) return fromMessage;
+
+    const topic = searchParams.get("topic");
+    const label = topic ? TOPIC_PREFILL[topic] : undefined;
+    return label ? `I'd like help with: ${label}.` : "";
+  });
 
   return (
     <textarea

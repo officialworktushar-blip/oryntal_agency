@@ -127,6 +127,22 @@
     --cmp-partial: #ffc53d; /* limited */
     --cmp-overhang: 72px; /* how far the highlighted column runs past the rows */
 
+    /* Digital Foundation — "Talk to a consultant" band and bars */
+    --dfe-bg: #050507;
+    --dfe-collapsed: #0f0f11;
+    --dfe-active-1: #8576ff;
+    --dfe-active-2: #7b68ff;
+    --dfe-active-3: #7461f5;
+    --dfe-ink: #1b1b1f;
+    --dfe-muted: #6b7480;
+    --dfe-accent: #6c47e0;
+    --dfe-send: #5b3be0;
+    --dfe-chip-green-bg: #e3f5ea;
+    --dfe-chip-green-ink: #1e8a4c;
+    --dfe-chip-lilac-bg: #ede9ff;
+    --dfe-chip-lilac-ink: #4a2fb8;
+    --dfe-teal: #11b198;
+
     /* Digital Foundation — "What you get" cards
        Purple panel gradient, the white widget surfaces that sit on it, and the
        status colours the widgets use. */
@@ -522,6 +538,31 @@
     pointer-events: none;
     opacity: 0.04;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Digital Foundation - "Talk to a consultant" band.
+     Near-black with a soft violet glow at the top, plus a faint grain. */
+  .df-experts-bg {
+    background-color: var(--dfe-bg);
+    background-image: radial-gradient(
+      45% 35% at 50% 0%,
+      rgba(91, 52, 214, 0.16) 0%,
+      rgba(91, 52, 214, 0) 70%
+    );
+  }
+
+  .df-experts-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Consultant mockups - the pulse that travels along the automation flow */
+  .dfe-flow-pulse {
+    animation: dfe-flow-pulse 3.2s linear infinite;
   }
 
   /* Comparison table — a real <table> laid out as a CSS grid.
@@ -1050,6 +1091,16 @@
   }
   to {
     background-position: 100% 50%;
+  }
+}
+
+/* Pulse travelling between the automation nodes */
+@keyframes dfe-flow-pulse {
+  from {
+    left: 118px;
+  }
+  to {
+    left: 312px;
   }
 }
 
