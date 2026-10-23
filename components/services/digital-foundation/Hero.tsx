@@ -44,7 +44,7 @@ export default function DigitalFoundationHero() {
       aria-labelledby="df-hero-title"
       className="df-hero-gradient df-hero-grain relative -mt-[72px] overflow-hidden pb-14 pt-[calc(var(--header-h)+40px)] text-white md:pb-20 md:pt-[calc(var(--header-h)+64px)] lg:pt-[calc(var(--header-h)+72px)]"
     >
-      <div className="container-x relative grid items-center gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-6">
+      <div className="container-x relative grid items-center gap-8 lg:grid-cols-2 lg:gap-6">
         {/* LEFT */}
         <div className="relative z-10 min-w-0">
           <h1 id="df-hero-title" className="mt-4 font-normal tracking-[-0.03em]">
@@ -137,7 +137,7 @@ export default function DigitalFoundationHero() {
         </div>
 
         {/* RIGHT */}
-        <div className="relative flex items-center justify-center lg:justify-end">
+        <div className="relative flex min-w-0 items-center justify-center self-center">
           <HeroOrbit />
         </div>
       </div>
