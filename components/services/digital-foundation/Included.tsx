@@ -12,7 +12,6 @@ const MANUAL_PAUSE_MS = 10000;
 export default function Included() {
   const reduced = useReducedMotion() ?? false;
   const { included, showcase } = digitalFoundation;
-  const [titleLead, titleTail] = included.titleLines;
 
   const stageRef = useRef<HTMLDivElement>(null);
   const stageInView = useInView(stageRef, { amount: 0.35 });
@@ -79,34 +78,16 @@ export default function Included() {
       className="relative scroll-mt-24 overflow-hidden"
     >
       {/* HEAD */}
-      <div className="df-incl-head-bg relative pt-24 pb-10 md:pt-32">
+      <div className="df-incl-head-bg relative pt-10 pb-4 md:pt-14 md:pb-5 lg:pt-16">
         <div className="container-x relative">
           <div className="mx-auto max-w-4xl text-center">
-            <m.span
-              {...reveal(0)}
-              className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm text-white"
-            >
-              {included.eyebrow}
-            </m.span>
-
             <m.h2
               id="included-title"
-              className="mt-6 font-normal leading-[1.08] tracking-[-0.03em] text-4xl text-white md:text-5xl lg:text-[60px]"
+              {...reveal(0)}
+              className="font-normal leading-[1.08] tracking-[-0.03em] text-4xl text-[#9B95FF] md:text-5xl lg:text-[56px]"
             >
-              <m.span {...reveal(0.08)} className="block text-[#9B95FF]">
-                {titleLead}
-              </m.span>
-              <m.span {...reveal(0.16)} className="block text-white">
-                {titleTail}
-              </m.span>
+              {included.eyebrow}
             </m.h2>
-
-            <m.p
-              {...reveal(0.24)}
-              className="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-white/75"
-            >
-              {included.intro}
-            </m.p>
           </div>
 
           {/* Every deliverable, spelled out for screen readers and crawlers */}

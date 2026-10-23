@@ -26,6 +26,7 @@
     --line-rgb: 227 228 232; /* #E3E4E8 */
 
     /* Dark navbar */
+    --header-h: 72px;
     --nav-from: #0b0720;
     --nav-via: #1a0f45;
     --nav-to: #5b34d6;
@@ -87,13 +88,13 @@
     --cta-4: #5f37c8;
     --cta-5: #0b0720;
 
-    /* Digital Foundation hero — near-black → steel blue → pale blue-white */
-    --df-1: #0b0d12;
-    --df-2: #0e1218;
-    --df-3: #1b2838;
-    --df-4: #5e7c98;
-    --df-5: #c9d8e6;
-    --df-6: #e4ecf4;
+    /* Digital Foundation hero — near-black with deep-purple glow */
+    --df-1: #030305;
+    --df-2: #040406;
+    --df-3: #0a0c10;
+    --df-4: #0a0c10;
+    --df-5: #0a0c10;
+    --df-6: #0a0c10;
 
     /* Digital Foundation hero — orbit design */
     --orbit-glow: 99 61 230; /* #673DE6 */
@@ -341,34 +342,31 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* Digital Foundation hero — near-black → steel blue → pale blue-white bottom */
+  /* Digital Foundation hero — pure black with a deep-purple glow behind the right side */
   .df-hero-gradient {
     background-color: var(--df-1);
     background-image:
       radial-gradient(
-        60% 40% at 50% 100%,
-        var(--df-6) 0%,
-        rgba(230, 238, 246, 0) 75%
+        34% 52% at 76% 48%,
+        rgba(99, 61, 230, 0.26) 0%,
+        rgba(99, 61, 230, 0) 72%
       ),
       radial-gradient(
-        45% 35% at 15% 100%,
-        rgba(120, 150, 180, 0.55) 0%,
-        rgba(120, 150, 180, 0) 70%
+        52% 70% at 78% 50%,
+        rgba(62, 36, 150, 0.4) 0%,
+        rgba(62, 36, 150, 0) 74%
       ),
       radial-gradient(
-        40% 40% at 90% 60%,
-        rgba(40, 60, 85, 0.55) 0%,
-        rgba(40, 60, 85, 0) 75%
+        40% 45% at 100% 8%,
+        rgba(40, 24, 110, 0.35) 0%,
+        rgba(40, 24, 110, 0) 70%
       ),
-      linear-gradient(
-        180deg,
-        var(--df-1) 0%,
-        var(--df-2) 38%,
-        var(--df-3) 62%,
-        var(--df-4) 82%,
-        var(--df-5) 94%,
-        var(--df-6) 100%
-      );
+      radial-gradient(
+        45% 40% at 0% 100%,
+        rgba(22, 14, 60, 0.35) 0%,
+        rgba(22, 14, 60, 0) 70%
+      ),
+      linear-gradient(180deg, #030305 0%, #040406 55%, #0a0c10 100%);
   }
 
   /* Faint film grain over the Digital Foundation hero */
@@ -377,30 +375,38 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.05;
+    opacity: 0.03;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   /* Digital Foundation hero — tilted "orbit" stage */
   .df-orbit-stage {
     transform: rotate(-5deg);
-    -webkit-mask-image: radial-gradient(
-      closest-side,
-      #000 70%,
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 9%,
+      #000 91%,
       transparent 100%
     );
-    mask-image: radial-gradient(closest-side, #000 70%, transparent 100%);
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 9%,
+      #000 91%,
+      transparent 100%
+    );
   }
 
   @media (min-width: 768px) {
     .df-orbit-stage {
-      transform: rotate(-7deg);
+      transform: rotate(-8deg);
     }
   }
 
   .df-orbit-tile {
     width: 8%;
-    min-width: 40px;
+    min-width: 36px;
   }
 
   .df-orbit-tilebox {
@@ -410,7 +416,7 @@
   @media (min-width: 768px) {
     .df-orbit-tile {
       width: 9.5%;
-      min-width: 42px;
+      min-width: 40px;
     }
   }
 
