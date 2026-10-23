@@ -232,6 +232,7 @@ const TOPIC_PREFILL: Record<string, string> = {
   "whatsapp-and-links": "connecting WhatsApp and my business links",
   automation: "automating repetitive tasks",
   "registration-and-setup": "MSME/Udyam registration and digital setup",
+  integrations: "connecting my business tools",
 };
 
 /** Prefills the message box from ?message= or ?topic= (e.g. the hero search pill). */

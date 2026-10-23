@@ -15,9 +15,25 @@ import {
 import {
   SiAirtable,
   SiGmail,
+  SiGoogleanalytics,
+  SiGooglecalendar,
   SiGooglesheets,
+  SiHubspot,
+  SiMailchimp,
+  SiMeta,
+  SiN8N,
+  SiNotion,
+  SiPaypal,
   SiRazorpay,
+  SiShopify,
+  SiSlackware as SiSlack,
+  SiStripe,
+  SiSupabase,
   SiWhatsapp,
+  SiWoocommerce,
+  SiZapier,
+  SiZoho,
+  SiOpenaigym as SiOpenai,
 } from "react-icons/si";
 import type { IconType } from "react-icons";
 
@@ -57,6 +73,29 @@ export type BusinessAutomationOverview = {
   footnote: string;
 };
 
+export type BusinessAutomationConnectTool = {
+  id: string;
+  name: string;
+  sub: string;
+  icon: IconType | "monogram";
+  color: string;
+};
+
+export type BusinessAutomationConnect = {
+  pill: string;
+  headingLine1: string;
+  headingLine2: string;
+  sub: string;
+  panelLabel: string;
+  collapsedRows: number;
+  showMore: string;
+  showLess: string;
+  askLine: string;
+  askCta: { label: string; href: string };
+  note: string;
+  tools: BusinessAutomationConnectTool[];
+};
+
 export type BusinessAutomationContent = {
   packageName: string;
   price: number;
@@ -73,6 +112,7 @@ export type BusinessAutomationContent = {
   trustLine: string;
   slides: BusinessAutomationSlide[];
   overview: BusinessAutomationOverview;
+  connect: BusinessAutomationConnect;
 };
 
 export const businessAutomation: BusinessAutomationContent = {
@@ -172,6 +212,50 @@ export const businessAutomation: BusinessAutomationContent = {
     },
     footnote:
       "Illustrative examples. Specific integrations and automation capabilities depend on the agreed scope. AI assistants are included when required and agreed. Third-party subscriptions and transaction fees may be separate.",
+  },
+  connect: {
+    // CONFIRM: keep only tools ORYNTAL can genuinely connect in this package. Remove the rest before launch.
+    pill: "Integrations",
+    headingLine1: "Connect your entire business",
+    headingLine2: "in one place.",
+    sub: "From everyday basics to advanced systems, we connect the tools you already use, so payments, orders, delivery, and customer updates work together instead of apart.",
+    panelLabel: "Tools businesses really use",
+    collapsedRows: 3,
+    showMore: "Show more tools",
+    showLess: "Show fewer tools",
+    askLine: "Don't see your tool? If it offers an API, we can often connect it, subject to compatibility, access, and availability.",
+    askCta: {
+      label: "Ask about your tools",
+      href: "/contact?interest=business-automation-package&topic=integrations",
+    },
+    note: "Examples of tools businesses commonly use. Specific integrations depend on the agreed scope, compatibility, account access, and service availability. Third-party subscriptions and transaction fees may be separate. Logos belong to their respective owners and do not imply endorsement.",
+    tools: [
+      { id: "whatsapp", name: "WhatsApp Business", sub: "Customer chat", icon: SiWhatsapp, color: "#25D366" },
+      { id: "gmail", name: "Gmail", sub: "Email", icon: SiGmail, color: "#EA4335" },
+      { id: "sheets", name: "Google Sheets", sub: "Spreadsheets", icon: SiGooglesheets, color: "#34A853" },
+      { id: "razorpay", name: "Razorpay", sub: "Payments", icon: SiRazorpay, color: "#3395FF" },
+      { id: "stripe", name: "Stripe", sub: "Payments", icon: SiStripe, color: "#635BFF" },
+      { id: "paypal", name: "PayPal", sub: "Payments", icon: SiPaypal, color: "#003087" },
+      { id: "shopify", name: "Shopify", sub: "Online store", icon: SiShopify, color: "#7AB55C" },
+      { id: "woocommerce", name: "WooCommerce", sub: "Online store", icon: SiWoocommerce, color: "#96588A" },
+      { id: "shiprocket", name: "Shiprocket", sub: "Shipping", icon: "monogram", color: "#5B3BE0" },
+      { id: "delhivery", name: "Delhivery", sub: "Logistics", icon: "monogram", color: "#E4262B" },
+      { id: "gcal", name: "Google Calendar", sub: "Scheduling", icon: SiGooglecalendar, color: "#4285F4" },
+      { id: "ga", name: "Google Analytics", sub: "Website insights", icon: SiGoogleanalytics, color: "#E37400" },
+      { id: "meta", name: "Meta", sub: "Facebook & Instagram", icon: SiMeta, color: "#0866FF" },
+      { id: "mailchimp", name: "Mailchimp", sub: "Email marketing", icon: SiMailchimp, color: "#FFB000" },
+      { id: "hubspot", name: "HubSpot", sub: "CRM", icon: SiHubspot, color: "#FF7A59" },
+      { id: "zoho", name: "Zoho", sub: "CRM & business apps", icon: SiZoho, color: "#E42527" },
+      { id: "tally", name: "Tally", sub: "Accounting", icon: "monogram", color: "#2E7D32" },
+      { id: "slack", name: "Slack", sub: "Team chat", icon: SiSlack, color: "#4A154B" },
+      { id: "notion", name: "Notion", sub: "Docs & wikis", icon: SiNotion, color: "#000000" },
+      { id: "airtable", name: "Airtable", sub: "Databases", icon: SiAirtable, color: "#FCB400" },
+      { id: "zapier", name: "Zapier", sub: "Workflows", icon: SiZapier, color: "#FF4F00" },
+      { id: "n8n", name: "n8n", sub: "Workflow automation", icon: SiN8N, color: "#EA4B71" },
+      { id: "twilio", name: "Twilio", sub: "SMS & voice", icon: "monogram", color: "#F22F46" },
+      { id: "openai", name: "OpenAI", sub: "AI", icon: SiOpenai, color: "#10A37F" },
+      { id: "supabase", name: "Supabase", sub: "Databases & backend", icon: SiSupabase, color: "#3ECF8E" },
+    ],
   },
   slides: [
     {

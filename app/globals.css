@@ -1080,6 +1080,73 @@
   }
 }
 
+/* Business automation tools/connect */
+.ba-tools-bg {
+  background-color: #14102F;
+  background-image:
+    radial-gradient(55% 40% at 50% 0%, rgba(91, 52, 214, 0.30) 0%, rgba(91, 52, 214, 0) 70%),
+    radial-gradient(45% 40% at 100% 100%, rgba(122, 82, 240, 0.22) 0%, rgba(122, 82, 240, 0) 70%),
+    linear-gradient(180deg, #1D1450 0%, #140F33 22%, #110B2B 100%);
+}
+
+.ba-tools-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.ba-tools-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+.text-gradient-brand {
+  background-image: linear-gradient(90deg, #3B8BFF 0%, #7B4DFF 45%, #D63BE0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.ba-tool-tile {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.ba-tool-item:hover .ba-tool-tile {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+}
+
+.ba-tool-item[data-animate="true"] .ba-tool-tile {
+  opacity: 0;
+  transform: scale(0.85);
+  animation: ba-tool-tile-in 220ms ease forwards;
+  animation-delay: var(--ba-tool-delay, 0ms);
+}
+
+.ba-tool-item[data-animate="true"] {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: ba-tool-item-in 320ms ease forwards;
+  animation-delay: var(--ba-tool-delay, 0ms);
+}
+
+@keyframes ba-tool-tile-in {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ba-tool-item-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Business automation overview */
 .ba-overview-bg {
   background-color: #110D2A;
@@ -1549,7 +1616,9 @@
   .ba-badge-pop,
   .ba-breathe,
   .ba-chat-ripple,
-  .ba-tile-click {
+  .ba-tile-click,
+  .ba-tool-item,
+  .ba-tool-tile {
     animation: none !important;
     transform: none !important;
     opacity: 1 !important;

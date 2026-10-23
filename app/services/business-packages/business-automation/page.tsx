@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import BusinessAutomationHero from "@/components/services/business-automation/Hero";
 import Overview from "@/components/services/business-automation/Overview";
+import Connect from "@/components/services/business-automation/Connect";
 
 const title = "Business Automation Package | Payments, Orders & Delivery, Connected | ORYNTAL";
 const description =
@@ -61,6 +62,8 @@ export default function BusinessAutomationPage() {
       <BusinessAutomationHero />
 
       <Overview />
+
+      <Connect />
 
       <div id="included" className="scroll-mt-24" />
       {/* TODO: next sections for Business Automation Package */}
