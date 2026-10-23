@@ -13,6 +13,7 @@ import {
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
+import { businessAutomation } from "@/lib/content/packages/businessAutomation";
 
 const servicesInterested = [
   "Web/App Development",
@@ -241,6 +242,21 @@ function MessageField() {
   const [message, setMessage] = useState(() => {
     const fromMessage = searchParams.get("message");
     if (fromMessage) return fromMessage;
+
+    const problemLabels = (searchParams.get("problems") ?? "")
+      .split(",")
+      .filter(Boolean)
+      .map((id) =>
+        businessAutomation.comparison.rows.find((row) => row.id === id),
+      )
+      .filter((row): row is (typeof businessAutomation.comparison.rows)[number] =>
+        Boolean(row),
+      )
+      .map((row) => row.problem.replace(/[“”]/g, ""));
+
+    if (problemLabels.length > 0) {
+      return `My biggest challenges right now: ${problemLabels.join("; ")}.`;
+    }
 
     const topic = searchParams.get("topic");
     const label = topic ? TOPIC_PREFILL[topic] : undefined;

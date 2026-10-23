@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import BusinessAutomationHero from "@/components/services/business-automation/Hero";
 import Overview from "@/components/services/business-automation/Overview";
 import Connect from "@/components/services/business-automation/Connect";
+import Comparison from "@/components/services/business-automation/Comparison";
+import ClosingCta from "@/components/services/business-automation/ClosingCta";
 
 const title = "Business Automation Package | Payments, Orders & Delivery, Connected | ORYNTAL";
 const description =
@@ -64,6 +66,11 @@ export default function BusinessAutomationPage() {
       <Overview />
 
       <Connect />
+
+      <Comparison />
+
+      {/* TODO: once What's included and FAQ exist, move <ClosingCta /> to the end of the page */}
+      <ClosingCta />
 
       <div id="included" className="scroll-mt-24" />
       {/* TODO: next sections for Business Automation Package */}

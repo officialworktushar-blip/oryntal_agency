@@ -2,11 +2,14 @@
 
 import type { LucideIcon } from "lucide-react";
 import {
+  BellRing,
   Bot,
   Check,
   CreditCard,
+  Globe,
   LayoutDashboard,
   MapPin,
+  PackageCheck,
   Receipt,
   SendHorizontal,
   ShieldCheck,
@@ -94,6 +97,63 @@ export type BusinessAutomationConnect = {
   tools: BusinessAutomationConnectTool[];
 };
 
+export type BusinessAutomationComparisonStatus = "yes" | "no" | "partial";
+
+export type BusinessAutomationComparisonRow = {
+  id: string;
+  problem: string;
+  us: string;
+  them: string;
+  themStatus: Exclude<BusinessAutomationComparisonStatus, "yes">;
+};
+
+export type BusinessAutomationComparison = {
+  pill: string;
+  headingLine1: string;
+  headingLine2: string;
+  sub: string;
+  columns: { problem: string; us: string; them: string };
+  badge: string;
+  rows: BusinessAutomationComparisonRow[];
+  chipLabel: string;
+  chipLabelSelected: string;
+  helper: string;
+  cta: {
+    default: { label: string; href: string };
+    selected: {
+      label: (count: number) => string;
+      hrefBase: string;
+    };
+  };
+  secondary: { label: string; href: string };
+  footnote: string;
+};
+
+export type BusinessAutomationClosingTile = {
+  id: string;
+  row: number;
+  col: number;
+  kind: "icon" | "empty";
+  label?: string;
+  caption?: string;
+  icon?: IconType | LucideIcon;
+  style?: {
+    variant: "glyph" | "filled";
+    color?: string;
+    background?: string;
+  };
+};
+
+export type BusinessAutomationClosing = {
+  heading: string;
+  sub: string;
+  primary: { label: string; href: string };
+  secondary: { label: string; href: string };
+  trustLine: string;
+  feeNote: string;
+  tiles: BusinessAutomationClosingTile[];
+};
+
 export type BusinessAutomationContent = {
   packageName: string;
   price: number;
@@ -111,6 +171,8 @@ export type BusinessAutomationContent = {
   slides: BusinessAutomationSlide[];
   overview: BusinessAutomationOverview;
   connect: BusinessAutomationConnect;
+  comparison: BusinessAutomationComparison;
+  closing: BusinessAutomationClosing;
 };
 
 export const businessAutomation: BusinessAutomationContent = {
@@ -253,6 +315,180 @@ export const businessAutomation: BusinessAutomationContent = {
       { id: "twilio", name: "Twilio", sub: "SMS & voice", icon: "monogram", color: "#F22F46" },
       { id: "openai", name: "OpenAI", sub: "AI", icon: "monogram", color: "#10A37F" },
       { id: "supabase", name: "Supabase", sub: "Databases & backend", icon: SiSupabase, color: "#3ECF8E" },
+    ],
+  },
+  // Keep comparisons honest and generic. Do not name competitors or add unverifiable claims.
+  comparison: {
+    pill: "Why ORYNTAL",
+    headingLine1: "Manual busywork vs.",
+    headingLine2: "ORYNTAL Business Automation",
+    sub: "Spot the daily problem you recognise, and see how a connected setup handles it instead.",
+    columns: {
+      problem: "Your daily problem",
+      us: "ORYNTAL Business Automation",
+      them: "A typical manual or DIY setup",
+    },
+    badge:
+      "Ideal for e-commerce businesses, product-based companies, and online sellers",
+    rows: [
+      {
+        id: "scattered",
+        problem: "Orders scattered across apps",
+        us: "Payments, orders, and delivery connected in one workflow",
+        them: "Separate tools you stitch together yourself",
+        themStatus: "partial",
+      },
+      {
+        id: "whereis",
+        problem: "Customers asking “where's my order?”",
+        us: "Automatic order, payment, and shipping updates on WhatsApp",
+        them: "Manual updates, one message at a time",
+        themStatus: "no",
+      },
+      {
+        id: "missed",
+        problem: "Missed messages after hours",
+        us: "AI chatbot answers routine questions, where included in scope",
+        them: "Replies wait until you're free",
+        themStatus: "no",
+      },
+      {
+        id: "payments",
+        problem: "Checking payments by hand",
+        us: "Payment gateway connected, so orders update as payments clear",
+        them: "Matching payments to orders manually",
+        themStatus: "no",
+      },
+      {
+        id: "dispatch",
+        problem: "Courier booking and dispatch hassle",
+        us: "Shipping integration with compatible logistics providers",
+        them: "Booking couriers and copying details by hand",
+        themStatus: "no",
+      },
+      {
+        id: "website",
+        problem: "A website that doesn't fit how you sell",
+        us: "Custom website with dedicated UX/UI design around your workflow",
+        them: "A generic template",
+        themStatus: "partial",
+      },
+      {
+        id: "scale",
+        problem: "More orders, more busywork",
+        us: "A connected workflow that grows with your business",
+        them: "Every new order adds manual work",
+        themStatus: "partial",
+      },
+    ],
+    chipLabel: "That's me",
+    chipLabelSelected: "Selected",
+    helper: "Tap “That's me” on the problems you recognise.",
+    cta: {
+      default: {
+        label: "Get started",
+        href: "/contact?interest=business-automation-package",
+      },
+      selected: {
+        label: (count: number) =>
+          `Fix ${count} ${count === 1 ? "problem" : "problems"}`,
+        hrefBase:
+          "/contact?interest=business-automation-package&topic=problems&problems=",
+      },
+    },
+    secondary: {
+      label: "Compare all packages",
+      href: "/services/business-packages",
+    },
+    footnote:
+      "This comparison is general and describes typical manual or DIY setups, not any specific provider. Specific integrations and automation capabilities depend on the agreed scope. AI chatbots are included when required and agreed. Third-party subscriptions and transaction fees may be separate.",
+  },
+  closing: {
+    heading: "Put the busywork on autopilot.",
+    sub: "Start with one connected workflow. Payments, orders, delivery, and customer updates handled without you.",
+    primary: {
+      label: "Book a consultation",
+      href: "/contact?interest=business-automation-package",
+    },
+    secondary: {
+      label: "See what's included",
+      href: "#included",
+    },
+    trustLine: "Clear scope and pricing before we start.",
+    feeNote: "Third-party subscriptions and transaction fees may be separate.",
+    tiles: [
+      {
+        id: "website",
+        row: 0,
+        col: 0,
+        kind: "icon",
+        label: "Website",
+        caption: "Website live",
+        icon: Globe,
+        style: { variant: "glyph", color: "#B9A8FF" },
+      },
+      {
+        id: "payments",
+        row: 0,
+        col: 1,
+        kind: "icon",
+        label: "Payments",
+        caption: "Payment confirmed",
+        icon: CreditCard,
+        style: { variant: "filled", background: "linear-gradient(150deg,#3B82F6,#1D4ED8)" },
+      },
+      { id: "empty-1", row: 0, col: 2, kind: "empty" },
+      {
+        id: "orders",
+        row: 1,
+        col: 1,
+        kind: "icon",
+        label: "Orders",
+        caption: "Order created",
+        icon: PackageCheck,
+        style: { variant: "filled", background: "linear-gradient(150deg,#34C77B,#1E8A4C)" },
+      },
+      {
+        id: "whatsapp",
+        row: 1,
+        col: 2,
+        kind: "icon",
+        label: "WhatsApp",
+        caption: "WhatsApp update sent",
+        icon: SiWhatsapp,
+        style: { variant: "glyph", color: "#25D366" },
+      },
+      {
+        id: "shipping",
+        row: 1,
+        col: 3,
+        kind: "icon",
+        label: "Shipping",
+        caption: "Shipment booked",
+        icon: Truck,
+        style: { variant: "filled", background: "linear-gradient(150deg,#FB923C,#EA580C)" },
+      },
+      {
+        id: "ai",
+        row: 2,
+        col: 2,
+        kind: "icon",
+        label: "AI assistant",
+        caption: "AI assistant replied",
+        icon: Bot,
+        style: { variant: "glyph", color: "#9B95FF" },
+      },
+      {
+        id: "notify",
+        row: 2,
+        col: 3,
+        kind: "icon",
+        label: "Notifications",
+        caption: "Customer notified",
+        icon: BellRing,
+        style: { variant: "filled", background: "linear-gradient(150deg,#F472B6,#DB2777)" },
+      },
+      { id: "empty-2", row: 2, col: 4, kind: "empty" },
     ],
   },
   slides: [
