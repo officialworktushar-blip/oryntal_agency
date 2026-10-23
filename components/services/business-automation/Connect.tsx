@@ -1,11 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import { ChevronDown } from "lucide-react";
 import { m, useInView, useReducedMotion } from "framer-motion";
 import { businessAutomation } from "@/lib/content/packages/businessAutomation";
 import { useCollapsedRows } from "./hooks/useCollapsedRows";
 import ToolTile from "./ToolTile";
+
+const FALLBACK_MAX_HEIGHT = "calc(3 * 62px + 2 * 12px + 6px)";
 
 export default function Connect() {
   const reduced = useReducedMotion() ?? false;
@@ -14,20 +22,28 @@ export default function Connect() {
   const panelRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { amount: 0.25 });
   const [phase, setPhase] = useState<"base" | "out" | "in">("base");
+  const [tilesEntered, setTilesEntered] = useState(false);
+  const [tilesAnimating, setTilesAnimating] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
-  const [spotlight, setSpotlight] = useState({ x: 50, y: 20 });
-  const [pulse, setPulse] = useState(0);
+  const expandedRef = useRef(false);
+  const [spotlight, setSpotlight] = useState({ x: 50, y: 0 });
+  const [heightAuto, setHeightAuto] = useState(false);
+  const [pulseOn, setPulseOn] = useState(false);
+  const [revealFrom, setRevealFrom] = useState<number | null>(null);
 
   const {
     gridRef,
     expanded,
-    toggle,
+    setExpanded,
     collapsedHeight,
     fullHeight,
     visibleCount,
-    totalCount,
     hasMore,
-  } = useCollapsedRows({ collapsedRows: connect.collapsedRows, gapY: 12, extra: 6 });
+  } = useCollapsedRows({ collapsedRows: connect.collapsedRows });
+
+  const totalCount = connect.tools.length;
+  const pulseVisible = expanded ? totalCount : visibleCount;
+  const running = inView && pageVisible && !reduced;
 
   useEffect(() => {
     const update = () => setPageVisible(document.visibilityState === "visible");
@@ -36,11 +52,13 @@ export default function Connect() {
     return () => document.removeEventListener("visibilitychange", update);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (reduced) {
       setPhase("in");
       return;
     }
+    // Content is visible on first paint; this entrance is an enhancement with
+    // a hard stop so nothing can stay hidden.
     setPhase("out");
     const timer = window.setTimeout(() => setPhase("in"), 1500);
     return () => window.clearTimeout(timer);
@@ -51,34 +69,93 @@ export default function Connect() {
   }, [inView]);
 
   useEffect(() => {
-    if (!inView || !pageVisible || reduced) return;
-    const id = window.setInterval(() => setPulse((v) => v + 1), 5000);
-    return () => window.clearInterval(id);
-  }, [inView, pageVisible, reduced]);
+    if (inView && phase === "in") setTilesEntered(true);
+  }, [inView, phase]);
+
+  useEffect(() => {
+    if (!tilesEntered || reduced) return;
+    setTilesAnimating(true);
+    const timer = window.setTimeout(() => setTilesAnimating(false), 1600);
+    return () => window.clearTimeout(timer);
+  }, [tilesEntered, reduced]);
+
+  useEffect(() => {
+    if (!running) {
+      setPulseOn(false);
+      return;
+    }
+
+    let onTimer = 0;
+    let offTimer = 0;
+
+    const trigger = () => {
+      setPulseOn(false);
+      onTimer = window.setTimeout(() => {
+        setPulseOn(true);
+        offTimer = window.setTimeout(
+          () => setPulseOn(false),
+          900 + 90 * Math.max(1, pulseVisible),
+        );
+      }, 20);
+    };
+
+    const first = window.setTimeout(trigger, 1200);
+    const interval = window.setInterval(trigger, 5000);
+
+    return () => {
+      window.clearTimeout(first);
+      window.clearTimeout(onTimer);
+      window.clearTimeout(offTimer);
+      window.clearInterval(interval);
+      setPulseOn(false);
+    };
+  }, [running, pulseVisible]);
 
   const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (reduced) return;
+    if (reduced || e.pointerType !== "mouse") return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setSpotlight({ x, y });
+    setSpotlight({
+      x: ((e.clientX - rect.left) / rect.width) * 100,
+      y: ((e.clientY - rect.top) / rect.height) * 100,
+    });
+  };
+
+  const handleToggle = () => {
+    if (expanded) {
+      expandedRef.current = false;
+      setHeightAuto(false);
+      setExpanded(false);
+      const panel = panelRef.current;
+      if (panel && panel.getBoundingClientRect().top < 0) {
+        panel.scrollIntoView({
+          block: "start",
+          behavior: reduced ? "auto" : "smooth",
+        });
+      }
+      return;
+    }
+
+    expandedRef.current = true;
+    setRevealFrom(visibleCount);
+    setExpanded(true);
+    window.setTimeout(() => setRevealFrom(null), 1200);
   };
 
   const revealAttr = phase === "base" ? {} : { "data-reveal": phase };
-  const revealStyle = (delay: number): CSSProperties =>
+  const revealStyle = (delay: number, y = 24, duration = 700): CSSProperties =>
     ({
-      "--ba-reveal-y": "24px",
+      "--ba-reveal-y": `${y}px`,
       "--ba-reveal-delay": `${delay}ms`,
-      "--ba-reveal-dur": "700ms",
+      "--ba-reveal-dur": `${duration}ms`,
     }) as CSSProperties;
 
   const hiddenCount = Math.max(0, totalCount - visibleCount);
-  const panelCollapsed = !expanded && hasMore && collapsedHeight !== null;
-  const wrapperHeight = expanded
+  const shownCount = expanded || !hasMore ? totalCount : visibleCount;
+  const targetHeight = heightAuto
+    ? "auto"
+    : expanded
     ? fullHeight || "auto"
-    : collapsedHeight !== null
-    ? collapsedHeight
-    : "calc(3 * 62px + 2 * 12px + 6px)";
+    : collapsedHeight ?? "auto";
 
   return (
     <section
@@ -117,90 +194,93 @@ export default function Connect() {
         <div
           ref={panelRef}
           {...revealAttr}
-          style={revealStyle(240)}
-          className="ba-reveal relative mt-12 overflow-hidden rounded-[28px] border border-white/8 bg-[#1D1838] p-5 shadow-[0_30px_80px_rgba(0,0,0,.35)] sm:p-8 md:mt-16 lg:p-12"
+          style={revealStyle(240, 30, 600)}
+          className="ba-reveal relative mt-12 scroll-mt-24 overflow-hidden rounded-[28px] border border-white/8 bg-[#1D1838] p-5 shadow-[0_30px_80px_rgba(0,0,0,.35)] sm:p-8 md:mt-16 lg:p-12"
           onPointerMove={onMove}
         >
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
-            style={{
-              background: reduced
-                ? "none"
-                : `radial-gradient(260px circle at ${spotlight.x}% ${spotlight.y}%, rgba(155,149,255,.14), transparent 70%)`,
-            }}
+            style={
+              {
+                "--mx": `${spotlight.x}%`,
+                "--my": `${spotlight.y}%`,
+                background: reduced
+                  ? "none"
+                  : "radial-gradient(260px circle at var(--mx) var(--my), rgba(155,149,255,.14), transparent 70%)",
+              } as CSSProperties
+            }
           />
 
           <div className="relative z-10 mb-8 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-sm text-white/70">
-              <span className="inline-block h-2 w-2 rounded-full bg-[#2EC27E] shadow-[0_0_0_6px_rgba(46,194,126,.12)]" />
+              <span className="ba-status-dot inline-block h-2 w-2 rounded-full bg-[#2EC27E]" />
               <span>{connect.panelLabel}</span>
             </div>
             <div className="text-sm text-white/60" aria-live="polite">
-              Showing {expanded || !hasMore ? totalCount : visibleCount} of {totalCount}
+              Showing {shownCount} of {totalCount}
             </div>
           </div>
 
           <div className="relative z-10">
-            <div
+            <m.div
               className="relative overflow-hidden"
+              initial={false}
+              animate={{ height: targetHeight }}
+              transition={
+                reduced
+                  ? { duration: 0.15, ease: "easeOut" }
+                  : { type: "spring", stiffness: 180, damping: 28 }
+              }
               style={{
-                height: wrapperHeight,
-                transition: reduced ? "height 150ms ease" : undefined,
+                maxHeight:
+                  collapsedHeight === null && !expanded ? FALLBACK_MAX_HEIGHT : "none",
+              }}
+              onAnimationComplete={() => {
+                if (expandedRef.current) setHeightAuto(true);
               }}
             >
-              <m.ul
+              <ul
                 ref={gridRef}
                 id="tools-grid"
                 role="list"
                 className="grid grid-cols-2 gap-x-8 gap-y-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-                animate={
-                  reduced
-                    ? {}
-                    : expanded
-                    ? { height: fullHeight || "auto" }
-                    : { height: collapsedHeight ?? "auto" }
-                }
-                transition={{ type: "spring", stiffness: 180, damping: 28 }}
-                onAnimationComplete={() => {
-                  if (expanded && gridRef.current) {
-                    gridRef.current.style.height = "auto";
-                  }
-                }}
               >
                 {connect.tools.map((tool, index) => (
                   <ToolTile
                     key={tool.id}
                     tool={tool}
                     index={index}
-                    animate={phase === "in" && inView && !reduced}
+                    animate={tilesAnimating && !reduced}
+                    pulse={pulseOn && index < pulseVisible}
+                    reveal={revealFrom !== null && index >= revealFrom}
                   />
                 ))}
-              </m.ul>
+              </ul>
 
-              {panelCollapsed ? (
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-20"
-                  style={{
-                    background: "linear-gradient(to bottom, rgba(29,24,56,0) 0%, #1D1838 85%)",
-                  }}
-                />
-              ) : null}
-            </div>
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-20 transition-opacity duration-300"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, rgba(29,24,56,0) 0%, #1D1838 85%)",
+                  opacity: hasMore && !expanded ? 1 : 0,
+                }}
+              />
+            </m.div>
 
             {hasMore ? (
               <div className="mt-6 flex justify-center">
                 <button
                   type="button"
-                  onClick={toggle}
+                  onClick={handleToggle}
                   aria-expanded={expanded}
                   aria-controls="tools-grid"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/6 px-6 py-3 text-[15px] font-medium text-white transition-colors hover:bg-white/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/6 px-6 py-3 text-[15px] font-medium text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                 >
                   {expanded ? connect.showLess : `${connect.showMore} (+${hiddenCount})`}
                   <ChevronDown
-                    className={`size-[18px] transition-transform ${expanded ? "rotate-180" : ""}`}
+                    className={`size-[18px] transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
                     aria-hidden="true"
                   />
                 </button>
@@ -211,23 +291,12 @@ export default function Connect() {
               <p className="max-w-xl text-white/80">{connect.askLine}</p>
               <a
                 href={connect.askCta.href}
-                className="inline-flex items-center justify-center rounded-xl bg-white px-8 py-3 font-medium text-[#1D1E20] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(255,255,255,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-white px-8 py-3 font-medium text-[#1D1E20] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(255,255,255,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white md:w-auto"
               >
                 {connect.askCta.label}
               </a>
             </div>
           </div>
-
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                pulse > 0 && inView && pageVisible && !reduced
-                  ? "none"
-                  : "none",
-            }}
-          />
         </div>
 
         <p className="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-white/50">
@@ -250,7 +319,8 @@ export default function Connect() {
         }}
       />
       <p className="sr-only">
-        ORYNTAL connects tools such as {connect.tools.map((tool) => tool.name).join(", ")} as part of the Business Automation Package, subject to the agreed scope.
+        ORYNTAL connects tools such as {connect.tools.map((tool) => tool.name).join(", ")}{" "}
+        as part of the Business Automation Package, subject to the agreed scope.
       </p>
     </section>
   );
