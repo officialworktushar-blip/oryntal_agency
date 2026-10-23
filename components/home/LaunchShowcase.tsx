@@ -65,6 +65,9 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
 
   const hasVideo = Boolean(tab.videoSrc);
   const mediaAspect = tab.mediaAspect ?? "16 / 9";
+  /* Start from the configured ratio, then trust the file's real dimensions
+     once loaded so a replacement video can never be cropped or letterboxed. */
+  const [videoAspect, setVideoAspect] = useState(mediaAspect);
   const toasts = tab.toasts;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
@@ -201,66 +204,77 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
           viewport={{ once: true, margin: "-15% 0px" }}
           className="order-2 min-w-0"
         >
-          <div className="relative flex w-full aspect-[4/3.3] min-h-[360px] items-center justify-center overflow-hidden rounded-[32px] p-6 sm:p-10 lg:p-12">
-            <div
-              aria-hidden
-              className="absolute inset-0"
-              style={{
-                backgroundImage:
-                  "radial-gradient(70% 60% at 0% 100%, #9DB6D0 0%, rgba(157,182,208,0) 70%), radial-gradient(60% 50% at 100% 0%, #E9EEF7 0%, rgba(233,238,247,0) 70%), linear-gradient(135deg, #EEF2F9 0%, #F8FAFD 45%, #DCE6F2 100%)",
-              }}
-            />
-            {/* Browser */}
-            <div className="relative z-10 w-full max-w-[640px]">
-              <div className="flex h-9 items-center justify-between rounded-t-xl bg-[#E4E5E9] px-3">
-                <div className="flex items-center gap-2">
-                  <span className="size-[11px] rounded-full bg-[#FF5F57]" />
-                  <span className="size-[11px] rounded-full bg-[#FEBC2E]" />
-                  <span className="size-[11px] rounded-full bg-[#28C840]" />
-                  <ChevronLeft className="ml-1 hidden size-3.5 text-gray-500 sm:block" />
-                  <ChevronRight className="hidden size-3.5 text-gray-500 sm:block" />
-                </div>
-                <div className="flex items-center gap-1.5 rounded-md bg-white/70 px-2 py-0.5">
-                  <Lock className="size-3 text-gray-500" />
-                  <span className="text-[11px] text-gray-600">
-                    {tab.browser.url}
-                  </span>
-                </div>
-                <div className="w-[60px]" />
-              </div>
+          <div className="relative w-full">
+            <div className="relative overflow-hidden rounded-[28px] p-2.5 shadow-[0_28px_70px_-32px_rgba(31,42,61,0.55)] ring-1 ring-white/60 sm:p-3.5">
               <div
-                className="relative overflow-hidden bg-gradient-to-b from-[#1F2A3D] to-[#5A7596]"
-                style={{ aspectRatio: mediaAspect }}
-              >
-                {hasVideo ? (
-                  <video
-                    ref={videoRef}
-                    src={tab.videoSrc}
-                    poster={tab.posterSrc || undefined}
-                    autoPlay={!reduced}
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    aria-label="Screen recording of a live store: payment, WhatsApp confirmation and shipping update"
-                    className="h-full w-full object-contain"
-                  />
-                ) : (
-                  <MediaPlaceholder
-                    type="video"
-                    aspect={mediaAspect}
-                    label={tab.media.label}
-                    hint={tab.media.hint}
-                    className="h-full w-full justify-end border-white/40 bg-transparent pb-12 text-white/85 [&>span:first-child]:hidden"
-                  />
-                )}
+                aria-hidden
+                className="absolute inset-0"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(70% 60% at 0% 100%, #9DB6D0 0%, rgba(157,182,208,0) 70%), radial-gradient(60% 50% at 100% 0%, #E9EEF7 0%, rgba(233,238,247,0) 70%), linear-gradient(135deg, #EEF2F9 0%, #F8FAFD 45%, #DCE6F2 100%)",
+                }}
+              />
+              {/* Browser — sized to the video's native ratio so the whole
+                  capture is visible and fills the frame edge to edge. */}
+              <div className="relative z-10 overflow-hidden rounded-[18px] bg-[#E4E5E9] shadow-[0_1px_0_rgba(255,255,255,0.7)_inset,0_18px_40px_-24px_rgba(31,42,61,0.45)]">
+                <div className="flex h-9 items-center justify-between px-3 sm:h-10">
+                  <div className="flex items-center gap-2">
+                    <span className="size-[11px] rounded-full bg-[#FF5F57]" />
+                    <span className="size-[11px] rounded-full bg-[#FEBC2E]" />
+                    <span className="size-[11px] rounded-full bg-[#28C840]" />
+                    <ChevronLeft className="ml-1 hidden size-3.5 text-gray-500 sm:block" />
+                    <ChevronRight className="hidden size-3.5 text-gray-500 sm:block" />
+                  </div>
+                  <div className="flex items-center gap-1.5 rounded-md bg-white/70 px-2 py-0.5">
+                    <Lock className="size-3 text-gray-500" />
+                    <span className="text-[11px] text-gray-600">
+                      {tab.browser.url}
+                    </span>
+                  </div>
+                  <div className="w-[60px]" />
+                </div>
+                <div
+                  className="relative overflow-hidden bg-gradient-to-b from-[#1F2A3D] to-[#5A7596]"
+                  style={{ aspectRatio: videoAspect }}
+                >
+                  {hasVideo ? (
+                    <video
+                      ref={videoRef}
+                      src={tab.videoSrc}
+                      poster={tab.posterSrc || undefined}
+                      autoPlay={!reduced}
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      onLoadedMetadata={(event) => {
+                        const video = event.currentTarget;
+                        if (video.videoWidth && video.videoHeight) {
+                          setVideoAspect(
+                            `${video.videoWidth} / ${video.videoHeight}`,
+                          );
+                        }
+                      }}
+                      aria-label="Screen recording of a live store: payment, WhatsApp confirmation and shipping update"
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : (
+                    <MediaPlaceholder
+                      type="video"
+                      aspect={videoAspect}
+                      label={tab.media.label}
+                      hint={tab.media.hint}
+                      className="h-full w-full justify-end border-white/40 bg-transparent pb-12 text-white/85 [&>span:first-child]:hidden"
+                    />
+                  )}
+                </div>
               </div>
             </div>
 
-            {/* Toasts */}
+            {/* Toasts — outside the clipping panel so they never get cut off. */}
             <div
               aria-hidden="true"
-              className="absolute right-4 top-[30%] z-20 w-[200px] sm:right-8 sm:w-[250px] lg:right-10"
+              className="pointer-events-none relative z-20 mt-3 sm:absolute sm:inset-x-auto sm:-right-3 sm:top-[30%] sm:mt-0 sm:w-[214px] lg:-right-4"
             >
               <AnimatePresence mode="wait">
                 {toasts[toastIndex] && (
@@ -270,7 +284,7 @@ export default function LaunchShowcase({ tab, headingId }: LaunchShowcaseProps) 
                     initial="enter"
                     animate="center"
                     exit="exit"
-                    className="flex items-center gap-3 rounded-2xl border border-white bg-white/90 p-3 shadow-lg backdrop-blur"
+                    className="flex items-center gap-3 rounded-2xl border border-white bg-white/95 p-3 shadow-lg backdrop-blur"
                   >
                     {(() => {
                       const Icon = iconMap[toasts[toastIndex].icon];

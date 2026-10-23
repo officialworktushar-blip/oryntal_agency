@@ -117,8 +117,9 @@ export const launchTab: HowItWorksTab = {
       "Add: 20-30s screen recording of a live store/site: customer pays, WhatsApp confirmation arrives, shipping update (MP4 1280x720, muted loop)",
     hint: "Show: checkout, payment success, WhatsApp message, tracking update. Keep key content centred.",
   },
-  /* Real capture: 1918x746, 14s, muted loop. The frame follows the file so
-     nothing is cropped. */
+  /* Verified file: 1918x746 (VP9, ~2.57:1), 14s muted loop. This is a wide
+     screen capture, not 16:9 — the frame follows the real ratio so the whole
+     video is shown with no crop and no letterbox bars. */
   videoSrc: "/launch.webm",
   posterSrc: "/launch-poster.png",
   mediaAspect: "1918 / 746",
