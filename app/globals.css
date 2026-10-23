@@ -1080,6 +1080,209 @@
   }
 }
 
+/* Business automation overview */
+.ba-overview-bg {
+  background-color: #110D2A;
+  background-image:
+    radial-gradient(55% 45% at 0% 100%, rgba(91, 52, 214, 0.55) 0%, rgba(91, 52, 214, 0) 70%),
+    radial-gradient(50% 45% at 100% 100%, rgba(122, 82, 240, 0.34) 0%, rgba(122, 82, 240, 0) 70%),
+    radial-gradient(60% 40% at 50% 0%, rgba(60, 36, 150, 0.22) 0%, rgba(60, 36, 150, 0) 70%),
+    linear-gradient(180deg, #100C28 0%, #140F33 55%, #1D1450 100%);
+}
+
+.ba-overview-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.ba-overview-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ba-reveal {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition-property: opacity, transform, filter;
+  transition-duration: var(--ba-reveal-dur, 700ms);
+  transition-timing-function: ease-out;
+  transition-delay: var(--ba-reveal-delay, 0ms);
+}
+
+.ba-reveal[data-reveal="out"] {
+  opacity: 0;
+  transform: translateY(var(--ba-reveal-y, 24px));
+  filter: blur(6px);
+}
+
+.ba-reveal[data-reveal="in"] {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.ba-overview-card {
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.ba-overview-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 24px 60px rgba(70, 40, 200, 0.22);
+}
+
+.ba-overview-card:hover svg {
+  stroke: #9B8CFF;
+}
+
+.ba-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ba-draw 800ms ease forwards;
+}
+
+.ba-pill-pop {
+  opacity: 0;
+  transform: translateX(16px);
+  animation: ba-pill-pop 90ms ease forwards;
+}
+
+.ba-scale-pop {
+  opacity: 0;
+  transform: scale(0.7);
+  animation: ba-scale-pop 160ms ease forwards;
+}
+
+.ba-box-in {
+  opacity: 0;
+  transform: scale(0.98);
+  animation: ba-box-in 320ms ease forwards;
+}
+
+.ba-cursor-in {
+  opacity: 0;
+  animation: ba-cursor-in 280ms ease forwards;
+}
+
+.ba-toast-pop {
+  animation: ba-toast-pop 250ms ease forwards;
+}
+
+.ba-badge-pop {
+  transform: scale(0.6);
+  animation: ba-badge-pop 200ms ease forwards;
+}
+
+.ba-breathe {
+  animation: ba-breathe 2200ms ease-in-out infinite;
+}
+
+.ba-chat-ripple {
+  animation: ba-chat-ripple 420ms ease-out forwards;
+}
+
+.ba-tile-click {
+  animation: ba-tile-click 180ms ease;
+}
+
+@keyframes ba-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ba-pill-pop {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ba-scale-pop {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ba-box-in {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ba-cursor-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ba-toast-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ba-badge-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ba-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes ba-chat-ripple {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.16);
+    opacity: 0;
+  }
+}
+
+@keyframes ba-tile-click {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.88);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @layer utilities {
   .marquee-mask {
     -webkit-mask-image: linear-gradient(
@@ -1324,6 +1527,32 @@
 
   .gr-pin-in .gr-pin-tile {
     transition-delay: 0ms !important;
+  }
+
+  .dfd-shape {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Business automation overview: show all diagram states when motion is reduced */
+  .ba-draw {
+    animation: none !important;
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .ba-pill-pop,
+  .ba-scale-pop,
+  .ba-box-in,
+  .ba-cursor-in,
+  .ba-toast-pop,
+  .ba-badge-pop,
+  .ba-breathe,
+  .ba-chat-ripple,
+  .ba-tile-click {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 
   *,

@@ -28,8 +28,9 @@ export default function BusinessAutomationHero() {
     transition: { duration: 0.6, delay, ease: "easeOut" as const },
   });
 
-  function scrollToIncluded(e: React.MouseEvent<HTMLAnchorElement>) {
-    const target = document.getElementById("included");
+  function scrollToSecondary(e: React.MouseEvent<HTMLAnchorElement>) {
+    const id = secondaryCta.href.replace(/^#/, "");
+    const target = document.getElementById(id);
     if (!target) return;
     e.preventDefault();
     target.scrollIntoView({
@@ -130,7 +131,7 @@ export default function BusinessAutomationHero() {
             </Link>
             <a
               href={secondaryCta.href}
-              onClick={scrollToIncluded}
+              onClick={scrollToSecondary}
               className="inline-flex items-center justify-center rounded-2xl border border-white/25 px-7 py-4 text-white transition-colors duration-200 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
               {secondaryCta.label}

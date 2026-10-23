@@ -39,6 +39,24 @@ export type BusinessAutomationSlide = {
   };
 };
 
+export type BusinessAutomationOverviewCard = {
+  id: "orders" | "repeat" | "chats";
+  title: string;
+  description: string;
+};
+
+export type BusinessAutomationOverview = {
+  heading: string;
+  sub: string;
+  cards: BusinessAutomationOverviewCard[];
+  closing: {
+    text: string;
+    cta: { label: string; href: string };
+    link: { label: string; href: string };
+  };
+  footnote: string;
+};
+
 export type BusinessAutomationContent = {
   packageName: string;
   price: number;
@@ -54,6 +72,7 @@ export type BusinessAutomationContent = {
   secondaryCta: { label: string; href: string };
   trustLine: string;
   slides: BusinessAutomationSlide[];
+  overview: BusinessAutomationOverview;
 };
 
 export const businessAutomation: BusinessAutomationContent = {
@@ -117,8 +136,43 @@ export const businessAutomation: BusinessAutomationContent = {
   scopeNote: "Specific integrations and automation capabilities depend on the agreed scope.",
   feeNote: "Third-party subscriptions and transaction fees may be separate.",
   primaryCta: { label: "Get started", href: "/contact?interest=business-automation-package" },
-  secondaryCta: { label: "See what's included", href: "#included" },
+  // TODO: point back to #included when that section exists
+  secondaryCta: { label: "See what's included", href: "#automation" },
   trustLine: "Clear scope and pricing before we start",
+  overview: {
+    heading: "What your business can do on its own",
+    sub: "Connect payments, orders, delivery, and customer updates once, and let them keep moving without you.",
+    cards: [
+      {
+        id: "orders",
+        title: "Every order, handled end to end",
+        description:
+          "Payment, order, courier, and customer update. Each step triggers the next, so nothing waits on you.",
+      },
+      {
+        id: "repeat",
+        title: "Repetitive work, done for you",
+        description:
+          "Set it once, and keep orders, payments, and updates moving even while you sleep.",
+      },
+      {
+        id: "chats",
+        title: "Chats that close the loop",
+        description:
+          "Customers message you on WhatsApp. Confirmations, answers, and order updates go out automatically.",
+      },
+    ],
+    closing: {
+      text: "Ready to see what this looks like for your business?",
+      cta: {
+        label: "Book a consultation",
+        href: "/contact?interest=business-automation-package",
+      },
+      link: { label: "See what's included", href: "#included" },
+    },
+    footnote:
+      "Illustrative examples. Specific integrations and automation capabilities depend on the agreed scope. AI assistants are included when required and agreed. Third-party subscriptions and transaction fees may be separate.",
+  },
   slides: [
     {
       id: "orders",
