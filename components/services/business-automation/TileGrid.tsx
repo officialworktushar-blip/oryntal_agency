@@ -11,6 +11,7 @@ const GAP = 16;
 const PAD = 10;
 const PITCH = TILE + GAP;
 const DESIGN_WIDTH = 700;
+const DESIGN_HEIGHT = 470;
 
 const CYCLE = [
   "whatsapp",
@@ -39,6 +40,9 @@ export default function TileGrid({ phase, autoplay, reduced }: TileGridProps) {
   const gridRef = useRef<HTMLDivElement>(null);
 
   const activeTile = iconTiles.find((tile) => tile.id === activeId) ?? iconTiles[0];
+  const whatsappTile =
+    iconTiles.find((tile) => tile.id === "whatsapp") ?? iconTiles[0];
+
   const activeX = PAD + activeTile.col * PITCH + TILE / 2;
   const activeY = PAD + activeTile.row * PITCH + TILE / 2;
 
@@ -47,16 +51,36 @@ export default function TileGrid({ phase, autoplay, reduced }: TileGridProps) {
   const patternX = useSpring(0, { stiffness: 150, damping: 20 });
   const patternY = useSpring(0, { stiffness: 150, damping: 20 });
 
-  const initialX = PAD + iconTiles.find((tile) => tile.id === "whatsapp")!.col * PITCH + TILE / 2;
-  const initialY = PAD + iconTiles.find((tile) => tile.id === "whatsapp")!.row * PITCH + TILE / 2;
-  const spotlightX = useSpring(initialX, { stiffness: 120, damping: 20 });
-  const spotlightY = useSpring(initialY, { stiffness: 120, damping: 20 });
+  const spotlightX = useSpring(PAD + whatsappTile.col * PITCH + TILE / 2, {
+    stiffness: 120,
+    damping: 20,
+  });
+  const spotlightY = useSpring(PAD + whatsappTile.row * PITCH + TILE / 2, {
+    stiffness: 120,
+    damping: 20,
+  });
   const spotlightMask = useMotionTemplate`radial-gradient(150px circle at ${spotlightX}px ${spotlightY}px, #000 0%, transparent 70%)`;
 
   useEffect(() => {
     spotlightX.set(activeX);
     spotlightY.set(activeY);
   }, [activeX, activeY, spotlightX, spotlightY]);
+
+  // TEMP DEBUG
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    const timer = window.setTimeout(() => {
+      const rect = wrapper.getBoundingClientRect();
+      // eslint-disable-next-line no-console
+      console.log("[ba-cta] wrapper", { width: rect.width, height: rect.height }, "scale", scale);
+      wrapper.setAttribute(
+        "data-debug",
+        `${Math.round(rect.width)}x${Math.round(rect.height)}:${scale.toFixed(3)}`,
+      );
+    }, 500);
+    return () => window.clearTimeout(timer);
+  }, [scale, wrapperRef]);
 
   useEffect(() => {
     if (!autoplay || reduced || pointerInside) return;
@@ -102,7 +126,7 @@ export default function TileGrid({ phase, autoplay, reduced }: TileGridProps) {
     <div
       ref={wrapperRef}
       role="img"
-      aria-label="Connected business workflow with website, payments, orders, shipping, WhatsApp updates, an AI assistant, and customer notifications."
+      aria-label="Icons for website, payments, orders, WhatsApp, shipping, AI assistant and notifications connected in one workflow"
       className="relative mx-auto aspect-[700/470] w-full max-w-[420px] overflow-hidden md:max-w-[560px] lg:-mr-6 lg:max-w-[720px] lg:justify-self-end"
       onPointerEnter={() => setPointerInside(true)}
       onPointerLeave={handlePointerLeave}
@@ -121,26 +145,46 @@ export default function TileGrid({ phase, autoplay, reduced }: TileGridProps) {
             style={{ x: patternX, y: patternY }}
           >
             <div className="ba-cta-plus-base absolute inset-0">
-              <PlusPattern id="ba-plus-base" stroke="rgba(255,255,255,0.08)" />
+              <PlusPattern id="ba-plus-base" stroke="rgba(255,255,255,0.10)" />
             </div>
             {!reduced && (
               <motion.div
                 className="absolute inset-0"
                 style={{ maskImage: spotlightMask, WebkitMaskImage: spotlightMask }}
               >
-                <PlusPattern id="ba-plus-hot" stroke="rgba(196,181,253,0.24)" />
+                <PlusPattern id="ba-plus-hot" stroke="rgba(190,170,255,0.65)" />
               </motion.div>
             )}
           </motion.div>
         </div>
 
         <motion.div className="absolute inset-0" style={{ x: tilesX, y: tilesY }}>
-          {iconTiles.map((tile) => {
+          {tiles.map((tile) => {
             const left = PAD + tile.col * PITCH;
             const top = PAD + tile.row * PITCH;
             const delay = (tile.row + tile.col) * 70;
-            const Icon = tile.icon;
             const filled = tile.style?.variant === "filled";
+            const Icon = tile.icon;
+
+            if (tile.kind === "empty") {
+              return (
+                <div
+                  key={tile.id}
+                  className="ba-cta-slot absolute"
+                  style={
+                    {
+                      left,
+                      top,
+                      width: TILE,
+                      height: TILE,
+                      "--slot-delay": `${delay}ms`,
+                    } as CSSProperties
+                  }
+                >
+                  <div className="ba-cta-tile ba-cta-empty h-full w-full" />
+                </div>
+              );
+            }
 
             return (
               <div
@@ -160,21 +204,24 @@ export default function TileGrid({ phase, autoplay, reduced }: TileGridProps) {
                   className="ba-cta-tile flex h-full w-full items-center justify-center"
                   data-tile={tile.id}
                   data-active={tile.id === activeId ? "true" : undefined}
-                  style={
-                    filled
-                      ? { background: tile.style?.background }
-                      : undefined
-                  }
                   onPointerEnter={() => {
                     if (canHover && !reduced) setActiveId(tile.id);
                   }}
                 >
-                  <span
-                    className="ba-cta-glyph"
-                    style={{ color: filled ? "#FFFFFF" : tile.style?.color }}
-                  >
-                    {Icon ? <Icon size={44} aria-hidden /> : null}
-                  </span>
+                  {filled ? (
+                    <span
+                      className="ba-cta-filled flex items-center justify-center"
+                      style={{ background: tile.style?.background }}
+                    >
+                      <span className="ba-cta-glyph" style={{ color: "#FFFFFF" }}>
+                        {Icon ? <Icon size={32} aria-hidden /> : null}
+                      </span>
+                    </span>
+                  ) : (
+                    <span className="ba-cta-glyph" style={{ color: tile.style?.color }}>
+                      {Icon ? <Icon size={58} aria-hidden /> : null}
+                    </span>
+                  )}
                 </div>
               </div>
             );
@@ -184,15 +231,15 @@ export default function TileGrid({ phase, autoplay, reduced }: TileGridProps) {
         {!reduced && (
           <motion.span
             key={`ripple-${activeId}`}
-            className="ba-cta-ripple pointer-events-none absolute rounded-[36px] border-2 border-white/50"
+            className="ba-cta-ripple pointer-events-none absolute rounded-[22px] border-[1.5px] border-[rgba(155,149,255,0.7)]"
             style={{
               left: activeLeft,
               top: activeTop,
               width: TILE,
               height: TILE,
             }}
-            initial={{ opacity: 0.65, scale: 1 }}
-            animate={{ opacity: 0, scale: 1.25 }}
+            initial={{ opacity: 0.7, scale: 1 }}
+            animate={{ opacity: 0, scale: 1.8 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           />
         )}
@@ -204,7 +251,7 @@ export default function TileGrid({ phase, autoplay, reduced }: TileGridProps) {
           transition={
             reduced
               ? { duration: 0 }
-              : { type: "spring", stiffness: 170, damping: 22 }
+              : { type: "spring", stiffness: 120, damping: 20 }
           }
         >
           <motion.div
@@ -212,23 +259,15 @@ export default function TileGrid({ phase, autoplay, reduced }: TileGridProps) {
             initial={{ scale: 1 }}
             animate={reduced ? { scale: 1 } : { scale: [1, 0.88, 1] }}
             transition={
-              reduced ? { duration: 0 } : { duration: 0.2, delay: 0.25 }
+              reduced ? { duration: 0 } : { duration: 0.18, delay: 0.22 }
             }
           >
             <CursorGraphic />
           </motion.div>
         </motion.div>
 
-        <div className="ba-cta-caption absolute left-1/2 top-[428px] flex h-9 -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-white/15 bg-white/[0.07] px-4 text-sm text-white/85 backdrop-blur">
-          <span
-            className="h-1.5 w-1.5 rounded-full bg-white"
-            style={{
-              background:
-                activeTile.style?.variant === "glyph"
-                  ? activeTile.style.color
-                  : "#FFFFFF",
-            }}
-          />
+        <div className="ba-cta-caption absolute left-1/2 top-[428px] flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-white/[0.12] bg-white/[0.08] px-4 py-2 text-sm text-white backdrop-blur">
+          <span className="ba-cta-caption-dot h-1.5 w-1.5 rounded-full bg-[#25D366]" />
           <span
             key={activeId}
             className={reduced ? undefined : "ba-cta-caption-in"}
@@ -245,8 +284,8 @@ function PlusPattern({ id, stroke }: { id: string; stroke: string }) {
   return (
     <svg
       width={DESIGN_WIDTH}
-      height={470}
-      viewBox={`0 0 ${DESIGN_WIDTH} 470`}
+      height={DESIGN_HEIGHT}
+      viewBox={`0 0 ${DESIGN_WIDTH} ${DESIGN_HEIGHT}`}
       className="absolute left-0 top-0"
       aria-hidden="true"
     >
@@ -256,18 +295,18 @@ function PlusPattern({ id, stroke }: { id: string; stroke: string }) {
           width="69"
           height="69"
           patternUnits="userSpaceOnUse"
-          x="24"
-          y="24"
+          x="-42.5"
+          y="-42.5"
         >
           <path
-            d="M34.5 24v21M24 34.5h21"
+            d="M34.5 27.5v14M27.5 34.5h14"
             stroke={stroke}
             strokeWidth="1"
             strokeLinecap="round"
           />
         </pattern>
       </defs>
-      <rect width={DESIGN_WIDTH} height={470} fill={`url(#${id})`} />
+      <rect width={DESIGN_WIDTH} height={DESIGN_HEIGHT} fill={`url(#${id})`} />
     </svg>
   );
 }
@@ -284,16 +323,15 @@ function CursorGraphic() {
     >
       <defs>
         <linearGradient id="ba-cursor-fill" x1="8" y1="6" x2="38" y2="44">
-          <stop stopColor="#C4B5FD" />
-          <stop offset="0.55" stopColor="#8B5CF6" />
-          <stop offset="1" stopColor="#5B21B6" />
+          <stop stopColor="#7B4DFF" />
+          <stop offset="1" stopColor="#2A1478" />
         </linearGradient>
       </defs>
       <path
         d="M3 3L41 23L23 27L15 45L3 3Z"
         fill="url(#ba-cursor-fill)"
         stroke="#FFFFFF"
-        strokeWidth="3.5"
+        strokeWidth="4"
         strokeLinejoin="round"
       />
     </svg>

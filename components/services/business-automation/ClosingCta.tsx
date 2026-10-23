@@ -54,14 +54,20 @@ export default function ClosingCta() {
     <section
       id="cta"
       ref={sectionRef}
-      className="relative overflow-hidden bg-[var(--bacta-1)] text-white"
+      aria-labelledby="cta-title"
+      className="relative overflow-hidden scroll-mt-24 border-t border-white/[0.08] py-20 text-white md:py-24 ba-cta-bg"
     >
-      <div className="ba-cta-bg absolute inset-0" aria-hidden="true" />
+      <div className="ba-cta-grain pointer-events-none absolute inset-0" aria-hidden="true" />
 
-      <div className="relative z-10 mx-auto max-w-[1280px] px-4 py-20 sm:px-6 md:py-28 lg:px-8">
-        <div className="grid items-center gap-12 md:gap-14 lg:grid-cols-[1.02fr_1fr] lg:gap-8">
-          <div className="max-w-xl">
-            <h2 className="text-[clamp(2.25rem,4.6vw,3.75rem)] font-semibold leading-[1.05] tracking-[-0.03em]">
+      <div className="relative z-10 mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-10">
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-6">
+          <div className="relative z-10 min-w-0 max-w-xl">
+            <p className="sr-only">{closing.srSummary}</p>
+
+            <h2
+              id="cta-title"
+              className="max-w-xl text-balance text-4xl font-normal leading-[1.08] tracking-[-0.03em] text-white md:text-5xl lg:text-[56px]"
+            >
               {closing.heading.split(" ").map((word, index) => (
                 <span key={`${word}-${index}`}>
                   <span
@@ -78,7 +84,7 @@ export default function ClosingCta() {
             <p
               {...revealAttr}
               style={revealStyle(280)}
-              className="ba-reveal mt-6 max-w-lg text-base leading-relaxed text-white/70 md:text-lg"
+              className="ba-reveal mt-6 max-w-xl text-lg leading-relaxed text-white/85"
             >
               {closing.sub}
             </p>
@@ -86,37 +92,37 @@ export default function ClosingCta() {
             <div
               {...revealAttr}
               style={revealStyle(350)}
-              className="ba-reveal mt-8 flex flex-col gap-4 sm:flex-row sm:items-center"
+              className="ba-reveal mt-8 flex flex-col items-start gap-4 md:flex-row md:items-center"
             >
               <Link
                 href={closing.primary.href}
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-[#120D2E] transition hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-white px-9 py-4 text-lg font-medium text-[#1D1E20] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(255,255,255,0.18)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:w-auto"
               >
                 {closing.primary.label}
-                <ArrowRight
-                  size={17}
-                  className="transition-transform group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
               </Link>
               <Link
                 href={closing.secondary.href}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3.5 text-sm font-medium text-white/85 transition hover:border-white/35 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                className="group inline-flex items-center gap-1.5 text-base text-white underline decoration-white/50 underline-offset-4 transition-colors hover:decoration-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
                 {closing.secondary.label}
+                <ArrowRight
+                  size={17}
+                  className="transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
               </Link>
             </div>
 
             <div
               {...revealAttr}
               style={revealStyle(420)}
-              className="ba-reveal mt-8 space-y-2"
+              className="ba-reveal"
             >
-              <p className="flex items-center gap-2 text-sm text-white/60">
-                <ShieldCheck size={16} className="text-white/45" aria-hidden="true" />
-                {closing.trustLine}
+              <p className="mt-5 flex items-center gap-2 text-sm text-white/75">
+                <ShieldCheck size={16} aria-hidden="true" />
+                {closing.trust}
               </p>
-              <p className="max-w-md text-xs leading-relaxed text-white/40">
+              <p className="mt-3 max-w-md text-xs leading-relaxed text-white/45">
                 {closing.feeNote}
               </p>
             </div>

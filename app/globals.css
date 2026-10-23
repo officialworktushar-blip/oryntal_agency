@@ -1903,72 +1903,82 @@
   background-color: var(--bacta-1);
   background-image:
     radial-gradient(
-      60% 75% at 100% 0%,
+      40% 70% at 78% 0%,
       var(--bacta-4) 0%,
-      rgba(99, 61, 230, 0) 62%
+      rgba(99, 61, 230, 0) 72%
     ),
     radial-gradient(
-      45% 60% at 0% 100%,
+      55% 70% at 92% 45%,
       var(--bacta-5) 0%,
-      rgba(58, 32, 150, 0) 65%
+      rgba(58, 32, 150, 0) 75%
     ),
     radial-gradient(
-      40% 50% at 85% 85%,
+      40% 50% at 100% 100%,
       rgba(40, 24, 110, 0.45) 0%,
       rgba(40, 24, 110, 0) 70%
     ),
     linear-gradient(
-      180deg,
+      90deg,
       var(--bacta-1) 0%,
       var(--bacta-2) 42%,
       var(--bacta-3) 100%
     );
 }
 
+.ba-cta-grain {
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 .ba-cta-plus-base {
   -webkit-mask-image: radial-gradient(
-    ellipse 70% 60% at 55% 45%,
-    #000 35%,
-    transparent 90%
+    ellipse at 55% 45%,
+    #000 20%,
+    transparent 75%
   );
   mask-image: radial-gradient(
-    ellipse 70% 60% at 55% 45%,
-    #000 35%,
-    transparent 90%
+    ellipse at 55% 45%,
+    #000 20%,
+    transparent 75%
   );
 }
 
 .ba-cta-tile {
-  border-radius: 36px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background-color: rgba(255, 255, 255, 0.055);
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-image: linear-gradient(160deg, #1a1636 0%, #120f2a 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.09),
-    0 18px 40px rgba(0, 0, 0, 0.28);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 14px 30px rgba(0, 0, 0, 0.45);
   transition:
     transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 250ms ease,
-    box-shadow 250ms ease;
+    box-shadow 250ms ease,
+    background-color 250ms ease;
+}
+
+.ba-cta-empty {
+  opacity: 0.75;
 }
 
 .ba-cta-tile[data-active="true"] {
-  transform: scale(1.04);
-  border-color: rgba(167, 139, 250, 0.7);
+  background-color: #211c48;
+  background-image: none;
+  border: 1.5px solid rgba(155, 149, 255, 0.85);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    0 0 0 1px rgba(139, 92, 246, 0.25),
-    0 18px 50px rgba(91, 52, 214, 0.38);
-  animation: ba-cta-tile-pulse 260ms ease-out 150ms;
+    0 0 0 1px rgba(155, 149, 255, 0.35),
+    0 0 46px rgba(123, 92, 255, 0.5);
+  transform: scale(1.04);
+  animation: ba-cta-tile-pulse 180ms ease-out 150ms;
 }
 
-.ba-cta-tile[data-active="true"][data-tile="whatsapp"] {
-  border-color: rgba(37, 211, 102, 0.6);
+.ba-cta-filled {
+  width: 62px;
+  height: 62px;
+  border-radius: 16px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    0 0 0 1px rgba(37, 211, 102, 0.24),
-    0 18px 50px rgba(37, 211, 102, 0.22);
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 8px 18px rgba(0, 0, 0, 0.28);
 }
 
 .ba-cta-glyph {
@@ -1989,11 +1999,11 @@
 
 .ba-cta-canvas[data-entrance="out"] .ba-cta-slot {
   opacity: 0;
-  transform: scale(0.88);
+  transform: scale(0.85);
 }
 
 .ba-cta-canvas[data-entrance="in"] .ba-cta-slot {
-  animation: ba-cta-slot-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: ba-cta-slot-in 520ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
   animation-delay: var(--slot-delay, 0ms);
 }
 
@@ -2003,7 +2013,7 @@
 }
 
 .ba-cta-canvas[data-entrance="in"] .ba-cta-plus-base {
-  animation: ba-cta-fade-in 700ms ease both;
+  animation: ba-cta-fade-in 600ms ease both;
 }
 
 .ba-cta-canvas[data-entrance="out"] .ba-cta-cursor {
@@ -2024,6 +2034,10 @@
   animation: ba-cta-caption-in 220ms ease;
 }
 
+.ba-cta-caption-dot {
+  animation: ba-cta-dot-pulse 2s ease-out infinite;
+}
+
 .ba-cta-cursor-svg {
   width: 48px;
   height: 52px;
@@ -2031,23 +2045,19 @@
 
 @media (max-width: 767px) {
   .ba-cta-cursor-svg {
-    width: 60px;
-    height: 65px;
+    width: 36px;
+    height: 39px;
   }
 
   .ba-cta-caption {
-    top: 410px;
-    height: 54px;
-    padding-left: 22px;
-    padding-right: 22px;
-    font-size: 22px;
+    font-size: 12px;
   }
 }
 
 @keyframes ba-cta-slot-in {
   from {
     opacity: 0;
-    transform: scale(0.88);
+    transform: scale(0.85);
   }
   to {
     opacity: 1;
@@ -2066,8 +2076,8 @@
 
 @keyframes ba-cta-caption-in {
   from {
-    opacity: 0.35;
-    transform: translateY(4px);
+    opacity: 0;
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -2087,6 +2097,21 @@
   }
 }
 
+@keyframes ba-cta-dot-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45);
+    opacity: 1;
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(37, 211, 102, 0);
+    opacity: 0.7;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ba-cta-canvas[data-entrance="out"] .ba-cta-slot,
   .ba-cta-canvas[data-entrance="out"] .ba-cta-plus-base,
@@ -2101,11 +2126,8 @@
   .ba-cta-canvas[data-entrance="in"] .ba-cta-cursor,
   .ba-cta-canvas[data-entrance="in"] .ba-cta-caption,
   .ba-cta-caption-in,
+  .ba-cta-caption-dot,
   .ba-cta-tile[data-active="true"] {
     animation: none !important;
-  }
-
-  .ba-cta-tile[data-active="true"] {
-    transform: none;
   }
 }

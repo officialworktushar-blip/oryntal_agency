@@ -149,8 +149,9 @@ export type BusinessAutomationClosing = {
   sub: string;
   primary: { label: string; href: string };
   secondary: { label: string; href: string };
-  trustLine: string;
+  trust: string;
   feeNote: string;
+  srSummary: string;
   tiles: BusinessAutomationClosingTile[];
 };
 
@@ -404,18 +405,21 @@ export const businessAutomation: BusinessAutomationContent = {
       "This comparison is general and describes typical manual or DIY setups, not any specific provider. Specific integrations and automation capabilities depend on the agreed scope. AI chatbots are included when required and agreed. Third-party subscriptions and transaction fees may be separate.",
   },
   closing: {
-    heading: "Put the busywork on autopilot.",
-    sub: "Start with one connected workflow. Payments, orders, delivery, and customer updates handled without you.",
+    heading: "Let your business run without running you.",
+    sub: "Tell us how orders, payments, and customer updates work today. We'll show you what a connected setup could take off your plate.",
     primary: {
       label: "Book a consultation",
       href: "/contact?interest=business-automation-package",
     },
     secondary: {
-      label: "See what's included",
-      href: "#included",
+      label: "View all packages",
+      href: "/services/business-packages",
     },
-    trustLine: "Clear scope and pricing before we start.",
-    feeNote: "Third-party subscriptions and transaction fees may be separate.",
+    trust: "Clear scope and pricing before we start",
+    feeNote:
+      "Specific integrations and automation capabilities depend on the agreed scope. Third-party subscriptions and transaction fees may be separate.",
+    srSummary:
+      "ORYNTAL connects your website, payments, orders, WhatsApp updates, shipping, AI assistant, and customer notifications into one workflow.",
     tiles: [
       {
         id: "website",
@@ -464,9 +468,9 @@ export const businessAutomation: BusinessAutomationContent = {
         col: 3,
         kind: "icon",
         label: "Shipping",
-        caption: "Shipment booked",
+        caption: "Courier booked",
         icon: Truck,
-        style: { variant: "filled", background: "linear-gradient(150deg,#FB923C,#EA580C)" },
+        style: { variant: "filled", background: "linear-gradient(150deg,#FF8A3D,#E4511E)" },
       },
       {
         id: "ai",
@@ -474,7 +478,7 @@ export const businessAutomation: BusinessAutomationContent = {
         col: 2,
         kind: "icon",
         label: "AI assistant",
-        caption: "AI assistant replied",
+        caption: "Question answered",
         icon: Bot,
         style: { variant: "glyph", color: "#9B95FF" },
       },
@@ -486,7 +490,7 @@ export const businessAutomation: BusinessAutomationContent = {
         label: "Notifications",
         caption: "Customer notified",
         icon: BellRing,
-        style: { variant: "filled", background: "linear-gradient(150deg,#F472B6,#DB2777)" },
+        style: { variant: "filled", background: "linear-gradient(150deg,#FF7AB6,#D63BE0)" },
       },
       { id: "empty-2", row: 2, col: 4, kind: "empty" },
     ],
