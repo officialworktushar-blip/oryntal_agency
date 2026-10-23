@@ -44,7 +44,7 @@ export const menuDomains: NavMenuDomain[] = [
         icon: Rocket,
       },
       {
-        href: "/services/business-packages",
+        href: "/services/business-packages/business-automation",
         label: "Business Automation Package",
         description: "₹70,000",
         icon: Workflow,
