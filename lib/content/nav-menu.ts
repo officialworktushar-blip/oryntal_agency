@@ -50,7 +50,7 @@ export const menuDomains: NavMenuDomain[] = [
         icon: Workflow,
       },
       {
-        href: "/services/business-packages",
+        href: "/services/business-packages/premium-custom-system",
         label: "Premium Custom Business System",
         description: "₹3,00,000–₹4,00,000",
         icon: LineChart,

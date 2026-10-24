@@ -50,7 +50,12 @@ export default function Header() {
   }, []);
 
   // Pages whose hero starts dark: let the gradient show through at the very top.
-  const transparentTopRoutes = ["/", "/services/business-packages/digital-foundation", "/services/business-packages/business-automation"];
+  const transparentTopRoutes = [
+    "/",
+    "/services/business-packages/digital-foundation",
+    "/services/business-packages/business-automation",
+    "/services/business-packages/premium-custom-system",
+  ];
   const transparent =
     transparentTopRoutes.includes(pathname) && !scrolled && !megaOpen;
 
