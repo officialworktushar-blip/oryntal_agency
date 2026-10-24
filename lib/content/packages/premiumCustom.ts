@@ -104,7 +104,7 @@ export const premiumCustom: PremiumCustomContent = {
   scopeNote: "Final pricing, timeline, features, integrations, and support depend on project scope and the agreed proposal.",
   feeNote: "Payment gateway, API, logistics, and other third-party services may require separate provider subscriptions or transaction fees.",
   primaryCta: { label: "Book a consultation", href: "/contact?interest=premium-custom-system" },
-  secondaryCta: { label: "See what's included", href: "#included" },
+  secondaryCta: { label: "See what's included", href: "#system" },
   trustLine: "Scoped and priced in a proposal before we build",
   modules: [
     {
@@ -146,4 +146,62 @@ export const premiumCustom: PremiumCustomContent = {
   stages: ["Understand", "Prototype", "Build", "Refine"],
   srSummary:
     "A custom business system combining a tailored web or mobile app, admin and user panels, AI agents and automation, payments and integrations, and supplier connections where suitable.",
+  system: {
+    pill: "What's included",
+    headingLine1: "Everything your business needs,",
+    headingLine2: "designed as one system.",
+    sub: "Designed for businesses that require a comprehensive, customized technology solution rather than a standard website or automation setup.",
+    cards: {
+      platform: {
+        title: "A platform shaped around your operations",
+        text: "Choose the form that fits: a custom web application, a mobile app, or a business-specific system. Then add AI agents that work across your processes, payments, and data, wherever they genuinely help.",
+        rows: [
+          { label: "Custom web application", icon: "AppWindow" },
+          { label: "Custom mobile application", icon: "Smartphone" },
+          { label: "Business-specific system", icon: "Boxes" },
+        ],
+      },
+      workflow: {
+        title: "The right view for every role",
+        text: "Custom admin and user panels give your team, your customers, and your partners exactly what they need to see, in one connected system.",
+        header: "Business workflow",
+        feed: [
+          ["Order intake", "Orders"],
+          ["Payment check", "Payments"],
+          ["Stock update", "Inventory"],
+          ["Customer update", "Messaging"],
+          ["Report builder", "Reports"],
+          ["Supplier order", "Suppliers"],
+          ["Invoice created", "Billing"],
+          ["Delivery booked", "Shipping"],
+        ],
+      },
+      prototype: {
+        title: "See it before it's built",
+        text: "A complete prototype shows your interface and major workflows first, so you can approve the direction before full development begins.",
+        layers: [
+          { label: "Prototype", icon: "LayoutTemplate" },
+          { label: "Build", icon: "Hammer" },
+          { label: "Refine", icon: "SlidersHorizontal" },
+        ],
+      },
+      modules: {
+        title: "Features only your business needs",
+        text: "Custom modules developed around your operations and objectives: supplier and wholesale connections (where suitable), payments, order flows, and system integrations, shaped to your agreed scope.",
+        items: [
+          { label: "Supplier Network", icon: "Handshake" },
+          { label: "Payments", icon: "CreditCard" },
+          { label: "Order Management", icon: "PackageCheck" },
+          { label: "Customer Support", icon: "Headset" },
+          { label: "Reporting", icon: "BarChart3" },
+        ],
+      },
+    },
+    closing: {
+      ideal: "Ideal for businesses seeking a customized digital platform, advanced automation, or technology built around specialized requirements.",
+      cta: { label: "Book a consultation", href: "/contact?interest=premium-custom-system" },
+      trust: "Scoped and priced in a proposal before we build",
+      note: "Illustrative previews. Final pricing, timeline, features, integrations, and support depend on project scope and the agreed proposal.",
+    },
+  },
 };

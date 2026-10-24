@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PremiumHero from "@/components/services/premium-custom/Hero";
+import System from "@/components/services/premium-custom/System";
 import { premiumCustom } from "@/lib/content/packages/premiumCustom";
 
 const title = "Premium Custom Business System | Custom Web, App & AI Platform | ORYNTAL";
@@ -55,6 +56,19 @@ export default function PremiumCustomSystemPage() {
     ],
   };
 
+  const itemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Premium Custom Business System — what's included",
+    numberOfItems: premiumCustom.allIncluded.length,
+    itemListElement: premiumCustom.allIncluded.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.title,
+      description: item.description,
+    })),
+  };
+
   return (
     <main>
       <script
@@ -65,7 +79,12 @@ export default function PremiumCustomSystemPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
+      />
       <PremiumHero />
+      <System />
       <div id="included" className="scroll-mt-24" />
       {/* TODO: next sections for Premium Custom Business System */}
     </main>

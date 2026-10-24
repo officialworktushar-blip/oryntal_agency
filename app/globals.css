@@ -2253,3 +2253,15 @@
   }
 }
 
+.pcs-bg {
+  background-color: #0a0c10;
+  background-image: radial-gradient(50% 30% at 50% 0%, rgba(91, 52, 214, 0.16) 0%, rgba(91, 52, 214, 0) 70%),
+    linear-gradient(180deg, #0a0c10 0%, #050507 100%);
+}
+
+.pcs-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+
