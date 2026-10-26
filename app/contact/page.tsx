@@ -234,7 +234,15 @@ const TOPIC_PREFILL: Record<string, string> = {
   automation: "automating repetitive tasks",
   "registration-and-setup": "MSME/Udyam registration and digital setup",
   integrations: "connecting my business tools",
+  design: "design and prototype",
+  app: "a custom web or mobile app",
+  panels: "admin and user panels",
+  ai: "AI agents and automation",
+  payments: "payments and integrations",
+  network: "business-specific features and supplier connections",
 };
+
+const PLAN_TOPICS = new Set(["design", "app", "panels", "ai", "payments", "network"]);
 
 /** Prefills the message box from ?message= or ?topic= (e.g. the hero search pill). */
 function MessageField() {
@@ -260,7 +268,10 @@ function MessageField() {
 
     const topic = searchParams.get("topic");
     const label = topic ? TOPIC_PREFILL[topic] : undefined;
-    return label ? `I'd like help with: ${label}.` : "";
+    if (!label) return "";
+    return PLAN_TOPICS.has(topic ?? "")
+      ? `I'd like to plan: ${label}.`
+      : `I'd like help with: ${label}.`;
   });
 
   return (

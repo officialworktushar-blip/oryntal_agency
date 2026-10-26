@@ -1,7 +1,15 @@
 import type { LucideIcon } from "lucide-react";
-import { AppWindow, Bot, CreditCard, Handshake, LayoutDashboard } from "lucide-react";
+import {
+  AppWindow,
+  Bot,
+  CreditCard,
+  Handshake,
+  LayoutDashboard,
+  LayoutTemplate,
+  Plug,
+} from "lucide-react";
 
-export type PremiumCustomModule = {
+export type PremiumCustomHeroModule = {
   id: string;
   label: string;
   sub: string;
@@ -12,6 +20,37 @@ export type PremiumCustomModule = {
 export type PremiumCustomAllIncluded = {
   title: string;
   description: string;
+};
+
+export type PremiumCustomModuleItem = {
+  id: string;
+  label: string;
+  icon: LucideIcon;
+  title: string;
+  subtitle: string;
+  description: string;
+  bullets: string[];
+  cta: { label: string; href: string };
+  briefKey: string;
+  briefLines: string[];
+  note: string;
+};
+
+export type PremiumCustomModules = {
+  eyebrow: string;
+  headingLine1: string;
+  headingLine2: string;
+  sub: string;
+  items: PremiumCustomModuleItem[];
+  divider: string;
+  briefHelper: string;
+  copyLabel: string;
+  copiedLabel: string;
+  closing: {
+    text: string;
+    link: { label: string; href: string };
+  };
+  footnote: string;
 };
 
 export type PremiumCustomSystem = {
@@ -64,7 +103,8 @@ export type PremiumCustomContent = {
   primaryCta: { label: string; href: string };
   secondaryCta: { label: string; href: string };
   trustLine: string;
-  modules: PremiumCustomModule[];
+  modules: PremiumCustomModules;
+  heroModules: PremiumCustomHeroModule[];
   stages: string[];
   srSummary: string;
   system: PremiumCustomSystem;
@@ -141,10 +181,183 @@ export const premiumCustom: PremiumCustomContent = {
   scopeNote: "Final pricing, timeline, features, integrations, and support depend on project scope and the agreed proposal.",
   feeNote: "Payment gateway, API, logistics, and other third-party services may require separate provider subscriptions or transaction fees.",
   primaryCta: { label: "Book a consultation", href: "/contact?interest=premium-custom-system" },
-  // TODO: point back to #included when the detailed What's included section exists
-  secondaryCta: { label: "See what's included", href: "#system" },
+  secondaryCta: { label: "See what's included", href: "#what-you-get" },
   trustLine: "Scoped and priced in a proposal before we build",
-  modules: [
+  modules: {
+    eyebrow: "WHAT YOU GET",
+    headingLine1: "Built around your business,",
+    headingLine2: "not squeezed into a template.",
+    sub: "Six building blocks, shaped by your requirements and agreed in your proposal. Pick one to see what it gives your business.",
+    items: [
+      {
+        id: "design",
+        label: "Design & Prototype",
+        icon: LayoutTemplate,
+        title: "UX/UI design and a complete prototype",
+        subtitle: "See the experience before full development begins.",
+        description:
+          "A design approach tailored to your business, its users, and your operations, followed by a structured prototype of the interface and major workflows. You approve the direction first, so what gets built is what you expected.",
+        bullets: [
+          "Dedicated UX/UI design for your users",
+          "A complete, clickable prototype",
+          "Major workflows mapped before development",
+          "Feedback and approval before the build",
+        ],
+        cta: {
+          label: "Plan my design",
+          href: "/contact?interest=premium-custom-system&topic=design",
+        },
+        briefKey: "design-and-prototype",
+        briefLines: [
+          "deliverable: ux/ui design + complete prototype",
+          "review: approve before full development",
+          "scope: agreed in your proposal",
+        ],
+        note: "A prototype helps align expectations early. Final deliverables are confirmed in your proposal.",
+      },
+      {
+        id: "app",
+        label: "Custom Web & Mobile App",
+        icon: AppWindow,
+        title: "A platform built for how you operate",
+        subtitle: "Web applications, mobile applications, or business-specific systems.",
+        description:
+          "We develop the agreed digital platform around your processes, so your team and customers work the way your business actually works, not the way a template forces them to.",
+        bullets: [
+          "Custom web application",
+          "Mobile application, where it fits your needs",
+          "Business-specific systems for specialised operations",
+          "Development, testing, and refinement against agreed deliverables",
+        ],
+        cta: {
+          label: "Plan my platform",
+          href: "/contact?interest=premium-custom-system&topic=app",
+        },
+        briefKey: "custom-platform",
+        briefLines: [
+          "platform: web | mobile | business-specific",
+          "built-for: your operations",
+          "scope: agreed in your proposal",
+        ],
+        note: "The form of the platform depends on your requirements and the agreed scope.",
+      },
+      {
+        id: "panels",
+        label: "Admin & User Panels",
+        icon: LayoutDashboard,
+        title: "The right view for every role",
+        subtitle: "Dedicated interfaces for the people who use your system.",
+        description:
+          "Administrators, employees, customers, or other users each get an interface shaped to their job, so everyone sees what they need and nothing they don't.",
+        bullets: [
+          "Custom admin panel for your team",
+          "User panels for customers or partners",
+          "Role-based views, depending on requirements",
+          "One connected system behind every panel",
+        ],
+        cta: {
+          label: "Plan my panels",
+          href: "/contact?interest=premium-custom-system&topic=panels",
+        },
+        briefKey: "admin-and-user-panels",
+        briefLines: [
+          "panels: admin | employee | customer",
+          "access: by role, per requirements",
+          "scope: agreed in your proposal",
+        ],
+        note: "Panels and permissions are defined by your requirements.",
+      },
+      {
+        id: "ai",
+        label: "AI Agents & Automation",
+        icon: Bot,
+        title: "AI that works across your business",
+        subtitle: "Custom agents and automations, where they genuinely help.",
+        description:
+          "Custom AI agents, multi-agent systems, and workflow automation take on repetitive work and keep processes moving, applied where it adds real value to your operations.",
+        bullets: [
+          "Custom AI agents for your processes",
+          "Multi-agent systems, where appropriate",
+          "Workflow automation across your system",
+          "Applied only where it genuinely helps",
+        ],
+        cta: {
+          label: "Plan my AI system",
+          href: "/contact?interest=premium-custom-system&topic=ai",
+        },
+        briefKey: "ai-agents-and-automation",
+        briefLines: [
+          "agents: custom, per process",
+          "automation: workflows across the system",
+          "scope: agreed in your proposal",
+        ],
+        note: "AI capabilities are included where appropriate and agreed.",
+      },
+      {
+        id: "payments",
+        label: "Payments & Integrations",
+        icon: Plug,
+        title: "Payments and tools, connected as one",
+        subtitle: "Payment providers, APIs, and your business tools in one workflow.",
+        description:
+          "Suitable payment providers, advanced API integrations, and system integration connect your processes, databases, applications, and services, so data moves on its own instead of being copied by hand.",
+        bullets: [
+          "Payment gateway integration",
+          "Advanced API integrations with business tools",
+          "Processes, databases, and services connected",
+          "A coordinated workflow end to end",
+        ],
+        cta: {
+          label: "Plan my integrations",
+          href: "/contact?interest=premium-custom-system&topic=payments",
+        },
+        briefKey: "payments-and-integrations",
+        briefLines: [
+          "payments: suitable provider integrated",
+          "integrations: APIs, tools, platforms",
+          "scope: agreed in your proposal",
+        ],
+        note: "Payment gateway, API, logistics, and other third-party services may require separate provider subscriptions or transaction fees.",
+      },
+      {
+        id: "network",
+        label: "Business-Specific Features & Network",
+        icon: Handshake,
+        title: "Features only your business needs",
+        subtitle: "Custom features, plus supplier and wholesale connections where suitable.",
+        description:
+          "We build custom features around your operations and objectives, and, where suitable, connect you to relevant supplier, wholesaler, packaging, and sourcing contacts through ORYNTAL's available network, then refine everything against agreed deliverables.",
+        bullets: [
+          "Custom features shaped around your objectives",
+          "Supplier and wholesale connections, where suitable",
+          "Packaging and sourcing contacts through ORYNTAL's network",
+          "Implementation and refinement to agreed deliverables",
+        ],
+        cta: {
+          label: "Plan my features",
+          href: "/contact?interest=premium-custom-system&topic=network",
+        },
+        briefKey: "custom-features-and-network",
+        briefLines: [
+          "features: built around your operations",
+          "network: suppliers, wholesalers, packaging (where suitable)",
+          "scope: agreed in your proposal",
+        ],
+        note: "Supplier pricing, MOQs, availability, and terms are set by the relevant supplier. ORYNTAL can help connect you, but specific pricing or savings cannot be guaranteed.",
+      },
+    ],
+    divider: "or share your build brief with us",
+    briefHelper: "Copy this brief and paste it into the contact form, or let us prefill it for you.",
+    copyLabel: "Copy",
+    copiedLabel: "Copied",
+    closing: {
+      text: "Not sure which blocks you need? We'll scope them together before anything is built.",
+      link: { label: "Book a consultation", href: "/contact?interest=premium-custom-system" },
+    },
+    footnote:
+      "Final pricing, timeline, features, integrations, and support depend on project scope and the agreed proposal.",
+  },
+  heroModules: [
     {
       id: "app",
       label: "Custom web & mobile app",

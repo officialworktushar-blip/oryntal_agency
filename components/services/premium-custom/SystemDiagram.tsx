@@ -15,7 +15,7 @@ export default function SystemDiagram() {
   const { wrapperRef, scale } = useScaledCanvas(DESIGN_WIDTH, 0.4);
   const containerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(containerRef, { amount: 0.3, once: false });
-  const { modules, stages, srSummary } = premiumCustom;
+  const { heroModules: modules, stages, srSummary } = premiumCustom;
 
   const [active, setActive] = useState(reduced ? 2 : 0);
   const [hovered, setHovered] = useState(false);

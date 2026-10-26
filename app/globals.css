@@ -2282,6 +2282,18 @@
   }
 }
 
+:root {
+  --pcm-1: #0b0b0d;
+  --pcm-2: #09090b;
+  --pcm-3: rgba(91, 52, 214, 0.14);
+}
+
+.pcm-bg {
+  background-color: var(--pcm-1);
+  background-image: radial-gradient(45% 30% at 50% 0%, var(--pcm-3) 0%, rgba(91, 52, 214, 0) 70%),
+    linear-gradient(180deg, var(--pcm-1) 0%, var(--pcm-2) 100%);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pcs-twinkle {
     animation: none !important;
