@@ -89,6 +89,15 @@ export type PremiumCustomSystem = {
   };
 };
 
+export type PremiumCustomClosingBanner = {
+  heading: string;
+  sub: string;
+  cta: { label: string; href: string };
+  trust: string;
+  link: { label: string; href: string };
+  footnote: string;
+};
+
 export type PremiumCustomContent = {
   packageName: string;
   priceLabel: string;
@@ -108,6 +117,7 @@ export type PremiumCustomContent = {
   stages: string[];
   srSummary: string;
   system: PremiumCustomSystem;
+  closingBanner: PremiumCustomClosingBanner;
 };
 
 export const premiumCustom: PremiumCustomContent = {
@@ -454,5 +464,14 @@ export const premiumCustom: PremiumCustomContent = {
       trust: "Scoped and priced in a proposal before we build",
       note: "Illustrative previews. Final pricing, timeline, features, integrations, and support depend on project scope and the agreed proposal.",
     },
+  },
+  closingBanner: {
+    heading: "Ready to build a system around your business?",
+    sub: "Tell us how your business runs. We'll scope it together before anything is built.",
+    cta: { label: "Book a consultation", href: "/contact?interest=premium-custom-system" },
+    trust: "Scoped and priced in a proposal before we build",
+    link: { label: "Compare all packages", href: "/services/business-packages" },
+    footnote:
+      "Final pricing, timeline, features, integrations, and support depend on project scope and the agreed proposal.",
   },
 };

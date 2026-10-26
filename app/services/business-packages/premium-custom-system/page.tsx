@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PremiumHero from "@/components/services/premium-custom/Hero";
 import System from "@/components/services/premium-custom/System";
 import Modules from "@/components/services/premium-custom/Modules";
+import ClosingBanner from "@/components/services/premium-custom/ClosingBanner";
 import { premiumCustom } from "@/lib/content/packages/premiumCustom";
 
 const title = "Premium Custom Business System | Custom Web, App & AI Platform | ORYNTAL";
@@ -87,8 +88,9 @@ export default function PremiumCustomSystemPage() {
       <PremiumHero />
       <System />
       <Modules />
+      <ClosingBanner />
       <div id="included" className="scroll-mt-24" />
-      {/* TODO: next sections for Premium Custom Business System */}
+      {/* TODO: when the FAQ exists, place <ClosingBanner /> after it as the last section before the footer */}
     </main>
   );
 }

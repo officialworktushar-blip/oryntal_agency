@@ -2302,4 +2302,203 @@
   }
 }
 
+:root {
+  --pcb-1: #000000;
+  --pcb-2: #2b1a7a;
+  --pcb-3: rgba(43, 26, 122, 0);
+  --pcb-c1: #673de1;
+  --pcb-c2: #6a40e3;
+  --pcb-c3: #353859;
+  --pcb-c4: #3b3a78;
+  --pcb-c5: #5e3ed9;
+  --pcb-c6: #3e3a7a;
+  --pcb-c7: #473c88;
+  --pcb-c8: #373a5f;
+  --pcb-band: rgba(255, 255, 255, 0.07);
+  --pcb-sheen: rgba(255, 255, 255, 0.3);
+  --pcb-highlight: rgba(255, 255, 255, 0.06);
+  --pcb-title-shadow: rgba(20, 10, 60, 0.35);
+  --pcb-btn-bg: #f1f2f5;
+  --pcb-btn-ink: #1d1e20;
+  --pcb-btn-shadow: rgba(10, 5, 40, 0.35);
+  --pcb-btn-glow: rgba(255, 255, 255, 0.18);
+  --pcb-ring-offset: #3b3a78;
+}
+
+.pcb-bg {
+  background-color: var(--pcb-1);
+  background-image: linear-gradient(180deg, var(--pcb-2) 0%, var(--pcb-3) 140px), none;
+}
+
+.pcb-col-1 {
+  background-image: linear-gradient(130deg, var(--pcb-c1) 0%, var(--pcb-c2) 50%, var(--pcb-c3) 96%);
+}
+
+.pcb-col-2 {
+  background-image: linear-gradient(148deg, var(--pcb-c1) 0%, var(--pcb-c1) 24%, var(--pcb-c3) 60%, var(--pcb-c4) 100%);
+}
+
+.pcb-col-3 {
+  background-image: linear-gradient(145deg, var(--pcb-c1) 0%, var(--pcb-c5) 12%, var(--pcb-c3) 36%, var(--pcb-c6) 72%, var(--pcb-c7) 100%);
+}
+
+.pcb-col-4 {
+  background-image: linear-gradient(180deg, var(--pcb-c8) 0%, var(--pcb-c6) 52%, var(--pcb-c7) 100%);
+}
+
+.pcb-col.pcb-animate {
+  animation: pcb-col-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pcb-word.pcb-animate {
+  animation: pcb-word-in 0.45s ease-out both;
+}
+
+.pcb-fade.pcb-animate {
+  animation: pcb-fade-up 0.5s ease-out both;
+}
+
+.pcb-cta {
+  background-color: var(--pcb-btn-bg);
+  color: var(--pcb-btn-ink);
+  box-shadow: 0 10px 30px var(--pcb-btn-shadow);
+}
+
+.pcb-cta:hover {
+  background-color: #ffffff;
+  box-shadow: 0 12px 36px var(--pcb-btn-glow);
+}
+
+.pcb-drift {
+  pointer-events: none;
+  position: absolute;
+  left: -30%;
+  top: -20%;
+  bottom: -20%;
+  width: 160%;
+  background-image: linear-gradient(115deg, transparent 40%, var(--pcb-band) 50%, transparent 60%);
+  animation: pcb-drift 14s linear infinite alternate;
+  animation-play-state: paused;
+  will-change: transform;
+}
+
+.pcb-playing .pcb-drift {
+  animation-play-state: running;
+}
+
+.pcb-sheen {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  background-color: var(--pcb-sheen);
+  transform: translateX(-300%) skewX(-20deg);
+  opacity: 0;
+  animation: pcb-sheen 6s linear infinite;
+  animation-play-state: paused;
+}
+
+.pcb-playing .pcb-sheen {
+  animation-play-state: running;
+}
+
+@keyframes pcb-col-reveal {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes pcb-word-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes pcb-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pcb-drift {
+  from {
+    transform: translateX(-14%);
+  }
+  to {
+    transform: translateX(14%);
+  }
+}
+
+@keyframes pcb-sheen {
+  0%,
+  84% {
+    transform: translateX(-300%) skewX(-20deg);
+    opacity: 0;
+  }
+  85% {
+    opacity: 1;
+  }
+  99% {
+    transform: translateX(900%) skewX(-20deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-300%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pcb-banner-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pcb-banner {
+    animation: pcb-banner-fade 0.2s ease-out both;
+  }
+
+  .pcb-col,
+  .pcb-word,
+  .pcb-fade {
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .pcb-col.pcb-animate,
+  .pcb-word.pcb-animate,
+  .pcb-fade.pcb-animate {
+    animation: none !important;
+  }
+
+  .pcb-drift,
+  .pcb-sheen {
+    animation: none !important;
+    display: none;
+  }
+}
+
 
