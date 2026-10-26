@@ -64,7 +64,7 @@ export const menuDomains: NavMenuDomain[] = [
     href: "/services/individual-services",
     items: [
       {
-        href: "/services/individual-services",
+        href: "/services/individual-services/website-and-app-development",
         label: "Website & Application Development",
         description: "Landing pages, company sites, portals, and apps.",
         icon: Globe,

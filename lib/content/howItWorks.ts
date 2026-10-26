@@ -78,7 +78,7 @@ export const buildTab: HowItWorksTab = {
   ],
   cta: {
     label: "Explore development services",
-    href: "/services/individual-services",
+    href: "/services/individual-services/website-and-app-development",
   },
   media: {
     label:
