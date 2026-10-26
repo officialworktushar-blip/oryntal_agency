@@ -14,6 +14,42 @@ export type PremiumCustomAllIncluded = {
   description: string;
 };
 
+export type PremiumCustomSystem = {
+  pill: string;
+  headingLine1: string;
+  headingLine2: string;
+  sub: string;
+  cards: {
+    platform: {
+      title: string;
+      text: string;
+      rows: { label: string; icon: string }[];
+    };
+    workflow: {
+      title: string;
+      text: string;
+      header: string;
+      feed: [string, string][];
+    };
+    prototype: {
+      title: string;
+      text: string;
+      layers: { label: string; icon: string }[];
+    };
+    modules: {
+      title: string;
+      text: string;
+      items: { label: string; icon: string }[];
+    };
+  };
+  closing: {
+    ideal: string;
+    cta: { label: string; href: string };
+    trust: string;
+    note: string;
+  };
+};
+
 export type PremiumCustomContent = {
   packageName: string;
   priceLabel: string;
@@ -31,6 +67,7 @@ export type PremiumCustomContent = {
   modules: PremiumCustomModule[];
   stages: string[];
   srSummary: string;
+  system: PremiumCustomSystem;
 };
 
 export const premiumCustom: PremiumCustomContent = {
@@ -104,6 +141,7 @@ export const premiumCustom: PremiumCustomContent = {
   scopeNote: "Final pricing, timeline, features, integrations, and support depend on project scope and the agreed proposal.",
   feeNote: "Payment gateway, API, logistics, and other third-party services may require separate provider subscriptions or transaction fees.",
   primaryCta: { label: "Book a consultation", href: "/contact?interest=premium-custom-system" },
+  // TODO: point back to #included when the detailed What's included section exists
   secondaryCta: { label: "See what's included", href: "#system" },
   trustLine: "Scoped and priced in a proposal before we build",
   modules: [
@@ -193,7 +231,7 @@ export const premiumCustom: PremiumCustomContent = {
           { label: "Payments", icon: "CreditCard" },
           { label: "Order Management", icon: "PackageCheck" },
           { label: "Customer Support", icon: "Headset" },
-          { label: "Reporting", icon: "BarChart3" },
+          { label: "Reporting", icon: "ChartColumn" },
         ],
       },
     },

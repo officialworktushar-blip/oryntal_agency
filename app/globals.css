@@ -2264,4 +2264,30 @@
   background-size: 160px 160px;
 }
 
+.pcs-twinkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pcs-twinkle 2.4s ease-in-out infinite;
+}
+
+@keyframes pcs-twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pcs-twinkle {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 
