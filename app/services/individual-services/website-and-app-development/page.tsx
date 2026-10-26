@@ -83,7 +83,7 @@ export default function WebsiteAndAppDevelopmentPage() {
 
       <div id="what-we-build" className="scroll-mt-24" />
 
-      {/* TODO: next sections. The next section's top colour should be #1B1052 to blend with the hero floor. */}
+      {/* TODO: next sections. The next section's top colour should be #05030F (or pure black) to blend with the hero's bottom edge. */}
     </main>
   );
 }

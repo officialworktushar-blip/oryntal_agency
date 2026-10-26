@@ -110,6 +110,7 @@ export default function WebAppHero() {
       )}
     >
       <div aria-hidden="true" className="ws-hero-dome ws-ambient" />
+      <div aria-hidden="true" className="ws-hero-rim ws-ambient" />
 
       <div aria-hidden="true" className="ws-glow-side ws-glow-side-left">
         <div className="ws-glow-inner ws-ambient" />

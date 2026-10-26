@@ -2512,14 +2512,25 @@
     --offer-red: #f04444;
     --offer-red-rgb: 240 68 68;
 
-    --wsh-1: #000000;
-    --wsh-2: #05030e;
-    --wsh-3: #130b3a;
-    --wsh-4: #1b1052;
-    --wsh-5: 122 84 245;
-    --wsh-6: 84 48 205;
-    --wsh-dome-glow: 122 86 255;
-    --wsh-dome-soft: 160 130 255;
+    --wsh-top: #000000;
+    --wsh-mid: #07041a;
+    --wsh-bottom: #05030f;
+    --wsh-glow: 104 66 232;
+    --wsh-glow-soft: 104 66 232;
+    --wsh-wash: 52 30 150;
+    --wsh-dome-shadow: 70 40 190;
+    --wsh-rim: 185 165 255;
+    --wsh-rim-glow: 150 120 255;
+
+    --wsh-glow-x: 34%;
+    --wsh-glow-y: 40%;
+    --wsh-glow-y-pos: 64%;
+    --wsh-wash-x: 38%;
+    --wsh-wash-y: 30%;
+    --wsh-dome-left: -12%;
+    --wsh-dome-width: 124%;
+    --wsh-dome-top: -150%;
+    --wsh-dome-height: 250%;
 
     --ws-stat-hover: #b9a8ff;
     --ws-stat-glow: 155 149 255;
@@ -2527,39 +2538,69 @@
 }
 
 .ws-hero-bg {
-  background-color: var(--wsh-1);
+  position: relative;
+  background-color: var(--wsh-top);
   background-image:
-    radial-gradient(38% 62% at 0% 68%, rgb(var(--wsh-5) / 0.95) 0%, rgb(var(--wsh-5) / 0) 72%),
-    radial-gradient(38% 62% at 100% 68%, rgb(var(--wsh-5) / 0.95) 0%, rgb(var(--wsh-5) / 0) 72%),
-    radial-gradient(62% 42% at 50% 100%, rgb(var(--wsh-6) / 0.65) 0%, rgb(var(--wsh-6) / 0) 75%),
-    linear-gradient(180deg, var(--wsh-1) 0%, var(--wsh-2) 26%, var(--wsh-3) 60%, var(--wsh-4) 100%);
+    radial-gradient(var(--wsh-glow-x) var(--wsh-glow-y) at 0% var(--wsh-glow-y-pos), rgb(var(--wsh-glow) / 0.95) 0%, rgb(var(--wsh-glow-soft) / 0.55) 35%, rgb(var(--wsh-glow) / 0) 72%),
+    radial-gradient(var(--wsh-glow-x) var(--wsh-glow-y) at 100% var(--wsh-glow-y-pos), rgb(var(--wsh-glow) / 0.95) 0%, rgb(var(--wsh-glow-soft) / 0.55) 35%, rgb(var(--wsh-glow) / 0) 72%),
+    radial-gradient(var(--wsh-wash-x) var(--wsh-wash-y) at 0% 100%, rgb(var(--wsh-wash) / 0.60) 0%, rgb(var(--wsh-wash) / 0) 70%),
+    radial-gradient(var(--wsh-wash-x) var(--wsh-wash-y) at 100% 100%, rgb(var(--wsh-wash) / 0.60) 0%, rgb(var(--wsh-wash) / 0) 70%),
+    linear-gradient(180deg, var(--wsh-top) 0%, var(--wsh-top) 38%, var(--wsh-mid) 72%, var(--wsh-bottom) 100%);
+}
+
+.ws-hero-dome,
+.ws-hero-rim {
+  position: absolute;
+  left: var(--wsh-dome-left);
+  top: var(--wsh-dome-top);
+  width: var(--wsh-dome-width);
+  height: var(--wsh-dome-height);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .ws-hero-dome {
-  position: absolute;
-  top: -72%;
-  left: 50%;
-  width: 152%;
-  height: 128%;
-  transform: translateX(-50%);
-  border-radius: 50%;
   background: #000;
   box-shadow:
-    0 40px 140px 10px rgb(var(--wsh-dome-glow) / 0.55),
-    0 18px 60px rgb(var(--wsh-dome-soft) / 0.3);
-  pointer-events: none;
+    0 0 120px 20px rgb(var(--wsh-glow) / 0.50),
+    0 0 260px 60px rgb(var(--wsh-dome-shadow) / 0.35);
+  z-index: 0;
+}
+
+.ws-hero-rim {
+  background: transparent;
+  border: 2px solid rgb(var(--wsh-rim) / 0.75);
+  box-shadow:
+    0 0 28px 4px rgb(var(--wsh-rim-glow) / 0.60),
+    inset 0 0 40px rgb(var(--wsh-rim-glow) / 0.18);
+  filter: blur(1.2px);
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 18%, transparent 34%, transparent 66%, #000 82%, #000 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 18%, transparent 34%, transparent 66%, #000 82%, #000 100%);
   z-index: 1;
-  animation: ws-dome-breathe 9s ease-in-out infinite;
-  will-change: transform, box-shadow;
+  animation: ws-rim-shimmer 7s ease-in-out infinite;
+}
+
+@media (max-width: 767px) {
+  .ws-hero-dome,
+  .ws-hero-rim {
+    left: -60%;
+    width: 220%;
+    top: -120%;
+    height: 220%;
+  }
+
+  .ws-glow-side {
+    display: none;
+  }
 }
 
 .ws-glow-side {
   position: absolute;
-  top: 38%;
+  top: 30%;
   width: 42%;
-  height: 68%;
+  height: 70%;
   pointer-events: none;
-  z-index: 2;
+  z-index: 0;
   opacity: 0.9;
   transform: translate3d(var(--ws-px, 0px), var(--ws-py, 0px), 0);
   transition: transform 0.35s ease-out;
@@ -2578,9 +2619,9 @@
   height: 100%;
   background: radial-gradient(
     closest-side,
-    rgb(var(--wsh-5) / 0.55) 0%,
-    rgb(var(--wsh-5) / 0.22) 45%,
-    rgb(var(--wsh-5) / 0) 75%
+    rgb(var(--wsh-glow) / 0.55) 0%,
+    rgb(var(--wsh-glow-soft) / 0.22) 45%,
+    rgb(var(--wsh-glow) / 0) 75%
   );
   filter: blur(18px);
 }
@@ -2621,6 +2662,14 @@
   animation: ws-tag-sheen 6s linear infinite;
 }
 
+.ws-stats-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(60% 75% at 50% 55%, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0) 75%);
+}
+
 .ws-stat-cell {
   animation: ws-stat-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -2648,19 +2697,13 @@
   animation-play-state: paused;
 }
 
-@keyframes ws-dome-breathe {
+@keyframes ws-rim-shimmer {
   0%,
   100% {
-    transform: translateX(-50%) scale(1);
-    box-shadow:
-      0 40px 140px 10px rgb(var(--wsh-dome-glow) / 0.55),
-      0 18px 60px rgb(var(--wsh-dome-soft) / 0.3);
+    opacity: 0.8;
   }
   50% {
-    transform: translateX(-50%) scale(1.03);
-    box-shadow:
-      0 46px 160px 14px rgb(var(--wsh-dome-glow) / 0.65),
-      0 22px 70px rgb(var(--wsh-dome-soft) / 0.38);
+    opacity: 1;
   }
 }
 

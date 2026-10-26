@@ -92,7 +92,8 @@ export default function StatsRow() {
   const { stats, services, srSummary, footnote } = websiteApp;
 
   return (
-    <div className="mx-auto mt-16 w-full max-w-[1500px] md:mt-20 lg:mt-24">
+    <div className="relative isolate mx-auto mt-16 w-full max-w-[1500px] md:mt-20 lg:mt-24">
+      <div aria-hidden="true" className="ws-stats-vignette" />
       <p className="sr-only">{srSummary}</p>
       <ul className="sr-only" aria-label="Services included">
         {services.map((service) => (
