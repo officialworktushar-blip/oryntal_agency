@@ -81,6 +81,27 @@ export type AiDevAssistants = {
   items: AiDevAssistant[];
 };
 
+export type AiDevCapabilityBar = {
+  id: string;
+  title: string;
+  description: string;
+  bestFor: string;
+  points: [string, string, string];
+  linkLabel: string;
+  href: string;
+};
+
+export type AiDevCapabilities = {
+  heading: string;
+  sub: string;
+  chipLabel: string;
+  defaultActive: number;
+  srSentence: string;
+  bars: AiDevCapabilityBar[];
+  closing: { text: string; cta: AiDevCta; trust: string };
+  footnote: string;
+};
+
 export type AiDevContent = {
   eyebrow: string;
   h1: string;
@@ -97,6 +118,7 @@ export type AiDevContent = {
   srSummary: string;
   tools: AiDevTools;
   assistants: AiDevAssistants;
+  capabilities: AiDevCapabilities;
 };
 
 const build: AiDevBuildItem[] = [
@@ -255,6 +277,80 @@ const assistantItems: AiDevAssistant[] = [
   },
 ];
 
+// Bars describe capabilities, not claims of existing clients or results.
+const capabilityBars: AiDevCapabilityBar[] = [
+  {
+    id: "chat",
+    title: "Chatbots & voice agents",
+    description:
+      "Answer customers instantly on chat and by phone, in your brand's voice, so no enquiry has to wait for a free person.",
+    bestFor: "Teams handling many customer enquiries",
+    points: [
+      "Chatbots and chat agents for your customers",
+      "Voice AI and voice agents for calls",
+      "Shaped around your questions and brand voice",
+    ],
+    linkLabel: "Plan my assistant",
+    href: "/contact?interest=ai-development-and-automation&topic=chatbots",
+  },
+  {
+    id: "agents",
+    title: "Custom AI agents",
+    description:
+      "AI agents that take on whole tasks for your business, from following up with leads to coordinating work across your tools, and working together as one system where needed.",
+    bestFor: "Businesses with repeatable, multi-step work",
+    points: [
+      "Custom AI agents built around your processes",
+      "Business multi-agent systems, where one agent is not enough",
+      "Connected to the tools and data you already use",
+    ],
+    linkLabel: "Plan my AI agents",
+    href: "/contact?interest=ai-development-and-automation&topic=ai-agents",
+  },
+  {
+    id: "rag",
+    title: "RAG & custom LLM solutions",
+    description:
+      "Assistants that answer from your own documents and data, and language models shaped around your business, so replies match how you actually work.",
+    bestFor: "Businesses with a lot of internal knowledge",
+    points: [
+      "Retrieval-Augmented Generation (RAG) on your own data",
+      "Custom LLM solutions for your tasks",
+      "Answers grounded in your business, not guesses",
+    ],
+    linkLabel: "Plan my knowledge assistant",
+    href: "/contact?interest=ai-development-and-automation&topic=rag",
+  },
+  {
+    id: "vision",
+    title: "Fine-tuning & computer vision",
+    description:
+      "Teach models your domain and let software understand images and video, for work that generic tools do not handle well.",
+    bestFor: "Specialised or visual workflows",
+    points: [
+      "Model fine-tuning shaped around your requirements",
+      "Computer vision solutions for images and video",
+      "Applied only where they genuinely help",
+    ],
+    linkLabel: "Plan my custom model",
+    href: "/contact?interest=ai-development-and-automation&topic=vision-finetune",
+  },
+  {
+    id: "workflows",
+    title: "AI workflow automation",
+    description:
+      "Repetitive steps run themselves, with AI making the routine calls, so your team spends its time on the work that needs people.",
+    bestFor: "Teams buried in repetitive tasks",
+    points: [
+      "AI workflow automation across your processes",
+      "AI-powered business workflows, end to end",
+      "Scoped to your operations and agreed deliverables",
+    ],
+    linkLabel: "Plan my automation",
+    href: "/contact?interest=ai-development-and-automation&topic=ai-automation",
+  },
+];
+
 export const aiDev: AiDevContent = {
   eyebrow: "AI Development & Automation",
   h1: "AI that works for your business, not the other way around.",
@@ -315,6 +411,25 @@ export const aiDev: AiDevContent = {
     },
     trust: "Scoped and priced in a proposal before we start",
     items: assistantItems,
+  },
+  capabilities: {
+    heading: "AI built around how your business works",
+    sub: "From the first chatbot to a full system of AI agents, we build what fits your operations. Find the one that sounds like your next step.",
+    chipLabel: "Best for:",
+    defaultActive: 1,
+    srSentence:
+      "ORYNTAL builds AI workflow automation, custom AI agents and multi-agent systems, chatbots and chat agents, voice AI and voice agents, RAG systems, custom LLM solutions, model fine-tuning, computer vision solutions, and AI-powered business workflows.",
+    bars: capabilityBars,
+    closing: {
+      text: "Not sure which one you need? Tell us where time is being lost and we'll recommend the simplest AI starting point.",
+      cta: {
+        label: "Talk about your AI project",
+        href: "/contact?interest=ai-development-and-automation",
+      },
+      trust: "Scoped and priced in a proposal before we build",
+    },
+    footnote:
+      "Scope, features, timeline, and pricing are agreed in your proposal. Third-party AI and API usage, if any, may carry separate provider fees.",
   },
 };
 

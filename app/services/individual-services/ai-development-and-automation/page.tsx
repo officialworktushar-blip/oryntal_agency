@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import AiHero from "@/components/services/ai-dev/Hero";
 import Tools from "@/components/services/ai-dev/Tools";
 import Assistants from "@/components/services/ai-dev/Assistants";
+import Capabilities from "@/components/services/ai-dev/Capabilities";
 import { aiDev } from "@/lib/content/services/aiDev";
 import { aiTools } from "@/lib/content/services/aiTools";
 
@@ -94,6 +95,18 @@ export default function AiDevelopmentAndAutomationPage() {
     })),
   };
 
+  const capabilityList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "What ORYNTAL builds with AI",
+    itemListElement: aiDev.capabilities.bars.map((bar, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: bar.title,
+      description: bar.description,
+    })),
+  };
+
   return (
     <main>
       <script
@@ -112,6 +125,10 @@ export default function AiDevelopmentAndAutomationPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(assistantList) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(capabilityList) }}
+      />
 
       <AiHero />
 
@@ -119,7 +136,8 @@ export default function AiDevelopmentAndAutomationPage() {
 
       <Assistants />
 
-      <div id="what-we-build" className="scroll-mt-24" />
+      <Capabilities />
+      {/* next section's top should be #2B1A7A or fade from it */}
 
       {/* TODO: Add next sections */}
     </main>

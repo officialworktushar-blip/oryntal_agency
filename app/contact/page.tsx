@@ -254,6 +254,8 @@ const TOPIC_PREFILL: Record<string, string> = {
   "custom-llm": "a custom LLM solution",
   "computer-vision": "a computer vision solution",
   "ai-automation": "AI workflow automation",
+  "ai-agents": "custom AI agents",
+  "vision-finetune": "model fine-tuning and computer vision",
 };
 
 /** Topic labels that differ for a specific ?interest= (falls back to TOPIC_PREFILL). */
