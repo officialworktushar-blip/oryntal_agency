@@ -35,6 +35,17 @@ export type AiDevVisual = {
   srCaption: string;
 };
 
+export type AiDevTools = {
+  headingLine1: string;
+  headingLine2: string;
+  sub: string;
+  rowALabel: string;
+  rowBLabel: string;
+  note: string;
+  cta: AiDevCta;
+  trust: string;
+};
+
 export type AiDevContent = {
   eyebrow: string;
   h1: string;
@@ -49,6 +60,7 @@ export type AiDevContent = {
   visual: AiDevVisual;
   footnote: string;
   srSummary: string;
+  tools: AiDevTools;
 };
 
 const build: AiDevBuildItem[] = [
@@ -150,6 +162,19 @@ export const aiDev: AiDevContent = {
   },
   footnote: "Scope, features, timeline, and pricing are agreed in your proposal. Third-party AI and API usage, if any, may carry separate provider fees.",
   srSummary: "ORYNTAL builds AI workflow automation, custom AI agents and multi-agent systems, chatbots, voice agents, retrieval-augmented generation systems, custom LLM solutions, model fine-tuning, computer vision solutions, and AI-powered business workflows.",
+  tools: {
+    headingLine1: "AI that works with",
+    headingLine2: "the tools your business already uses",
+    sub: "We connect AI agents, chatbots, and workflows to your messaging, payments, CRM, data, and AI platforms, so every step can use them.",
+    rowALabel: "Apps your business runs on",
+    rowBLabel: "AI and automation platforms",
+    note: "Examples of tools AI agents commonly connect with. Specific integrations depend on the agreed scope, compatibility, account access, and service availability. Third-party and API usage fees may be separate. Logos belong to their respective owners and do not imply endorsement.",
+    cta: {
+      label: "Ask about your tools",
+      href: "/contact?interest=ai-development-and-automation&topic=integrations",
+    },
+    trust: "Tell us your stack and we'll map what can connect",
+  },
 };
 
 export function getAiDevTopicLabel(topic: string): string {

@@ -255,6 +255,13 @@ const TOPIC_PREFILL: Record<string, string> = {
   "ai-automation": "AI workflow automation",
 };
 
+/** Topic labels that differ for a specific ?interest= (falls back to TOPIC_PREFILL). */
+const INTEREST_TOPIC_PREFILL: Record<string, Record<string, string>> = {
+  "ai-development-and-automation": {
+    integrations: "connecting AI to my existing tools",
+  },
+};
+
 const PLAN_TOPICS = new Set(["design", "app", "panels", "ai", "payments", "network"]);
 
 /** Prefills the message box from ?message= or ?topic= (e.g. the hero search pill). */
@@ -280,7 +287,10 @@ function MessageField() {
     }
 
     const topic = searchParams.get("topic");
-    const label = topic ? TOPIC_PREFILL[topic] : undefined;
+    const interest = searchParams.get("interest") ?? "";
+    const label = topic
+      ? INTEREST_TOPIC_PREFILL[interest]?.[topic] ?? TOPIC_PREFILL[topic]
+      : undefined;
     if (!label) return "";
     return PLAN_TOPICS.has(topic ?? "")
       ? `I'd like to plan: ${label}.`

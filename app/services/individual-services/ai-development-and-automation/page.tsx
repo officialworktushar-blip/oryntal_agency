@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import AiHero from "@/components/services/ai-dev/Hero";
+import Tools from "@/components/services/ai-dev/Tools";
 import { aiDev } from "@/lib/content/services/aiDev";
+import { aiTools } from "@/lib/content/services/aiTools";
 
 const title =
   "AI Development & Automation | Chatbots, Voice AI, RAG & Custom AI Agents | ORYNTAL";
@@ -68,6 +70,17 @@ export default function AiDevelopmentAndAutomationPage() {
     ],
   };
 
+  const toolList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Tools AI can connect with",
+    itemListElement: aiTools.map((tool, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: tool.name,
+    })),
+  };
+
   return (
     <main>
       <script
@@ -78,8 +91,14 @@ export default function AiDevelopmentAndAutomationPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(toolList) }}
+      />
 
       <AiHero />
+
+      <Tools />
 
       <div id="what-we-build" className="scroll-mt-24" />
 

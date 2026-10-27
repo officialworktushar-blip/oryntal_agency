@@ -3172,3 +3172,138 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   AI Development — Tools rails (two infinite rails, opposite directions)
+--------------------------------------------------------------------------- */
+@keyframes tools-rtl {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes tools-ltr {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.tools-track-a {
+  animation: tools-rtl var(--tools-dur-a, 60s) linear infinite;
+}
+
+.tools-track-b {
+  animation: tools-ltr var(--tools-dur-b, 75s) linear infinite;
+}
+
+.tools-rails {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+}
+
+.tools-rails:focus-within .tools-track,
+.tools-rails[data-paused="true"] .tools-track {
+  animation-play-state: paused;
+}
+
+.tool-tile-box {
+  background: #fff;
+  border: 1px solid rgba(20, 20, 40, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 6px 18px rgba(20, 20, 60, 0.05);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
+}
+
+.tool-chip {
+  bottom: calc(100% + 20px);
+  opacity: 0;
+  transform: translate3d(-50%, 6px, 0);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.tool-chip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 8px;
+  height: 8px;
+  background: #1d1e20;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 1px;
+}
+
+@media (hover: hover) {
+  .group.tools-rails:hover .tools-track {
+    animation-play-state: paused;
+  }
+
+  .tool-tile:hover {
+    z-index: 10;
+  }
+
+  .tool-tile:hover .tool-tile-box {
+    transform: translate3d(0, -6px, 0) scale(1.12);
+    border-color: var(--tool-border);
+    box-shadow: 0 16px 36px rgba(20, 20, 60, 0.16);
+  }
+
+  .tool-tile:hover .tool-chip {
+    opacity: 1;
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.tools-reveal-item {
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 700ms ease;
+  transition-delay: calc(var(--reveal-i, 0) * 80ms);
+}
+
+.tools-reveal[data-armed="true"] .tools-reveal-item {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  filter: blur(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tools-track {
+    animation: none !important;
+    margin-left: 0 !important;
+  }
+
+  .tools-row {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding: 44px 0 12px;
+    margin: -44px 0 -12px;
+  }
+
+  .tools-row .tool-tile {
+    scroll-snap-align: start;
+  }
+
+  .tools-dup {
+    display: none;
+  }
+
+  .tool-tile-box,
+  .tool-chip,
+  .tools-reveal-item {
+    transition: none;
+  }
+}
+
