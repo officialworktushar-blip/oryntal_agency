@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import WebAppHero from "@/components/services/website-app/Hero";
 import WhatWeBuild from "@/components/services/website-app/WhatWeBuild";
+import Deliverables from "@/components/services/website-app/Deliverables";
 import { websiteApp } from "@/lib/content/services/websiteApp";
 
 const title =
@@ -55,6 +56,17 @@ export default function WebsiteAndAppDevelopmentPage() {
     })),
   };
 
+  const deliverablesList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: websiteApp.deliverables.items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.title,
+      description: item.description,
+    })),
+  };
+
   const breadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -94,12 +106,18 @@ export default function WebsiteAndAppDevelopmentPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(deliverablesList) }}
+      />
 
       <WebAppHero />
 
       <WhatWeBuild data={websiteApp.whatWeBuild} />
 
-      {/* TODO: next sections. The next section's expected top colour should be #000 / #06030F to blend with the hero's bottom edge. */}
+      <Deliverables data={websiteApp.deliverables} />
+
+      {/* next section top colour should be #5B3FD8 or fade from it */}
     </main>
   );
 }

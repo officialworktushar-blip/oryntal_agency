@@ -55,7 +55,6 @@ export default function Header() {
     "/services/business-packages/digital-foundation",
     "/services/business-packages/business-automation",
     "/services/business-packages/premium-custom-system",
-    "/services/individual-services/website-and-app-development",
   ];
   const transparent =
     transparentTopRoutes.includes(pathname) && !scrolled && !megaOpen;

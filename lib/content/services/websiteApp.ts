@@ -58,6 +58,29 @@ export type WebsiteAppWhatWeBuild = {
   srSummary: string;
 };
 
+export type WebsiteAppDeliverableItem = {
+  id: string;
+  title: string;
+  description: string;
+  bestFor: string;
+  icon: string;
+  topic: string;
+};
+
+export type WebsiteAppDeliverables = {
+  headingLine: string;
+  sub: string;
+  items: WebsiteAppDeliverableItem[];
+  bestForLabel: string;
+  hint: string;
+  closing: {
+    text: string;
+    cta: WebsiteAppCta;
+    trust: string;
+  };
+  footnote: string;
+};
+
 export type WebsiteAppContent = {
   eyebrow: string;
   h1Line1: string;
@@ -80,6 +103,7 @@ export type WebsiteAppContent = {
   visual: WebsiteAppVisual;
   marquee: string[];
   whatWeBuild: WebsiteAppWhatWeBuild;
+  deliverables: WebsiteAppDeliverables;
 };
 
 const emiEnabled = true;
@@ -209,6 +233,87 @@ export const websiteApp: WebsiteAppContent = {
     ],
     srSummary: "ORYNTAL builds business websites, online stores, web apps, mobile apps for Android and iOS, SaaS products, customer portals, admin panels, and UI/UX design with prototyping.",
   },
+  deliverables: {
+    headingLine: "Everything we build, shaped around you",
+    sub: "Pick one, or combine them. Each is designed around how your business works and agreed in your proposal.",
+    items: [
+      {
+        id: "website",
+        title: "Business websites & landing pages",
+        description: "A clear, professional website that explains what you do and turns visitors into enquiries.",
+        bestFor: "Service businesses and local brands",
+        icon: "Globe",
+        topic: "websites",
+      },
+      {
+        id: "ecommerce",
+        title: "E-commerce websites",
+        description: "An online store designed around your products, so customers can browse, order, and pay with ease.",
+        bestFor: "Product sellers and D2C brands",
+        icon: "ShoppingCart",
+        topic: "ecommerce",
+      },
+      {
+        id: "webapp",
+        title: "Web applications",
+        description: "Software that runs in the browser and fits the way your team and customers actually work.",
+        bestFor: "Teams with specific workflows",
+        icon: "AppWindow",
+        topic: "web-app",
+      },
+      {
+        id: "mobile",
+        title: "Android & iOS applications",
+        description: "Mobile apps for both major platforms, so your business is one tap away for customers and staff.",
+        bestFor: "Businesses going mobile-first",
+        icon: "Smartphone",
+        topic: "mobile-app",
+      },
+      {
+        id: "saas",
+        title: "SaaS product development",
+        description: "Turn your idea into a product people subscribe to, built on a clear, scalable foundation.",
+        bestFor: "Founders and product teams",
+        icon: "Boxes",
+        topic: "saas",
+      },
+      {
+        id: "portal",
+        title: "Custom portals & dashboards",
+        description: "A secure space where customers, partners, or staff see their data and manage things themselves.",
+        bestFor: "Businesses with client-facing data",
+        icon: "LayoutDashboard",
+        topic: "portals",
+      },
+      {
+        id: "admin",
+        title: "Admin panels & user management",
+        description: "Control users, content, and operations from one place, with access set up for each role.",
+        bestFor: "Growing teams and platforms",
+        icon: "ShieldCheck",
+        topic: "admin",
+      },
+      {
+        id: "design",
+        title: "UI/UX design & prototyping",
+        description: "Interfaces designed and prototyped first, so you approve the experience before development begins.",
+        bestFor: "Any new website or app",
+        icon: "PenTool",
+        topic: "design",
+      },
+    ],
+    bestForLabel: "Best for:",
+    hint: "Swipe or use the arrows to see all services",
+    closing: {
+      text: "Not sure which one fits? Tell us what you're building and we'll recommend the simplest starting point.",
+      cta: {
+        label: "Start your project",
+        href: "/contact?interest=website-and-app-development",
+      },
+      trust: "Scope and pricing agreed in your proposal before we build",
+    },
+    footnote: "Scope, features, timeline, and pricing are agreed in your proposal. Third-party services, if any, may carry separate provider fees.",
+  },
 };
 
 export function getWebsiteAppTopicLabel(topic: string): string {
@@ -225,6 +330,10 @@ export function getWebsiteAppTopicLabel(topic: string): string {
       return "a SaaS product";
     case "portals":
       return "a portal, dashboard, or admin panel";
+    case "admin":
+      return "an admin panel and user management system";
+    case "design":
+      return "UI/UX design and prototyping";
     default:
       return null as unknown as string;
   }

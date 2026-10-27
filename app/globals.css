@@ -3008,3 +3008,93 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   What We Deliver section (deliverables carousel)
+   Purple-to-black-to-purple gradient band with card carousel
+--------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    --wd-1: #0A0614;
+    --wd-2: #6842E8;
+    --wd-3: #5632D2;
+    --wd-4: #000000;
+    --wd-5: #8568F6;
+    --wd-6: #5B3FD8;
+  }
+}
+
+.wd-bg {
+  background-color: var(--wd-1);
+  background-image:
+    radial-gradient(70% 60% at 0% 0%, rgba(104,66,232,0.85) 0%, rgba(104,66,232,0) 70%),
+    radial-gradient(60% 50% at 100% 0%, rgba(86,50,210,0.70) 0%, rgba(86,50,210,0) 70%),
+    radial-gradient(60% 40% at 60% 38%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 80%),
+    radial-gradient(80% 45% at 50% 108%, rgba(133,104,246,0.90) 0%, rgba(133,104,246,0) 72%),
+    linear-gradient(180deg, #4A2CC2 0%, #1A0F4A 30%, #0A0614 52%, #2A1A78 82%, #5B3FD8 100%);
+}
+
+.wd-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wd-card-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  pointer-events: none;
+  background: radial-gradient(70% 45% at 50% 105%, rgba(160,130,255,0.40), transparent 70%);
+  transition: opacity 250ms ease;
+}
+
+@media (hover: hover) {
+  .wd-card:hover .wd-card-glow {
+    opacity: 1.15;
+  }
+}
+
+.wd-card-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, #9B95FF, transparent);
+  transform: translateX(-100%);
+}
+
+@media (hover: hover) {
+  .wd-card:hover .wd-card-sheen {
+    animation: wd-sheen 700ms ease-in-out;
+  }
+}
+
+@keyframes wd-sheen {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wd-card-sheen {
+    animation: none !important;
+  }
+}
+

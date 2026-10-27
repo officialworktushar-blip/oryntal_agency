@@ -234,12 +234,19 @@ const TOPIC_PREFILL: Record<string, string> = {
   automation: "automating repetitive tasks",
   "registration-and-setup": "MSME/Udyam registration and digital setup",
   integrations: "connecting my business tools",
-  design: "design and prototype",
+  design: "UI/UX design and prototyping",
   app: "a custom web or mobile app",
   panels: "admin and user panels",
   ai: "AI agents and automation",
   payments: "payments and integrations",
   network: "business-specific features and supplier connections",
+  websites: "a business website or landing page",
+  ecommerce: "an e-commerce website",
+  "web-app": "a web application",
+  "mobile-app": "an Android and iOS app",
+  saas: "a SaaS product",
+  portals: "a portal, dashboard, or admin panel",
+  admin: "an admin panel and user management system",
 };
 
 const PLAN_TOPICS = new Set(["design", "app", "panels", "ai", "payments", "network"]);
