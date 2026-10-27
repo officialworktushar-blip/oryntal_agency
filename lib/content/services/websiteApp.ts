@@ -1,11 +1,11 @@
-import { 
-  AppWindow, 
-  Boxes, 
-  Globe, 
-  LayoutDashboard, 
-  ShoppingCart, 
+import type { LucideIcon } from "lucide-react";
+import {
+  AppWindow,
+  Boxes,
+  Globe,
+  LayoutDashboard,
+  ShoppingCart,
   Smartphone,
-  type LucideIcon
 } from "lucide-react";
 
 export type WebsiteAppStat = {
@@ -38,6 +38,26 @@ export type WebsiteAppVisual = {
   caption: string;
 };
 
+export type WebsiteAppPill = {
+  id: string;
+  label: string;
+  icon: string;
+  color: string;
+  caption: string;
+  topic: string;
+};
+
+export type WebsiteAppWhatWeBuild = {
+  headingLine1: string;
+  headingLine2: string;
+  body: string;
+  cta: WebsiteAppCta;
+  secondary: WebsiteAppCta;
+  note: string;
+  pills: WebsiteAppPill[];
+  srSummary: string;
+};
+
 export type WebsiteAppContent = {
   eyebrow: string;
   h1Line1: string;
@@ -59,6 +79,7 @@ export type WebsiteAppContent = {
   build: WebsiteAppBuildItem[];
   visual: WebsiteAppVisual;
   marquee: string[];
+  whatWeBuild: WebsiteAppWhatWeBuild;
 };
 
 const emiEnabled = true;
@@ -163,6 +184,31 @@ export const websiteApp: WebsiteAppContent = {
     "Build an admin panel",
     "Design and prototype your UI/UX",
   ],
+  whatWeBuild: {
+    headingLine1: "Whatever you're building,",
+    headingLine2: "we build it around your business.",
+    body: "Tell us what you're building. We design, prototype, and develop it around how your business works, so you launch something that fits, not something you have to work around.",
+    cta: {
+      label: "Start your project",
+      href: "/contact?interest=website-and-app-development",
+    },
+    secondary: {
+      label: "Talk to our team",
+      href: "/contact?interest=website-and-app-development",
+    },
+    note: "Scope, features, timeline, and pricing are agreed in your proposal. Third-party services, if any, may carry separate provider fees.",
+    pills: [
+      { id: "website", label: "Business Website", icon: "Globe", color: "#7B8CFF", caption: "A professional website that presents your business clearly.", topic: "websites" },
+      { id: "store", label: "Online Store", icon: "ShoppingCart", color: "#F5A623", caption: "Sell online, with products, payments, and orders built in.", topic: "ecommerce" },
+      { id: "webapp", label: "Web App", icon: "AppWindow", color: "#6D45EE", caption: "Software your team and customers use right in the browser.", topic: "web-app" },
+      { id: "mobile", label: "Mobile App", icon: "Smartphone", color: "#2F7BFF", caption: "Android and iOS apps that put your business in every pocket.", topic: "mobile-app" },
+      { id: "saas", label: "SaaS Product", icon: "Boxes", color: "#D33A3A", caption: "Turn your idea into a product people subscribe to.", topic: "saas" },
+      { id: "portal", label: "Customer Portal", icon: "LayoutDashboard", color: "#1E1E22", caption: "A secure space where customers manage everything themselves.", topic: "portals" },
+      { id: "admin", label: "Admin Panel", icon: "ShieldCheck", color: "#14B889", caption: "Manage users, data, and operations from one place.", topic: "portals" },
+      { id: "design", label: "UI/UX Design", icon: "PenTool", color: "#E0509B", caption: "Interfaces designed and prototyped before development begins.", topic: "websites" },
+    ],
+    srSummary: "ORYNTAL builds business websites, online stores, web apps, mobile apps for Android and iOS, SaaS products, customer portals, admin panels, and UI/UX design with prototyping.",
+  },
 };
 
 export function getWebsiteAppTopicLabel(topic: string): string {

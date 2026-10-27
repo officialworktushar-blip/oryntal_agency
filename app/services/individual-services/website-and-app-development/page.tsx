@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import WebAppHero from "@/components/services/website-app/Hero";
+import WhatWeBuild from "@/components/services/website-app/WhatWeBuild";
 import { websiteApp } from "@/lib/content/services/websiteApp";
 
 const title =
@@ -43,6 +44,17 @@ export default function WebsiteAndAppDevelopmentPage() {
     },
   };
 
+  const itemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: websiteApp.whatWeBuild.pills.map((pill, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: pill.label,
+      description: pill.caption,
+    })),
+  };
+
   const breadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -78,10 +90,14 @@ export default function WebsiteAndAppDevelopmentPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
+      />
 
       <WebAppHero />
 
-      <div id="what-we-build" className="scroll-mt-24" />
+      <WhatWeBuild data={websiteApp.whatWeBuild} />
 
       {/* TODO: next sections. The next section's expected top colour should be #000 / #06030F to blend with the hero's bottom edge. */}
     </main>
