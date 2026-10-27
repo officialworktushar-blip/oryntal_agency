@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ImageIcon, Video, PlayCircle } from "lucide-react";
+import { ImageIcon, Video, PlayCircle, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 type MediaPlaceholderProps = {
@@ -23,7 +23,12 @@ type MediaPlaceholderProps = {
   /** Tighter padding, smaller icon and text for use inside small cards. */
   compact?: boolean;
   /** "compact" is a tiny, dashed placeholder used inside illustrative cards. */
-  variant?: "default" | "compact";
+  /** "shot" is a designed showcase tile (tinted gradient, icon badge, label chip). */
+  variant?: "default" | "compact" | "shot";
+  /** Centre icon for the "shot" variant. */
+  icon?: LucideIcon;
+  /** Base colour for the "shot" variant gradient. */
+  tint?: string;
 };
 
 export default function MediaPlaceholder({
@@ -39,7 +44,56 @@ export default function MediaPlaceholder({
   dark = false,
   compact = false,
   variant = "default",
+  icon,
+  tint = "#EDE9FF",
 }: MediaPlaceholderProps) {
+  if (variant === "shot") {
+    const ShotIcon = icon ?? ImageIcon;
+    return (
+      <div className={cn("relative overflow-hidden", className)} style={{ aspectRatio: aspect }}>
+        {src ? (
+          <Image
+            src={src}
+            alt={alt ?? label}
+            fill
+            sizes={sizes ?? "(max-width: 768px) 100vw, 33vw"}
+            loading={loading}
+            className="object-cover"
+          />
+        ) : (
+          <div
+            role="img"
+            aria-label={alt ?? label}
+            title={hint}
+            className="absolute inset-0 flex flex-col items-center justify-center"
+            style={{
+              backgroundColor: tint,
+              backgroundImage: `radial-gradient(70% 60% at 50% 38%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 70%), linear-gradient(160deg, ${tint} 0%, color-mix(in srgb, ${tint} 78%, #673DE6 22%) 100%)`,
+            }}
+          >
+            <span
+              aria-hidden="true"
+              className="grid size-24 place-items-center rounded-2xl bg-white shadow-[0_10px_30px_rgba(60,40,160,0.12)]"
+            >
+              <ShotIcon className="size-14 text-[#673DE6]/80" strokeWidth={1.5} />
+            </span>
+            <span aria-hidden="true" className="mt-6 flex w-3/5 flex-col items-center gap-2">
+              <span className="h-2.5 w-full rounded-full bg-white/70" />
+              <span className="h-2.5 w-4/5 rounded-full bg-white/60" />
+              <span className="h-2.5 w-3/5 rounded-full bg-white/50" />
+            </span>
+            <span
+              aria-hidden="true"
+              className="absolute inset-x-3 bottom-3 rounded-full bg-white/85 px-3 py-1.5 text-center text-[11px] leading-snug text-[#2F1C6A] backdrop-blur"
+            >
+              {label}
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   if (src) {
     return (
       <div

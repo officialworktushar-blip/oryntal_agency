@@ -14,6 +14,7 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
 import { businessAutomation } from "@/lib/content/packages/businessAutomation";
+import { aiDev } from "@/lib/content/services/aiDev";
 
 const servicesInterested = [
   "Web/App Development",
@@ -259,6 +260,9 @@ const TOPIC_PREFILL: Record<string, string> = {
 const INTEREST_TOPIC_PREFILL: Record<string, Record<string, string>> = {
   "ai-development-and-automation": {
     integrations: "connecting AI to my existing tools",
+    assistant: aiDev.assistants.subscription.enabled
+      ? "a monthly AI assistant"
+      : "a custom AI assistant",
   },
 };
 
@@ -288,6 +292,17 @@ function MessageField() {
 
     const topic = searchParams.get("topic");
     const interest = searchParams.get("interest") ?? "";
+
+    if (interest === "ai-development-and-automation" && topic === "assistant") {
+      const assistant = aiDev.assistants.items.find(
+        (item) => item.id === searchParams.get("assistant"),
+      );
+      if (assistant) {
+        const plan = aiDev.assistants.subscription.enabled ? " (monthly plan)" : "";
+        return `I'd like to talk about: ${assistant.name}${plan}.`;
+      }
+    }
+
     const label = topic
       ? INTEREST_TOPIC_PREFILL[interest]?.[topic] ?? TOPIC_PREFILL[topic]
       : undefined;

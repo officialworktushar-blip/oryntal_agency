@@ -1,52 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { ShieldCheck } from "lucide-react";
 import { aiDev } from "@/lib/content/services/aiDev";
 import { aiTools, rowA, rowB, type AiTool } from "@/lib/content/services/aiTools";
 import { cn } from "@/lib/cn";
 import ToolTile from "./ToolTile";
+import { RevealGroup as Reveal, revealStyle } from "./RevealGroup";
 
 const MIN_SET_TO_VIEWPORT = 1.2;
 const MIN_DURATION_S = 45;
 const MAX_DURATION_S = 120;
-
-/** Hidden-then-revealed only when JS runs and the block starts below the fold. */
-function Reveal({ children, className }: { children: ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [armed, setArmed] = useState(false);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (node.getBoundingClientRect().top < window.innerHeight) return;
-
-    setArmed(true);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setArmed(false);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} data-armed={armed} className={cn("tools-reveal", className)}>
-      {children}
-    </div>
-  );
-}
-
-function revealStyle(index: number): CSSProperties {
-  return { "--reveal-i": index } as CSSProperties;
-}
 
 type RailProps = {
   tools: AiTool[];

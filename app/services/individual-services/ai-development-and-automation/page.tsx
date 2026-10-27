@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import AiHero from "@/components/services/ai-dev/Hero";
 import Tools from "@/components/services/ai-dev/Tools";
+import Assistants from "@/components/services/ai-dev/Assistants";
 import { aiDev } from "@/lib/content/services/aiDev";
 import { aiTools } from "@/lib/content/services/aiTools";
 
@@ -81,6 +82,18 @@ export default function AiDevelopmentAndAutomationPage() {
     })),
   };
 
+  const assistantList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "AI assistants",
+    itemListElement: aiDev.assistants.items.map((assistant, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: assistant.name,
+      description: assistant.outcome,
+    })),
+  };
+
   return (
     <main>
       <script
@@ -95,10 +108,16 @@ export default function AiDevelopmentAndAutomationPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(toolList) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(assistantList) }}
+      />
 
       <AiHero />
 
       <Tools />
+
+      <Assistants />
 
       <div id="what-we-build" className="scroll-mt-24" />
 
