@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "framer-motion";
 import { ChevronDown, X } from "lucide-react";
-import { menuDomains } from "@/lib/content/nav-menu";
+import { domains } from "@/lib/content/navigation";
 import { cn } from "@/lib/cn";
 
 type MobileDrawerProps = {
@@ -136,7 +136,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                       className="overflow-hidden"
                     >
                       <div className="pb-2">
-                        {menuDomains.map((domain) => {
+                        {domains.map((domain) => {
                           const isOpen = expanded === domain.id;
                           return (
                             <div key={domain.id}>

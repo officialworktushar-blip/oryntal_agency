@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
 import { ArrowRight, ChevronDown, MessageCircleQuestion } from "lucide-react";
-import { menuDomains } from "@/lib/content/nav-menu";
+import { domains } from "@/lib/content/navigation";
 import { cn } from "@/lib/cn";
 
 type MegaMenuProps = {
@@ -16,7 +16,7 @@ export default function MegaMenu({ open, onOpenChange }: MegaMenuProps) {
   const [active, setActive] = useState(0);
   const baseId = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const domain = menuDomains[active];
+  const domain = domains[active];
 
   useEffect(() => {
     if (!open) return;
@@ -77,7 +77,7 @@ export default function MegaMenu({ open, onOpenChange }: MegaMenuProps) {
               <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-pop">
                 <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
                   <div className="flex flex-col gap-1 border-b border-line p-4 lg:border-b-0 lg:border-r">
-                    {menuDomains.map((d, i) => (
+                    {domains.map((d, i) => (
                       <Link
                         key={d.id}
                         href={d.href}

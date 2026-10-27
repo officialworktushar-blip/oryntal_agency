@@ -1,23 +1,18 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  Globe,
-  Smartphone,
-  Cloud,
-  Cpu,
   Bot,
-  Workflow,
-  Plug,
-  Package,
-  Boxes,
-  Search,
-  ShieldCheck,
+  Brain,
+  CalendarRange,
+  ClipboardCheck,
   Database,
+  FileText,
+  Globe,
   LineChart,
-  Users,
-  Hammer,
-  MessageSquare,
+  Plug,
+  QrCode,
   Rocket,
-  FileScan,
+  Users,
+  Workflow,
 } from "lucide-react";
 
 export type NavItem = {
@@ -31,6 +26,7 @@ export type NavDomain = {
   id: "business-packages" | "individual-services" | "products" | "consultation";
   number: string;
   label: string;
+  /** Domain-level page; only for the domain title / "View all" links. */
   href: string;
   summary: string;
   items: NavItem[];
@@ -47,20 +43,20 @@ export const domains: NavDomain[] = [
     items: [
       {
         href: "/services/business-packages/digital-foundation",
-        label: "Digital Foundation",
-        description: "Business site with lead capture, live in about 2 weeks.",
+        label: "Digital Foundation Package",
+        description: "₹30,000",
         icon: Rocket,
       },
       {
-        href: "/services/business-packages#automation",
-        label: "Business Automation",
-        description: "We connect your tools and automate manual back-office work.",
+        href: "/services/business-packages/business-automation",
+        label: "Business Automation Package",
+        description: "₹70,000",
         icon: Workflow,
       },
       {
-        href: "/services/business-packages#premium-custom",
-        label: "Premium Custom System",
-        description: "Multi-agent AI and custom apps around your operations.",
+        href: "/services/business-packages/premium-custom-system",
+        label: "Premium Custom Business System",
+        description: "₹3,00,000–₹4,00,000",
         icon: LineChart,
       },
     ],
@@ -82,31 +78,21 @@ export const domains: NavDomain[] = [
       {
         href: "/services/individual-services/ai-development-and-automation",
         label: "AI Development & Automation",
-        description: "Chatbots, voice agents, RAG, custom LLMs, and AI workflows.",
+        description: "Assistants, document AI, and workflow automation.",
         icon: Bot,
       },
       {
-        href: "/services/individual-services#automation",
-        label: "Automation & Integrations",
-        description: "Connect forms, CRM, WhatsApp, email, and billing.",
+        // TODO: its own page is not built yet
+        href: "/services/individual-services",
+        label: "Software, API & System Integration",
+        description: "Connect CRM, payments, WhatsApp, and internal tools.",
         icon: Plug,
       },
       {
-        href: "/services/individual-services#mobile",
-        label: "Mobile Apps",
-        description: "Cross-platform apps for Android and iOS.",
-        icon: Smartphone,
-      },
-      {
-        href: "/services/individual-services#cloud",
-        label: "Cloud & DevOps",
-        description: "Cloud deployment, environments, and monitoring.",
-        icon: Cloud,
-      },
-      {
-        href: "/services/individual-services#sourcing",
-        label: "IT Staff Sourcing",
-        description: "Vetted engineers embedded in your team.",
+        // TODO: its own page is not built yet
+        href: "/services/individual-services",
+        label: "Business Operations & Sourcing Support",
+        description: "Vetted engineers and back-office operations support.",
         icon: Users,
       },
     ],
@@ -120,40 +106,22 @@ export const domains: NavDomain[] = [
       "Ready-made systems we can adapt to your business instead of building from scratch.",
     items: [
       {
-        href: "/services/products#crm",
-        label: "CRM & Client Management",
-        description: "Leads, pipelines, and client records in one place.",
+        href: "/services/products",
+        label: "QR2 Review",
+        description: "Review collection and reputation system.",
+        icon: QrCode,
+      },
+      {
+        href: "/services/products",
+        label: "Client Database & Call-Handling System",
+        description: "Shared inbox, call logging, and client records.",
         icon: Database,
       },
       {
-        href: "/services/products#erp",
-        label: "ERP & Operations",
-        description: "Orders, inventory, and team workflows.",
-        icon: Boxes,
-      },
-      {
-        href: "/services/products#document-ai",
-        label: "AI Document Processing",
-        description: "Extract data from invoices, forms, and PDFs.",
-        icon: FileScan,
-      },
-      {
-        href: "/services/products#voice-ai",
-        label: "Voice AI Reception",
-        description: "Answers calls, qualifies leads, books appointments.",
-        icon: Cpu,
-      },
-      {
-        href: "/services/products#website-kit",
-        label: "Website & E-commerce Kit",
-        description: "Storefront, catalogue, and payment-ready site.",
-        icon: Package,
-      },
-      {
-        href: "/services/products#custom",
-        label: "Custom Model Adaptation",
-        description: "We adapt an existing model to your data and process.",
-        icon: Hammer,
+        href: "/services/products",
+        label: "Industry-Specific Recommendation System",
+        description: "A recommendation engine tuned to your catalogue.",
+        icon: Brain,
       },
     ],
   },
@@ -166,34 +134,22 @@ export const domains: NavDomain[] = [
       "When your problem is not a package: a 3-month engagement, discovery to launch.",
     items: [
       {
-        href: "/services/consultation#discovery",
-        label: "Discovery Workshops",
-        description: "Map processes, constraints, and opportunities.",
-        icon: Search,
+        href: "/services/consultation",
+        label: "Three-Month Engagement",
+        description: "Discovery to launch with one dedicated team.",
+        icon: CalendarRange,
       },
       {
-        href: "/services/consultation#strategy",
-        label: "Technology Strategy",
-        description: "What to build, buy, or automate first.",
-        icon: LineChart,
+        href: "/services/consultation",
+        label: "Business & Systems Evaluation",
+        description: "Audit of processes, tools, and opportunities.",
+        icon: ClipboardCheck,
       },
       {
-        href: "/services/consultation#build",
-        label: "Custom Development",
-        description: "Bespoke systems built to your process.",
-        icon: Hammer,
-      },
-      {
-        href: "/services/consultation#security",
-        label: "Security & Compliance Review",
-        description: "Access, data handling, and vendor review.",
-        icon: ShieldCheck,
-      },
-      {
-        href: "/services/consultation#support",
-        label: "Ongoing Support & Improvement",
-        description: "Post-launch iteration and maintenance.",
-        icon: MessageSquare,
+        href: "/services/consultation",
+        label: "Custom Proposal",
+        description: "Scope and price after a free consultation.",
+        icon: FileText,
       },
     ],
   },
