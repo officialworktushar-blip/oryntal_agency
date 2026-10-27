@@ -111,13 +111,13 @@ export default function WebAppHero() {
       aria-labelledby="ws-hero-title"
       className={cn("relative isolate overflow-hidden ws-hero-bg text-white", paused && "ws-paused")}
       style={{
-        paddingTop: "calc(var(--header-h) + 56px)",
+        paddingTop: "calc(var(--header-h) + 28px)",
       }}
     >
       <style jsx>{`
         @media (min-width: 768px) {
           section {
-            padding-top: calc(var(--header-h) + 64px) !important;
+            padding-top: calc(var(--header-h) + 32px) !important;
           }
         }
       `}</style>
