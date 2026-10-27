@@ -81,6 +81,28 @@ export type WebsiteAppDeliverables = {
   footnote: string;
 };
 
+export type WebsiteAppPortfolioCard = {
+  id: string;
+  kind: "desktop" | "mobile" | "wide";
+  width: number;
+  label: string;
+  shotLabel: string;
+  aspect: string;
+  bg: string;
+  src?: string;
+  alt: string;
+};
+
+export type WebsiteAppPortfolio = {
+  eyebrow: string;
+  heading: string;
+  sub: string;
+  note: string;
+  cta: WebsiteAppCta;
+  trust: string;
+  cards: WebsiteAppPortfolioCard[];
+};
+
 export type WebsiteAppContent = {
   eyebrow: string;
   h1Line1: string;
@@ -104,6 +126,7 @@ export type WebsiteAppContent = {
   marquee: string[];
   whatWeBuild: WebsiteAppWhatWeBuild;
   deliverables: WebsiteAppDeliverables;
+  portfolio: WebsiteAppPortfolio;
 };
 
 const emiEnabled = true;
@@ -313,6 +336,99 @@ export const websiteApp: WebsiteAppContent = {
       trust: "Scope and pricing agreed in your proposal before we build",
     },
     footnote: "Scope, features, timeline, and pricing are agreed in your proposal. Third-party services, if any, may carry separate provider fees.",
+  },
+  portfolio: {
+    eyebrow: "SAMPLE WORK",
+    heading: "A look at what we build",
+    sub: "Websites and apps designed around each business. Hover a project to pause and look closer.",
+    note: "Illustrative samples. Replace with real projects as they are published.",
+    cta: {
+      label: "Start your project",
+      href: "/contact?interest=website-and-app-development",
+    },
+    trust: "Scope and pricing agreed in your proposal before we build",
+    cards: [
+      {
+        id: "s1",
+        kind: "wide",
+        width: 590,
+        label: "Business website",
+        shotLabel: "Add: homepage screenshot of a business website (desktop, 3:2, 1400x940)",
+        aspect: "3/2",
+        bg: "#521031",
+        alt: "Business website homepage design",
+      },
+      {
+        id: "s2",
+        kind: "desktop",
+        width: 620,
+        label: "Online store",
+        shotLabel: "Add: storefront or product page screenshot (desktop, 3:2, 1400x940)",
+        aspect: "3/2",
+        bg: "#F1ECE4",
+        alt: "Online store design",
+      },
+      {
+        id: "s3",
+        kind: "mobile",
+        width: 200,
+        label: "Mobile app",
+        shotLabel: "Add: mobile app screen (portrait 9:19, 750x1580)",
+        aspect: "9/19",
+        bg: "#E4E8E2",
+        alt: "Mobile app screen design",
+      },
+      {
+        id: "s4",
+        kind: "wide",
+        width: 560,
+        label: "Web application",
+        shotLabel: "Add: web app dashboard screenshot (desktop, 3:2, 1400x940)",
+        aspect: "3/2",
+        bg: "#D8D6CE",
+        alt: "Web application interface",
+      },
+      {
+        id: "s5",
+        kind: "mobile",
+        width: 200,
+        label: "SaaS product",
+        shotLabel: "Add: SaaS product mobile screen (portrait 9:19, 750x1580)",
+        aspect: "9/19",
+        bg: "#E8E4F1",
+        alt: "SaaS product mobile interface",
+      },
+      {
+        id: "s6",
+        kind: "desktop",
+        width: 620,
+        label: "Customer portal",
+        shotLabel: "Add: customer portal screenshot (desktop, 3:2, 1400x940)",
+        aspect: "3/2",
+        bg: "#E2E9EE",
+        alt: "Customer portal design",
+      },
+      {
+        id: "s7",
+        kind: "wide",
+        width: 560,
+        label: "Admin panel",
+        shotLabel: "Add: admin panel screenshot (desktop, 3:2, 1400x940)",
+        aspect: "3/2",
+        bg: "#ECE6DA",
+        alt: "Admin panel interface",
+      },
+      {
+        id: "s8",
+        kind: "mobile",
+        width: 200,
+        label: "UI/UX design",
+        shotLabel: "Add: UI/UX prototype screen (portrait 9:19, 750x1580)",
+        aspect: "9/19",
+        bg: "#1F1B2E",
+        alt: "UI/UX prototype design",
+      },
+    ],
   },
 };
 

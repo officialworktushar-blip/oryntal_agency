@@ -3098,3 +3098,49 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Portfolio section marquee (infinite left-to-right rail)
+--------------------------------------------------------------------------- */
+@keyframes pf-ltr {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.pf-track {
+  animation: pf-ltr var(--pf-duration, 70s) linear infinite;
+}
+
+.pf-track:hover,
+.group:focus-within .pf-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-track {
+    animation: none !important;
+  }
+}
+
+/* Responsive card scale */
+@media (min-width: 1024px) {
+  .pf-track > * {
+    --pf-scale: 1;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .pf-track > * {
+    --pf-scale: 0.9;
+  }
+}
+
+@media (max-width: 767px) {
+  .pf-track > * {
+    --pf-scale: 0.8;
+  }
+}
+

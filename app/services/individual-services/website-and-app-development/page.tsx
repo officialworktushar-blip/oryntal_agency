@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import WebAppHero from "@/components/services/website-app/Hero";
 import WhatWeBuild from "@/components/services/website-app/WhatWeBuild";
 import Deliverables from "@/components/services/website-app/Deliverables";
+import Portfolio from "@/components/services/website-app/Portfolio";
 import { websiteApp } from "@/lib/content/services/websiteApp";
 
 const title =
@@ -116,6 +117,8 @@ export default function WebsiteAndAppDevelopmentPage() {
       <WhatWeBuild data={websiteApp.whatWeBuild} />
 
       <Deliverables data={websiteApp.deliverables} />
+
+      <Portfolio data={websiteApp.portfolio} />
 
       {/* next section top colour should be #5B3FD8 or fade from it */}
     </main>
