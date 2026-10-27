@@ -247,6 +247,12 @@ const TOPIC_PREFILL: Record<string, string> = {
   saas: "a SaaS product",
   portals: "a portal, dashboard, or admin panel",
   admin: "an admin panel and user management system",
+  chatbots: "a chatbot or chat agent",
+  "voice-ai": "a voice AI agent",
+  rag: "a RAG system on my own data",
+  "custom-llm": "a custom LLM solution",
+  "computer-vision": "a computer vision solution",
+  "ai-automation": "AI workflow automation",
 };
 
 const PLAN_TOPICS = new Set(["design", "app", "panels", "ai", "payments", "network"]);

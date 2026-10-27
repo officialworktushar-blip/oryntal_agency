@@ -80,9 +80,9 @@ export const domains: NavDomain[] = [
         icon: Globe,
       },
       {
-        href: "/services/individual-services#ai",
-        label: "AI Systems & Assistants",
-        description: "Chat assistants, document AI, and workflow copilots.",
+        href: "/services/individual-services/ai-development-and-automation",
+        label: "AI Development & Automation",
+        description: "Chatbots, voice agents, RAG, custom LLMs, and AI workflows.",
         icon: Bot,
       },
       {
