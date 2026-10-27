@@ -3,6 +3,7 @@ import WebAppHero from "@/components/services/website-app/Hero";
 import WhatWeBuild from "@/components/services/website-app/WhatWeBuild";
 import Deliverables from "@/components/services/website-app/Deliverables";
 import Portfolio from "@/components/services/website-app/Portfolio";
+import CtaSection from "@/components/CtaSection";
 import { websiteApp } from "@/lib/content/services/websiteApp";
 
 const title =
@@ -119,6 +120,8 @@ export default function WebsiteAndAppDevelopmentPage() {
       <Deliverables data={websiteApp.deliverables} />
 
       <Portfolio data={websiteApp.portfolio} />
+
+      <CtaSection />
 
       {/* next section top colour should be #5B3FD8 or fade from it */}
     </main>

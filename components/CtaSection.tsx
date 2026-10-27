@@ -61,6 +61,7 @@ export default function CtaSection({
 
   // Intersection Observer for fade-in animation
   useEffect(() => {
+    const section = ref.current;
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
@@ -70,13 +71,13 @@ export default function CtaSection({
       { threshold: 0.1 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    if (section) {
+      observer.observe(section);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (section) {
+        observer.unobserve(section);
       }
     };
   }, []);
