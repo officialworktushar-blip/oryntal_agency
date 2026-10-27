@@ -7,7 +7,7 @@ import { useLayoutEffect, useRef, useState } from "react";
  * The canvas is never hidden while measuring: it starts at scale 1 and is
  * corrected on the first layout pass.
  */
-export function useScaledCanvas(designWidth = 640, minScale = 0.4) {
+export function useScaledCanvas(designWidth = 580, minScale = 0.4) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
 

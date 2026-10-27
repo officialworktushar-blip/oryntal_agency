@@ -2503,95 +2503,33 @@
 
 /* ---------------------------------------------------------------------------
    Website & Application Development hero
-   Black dome over a purple bowl: bright glow at the left/right edges, deeper
-   violet floor, faint grain. All motion is an enhancement; base content is
-   always visible.
+   Pure black with purple glow only in the bottom-left corner; faint grain.
+   All motion is an enhancement; base content is always visible.
 --------------------------------------------------------------------------- */
 @layer base {
   :root {
     --offer-red: #f04444;
     --offer-red-rgb: 240 68 68;
-
-    --wsh-top: #000000;
-    --wsh-mid: #07041a;
-    --wsh-bottom: #05030f;
-    --wsh-glow: 104 66 232;
-    --wsh-glow-soft: 104 66 232;
-    --wsh-wash: 52 30 150;
-    --wsh-dome-shadow: 70 40 190;
-    --wsh-rim: 185 165 255;
-    --wsh-rim-glow: 150 120 255;
-
-    --wsh-glow-x: 34%;
-    --wsh-glow-y: 40%;
-    --wsh-glow-y-pos: 64%;
-    --wsh-wash-x: 38%;
-    --wsh-wash-y: 30%;
-    --wsh-dome-left: -12%;
-    --wsh-dome-width: 124%;
-    --wsh-dome-top: -150%;
-    --wsh-dome-height: 250%;
-
-    --ws-stat-hover: #b9a8ff;
-    --ws-stat-glow: 155 149 255;
   }
 }
 
 .ws-hero-bg {
   position: relative;
-  background-color: var(--wsh-top);
+  background-color: #000;
   background-image:
-    radial-gradient(var(--wsh-glow-x) var(--wsh-glow-y) at 0% var(--wsh-glow-y-pos), rgb(var(--wsh-glow) / 0.95) 0%, rgb(var(--wsh-glow-soft) / 0.55) 35%, rgb(var(--wsh-glow) / 0) 72%),
-    radial-gradient(var(--wsh-glow-x) var(--wsh-glow-y) at 100% var(--wsh-glow-y-pos), rgb(var(--wsh-glow) / 0.95) 0%, rgb(var(--wsh-glow-soft) / 0.55) 35%, rgb(var(--wsh-glow) / 0) 72%),
-    radial-gradient(var(--wsh-wash-x) var(--wsh-wash-y) at 0% 100%, rgb(var(--wsh-wash) / 0.60) 0%, rgb(var(--wsh-wash) / 0) 70%),
-    radial-gradient(var(--wsh-wash-x) var(--wsh-wash-y) at 100% 100%, rgb(var(--wsh-wash) / 0.60) 0%, rgb(var(--wsh-wash) / 0) 70%),
-    linear-gradient(180deg, var(--wsh-top) 0%, var(--wsh-top) 38%, var(--wsh-mid) 72%, var(--wsh-bottom) 100%);
+    radial-gradient(46% 62% at 0% 100%, rgba(106, 66, 236, 0.90) 0%, rgba(106, 66, 236, 0.42) 38%, rgba(106, 66, 236, 0) 76%),
+    radial-gradient(26% 40% at 0% 72%, rgba(82, 48, 204, 0.34) 0%, rgba(82, 48, 204, 0) 72%),
+    linear-gradient(180deg, #000000 0%, #000000 62%, #06030F 100%);
 }
 
-.ws-hero-dome,
-.ws-hero-rim {
+.ws-hero-bg::after {
+  content: "";
   position: absolute;
-  left: var(--wsh-dome-left);
-  top: var(--wsh-dome-top);
-  width: var(--wsh-dome-width);
-  height: var(--wsh-dome-height);
-  border-radius: 50%;
+  inset: 0;
   pointer-events: none;
-}
-
-.ws-hero-dome {
-  background: #000;
-  box-shadow:
-    0 0 120px 20px rgb(var(--wsh-glow) / 0.50),
-    0 0 260px 60px rgb(var(--wsh-dome-shadow) / 0.35);
-  z-index: 0;
-}
-
-.ws-hero-rim {
-  background: transparent;
-  border: 2px solid rgb(var(--wsh-rim) / 0.75);
-  box-shadow:
-    0 0 28px 4px rgb(var(--wsh-rim-glow) / 0.60),
-    inset 0 0 40px rgb(var(--wsh-rim-glow) / 0.18);
-  filter: blur(1.2px);
-  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 18%, transparent 34%, transparent 66%, #000 82%, #000 100%);
-  mask-image: linear-gradient(90deg, #000 0%, #000 18%, transparent 34%, transparent 66%, #000 82%, #000 100%);
-  z-index: 1;
-  animation: ws-rim-shimmer 7s ease-in-out infinite;
-}
-
-@media (max-width: 767px) {
-  .ws-hero-dome,
-  .ws-hero-rim {
-    left: -60%;
-    width: 220%;
-    top: -120%;
-    height: 220%;
-  }
-
-  .ws-glow-side {
-    display: none;
-  }
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 .ws-glow-side {
