@@ -156,6 +156,86 @@ export const integration: IntegrationContent = {
     },
     trust: "Tell us your stack and we'll map what can connect",
   },
+  setups: {
+    eyebrow: "TYPICAL SETUPS",
+    heading: "Connected setups, shaped around you",
+    sub: "Here is how businesses typically join their tools together. Every setup is tailored to yours.",
+    note: "Illustrative setups. Specific integrations and features depend on the agreed scope, compatibility, and account access. Third-party fees, if any, may be separate.",
+    cta: { label: "Talk to us about your setup", href: "/contact?interest=software-api-and-system-integration&topic=setup" },
+    trust: "Scoped and priced in a proposal before we build",
+    items: [
+      {
+        id: "orders",
+        name: "Order-to-delivery flow",
+        outcome: "Payment confirmed, order created, courier booked, customer updated, all automatically.",
+        tags: ["Payments", "Shipping"],
+        bg: "#EDE9FF",
+        shotLabel: "Add: 1:1 image of an order flowing from payment to delivery (1000x1000)",
+        alt: "Illustration of order-to-delivery integration flow",
+        icon: "PackageCheck",
+      },
+      {
+        id: "whatsapp",
+        name: "WhatsApp updates",
+        outcome: "Customers get order, payment, and delivery updates on WhatsApp without you typing a word.",
+        tags: ["WhatsApp", "Notifications"],
+        bg: "#E6F6EC",
+        shotLabel: "Add: 1:1 image of automatic WhatsApp updates (1000x1000)",
+        alt: "Illustration of WhatsApp notifications automation",
+        icon: "MessageCircle",
+      },
+      {
+        id: "crm",
+        name: "A CRM that fills itself",
+        outcome: "New enquiries land in your CRM with the right details, ready for follow-up.",
+        tags: ["CRM", "Lead sync"],
+        bg: "#FFEFE3",
+        shotLabel: "Add: 1:1 image of a lead appearing in a CRM (1000x1000)",
+        alt: "Illustration of CRM lead sync",
+        icon: "Contact",
+      },
+      {
+        id: "database",
+        name: "One source of truth",
+        outcome: "Customers, orders, and stock in one database that every tool reads from.",
+        tags: ["Database", "Single record"],
+        bg: "#E3F1FF",
+        shotLabel: "Add: 1:1 image of one database feeding several apps (1000x1000)",
+        alt: "Illustration of central database",
+        icon: "Database",
+      },
+      {
+        id: "sheets",
+        name: "Sheets that stay current",
+        outcome: "Data sheets update from your systems, so reports are never a copy-and-paste job.",
+        tags: ["Data sheets", "Auto-updates"],
+        bg: "#FFF4D6",
+        shotLabel: "Add: 1:1 image of a spreadsheet updating itself (1000x1000)",
+        alt: "Illustration of automated spreadsheets",
+        icon: "Table2",
+      },
+      {
+        id: "dashboard",
+        name: "A live business dashboard",
+        outcome: "Sales, orders, and customer activity in one view, so decisions rest on current numbers.",
+        tags: ["Analytics", "BI"],
+        bg: "#FCE7F3",
+        shotLabel: "Add: 1:1 image of a business dashboard (1000x1000)",
+        alt: "Illustration of business dashboard",
+        icon: "BarChart3",
+      },
+      {
+        id: "api",
+        name: "Your own connection point",
+        outcome: "A clean API so your website, app, and partner platforms can talk to your systems safely.",
+        tags: ["API", "Platforms"],
+        bg: "#E8EAF0",
+        shotLabel: "Add: 1:1 image of apps connected through an API (1000x1000)",
+        alt: "Illustration of API integration",
+        icon: "Cable",
+      },
+    ],
+  },
 } as IntegrationContent & {
   tools: {
     headingLine1: string;
@@ -167,5 +247,6 @@ export const integration: IntegrationContent = {
     cta: { label: string; href: string };
     trust: string;
   };
+  setups: any;
 };
 

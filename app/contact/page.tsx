@@ -315,7 +315,25 @@ function MessageField() {
     }
 
     const label = topic
-      ? INTEREST_TOPIC_PREFILL[interest]?.[topic] ?? TOPIC_PREFILL[topic]
+      ? (() => {
+        const base = INTEREST_TOPIC_PREFILL[interest]?.[topic] ?? TOPIC_PREFILL[topic];
+        if (topic === "setup" && !params.get("message")) {
+          const setupId = params.get("setup");
+          const setups: Record<string, string> = {
+            orders: "Order-to-delivery flow",
+            whatsapp: "WhatsApp updates",
+            crm: "A CRM that fills itself",
+            database: "One source of truth",
+            sheets: "Sheets that stay current",
+            dashboard: "A live business dashboard",
+            api: "Your own connection point",
+          };
+          if (setupId && setups[setupId]) {
+            return `I'd like to talk about: ${setups[setupId]}.`;
+          }
+        }
+        return base;
+      })()
       : undefined;
     if (!label) return "";
     return PLAN_TOPICS.has(topic ?? "")
