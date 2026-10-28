@@ -3,6 +3,7 @@ import IntegrationHero from "@/components/services/integration/Hero";
 import Tools from "@/components/services/integration/Tools";
 import IntegrationCarousel from "@/components/services/integration/IntegrationCarousel";
 import CrmVideoStrip from "@/components/CrmVideoStrip";
+import IntegrationFinalCta from "@/components/IntegrationFinalCta";
 import { integration } from "@/lib/content/services/integration";
 
 const title = "Software, API & System Integration | Payments, WhatsApp, CRM & Data | ORYNTAL";
@@ -88,6 +89,8 @@ export default function SoftwareApiAndSystemIntegrationPage() {
       <IntegrationCarousel />
 
       <CrmVideoStrip />
+
+      <IntegrationFinalCta />
 
       {/* TODO: Add next sections (tools rails, typical setups rail, what we build bars) */}
     </main>
