@@ -8,11 +8,8 @@ import {
   Calendar,
   Eye,
   Folder,
-  Gift,
-  Link as LinkIcon,
   MessageSquare,
   Mic,
-  Sparkles,
   Zap,
   ChevronDown,
 } from "lucide-react";
@@ -371,7 +368,7 @@ export default function AutomationSection({
                       fill="white"
                       fontSize="9"
                       letterSpacing="4px"
-                      textTransform="uppercase"
+                      style={{ textTransform: "uppercase" }}
                     >
                       <textPath href="#badgeTextPath" startOffset="0%">
                         FREE CONSULTATION • FREE CONSULTATION •
