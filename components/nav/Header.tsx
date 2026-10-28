@@ -36,51 +36,18 @@ function NavLink({ href, label }: { href: string; label: string }) {
 
 export default function Header() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-
-  useEffect(() => {
-    function onScroll() {
-      setScrolled(window.scrollY > 24);
-    }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Pages whose hero starts dark: let the gradient show through at the very top.
-  const transparentTopRoutes = [
-    "/",
-    "/services/business-packages/digital-foundation",
-    "/services/business-packages/business-automation",
-    "/services/business-packages/premium-custom-system",
-    "/services/individual-services/website-and-app-development",
-    "/services/individual-services/ai-development-and-automation",
-    "/services/individual-services/software-api-and-system-integration",
-    "/services/individual-services/business-operations-and-sourcing-support",
-    "/services/individual-services/qr2-review",
-  ];
-  const transparent =
-    transparentTopRoutes.includes(pathname) && !scrolled && !megaOpen;
 
   return (
     <>
       <header
-        className={cn(
-          "sticky top-0 z-50 border-b transition-colors duration-300",
-          transparent ? "border-transparent" : "border-white/[0.08]"
-        )}
+        className="sticky top-0 z-50 border-b border-white/[0.08]"
         onMouseLeave={() => setMegaOpen(false)}
       >
         <div
           aria-hidden
-          className={cn(
-            "nav-gradient absolute inset-0 -z-10 transition-opacity duration-300",
-            transparent
-              ? "opacity-0"
-              : "opacity-100 backdrop-blur-md shadow-[0_16px_40px_-24px_rgba(0,0,0,0.75)]"
-          )}
+          className="nav-gradient absolute inset-0 -z-10 opacity-100 backdrop-blur-md shadow-[0_16px_40px_-24px_rgba(0,0,0,0.75)]"
         />
         <div className="mx-auto flex h-[72px] w-full max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8">
           <Link
