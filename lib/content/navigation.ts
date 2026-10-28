@@ -101,7 +101,7 @@ export const domains: NavDomain[] = [
       "Ready-made systems we can adapt to your business instead of building from scratch.",
     items: [
       {
-        href: "/services/products",
+        href: "/services/individual-services/qr2-review",
         label: "QR2 Review",
         description: "Review collection and reputation system.",
         icon: QrCode,

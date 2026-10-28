@@ -45,7 +45,7 @@ export const domainCards: DomainCard[] = [
   {
     id: "products",
     title: "Pre-Built Products & AI Models",
-    href: "/services/products",
+    href: "/services/individual-services/qr2-review",
     description:
       "Ready-to-use products like QR2 Review, built for real business workflows.",
     icon: Boxes,
