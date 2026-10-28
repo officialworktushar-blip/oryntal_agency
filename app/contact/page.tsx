@@ -165,9 +165,10 @@ export default function ContactPage() {
                     id="service"
                     name="service"
                     required
+                    defaultValue=""
                     className="w-full rounded-xl border border-brand-soft bg-white px-4 py-3 text-sm text-ink outline-none transition focus:border-brand/50 focus:ring-2 focus:ring-brand/30"
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Select a service
                     </option>
                     {servicesInterested.map((option) => (
@@ -234,7 +235,6 @@ const TOPIC_PREFILL: Record<string, string> = {
   "whatsapp-and-links": "connecting WhatsApp and my business links",
   automation: "automating repetitive tasks",
   "registration-and-setup": "MSME/Udyam registration and digital setup",
-  integrations: "connecting my business tools",
   design: "UI/UX design and prototyping",
   app: "a custom web or mobile app",
   panels: "admin and user panels",
@@ -257,6 +257,7 @@ const TOPIC_PREFILL: Record<string, string> = {
   "ai-agents": "custom AI agents",
   "vision-finetune": "model fine-tuning and computer vision",
   integrations: "connecting my existing tools",
+  setup: "a connected setup",
 };
 
 const INTEREST_TOPIC_PREFILL: Record<string, Record<string, string>> = {
@@ -353,3 +354,4 @@ function Field({ id, label, type = "text", placeholder, required }: FieldProps) 
     </div>
   );
 }
+
