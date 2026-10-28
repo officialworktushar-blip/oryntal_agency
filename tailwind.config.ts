@@ -52,11 +52,16 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-8px)" },
         },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         marquee: "marquee 38s linear infinite",
         "pulse-ring": "pulse-ring 2.2s cubic-bezier(0.2, 0.6, 0.4, 1) infinite",
         float: "float 5s ease-in-out infinite",
+        "spin-slow": "spin-slow 18s linear infinite",
       },
     },
   },
