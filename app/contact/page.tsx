@@ -258,13 +258,20 @@ const TOPIC_PREFILL: Record<string, string> = {
   "vision-finetune": "model fine-tuning and computer vision",
 };
 
-/** Topic labels that differ for a specific ?interest= (falls back to TOPIC_PREFILL). */
 const INTEREST_TOPIC_PREFILL: Record<string, Record<string, string>> = {
   "ai-development-and-automation": {
     integrations: "connecting AI to my existing tools",
     assistant: aiDev.assistants.subscription.enabled
       ? "a monthly AI assistant"
       : "a custom AI assistant",
+  },
+  "software-api-and-system-integration": {
+    apis: "an API or platform integration",
+    payments: "payment gateway integration",
+    comms: "WhatsApp and communication integrations",
+    crm: "a CRM integration",
+    data: "a database or data sheet setup",
+    insights: "analytics and business intelligence",
   },
 };
 

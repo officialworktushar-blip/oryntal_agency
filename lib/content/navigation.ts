@@ -82,8 +82,7 @@ export const domains: NavDomain[] = [
         icon: Bot,
       },
       {
-        // TODO: its own page is not built yet
-        href: "/services/individual-services",
+        href: "/services/individual-services/software-api-and-system-integration",
         label: "Software, API & System Integration",
         description: "Connect CRM, payments, WhatsApp, and internal tools.",
         icon: Plug,
