@@ -178,7 +178,7 @@ export default function IntegrationFinalCta({
                 <defs>
                   <path id="ifc-circle" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" />
                 </defs>
-                <text fontSize="11" fill="white" letterSpacing="2px" textTransform="uppercase">
+                <text fontSize="11" fill="white" letterSpacing="2px">
                   <textPath href="#ifc-circle" startOffset="0%">
                     FREE CONSULTATION • FREE CONSULTATION •
                   </textPath>
