@@ -52,8 +52,6 @@ export const domainCards: DomainCard[] = [
     image: "/domain3.webp",
     preview: [
       "QR2 Review: Complimentary for eligible clients",
-      "Client Database & Call-Handling: In development",
-      "Recommendation System: In development",
     ],
   },
   {

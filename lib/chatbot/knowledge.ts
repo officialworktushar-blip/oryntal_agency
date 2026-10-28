@@ -20,8 +20,6 @@ SERVICE DOMAINS
 
 3. Pre-built products and AI models:
  - QR2 Review (QR-code review collection; may be complimentary for eligible clients subject to package and terms).
- - Client Database and Call-Handling System (in development; exact capabilities defined per requirements).
- - Industry-Specific Recommendation System (in development; functionality defined as it is built).
  Always say availability must be confirmed with the team.
 
 4. Custom Business Consultation and Development: for unique operations. Typical 3-month engagement: Month 1 understanding and planning (business model, stakeholders, processes, bottlenecks, where websites/software/AI/automation help, scope); Month 2 development and implementation (build systems, APIs, integrations, dashboards, databases, admin panels); Month 3 integration, testing and refinement, then deployment or handover. Timeline adjusts to complexity. No fixed price: a customised proposal is prepared from requirements, complexity, integrations and effort.

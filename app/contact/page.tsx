@@ -23,8 +23,6 @@ const servicesInterested = [
   "Business Sourcing Support",
   "Business Package (Digital Foundation / Automation / Premium)",
   "QR2 Review",
-  "Client Database & Call-Handling",
-  "Recommendation System",
   "Other",
 ] as const;
 

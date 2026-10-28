@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, QrCode } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import AssetPlaceholder from "@/components/AssetPlaceholder";
-import { QrCode, Sparkles, Users } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "ORYNTAL products: QR2 Review, Client Database and Call-Handling System, and Industry-Specific Recommendation System.",
+    "ORYNTAL products: QR2 Review.",
 };
 
 const products = [
@@ -29,42 +28,6 @@ const products = [
     assetTitle: "QR2Review live interface",
     assetDesc:
       "Clean mockup of the QR2Review scan page, review submission flow, and admin dashboard.",
-  },
-  {
-    title: "Client Database and Call-Handling System",
-    tagline: "A single place to manage leads, clients, and every conversation.",
-    description:
-      "Keep your entire pipeline organised with a central client database, smart call logging, follow-ups, and team visibility — all in one secure system.",
-    icon: Users,
-    features: [
-      "Centralised lead & client database",
-      "Call tracking, notes & disposition codes",
-      "Automated follow-up reminders",
-      "Team assignments & activity logs",
-      "Filters, tags & pipeline views",
-      "Integrates with WhatsApp, CRM & telephony tools",
-    ],
-    assetTitle: "Client database & call-handling dashboard",
-    assetDesc:
-      "Mockup of the client list, call history panel, lead pipeline, and follow-up calendar.",
-  },
-  {
-    title: "Industry-Specific Recommendation System",
-    tagline: "Personalised recommendations powered by your data and goals.",
-    description:
-      "Deliver the right product, service, or partner at the right time. Our recommendation engine adapts to your industry, data sources, and business rules.",
-    icon: Sparkles,
-    features: [
-      "Industry-specific rule sets & scoring",
-      "Data ingestion from your systems",
-      "Real-time or batch recommendations",
-      "Explainable results with filters",
-      "API-first for easy embedding",
-      "Dashboards to track conversions & performance",
-    ],
-    assetTitle: "Recommendation engine dashboard",
-    assetDesc:
-      "Clean interface showing recommendation cards, filters, performance metrics, and user insights.",
   },
 ];
 

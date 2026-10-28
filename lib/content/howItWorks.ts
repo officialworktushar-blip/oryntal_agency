@@ -232,7 +232,6 @@ export const manageTab: ManageAccordionTab = {
       id: "clients",
       title: "Know every client",
       sub: "Keep client records, conversations, and follow-ups organised so nothing slips through the cracks.",
-      badge: "Client Database & Call-Handling: in development",
       user: "Which clients haven't heard from us in a while?",
       assistantIntro: "Of course, I'd check:",
       assistantItems: [
