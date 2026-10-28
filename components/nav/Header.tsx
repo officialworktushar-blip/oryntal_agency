@@ -58,6 +58,7 @@ export default function Header() {
     "/services/individual-services/website-and-app-development",
     "/services/individual-services/ai-development-and-automation",
     "/services/individual-services/software-api-and-system-integration",
+    "/services/individual-services/business-operations-and-sourcing-support",
   ];
   const transparent =
     transparentTopRoutes.includes(pathname) && !scrolled && !megaOpen;

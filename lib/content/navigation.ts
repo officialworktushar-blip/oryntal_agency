@@ -85,8 +85,7 @@ export const domains: NavDomain[] = [
         icon: Plug,
       },
       {
-        // TODO: its own page is not built yet
-        href: "/services/individual-services",
+        href: "/services/individual-services/business-operations-and-sourcing-support",
         label: "Business Operations & Sourcing Support",
         description: "Vetted engineers and back-office operations support.",
         icon: Users,
