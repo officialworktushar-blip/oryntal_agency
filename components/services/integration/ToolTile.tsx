@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 import type { IconType } from "react-icons";
+import { FaSlack } from "react-icons/fa";
+import { BarChart3, Wrench } from "lucide-react";
 import {
   SiAirtable,
   SiFirebase,
@@ -18,12 +20,9 @@ import {
   SiPaypal,
   SiPostgresql,
   SiPostman,
-  SiPowerbi,
   SiQuickbooks,
   SiRazorpay,
-  SiSalesforce,
   SiShopify,
-  SiSlack,
   SiStripe,
   SiSupabase,
   SiTelegram,
@@ -55,12 +54,9 @@ const ICONS: Record<string, IconType> = {
   SiPaypal,
   SiPostgresql,
   SiPostman,
-  SiPowerbi,
   SiQuickbooks,
   SiRazorpay,
-  SiSalesforce,
   SiShopify,
-  SiSlack,
   SiStripe,
   SiSupabase,
   SiTelegram,
@@ -70,6 +66,9 @@ const ICONS: Record<string, IconType> = {
   SiWordpress,
   SiZapier,
   SiZoho,
+  SiSlack: FaSlack,
+  SiPowerbi: BarChart3 as unknown as IconType,
+  SiSalesforce: BarChart3 as unknown as IconType,
 };
 
 const NEAR_BLACK_MAX_CHANNEL = 0x30;
@@ -89,6 +88,7 @@ export default function ToolTile({ tool, duplicate = false }: ToolTileProps) {
   const Icon = tool.kind === "icon" && tool.icon ? ICONS[tool.icon] : undefined;
   const color = glyphColor(tool.color);
   const letter = tool.letter ?? tool.name.charAt(0).toUpperCase();
+  const IconComponent = Icon ?? (Wrench as unknown as IconType);
 
   return (
     <div
@@ -98,8 +98,8 @@ export default function ToolTile({ tool, duplicate = false }: ToolTileProps) {
       style={{ "--tool-border": `${color}59` } as CSSProperties}
     >
       <div className="tool-tile-box flex h-[84px] w-[84px] items-center justify-center rounded-[22px] md:h-[100px] md:w-[100px]">
-        {Icon ? (
-          <Icon
+        {Icon || tool.kind === "icon" ? (
+          <IconComponent
             aria-hidden="true"
             className="h-[42px] w-[42px] md:h-[50px] md:w-[50px]"
             style={{ color }}

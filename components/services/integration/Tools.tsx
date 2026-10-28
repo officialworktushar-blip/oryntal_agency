@@ -68,11 +68,11 @@ function Rail({ tools, label, speed, durationVar, trackClass, offset = false }: 
       >
         {copies.flatMap((copy) =>
           tools.map((tool) => (
-            <ToolTile
-              key={copy === 0 ? tool.id : copy === 1 ? `${tool.id}-b` : `${tool.id}-${copy}`}
-              tool={tool as any}
-              duplicate={copy > 0}
-            />
+              <ToolTile
+                key={copy === 0 ? tool.id : copy === 1 ? `${tool.id}-b` : `${tool.id}-${copy}`}
+                tool={tool}
+                duplicate={copy > 0}
+              />
           ))
         )}
       </div>
@@ -81,7 +81,7 @@ function Rail({ tools, label, speed, durationVar, trackClass, offset = false }: 
 }
 
 export default function Tools() {
-  const tools = (integration as any).tools;
+  const tools: any = (integration as any).tools;
   const sectionRef = useRef<HTMLElement>(null);
   const [offscreen, setOffscreen] = useState(false);
   const [holding, setHolding] = useState(false);

@@ -156,4 +156,16 @@ export const integration: IntegrationContent = {
     },
     trust: "Tell us your stack and we'll map what can connect",
   },
-} as IntegrationContent & { tools: any };
+} as IntegrationContent & {
+  tools: {
+    headingLine1: string;
+    headingLine2: string;
+    sub: string;
+    rowALabel: string;
+    rowBLabel: string;
+    note: string;
+    cta: { label: string; href: string };
+    trust: string;
+  };
+};
+
