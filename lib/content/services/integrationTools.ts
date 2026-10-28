@@ -33,7 +33,7 @@ export const integrationRowA: IntegrationTool[] = [
   { id: "delhivery", name: "Delhivery", icon: null, color: "#E4262B", kind: "monogram", letter: "D" },
   { id: "tally", name: "Tally", icon: null, color: "#2E7D32", kind: "monogram", letter: "T" },
   { id: "quickbooks", name: "QuickBooks", icon: "SiQuickbooks", color: "#2CA01C", kind: "icon" },
-  { id: "twilio", name: "Twilio", icon: "SiTwilio", color: "#F22F46", kind: "icon" },
+  { id: "twilio", name: "Twilio", icon: null, color: "#F22F46", kind: "monogram", letter: "T" },
   { id: "telegram", name: "Telegram", icon: "SiTelegram", color: "#26A5E4", kind: "icon" },
 ];
 
@@ -41,7 +41,7 @@ export const integrationRowB: IntegrationTool[] = [
   { id: "hubspot", name: "HubSpot", icon: "SiHubspot", color: "#FF7A59", kind: "icon" },
   { id: "salesforce", name: "Salesforce", icon: "SiSalesforce", color: "#00A1E0", kind: "icon" },
   { id: "zoho", name: "Zoho", icon: "SiZoho", color: "#E42527", kind: "icon" },
-  { id: "pipedrive", name: "Pipedrive", icon: "SiPipedrive", color: "#1A1A1A", kind: "icon" },
+  { id: "pipedrive", name: "Pipedrive", icon: null, color: "#1A1A1A", kind: "monogram", letter: "P" },
   { id: "airtable", name: "Airtable", icon: "SiAirtable", color: "#FCB400", kind: "icon" },
   { id: "notion", name: "Notion", icon: "SiNotion", color: "#111111", kind: "icon" },
   { id: "google-analytics", name: "Google Analytics", icon: "SiGoogleanalytics", color: "#E37400", kind: "icon" },
