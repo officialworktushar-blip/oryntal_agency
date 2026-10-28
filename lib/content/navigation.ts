@@ -96,7 +96,7 @@ export const domains: NavDomain[] = [
     id: "products",
     number: "03",
     label: "Pre-Built Products & AI Models",
-    href: "/services/products",
+    href: "/services/individual-services/qr2-review",
     summary:
       "Ready-made systems we can adapt to your business instead of building from scratch.",
     items: [
