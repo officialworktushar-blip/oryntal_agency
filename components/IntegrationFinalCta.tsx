@@ -45,10 +45,10 @@ export default function IntegrationFinalCta({
   return (
     <section
       aria-label="Connect your business systems"
-      className="relative flex min-h-[600px] items-center overflow-hidden py-16 text-white lg:py-0"
+      className="relative isolate flex min-h-[600px] items-center overflow-hidden py-16 pb-20 text-white lg:py-0 lg:pb-24"
       style={{
-        background:
-          "radial-gradient(ellipse_at_85%_30%,#6b3fe0_0%,#2a1560_40%,#14092e_75%)",
+        background: "radial-gradient(ellipse at 85% 30%, #6b3fe0 0%, #2a1560 40%, #14092e 75%)",
+        backgroundColor: "#14092e",
       }}
     >
       <style jsx>{`
@@ -80,10 +80,16 @@ export default function IntegrationFinalCta({
         }
       `}</style>
       <div
-        className="pointer-events-none absolute right-[10%] top-[20%] h-[420px] w-[420px] rounded-full bg-[#7c4dff]/30 blur-3xl"
+        className="pointer-events-none absolute right-[8%] top-[15%] h-[420px] w-[420px] rounded-full z-0"
+        style={{ background: "radial-gradient(circle, rgba(124,77,255,0.45) 0%, transparent 70%)", filter: "blur(40px)" }}
         aria-hidden="true"
       />
-      <div className="relative mx-auto grid w-full max-w-[1400px] gap-12 px-6 lg:grid-cols-2 lg:items-center lg:px-12">
+      <div
+        className="pointer-events-none absolute right-0 top-0 h-full w-1/3 z-0"
+        style={{ background: "linear-gradient(to left, rgba(107,63,224,0.55), transparent)" }}
+        aria-hidden="true"
+      />
+      <div className="relative mx-auto grid w-full max-w-[1400px] gap-12 px-6 lg:grid-cols-2 lg:items-center lg:px-12 z-10">
         <div>
           <h2 className="text-[36px] font-medium leading-[1.1] tracking-tight md:text-[52px]">
             Same business. Everything connected.
@@ -120,23 +126,23 @@ export default function IntegrationFinalCta({
           </Link>
           <div className="mt-8 max-w-[600px] border-t border-white/20" />
         </div>
-        <div className="relative min-h-[420px] lg:min-h-[520px]">
-          <div className="ifc-float absolute -right-2 -top-6 flex h-[110px] w-[110px] items-center justify-center rounded-[28px] bg-gradient-to-br from-[#7b61ff] to-[#5b3fe0] border border-white/30 shadow-[0_40px_80px_-40px_rgba(124,77,255,.9)] lg:h-[130px] lg:w-[130px]">
+        <div className="relative min-h-[460px] lg:min-h-[520px]">
+          <div className="ifc-float absolute -right-2 -top-6 z-20 flex h-[110px] w-[110px] items-center justify-center rounded-[28px] bg-gradient-to-br from-[#7b61ff] to-[#5b3fe0] border border-white/30 shadow-[0_40px_80px_-40px_rgba(124,77,255,.9)] lg:h-[130px] lg:w-[130px]">
             <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true">
               <g stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none">
                 <path d="M24 6v6M24 36v6M6 24h6M36 24h6M12.9 12.9l4.2 4.2M30.9 30.9l4.2 4.2M12.9 35.1l4.2-4.2M30.9 17.1l4.2-4.2" />
               </g>
             </svg>
           </div>
-          <div className="absolute right-[10%] top-[16%] w-[78%] max-w-[420px] rounded-[28px] border border-white/30 bg-gradient-to-br from-white/50 to-white/20 p-8 backdrop-blur-xl shadow-2xl">
+          <div className="absolute right-[10%] top-[16%] w-[78%] max-w-[420px] rounded-[28px] border border-white/30 bg-gradient-to-br from-white/55 to-white/25 p-8 backdrop-blur-xl shadow-2xl">
             <p className="text-xl text-[#1b1233]/80 sm:text-2xl">Connect my store with my accounts</p>
           </div>
-          <div className="absolute right-[14%] top-[26%] w-[78%] max-w-[420px] rounded-[28px] border border-white/30 bg-gradient-to-br from-white/40 to-white/15 p-8 backdrop-blur-xl shadow-2xl">
+          <div className="absolute right-[14%] top-[26%] w-[78%] max-w-[420px] rounded-[28px] border border-white/30 bg-gradient-to-br from-white/45 to-white/20 p-8 backdrop-blur-xl shadow-2xl">
             <p className="text-xl text-[#1b1233]/60 sm:text-2xl">Send payment reminders automatically</p>
           </div>
           <div className="absolute right-[18%] top-[36%] w-[78%] max-w-[420px] rounded-[28px] border border-white/30 bg-gradient-to-br from-white/60 to-white/25 p-8 pb-20 backdrop-blur-xl shadow-2xl">
-            <p className="text-xl text-[#1b1233]/90 sm:text-2xl">{CARD_TEXT[activeTab]}</p>
-            <div className="absolute bottom-6 left-8 flex items-center gap-2 text-[#1b1233]/70">
+            <p className="text-xl text-[#1b1233]/80 sm:text-2xl">{CARD_TEXT[activeTab]}</p>
+            <div className="absolute bottom-6 left-8 flex items-center gap-2 text-[#1b1233]/60">
               <Zap className="h-4 w-4" aria-hidden="true" />
               <span className="text-sm">Connected smoothly</span>
             </div>
@@ -173,7 +179,10 @@ export default function IntegrationFinalCta({
             <circle cx="4" cy="2" r="2" fill="white" />
           </svg>
           {showBadge && (
-            <div className="pointer-events-none absolute -bottom-10 -right-4 hidden h-[100px] w-[100px] items-center justify-center lg:flex">
+            <div
+              className="pointer-events-none absolute -bottom-10 -right-4 z-30 hidden h-[100px] w-[100px] items-center justify-center rounded-full lg:flex"
+              style={{ backgroundColor: "#5b3fe0" }}
+            >
               <svg viewBox="0 0 100 100" className="ifc-spin absolute inset-0 h-full w-full">
                 <defs>
                   <path id="ifc-circle" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" />
@@ -184,8 +193,8 @@ export default function IntegrationFinalCta({
                   </textPath>
                 </text>
               </svg>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
-                <Gift className="h-5 w-5" aria-hidden="true" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-full">
+                <Gift className="h-5 w-5 text-white" aria-hidden="true" />
               </div>
             </div>
           )}
