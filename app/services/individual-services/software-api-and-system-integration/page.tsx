@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import IntegrationHero from "@/components/services/integration/Hero";
+import Tools from "@/components/services/integration/Tools";
 import { integration } from "@/lib/content/services/integration";
 
 const title = "Software, API & System Integration | Payments, WhatsApp, CRM & Data | ORYNTAL";
@@ -80,7 +81,8 @@ export default function SoftwareApiAndSystemIntegrationPage() {
 
       <IntegrationHero />
 
-      <div id="tools" className="scroll-mt-24" />
+      <Tools />
+
       {/* TODO: Add next sections (tools rails, typical setups rail, what we build bars) */}
     </main>
   );

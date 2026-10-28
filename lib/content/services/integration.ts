@@ -143,4 +143,17 @@ export const integration: IntegrationContent = {
   },
   footnote: "Scope, features, timeline, and pricing are agreed in your proposal. Third-party services, if any, may carry separate provider fees.",
   srSummary: "ORYNTAL builds API development and integrations, payment gateway integrations, WhatsApp and communication integrations, CRM integrations, third-party platform integrations, database development and management, data sheet management, analytics and business intelligence, and workflow and process automation.",
-};
+  tools: {
+    headingLine1: "Everything you already use,",
+    headingLine2: "connected as one system",
+    sub: "We join your payments, messaging, CRM, data, and platforms together, so information flows on its own instead of being copied from app to app.",
+    rowALabel: "Apps and platforms your business runs on",
+    rowBLabel: "CRM, data, and automation tools",
+    note: "Examples of tools and platforms businesses commonly connect. Specific integrations depend on the agreed scope, compatibility, account access, and service availability. Third-party fees may be separate. Logos belong to their respective owners and do not imply endorsement.",
+    cta: {
+      label: "Ask about your tools",
+      href: "/contact?interest=software-api-and-system-integration&topic=integrations",
+    },
+    trust: "Tell us your stack and we'll map what can connect",
+  },
+} as IntegrationContent & { tools: any };

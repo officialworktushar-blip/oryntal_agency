@@ -256,6 +256,7 @@ const TOPIC_PREFILL: Record<string, string> = {
   "ai-automation": "AI workflow automation",
   "ai-agents": "custom AI agents",
   "vision-finetune": "model fine-tuning and computer vision",
+  integrations: "connecting my existing tools",
 };
 
 const INTEREST_TOPIC_PREFILL: Record<string, Record<string, string>> = {
