@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import IntegrationHero from "@/components/services/integration/Hero";
 import Tools from "@/components/services/integration/Tools";
-import Setups from "@/components/services/integration/Setups";
 import IntegrationCarousel from "@/components/services/integration/IntegrationCarousel";
 import { integration } from "@/lib/content/services/integration";
 
@@ -86,8 +85,6 @@ export default function SoftwareApiAndSystemIntegrationPage() {
       <Tools />
 
       <IntegrationCarousel />
-
-      <Setups />
 
       {/* TODO: Add next sections (tools rails, typical setups rail, what we build bars) */}
     </main>
