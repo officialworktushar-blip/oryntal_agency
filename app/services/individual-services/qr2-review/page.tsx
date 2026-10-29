@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import QR2ReviewHero from "@/components/QR2ReviewHero";
 import QR2ReviewFeatures from "@/components/QR2ReviewFeatures";
+import QR2ReviewCompare from "@/components/QR2ReviewCompare";
 
 const title = "QR2 Review | ORYNTAL";
 const description =
@@ -20,6 +21,7 @@ export default function QR2ReviewPage() {
     <main>
       <QR2ReviewHero />
       <QR2ReviewFeatures />
+      <QR2ReviewCompare />
     </main>
   );
 }
