@@ -4,6 +4,8 @@ import SourcingSupportSection from "@/components/SourcingSupportSection";
 import SourcingPromptGrid from "@/components/SourcingPromptGrid";
 import SourcingSessionDemo from "@/components/SourcingSessionDemo";
 import SourcingFinalCta from "@/components/SourcingFinalCta";
+import SourcingCompare from "@/components/services/sourcing/Compare";
+import ClosingCta from "@/components/services/sourcing/ClosingCta";
 
 export const metadata: Metadata = {
   title: "Business Operations & Sourcing Support | Suppliers, Packaging & Logistics | ORYNTAL",
@@ -72,7 +74,9 @@ export default function SourcingPage() {
       <SourcingSessionDemo />
       <SourcingFinalCta />
       <div id="what-we-help" className="scroll-mt-24" />
-      {/* TODO next sections: what we help with, process, FAQ, closing CTA. The hero's bottom edge is bright purple (#7C58F0 at the sides, #2A1F5E in the centre): start the next section dark and fade from it. */}
+      <SourcingCompare />
+      <ClosingCta />
+      {/* TODO: when "what we help with", process and FAQ exist, move <ClosingCta /> to the end of the page */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
