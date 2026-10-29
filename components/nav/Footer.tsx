@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { domains } from "@/lib/content/navigation";
+import { domainCards } from "@/lib/content/domains";
 import { site } from "@/lib/site";
 import { legalDocs } from "@/lib/legal";
 
@@ -42,7 +42,7 @@ export default function Footer() {
         <div>
           <h3 className="text-sm font-semibold text-ink">Services</h3>
           <ul className="mt-4 flex flex-col gap-2.5">
-            {domains.map((d) => (
+            {domainCards.map((d) => (
               <li key={d.id}>
                 <Link href={d.href} className="link-muted">
                   {d.label}
@@ -50,8 +50,8 @@ export default function Footer() {
               </li>
             ))}
             <li>
-              <Link href="/packages" className="link-muted">
-                Packages
+              <Link href="/services/consultation" className="link-muted">
+                Custom Consultation
               </Link>
             </li>
           </ul>

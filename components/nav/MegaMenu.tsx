@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
 import { ArrowRight, ChevronDown, MessageCircleQuestion } from "lucide-react";
 import { domains } from "@/lib/content/navigation";
+import { domainCards } from "@/lib/content/domains";
 import { cn } from "@/lib/cn";
 
 type MegaMenuProps = {
@@ -16,7 +17,7 @@ export default function MegaMenu({ open, onOpenChange }: MegaMenuProps) {
   const [active, setActive] = useState(0);
   const baseId = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const domain = domains[active];
+  const domain = domainCards[active];
 
   useEffect(() => {
     if (!open) return;

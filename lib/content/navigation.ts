@@ -20,7 +20,7 @@ export type NavItem = {
 };
 
 export type NavDomain = {
-  id: "business-packages" | "individual-services" | "products" | "consultation";
+  id: "business-packages" | "individual-services" | "products";
   number: string;
   label: string;
   /** Domain-level page; only for the domain title / "View all" links. */
@@ -105,28 +105,6 @@ export const domains: NavDomain[] = [
         label: "QR2 Review",
         description: "Review collection and reputation system.",
         icon: QrCode,
-      },
-    ],
-  },
-  {
-    id: "consultation",
-    number: "04",
-    label: "Custom Business Consultation & Development",
-    href: "/services/consultation",
-    summary:
-      "When your problem is not a package: a 3-month engagement, discovery to launch.",
-    items: [
-      {
-        href: "/services/consultation",
-        label: "Three-Month Engagement",
-        description: "Discovery to launch with one dedicated team.",
-        icon: CalendarRange,
-      },
-      {
-        href: "/services/consultation",
-        label: "Custom Proposal",
-        description: "Scope and price after a free consultation.",
-        icon: FileText,
       },
     ],
   },
