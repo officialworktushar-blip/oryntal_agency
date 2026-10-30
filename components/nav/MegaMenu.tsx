@@ -77,7 +77,7 @@ export default function MegaMenu({ open, onOpenChange }: MegaMenuProps) {
               <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-pop">
                 <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
                   <div className="flex flex-col gap-1 border-b border-line p-4 lg:border-b-0 lg:border-r">
-                    {domains.map((d, i) => (
+                    {domainCards.map((d, i) => (
                       <Link
                         key={d.id}
                         href={d.href}
@@ -100,7 +100,7 @@ export default function MegaMenu({ open, onOpenChange }: MegaMenuProps) {
                               i === active ? "text-brand" : "text-ink"
                             )}
                           >
-                            {d.title}
+                            {d.label}
                           </span>
                         </span>
                       </Link>
@@ -117,12 +117,12 @@ export default function MegaMenu({ open, onOpenChange }: MegaMenuProps) {
                         transition={{ duration: 0.15 }}
                         className="grid gap-2 sm:grid-cols-2"
                       >
-                        {domain.preview.map((preview) => (
+                        {domain.items.map((item) => (
                           <div
-                            key={preview}
+                            key={item.href}
                             className="text-xs text-white/60 px-3 py-1"
                           >
-                            {preview}
+                            {item.label}
                           </div>
                         ))}
                       </m.div>
