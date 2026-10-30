@@ -4,7 +4,6 @@ import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
 import { ArrowRight, ChevronDown, MessageCircleQuestion } from "lucide-react";
-import { domains } from "@/lib/content/navigation";
 import { domainCards } from "@/lib/content/domains";
 import { cn } from "@/lib/cn";
 
@@ -101,7 +100,7 @@ export default function MegaMenu({ open, onOpenChange }: MegaMenuProps) {
                               i === active ? "text-brand" : "text-ink"
                             )}
                           >
-                            {d.label}
+                            {d.title}
                           </span>
                         </span>
                       </Link>
@@ -118,28 +117,14 @@ export default function MegaMenu({ open, onOpenChange }: MegaMenuProps) {
                         transition={{ duration: 0.15 }}
                         className="grid gap-2 sm:grid-cols-2"
                       >
-                        {domain.items.map((item) => {
-                          const Icon = item.icon;
-                          return (
-                            <Link
-                              key={item.label}
-                              href={item.href}
-                              className="group flex gap-3 rounded-xl border border-transparent p-3 transition-all duration-200 hover:border-line hover:shadow-card"
-                            >
-                              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-brand-soft text-brand transition-colors group-hover:bg-brand group-hover:text-white">
-                                <Icon className="size-5" strokeWidth={1.75} />
-                              </span>
-                              <span className="min-w-0">
-                                <span className="block truncate text-sm font-bold text-ink">
-                                  {item.label}
-                                </span>
-                                <span className="mt-0.5 block truncate text-xs text-muted">
-                                  {item.description}
-                                </span>
-                              </span>
-                            </Link>
-                          );
-                        })}
+                        {domain.preview.map((preview) => (
+                          <div
+                            key={preview}
+                            className="text-xs text-white/60 px-3 py-1"
+                          >
+                            {preview}
+                          </div>
+                        ))}
                       </m.div>
                     </AnimatePresence>
                   </div>

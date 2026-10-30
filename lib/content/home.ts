@@ -10,8 +10,7 @@ export const videoSection = {
   placeholderLabel: "Add: 60-90s ORYNTAL intro / demo reel (MP4 + poster image)",
   placeholderHint:
     "Suggested shots: website build, WhatsApp order notification, AI chatbot answering a customer, dashboard.",
-  // TODO: drop the real product demo video + poster here (MP4/WebM URL + poster image).
-  videoSrc: "",
+  videoSrc: "/Hero_Video.webm",
   posterSrc: "",
 };
 

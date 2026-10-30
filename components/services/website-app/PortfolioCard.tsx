@@ -26,7 +26,7 @@ export default function PortfolioCard({ card, hasReducedMotion }: PortfolioCardP
         )}
         style={{
           width: `calc(${card.width}px * var(--pf-scale, 1))`,
-          backgroundColor: card.bg,
+          backgroundColor: hasRealImage ? "transparent" : card.bg,
         } as React.CSSProperties}
       >
         {/* Wireframe for desktop/wide */}
@@ -61,7 +61,7 @@ export default function PortfolioCard({ card, hasReducedMotion }: PortfolioCardP
               fill
               sizes="(max-width: 768px) 80vw, 60vw"
               loading="lazy"
-              className="object-cover"
+              className="object-cover object-top"
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
@@ -106,7 +106,7 @@ export default function PortfolioCard({ card, hasReducedMotion }: PortfolioCardP
       )}
       style={{
         width: `calc(${card.width}px * var(--pf-scale, 1))`,
-        backgroundColor: card.bg,
+        backgroundColor: hasRealImage ? "transparent" : card.bg,
       } as React.CSSProperties}
     >
       {/* Phone frame wireframe */}
@@ -142,7 +142,7 @@ export default function PortfolioCard({ card, hasReducedMotion }: PortfolioCardP
             fill
             sizes="(max-width: 768px) 30vw, 20vw"
             loading="lazy"
-            className="object-cover"
+            className="object-cover object-center"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">

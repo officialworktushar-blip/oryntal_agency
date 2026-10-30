@@ -53,6 +53,7 @@ export type BusinessAutomationSlide = {
   media: {
     label: string;
     hint: string;
+    src?: string;
   };
 };
 
@@ -509,6 +510,7 @@ export const businessAutomation: BusinessAutomationContent = {
       media: {
         label: "Add: photo of a shop owner smiling at an order notification on a phone (portrait 11:12, 1200x1310)",
         hint: "Real photo, natural light, warm and authentic; keep faces away from the bottom 30% (the prompt box covers it).",
+        src: "/automation_pk/auto1.webp",
       },
     },
     {
@@ -524,6 +526,7 @@ export const businessAutomation: BusinessAutomationContent = {
       media: {
         label: "Add: photo of a customer paying online with a phone, relaxed, in a cafe or at home (portrait 11:12, 1200x1310)",
         hint: "Real photo, natural light, warm and authentic; keep faces away from the bottom 30% (the prompt box covers it).",
+        src: "/automation_pk/auto2.webp",
       },
     },
     {
@@ -539,6 +542,7 @@ export const businessAutomation: BusinessAutomationContent = {
       media: {
         label: "Add: photo of a business owner sleeping calmly at night with a phone on the bedside (portrait 11:12, 1200x1310)",
         hint: "Real photo, natural light, warm and authentic; keep faces away from the bottom 30% (the prompt box covers it).",
+        src: "/automation_pk/auto3.webp",
       },
     },
     {
@@ -554,6 +558,7 @@ export const businessAutomation: BusinessAutomationContent = {
       media: {
         label: "Add: photo of a courier handing a parcel to a smiling customer (portrait 11:12, 1200x1310)",
         hint: "Real photo, natural light, warm and authentic; keep faces away from the bottom 30% (the prompt box covers it).",
+        src: "/automation_pk/auto4.webp",
       },
     },
     {
@@ -569,6 +574,7 @@ export const businessAutomation: BusinessAutomationContent = {
       media: {
         label: "Add: photo of a business owner calmly working at a laptop with a clean dashboard (portrait 11:12, 1200x1310)",
         hint: "Real photo, natural light, warm and authentic; keep faces away from the bottom 30% (the prompt box covers it).",
+        src: "/automation_pk/auto5.webp",
       },
     },
   ],

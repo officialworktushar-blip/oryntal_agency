@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
+import Image from "next/image";
 import { m, useInView, useReducedMotion, useSpring } from "framer-motion";
 import { SendHorizontal } from "lucide-react";
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
@@ -113,6 +114,7 @@ export default function HeroCards() {
   const slide = slides[index];
   const typeState = useTypewriter(slide.prompt, true, running, reduced);
   const finished = reduced ? true : typeState.finished;
+  const hasRealImage = !!slide.media.src;
 
   const px = useSpring(0, { stiffness: 120, damping: 20 });
   const py = useSpring(0, { stiffness: 120, damping: 20 });
@@ -212,17 +214,28 @@ export default function HeroCards() {
                   transition: reduced ? "opacity 150ms ease" : "opacity 600ms ease, transform 600ms ease, filter 600ms ease",
                 }}
               >
-                <MediaPlaceholder
-                  type="image"
-                  aspect="11/12"
-                  label={s.media.label}
-                  hint={s.media.hint}
-                  src={undefined}
-                  alt={s.alt}
-                  sizes="(min-width:1024px) 560px, 92vw"
-                  loading={i === 0 ? "eager" : "lazy"}
-                  className="h-full w-full"
-                />
+                {hasRealImage && s.media.src ? (
+                  <Image
+                    src={s.media.src}
+                    alt={s.alt}
+                    fill
+                    sizes="(min-width:1024px) 560px, 92vw"
+                    loading={i === 0 ? "eager" : "lazy"}
+                    className="object-cover"
+                  />
+                ) : (
+                  <MediaPlaceholder
+                    type="image"
+                    aspect="11/12"
+                    label={s.media.label}
+                    hint={s.media.hint}
+                    src={undefined}
+                    alt={s.alt}
+                    sizes="(min-width:1024px) 560px, 92vw"
+                    loading={i === 0 ? "eager" : "lazy"}
+                    className="h-full w-full"
+                  />
+                )}
 
                 <m.div
                   style={{ x: cx, y: cy }}

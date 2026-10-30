@@ -357,6 +357,7 @@ export const websiteApp: WebsiteAppContent = {
         aspect: "3/2",
         bg: "#521031",
         alt: "Business website homepage design",
+        src: "/website-sampleworks/business_website.webp",
       },
       {
         id: "s2",
@@ -367,6 +368,7 @@ export const websiteApp: WebsiteAppContent = {
         aspect: "3/2",
         bg: "#F1ECE4",
         alt: "Online store design",
+        src: "/website-sampleworks/product-page.webp",
       },
       {
         id: "s3",
@@ -377,6 +379,7 @@ export const websiteApp: WebsiteAppContent = {
         aspect: "9/19",
         bg: "#E4E8E2",
         alt: "Mobile app screen design",
+        src: "/website-sampleworks/mobile-app-screen.webp",
       },
       {
         id: "s4",
@@ -387,6 +390,7 @@ export const websiteApp: WebsiteAppContent = {
         aspect: "3/2",
         bg: "#D8D6CE",
         alt: "Web application interface",
+        src: "/website-sampleworks/webapp.webp",
       },
       {
         id: "s5",
@@ -397,6 +401,7 @@ export const websiteApp: WebsiteAppContent = {
         aspect: "9/19",
         bg: "#E8E4F1",
         alt: "SaaS product mobile interface",
+        src: "/website-sampleworks/SaaS Product.webp",
       },
       {
         id: "s6",
@@ -407,6 +412,7 @@ export const websiteApp: WebsiteAppContent = {
         aspect: "3/2",
         bg: "#E2E9EE",
         alt: "Customer portal design",
+        src: "/website-sampleworks/customer Panel.webp",
       },
       {
         id: "s7",
@@ -417,6 +423,7 @@ export const websiteApp: WebsiteAppContent = {
         aspect: "3/2",
         bg: "#ECE6DA",
         alt: "Admin panel interface",
+        src: "/website-sampleworks/admin panel.webp",
       },
       {
         id: "s8",
@@ -427,6 +434,7 @@ export const websiteApp: WebsiteAppContent = {
         aspect: "9/19",
         bg: "#1F1B2E",
         alt: "UI/UX prototype design",
+        src: "/website-sampleworks/UI.webp",
       },
     ],
   },

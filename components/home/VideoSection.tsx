@@ -5,6 +5,7 @@ import Image from "next/image";
 import {
   AnimatePresence,
   m,
+  useInView,
   useReducedMotion,
   type Variants,
 } from "framer-motion";
@@ -39,6 +40,10 @@ export default function VideoSection() {
   const hasVideo = Boolean(videoSection.videoSrc);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(containerRef, { amount: 0.5, once: false });
+  const [tabVisible, setTabVisible] = useState(true);
 
   useEffect(() => {
     if (!open) return;
@@ -56,6 +61,33 @@ export default function VideoSection() {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = previousOverflow;
     };
+  }, [open]);
+
+  useEffect(() => {
+    const onVis = () => setTabVisible(document.visibilityState === "visible");
+    onVis();
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
+
+  useEffect(() => {
+    if (!hasVideo || !videoRef.current) return;
+
+    const shouldPlay = inView && tabVisible && !reduced && !open;
+    const video = videoRef.current;
+
+    if (shouldPlay) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [inView, tabVisible, reduced, open, hasVideo]);
+
+  useEffect(() => {
+    if (open && videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    }
   }, [open]);
 
   return (
@@ -102,15 +134,33 @@ export default function VideoSection() {
           </m.p>
 
           {/* Video frame */}
-          <m.div variants={reveal} className="relative mx-auto mt-12 max-w-5xl">
+          <m.div
+            ref={containerRef}
+            variants={reveal}
+            className="relative mx-auto mt-12 max-w-5xl"
+          >
             <div className="relative overflow-hidden rounded-3xl border border-white/80 bg-white/60 shadow-[0_20px_60px_rgba(103,61,230,0.18)] backdrop-blur">
-              <MediaPlaceholder
-                type="video"
-                aspect="16/9"
-                label={videoSection.placeholderLabel}
-                hint={videoSection.placeholderHint}
-                className="justify-end rounded-3xl border-brand/40 bg-transparent pb-12 text-brand-dark [&>span:first-child]:hidden"
-              />
+              {!hasVideo && (
+                <MediaPlaceholder
+                  type="video"
+                  aspect="16/9"
+                  label={videoSection.placeholderLabel}
+                  hint={videoSection.placeholderHint}
+                  className="justify-end rounded-3xl border-brand/40 bg-transparent pb-12 text-brand-dark [&>span:first-child]:hidden"
+                />
+              )}
+
+              {hasVideo && (
+                <video
+                  ref={videoRef}
+                  src={`${videoSection.videoSrc}#t=0.1`}
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  className="aspect-video w-full rounded-3xl object-cover"
+                />
+              )}
 
               <button
                 ref={triggerRef}
@@ -160,10 +210,12 @@ export default function VideoSection() {
               onClick={(event) => event.stopPropagation()}
             >
               <video
+                ref={videoRef}
                 src={videoSection.videoSrc}
                 poster={videoSection.posterSrc || undefined}
                 controls
                 autoPlay
+                muted={false}
                 playsInline
                 className="aspect-video w-full rounded-3xl border border-white/10 bg-black object-cover"
               />

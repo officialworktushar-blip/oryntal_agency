@@ -45,7 +45,7 @@ export default function Footer() {
             {domainCards.map((d) => (
               <li key={d.id}>
                 <Link href={d.href} className="link-muted">
-                  {d.label}
+                  {d.title}
                 </Link>
               </li>
             ))}
