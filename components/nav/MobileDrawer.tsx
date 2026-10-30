@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "framer-motion";
 import { ChevronDown, X } from "lucide-react";
-import { domainCards } from "@/lib/content/domains";
+import { domains } from "@/lib/content/navigation";
 import { cn } from "@/lib/cn";
 
 type MobileDrawerProps = {
@@ -136,7 +136,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                       className="overflow-hidden"
                     >
                       <div className="pb-2">
-                        {domainCards.map((domain) => {
+                        {domains.map((domain) => {
                           const isOpen = expanded === domain.id;
                           return (
                             <div key={domain.id}>
@@ -170,13 +170,15 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                                     className="overflow-hidden"
                                   >
                                     <div className="flex flex-col gap-1 pb-2 pl-3">
-                                      {domain.preview.map((preview) => (
-                                        <div
-                                          key={preview}
-                                          className="text-xs text-white/60 px-3 py-1"
+                                      {domain.items.map((item) => (
+                                        <Link
+                                          key={item.href}
+                                          href={item.href}
+                                          onClick={onClose}
+                                          className="text-xs text-white/60 px-3 py-1 transition-colors hover:text-white"
                                         >
-                                          {preview}
-                                        </div>
+                                          {item.label}
+                                        </Link>
                                       ))}
                                       <Link
                                         href={domain.href}
