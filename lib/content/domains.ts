@@ -54,4 +54,17 @@ export const domainCards: DomainCard[] = [
       "QR2 Review: Complimentary for eligible clients",
     ],
   },
+  {
+    id: "consultation",
+    title: "Custom Consultation & Development",
+    href: "/services/consultation",
+    description:
+      "A three-month engagement designed around your operations.",
+    icon: Compass,
+    preview: [
+      "Month 1: Understand & plan",
+      "Month 2: Build",
+      "Month 3: Integrate & test",
+    ],
+  },
 ];
