@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, m } from "framer-motion";
 import { ArrowRight, ChevronDown, MessageCircleQuestion } from "lucide-react";
-import { domains } from "@/lib/content/navigation";
+import { menuDomains } from "@/lib/content/nav-menu";
 import { cn } from "@/lib/cn";
 
 type MegaMenuProps = {
@@ -16,7 +16,7 @@ export default function MegaMenu({ open, onOpenChange }: MegaMenuProps) {
   const [active, setActive] = useState(0);
   const baseId = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const domain = domains[active];
+  const domain = menuDomains[active];
 
   useEffect(() => {
     if (!open) return;
@@ -77,7 +77,7 @@ export default function MegaMenu({ open, onOpenChange }: MegaMenuProps) {
               <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-pop">
                 <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
                   <div className="flex flex-col gap-1 border-b border-line p-4 lg:border-b-0 lg:border-r">
-                    {domains.map((d, i) => (
+                    {menuDomains.map((d, i) => (
                       <Link
                         key={d.id}
                         href={d.href}
@@ -117,14 +117,28 @@ export default function MegaMenu({ open, onOpenChange }: MegaMenuProps) {
                         transition={{ duration: 0.15 }}
                         className="grid gap-2 sm:grid-cols-2"
                       >
-                        {domain.items.map((item) => (
-                          <div
-                            key={item.href}
-                            className="text-xs text-white/60 px-3 py-1"
-                          >
-                            {item.label}
-                          </div>
-                        ))}
+                        {domain.items.map((item) => {
+                          const Icon = item.icon;
+                          return (
+                            <Link
+                              key={item.label}
+                              href={item.href}
+                              className="group flex gap-3 rounded-xl border border-transparent p-3 transition-all duration-200 hover:border-line hover:shadow-card"
+                            >
+                              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-brand-soft text-brand transition-colors group-hover:bg-brand group-hover:text-white">
+                                <Icon className="size-5" strokeWidth={1.75} />
+                              </span>
+                              <span className="min-w-0">
+                                <span className="block truncate text-sm font-bold text-ink">
+                                  {item.label}
+                                </span>
+                                <span className="mt-0.5 block truncate text-xs text-muted">
+                                  {item.description}
+                                </span>
+                              </span>
+                            </Link>
+                          );
+                        })}
                       </m.div>
                     </AnimatePresence>
                   </div>

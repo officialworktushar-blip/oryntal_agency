@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "framer-motion";
 import { ChevronDown, X } from "lucide-react";
-import { domains } from "@/lib/content/navigation";
+import { menuDomains } from "@/lib/content/nav-menu";
 import { cn } from "@/lib/cn";
 
 type MobileDrawerProps = {
@@ -136,7 +136,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                       className="overflow-hidden"
                     >
                       <div className="pb-2">
-                        {domains.map((domain) => {
+                        {menuDomains.map((domain) => {
                           const isOpen = expanded === domain.id;
                           return (
                             <div key={domain.id}>
@@ -170,16 +170,32 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                                     className="overflow-hidden"
                                   >
                                     <div className="flex flex-col gap-1 pb-2 pl-3">
-                                      {domain.items.map((item) => (
-                                        <Link
-                                          key={item.href}
-                                          href={item.href}
-                                          onClick={onClose}
-                                          className="text-xs text-white/60 px-3 py-1 transition-colors hover:text-white"
-                                        >
-                                          {item.label}
-                                        </Link>
-                                      ))}
+                                      {domain.items.map((item) => {
+                                        const Icon = item.icon;
+                                        return (
+                                          <Link
+                                            key={item.label}
+                                            href={item.href}
+                                            onClick={onClose}
+                                            className="flex gap-3 rounded-lg px-3 py-2 transition-colors hover:bg-white/10"
+                                          >
+                                            <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-md bg-white/10 text-white">
+                                              <Icon
+                                                className="size-3.5"
+                                                strokeWidth={1.75}
+                                              />
+                                            </span>
+                                            <span className="min-w-0">
+                                              <span className="block text-sm font-medium text-white">
+                                                {item.label}
+                                              </span>
+                                              <span className="block truncate text-xs text-white/60">
+                                                {item.description}
+                                              </span>
+                                            </span>
+                                          </Link>
+                                        );
+                                      })}
                                       <Link
                                         href={domain.href}
                                         onClick={onClose}
