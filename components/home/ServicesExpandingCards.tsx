@@ -150,53 +150,6 @@ export default function ServicesExpandingCards() {
                     >
                       <ArrowUpRight className="size-5" />
                     </m.span>
-
-                    {/* Glass preview panel */}
-                    <m.div
-                      initial={false}
-                      animate={
-                        desktop
-                          ? active
-                            ? { opacity: 1, y: 0 }
-                            : { opacity: 0, y: 16 }
-                          : { opacity: 1, y: 0 }
-                      }
-                      transition={
-                        reduced ? { duration: 0 } : { duration: 0.25, ease: "easeOut" }
-                      }
-                      className="absolute inset-x-3 bottom-3 rounded-2xl bg-white/85 p-4 text-left text-sm text-ink shadow-pop backdrop-blur-md"
-                    >
-                      <ul>
-                        {card.preview.map((row, rowIndex) => {
-                          const show = !desktop || active;
-                          return (
-                            <m.li
-                              key={row}
-                              initial={false}
-                              animate={{
-                                opacity: show ? 1 : 0,
-                                x: show ? 0 : -6,
-                              }}
-                              transition={
-                                reduced
-                                  ? { duration: 0 }
-                                  : {
-                                      duration: 0.2,
-                                      delay: show ? rowIndex * 0.05 : 0,
-                                    }
-                              }
-                              className="flex items-start gap-2 py-0.5"
-                            >
-                              <span
-                                className="mt-1.5 size-1.5 shrink-0 rounded-full bg-brand"
-                                aria-hidden
-                              />
-                              <span>{row}</span>
-                            </m.li>
-                          );
-                        })}
-                      </ul>
-                    </m.div>
                   </div>
 
                   {/* Title + description */}
