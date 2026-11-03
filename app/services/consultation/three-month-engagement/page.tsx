@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import EngagementHero from "@/components/services/engagement/Hero";
+import PlanBanner from "@/components/services/engagement/PlanBanner";
 
 export const metadata: Metadata = {
   title: "Three-Month Engagement | Custom Business Consultation & Development | ORYNTAL",
@@ -67,8 +68,8 @@ export default function ThreeMonthEngagementPage() {
       />
       <main>
         <EngagementHero />
-        <div id="plan" className="scroll-mt-24" />
-        {/* TODO next sections: Month 1 / 2 / 3 details, what we evaluate, FAQ, closing CTA. Hero bottom is bright purple at the sides: start the next section dark and fade from it. */}
+        <PlanBanner />
+        {/* TODO next: what we evaluate, FAQ, closing CTA */}
       </main>
     </>
   );
