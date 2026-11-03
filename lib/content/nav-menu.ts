@@ -96,7 +96,7 @@ export const menuDomains: NavMenuDomain[] = [
     href: "/services/products",
     items: [
       {
-        href: "/services/products",
+        href: "/services/individual-services/qr2-review",
         label: "QR2 Review",
         description: "Review collection and reputation system.",
         icon: QrCode,
