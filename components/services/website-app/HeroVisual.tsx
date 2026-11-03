@@ -2,12 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { AnimatePresence, motion, useInView, useReducedMotion, useSpring } from "framer-motion";
-import { ArrowLeftRight, Check } from "lucide-react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useScaledCanvas } from "@/hooks/useScaledCanvas";
 import { websiteApp } from "@/lib/content/services/websiteApp";
-import Cursor from "@/components/ui/Cursor";
 import { cn } from "@/lib/cn";
 
 type HeroVisualProps = {
@@ -17,40 +14,35 @@ type HeroVisualProps = {
   onUserInteract: () => void;
 };
 
-const CYCLE_DURATION = 3600;
+const CYCLE_DURATION = 3400;
+
+const PHOTO_LAYOUT = [
+  { id: "c1", left: 60, top: 150, width: 220, height: 150 },
+  { id: "c2", left: 140, top: 316, width: 140, height: 190 },
+  { id: "c3", left: 300, top: 168, width: 160, height: 250 },
+  { id: "c4", left: 306, top: 380, width: 170, height: 112 },
+  { id: "c5", left: 372, top: 60, width: 150, height: 98 },
+  { id: "c6", left: 486, top: 244, width: 92, height: 140 },
+] as const;
 
 export default function HeroVisual({ activeId, onCycle, paused, onUserInteract }: HeroVisualProps) {
   const reduced = useReducedMotion() ?? false;
-  const { build, visual } = websiteApp;
-  const activeIndex = build.findIndex((item) => item.id === activeId);
-  const activeItem = build[activeIndex >= 0 ? activeIndex : 0];
-  const Icon = activeItem.icon;
+  const { heroCollage, collageForBuild } = websiteApp;
+  const activeCollageId = collageForBuild[activeId] || "c1";
 
-  const { wrapperRef, scale } = useScaledCanvas(580);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLAnchorElement>(null);
+  const { wrapperRef, scale } = useScaledCanvas(600);
   const visualRef = useRef<HTMLDivElement>(null);
+  const [entrance, setEntrance] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   const inView = useInView(visualRef, { amount: 0.3, once: false });
 
-  const [phase, setPhase] = useState<"idle" | "gliding" | "press" | "done">("idle");
-  const [entrance, setEntrance] = useState(false);
-  const [ripple, setRipple] = useState(0);
-  const [hasInteracted, setHasInteracted] = useState(false);
-
-  const mouseX = useSpring(0, { stiffness: 150, damping: 20 });
-  const mouseY = useSpring(0, { stiffness: 150, damping: 20 });
-
-  const contactHref = `/contact?interest=website-and-app-development&topic=${activeItem.topic}`;
-
   useEffect(() => {
     if (reduced) {
-      setPhase("done");
+      setEntrance(true);
       return;
     }
     setEntrance(true);
-    const t = setTimeout(() => setEntrance(false), 1200);
-    return () => clearTimeout(t);
   }, [reduced]);
 
   useEffect(() => {
@@ -60,265 +52,228 @@ export default function HeroVisual({ activeId, onCycle, paused, onUserInteract }
     if (paused) return;
     if (hasInteracted) return;
 
-    setPhase("idle");
-    const glide = setTimeout(() => setPhase("gliding"), 500);
-    const press = setTimeout(() => {
-      setPhase("press");
-      setRipple((r) => r + 1);
-    }, 1500);
-    const done = setTimeout(() => setPhase("done"), 1600);
     const next = setTimeout(() => {
       onCycle();
-    }, 3400);
+    }, CYCLE_DURATION);
 
-    return () => {
-      clearTimeout(glide);
-      clearTimeout(press);
-      clearTimeout(done);
-      clearTimeout(next);
-    };
+    return () => clearTimeout(next);
   }, [reduced, inView, paused, activeId, hasInteracted, onCycle]);
 
-  useEffect(() => {
-    if (reduced) return;
-    if (!visualRef.current) return;
-    if (typeof window !== "undefined" && !window.matchMedia("(hover: hover)").matches) return;
-
-    const node = visualRef.current;
-    const onMove = (e: PointerEvent) => {
-      const rect = node.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width - 0.5);
-      const y = ((e.clientY - rect.top) / rect.height - 0.5);
-      mouseX.set(x * -8);
-      mouseY.set(y * -6);
-    };
-    const onLeave = () => {
-      mouseX.set(0);
-      mouseY.set(0);
-    };
-
-    node.addEventListener("pointermove", onMove);
-    node.addEventListener("pointerleave", onLeave);
-    return () => {
-      node.removeEventListener("pointermove", onMove);
-      node.removeEventListener("pointerleave", onLeave);
-    };
-  }, [reduced, mouseX, mouseY]);
-
-  useEffect(() => {
-    setPhase("idle");
+  const handleInteract = () => {
     setHasInteracted(true);
     onUserInteract();
-    if (reduced) {
-      setPhase("done");
-      return;
-    }
-    const glide = setTimeout(() => setPhase("gliding"), 200);
-    const press = setTimeout(() => {
-      setPhase("press");
-      setRipple((r) => r + 1);
-    }, 900);
-    const done = setTimeout(() => setPhase("done"), 1100);
-    return () => {
-      clearTimeout(glide);
-      clearTimeout(press);
-      clearTimeout(done);
-    };
-  }, [activeId, reduced, onUserInteract]);
-
-  const cursorStart = { x: 142 + 295 + 40, y: 59 + 292 - 10 };
-  const cursorEnd = { x: 142 + 232, y: 59 + 252 };
-  const cursorPos = phase === "idle" ? cursorStart : cursorEnd;
+  };
 
   return (
     <div
       ref={visualRef}
-      id="ws-visual"
-      role="tabpanel"
-      className="relative w-full max-w-[580px] aspect-[580/410] lg:justify-self-end"
-      onPointerEnter={() => setHasInteracted(true)}
-      onFocusCapture={() => setHasInteracted(true)}
+      role="img"
+      aria-label="Collage of website and app designs: business website, online store, mobile app, web application, customer portal and UI/UX design"
+      className="relative w-full max-w-[600px] aspect-[600/520] lg:justify-self-end"
+      onPointerEnter={handleInteract}
+      onFocusCapture={handleInteract}
     >
       <div ref={wrapperRef} className="relative h-full w-full">
         <motion.div
-          className="absolute left-0 top-0 h-[410px] w-[580px] origin-top-left"
-          style={{ scale, x: mouseX, y: mouseY }}
-          initial={entrance && !reduced ? { opacity: 0 } : { opacity: 1 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          className="absolute left-0 top-0 h-[520px] w-[600px] origin-top-left"
+          style={{ scale }}
+          initial={entrance && !reduced ? { scale: 1.04 } : { scale: 1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <div className="absolute inset-0" aria-hidden="true">
             <div
-              className="absolute inset-0"
+              className="absolute left-0 top-0 h-[520px] w-[600px] rounded-[22px]"
               style={{
-                backgroundImage:
-                  "linear-gradient(to right, rgba(255,255,255,.085) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.085) 1px, transparent 1px)",
-                backgroundSize: "43px 43px",
-                backgroundPosition: "-1px -1px",
-                WebkitMaskImage: "radial-gradient(ellipse 70% 72% at 50% 52%, #000 45%, transparent 100%)",
-                maskImage: "radial-gradient(ellipse 70% 72% at 50% 52%, #000 45%, transparent 100%)",
+                background: "#F7F1EA",
+                boxShadow: "inset 0 2px 8px rgba(160,130,100,0.15)",
+                border: "1px solid rgba(160,130,100,0.18)",
               }}
             />
-          </div>
 
-          <motion.div
-            ref={cardRef}
-            className="absolute rounded-[14px] border border-white/10"
-            style={{
-              left: 142,
-              top: 59,
-              width: 295,
-              height: 292,
-              background: "linear-gradient(180deg, #626266 0%, #444448 55%, #2F2F33 100%)",
-              boxShadow: "0 24px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.10)",
-            }}
-            initial={entrance && !reduced ? { y: 30, scale: 0.97, opacity: 0 } : { y: 0, scale: 1, opacity: 1 }}
-            animate={{ y: 0, scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <div className="relative h-full w-full">
-              <motion.div
-                className="absolute flex h-[60px] w-[60px] items-center justify-center rounded-[12px] bg-[#262629]"
-                style={{ left: 67, top: 44, boxShadow: "inset 0 1px 0 rgba(255,255,255,.08)" }}
-                initial={entrance && !reduced ? { scale: 0.8, opacity: 0 } : { scale: 1, opacity: 1 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: entrance && !reduced ? 0.08 : 0 }}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeItem.id}
-                    initial={reduced ? false : { scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={reduced ? { opacity: 1 } : { scale: 0.9, opacity: 0 }}
-                    transition={{ duration: 0.22 }}
-                  >
-                    <Icon className="h-[30px] w-[30px] text-white" aria-hidden="true" />
-                  </motion.div>
-                </AnimatePresence>
-              </motion.div>
+            <div
+              className="absolute rounded-[4px]"
+              style={{ left: 214, top: 70, width: 108, height: 40, background: "rgba(217,189,163,0.75)" }}
+            />
+            <div
+              className="absolute rounded-[4px]"
+              style={{ left: 482, top: 112, width: 88, height: 112, background: "rgba(217,189,163,0.75)" }}
+            />
+            <div
+              className="absolute rounded-[4px]"
+              style={{ left: 482, top: 316, width: 88, height: 96, background: "rgba(217,189,163,0.75)" }}
+            />
 
-              <ArrowLeftRight
-                className="absolute h-[28px] w-[28px] text-white/45"
-                style={{ left: 133, top: 66, strokeWidth: 1.4 }}
-                aria-hidden="true"
-              />
-
-              <div
-                className="absolute flex h-[60px] w-[60px] items-center justify-center rounded-[12px] bg-[#6D45EE]"
-                style={{ left: 169, top: 44, boxShadow: "0 8px 20px rgba(80,40,200,.5)" }}
-              >
-                <Image
-                  src="/logo.png"
-                  alt="ORYNTAL"
-                  width={36}
-                  height={36}
-                  className="h-9 w-9 object-contain brightness-0 invert"
+            <svg className="absolute inset-0 w-full h-full" style={{ pointerEvents: "none" }}>
+              <g stroke="#C9A98C" strokeWidth="1" opacity="0.8">
+                <motion.path
+                  d="M96 150 L214 90"
+                  initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  fill="none"
                 />
-              </div>
+                <motion.path
+                  d="M322 90 L402 62 L460 44"
+                  initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.8, delay: 0.25 }}
+                  fill="none"
+                />
+                <motion.path
+                  d="M482 112 V60"
+                  initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                  fill="none"
+                />
+                <motion.path
+                  d="M96 336 L36 440"
+                  initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.8, delay: 0.35 }}
+                  fill="none"
+                />
+                <motion.path
+                  d="M300 470 L460 500"
+                  initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  fill="none"
+                />
+                <motion.path
+                  d="M570 224 L588 250"
+                  initial={reduced ? { pathLength: 1 } : { pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.8, delay: 0.45 }}
+                  fill="none"
+                />
+              </g>
+              <motion.polygon
+                points="258,19 282,42 258,65 234,42"
+                stroke="#C9A98C"
+                strokeWidth="1.2"
+                fill="none"
+                initial={reduced ? { opacity: 1 } : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.5 }}
+              />
+            </svg>
 
-              <div
-                className={cn(
-                  "absolute rounded-[10px] border bg-[#1B1B1E]",
-                  phase === "done" ? "border-[rgba(52,199,123,.35)]" : "border-[rgba(255,255,255,.06)]"
-                )}
-                style={{ left: 21, top: 165, width: 254, height: 60 }}
-              >
-                <div className="relative h-full w-full px-4">
-                  <div className="absolute flex items-center gap-2" style={{ top: 14 }}>
-                    <span
-                      className={cn(
-                        "h-[7px] w-[7px] rounded-full",
-                        phase === "done" ? "bg-[#34C77B]" : "bg-[#55555B]"
-                      )}
-                      style={phase === "done" ? { boxShadow: "0 0 0 0 rgba(52,199,123,0.6)", animation: "ws-pulse 1.8s ease-out infinite" } : undefined}
+            {heroCollage.map((item, index) => {
+              const layout = PHOTO_LAYOUT.find((l) => l.id === item.id);
+              if (!layout) return null;
+
+              const isActive = item.id === activeCollageId;
+              const isPortrait = item.ratio === "portrait";
+
+              return (
+                <motion.div
+                  key={item.id}
+                  className="absolute overflow-hidden rounded-[6px]"
+                  style={{
+                    left: layout.left,
+                    top: layout.top,
+                    width: layout.width,
+                    height: layout.height,
+                    boxShadow: "0 10px 24px rgba(60,40,20,0.28)",
+                    zIndex: isActive ? 10 : 1,
+                  }}
+                  initial={
+                    entrance && !reduced
+                      ? {
+                          x: (Math.random() - 0.5) * 80,
+                          y: (Math.random() - 0.5) * 80,
+                          rotate: (Math.random() - 0.5) * 6,
+                          scale: 0.92,
+                        }
+                      : { x: 0, y: 0, rotate: 0, scale: 1 }
+                  }
+                  animate={{
+                    x: 0,
+                    y: isActive ? 0 : 0,
+                    rotate: 0,
+                    scale: isActive ? 1.05 : 1,
+                    opacity: isActive ? 1 : hasInteracted ? 0.78 : 1,
+                  }}
+                  transition={{
+                    delay: index * 0.09,
+                    type: "spring",
+                    stiffness: 160,
+                    damping: 22,
+                  }}
+                  whileHover={{ y: -4 }}
+                  onPointerEnter={handleInteract}
+                >
+                  {isActive && (
+                    <motion.div
+                      className="absolute inset-0 rounded-[6px]"
+                      style={{
+                        border: "2px solid #8B7CFF",
+                        boxShadow: "0 0 20px rgba(139,124,255,0.4)",
+                      }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.25 }}
                     />
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={`status-${activeItem.id}-${phase}`}
-                        initial={reduced ? false : { opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={reduced ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.18 }}
-                        className="text-[13px] font-semibold text-white"
-                      >
-                        {phase === "done" ? visual.doneStatus : visual.idleStatus}
-                      </motion.span>
-                    </AnimatePresence>
-                  </div>
-                  <div className="absolute" style={{ top: 36 }}>
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={`sub-${activeItem.id}-${phase}`}
-                        initial={reduced ? false : { opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={reduced ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.18 }}
-                        className="text-[11px] text-white/55"
-                      >
-                        {phase === "done" ? visual.doneSub(activeItem.title) : visual.idleSub(activeItem.title)}
-                      </motion.span>
-                    </AnimatePresence>
-                  </div>
-                </div>
-              </div>
+                  )}
 
-              <Link
-                ref={buttonRef}
-                href={contactHref}
-                className={cn(
-                  "absolute flex items-center justify-center gap-2 rounded-[8px] bg-[#6B43E8] text-[12px] font-semibold text-white transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#2F2F33]",
-                  reduced ? "" : "hover:brightness-110"
-                )}
-                style={{ left: 21, top: 236, width: 254, height: 36 }}
-                onClick={() => setHasInteracted(true)}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={`btn-${activeItem.id}-${phase}`}
-                    initial={reduced ? false : { opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={reduced ? { opacity: 1 } : { opacity: 0 }}
-                    transition={{ duration: 0.18 }}
-                    className="flex items-center gap-1.5"
+                  {item.src ? (
+                    <Image
+                      src={item.src}
+                      alt={item.alt}
+                      fill
+                      className="object-cover"
+                      loading="lazy"
+                      sizes="(min-width:1024px) 220px, 40vw"
+                    />
+                  ) : (
+                    <div
+                      className="absolute inset-0 flex flex-col items-center justify-center p-3"
+                      style={{
+                        background: isPortrait
+                          ? "linear-gradient(180deg, #E8E4E0 0%, #D4D0CC 100%)"
+                          : "linear-gradient(180deg, #E0DCD8 0%, #CCC8C4 100%)",
+                      }}
+                    >
+                      {isPortrait ? (
+                        <div className="w-full h-full border-2 border-dashed border-[#B0ABA5] rounded-lg flex flex-col gap-2 p-2">
+                          <div className="h-2 bg-[#A09C96] rounded w-1/2" />
+                          <div className="h-2 bg-[#A09C96] rounded w-3/4" />
+                          <div className="h-2 bg-[#A09C96] rounded w-1/2" />
+                        </div>
+                      ) : (
+                        <div className="w-full h-full border-2 border-dashed border-[#B0ABA5] rounded-lg flex flex-col gap-2 p-2">
+                          <div className="h-3 bg-[#A09C96] rounded flex gap-1 mb-2">
+                            <div className="w-2 h-2 rounded-full bg-[#8C8884]" />
+                            <div className="w-2 h-2 rounded-full bg-[#8C8884]" />
+                            <div className="w-2 h-2 rounded-full bg-[#8C8884]" />
+                          </div>
+                          <div className="h-8 bg-[#A09C96] rounded" />
+                          <div className="h-8 bg-[#A09C96] rounded" />
+                          <div className="h-8 bg-[#A09C96] rounded" />
+                        </div>
+                      )}
+                      <span className="absolute bottom-2 left-2 right-2 text-[9px] text-[#8C8884] text-center leading-tight">
+                        {item.shotLabel}
+                      </span>
+                    </div>
+                  )}
+
+                  <div
+                    className={cn(
+                      "absolute bottom-2 left-2 rounded-full px-2 py-0.5 text-[10px] text-white backdrop-blur",
+                      isActive ? "bg-black/55" : "bg-black/40"
+                    )}
                   >
-                    {phase === "done" && <Check className="h-[14px] w-[14px]" aria-hidden="true" />}
-                    {phase === "done" ? visual.buttonDone : visual.button}
-                  </motion.span>
-                </AnimatePresence>
-                {ripple > 0 && !reduced && (
-                  <motion.span
-                    key={ripple}
-                    className="pointer-events-none absolute inset-0 rounded-[8px] border-[1.5px]"
-                    style={{ borderColor: "rgba(155,149,255,.7)" }}
-                    initial={{ scale: 1, opacity: 0.7 }}
-                    animate={{ scale: 1.8, opacity: 0 }}
-                    transition={{ duration: 0.7, ease: "easeOut" }}
-                  />
-                )}
-              </Link>
-            </div>
-          </motion.div>
-
-          {!reduced && (
-            <motion.div
-              className="pointer-events-none absolute z-20"
-              style={{ x: cursorPos.x, y: cursorPos.y }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, x: cursorPos.x, y: cursorPos.y }}
-              transition={{ type: "spring", stiffness: 120, damping: 20 }}
-            >
-              <motion.div
-                animate={phase === "press" ? { scale: [1, 0.88, 1] } : { scale: 1 }}
-                transition={{ duration: 0.18 }}
-                style={{ transformOrigin: "2px 2px" }}
-              >
-                <Cursor clickKey={ripple} reduced={reduced} className="h-[52px] w-[52px]" />
-              </motion.div>
-            </motion.div>
-          )}
+                    {item.tag}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </motion.div>
       </div>
-      <p className="sr-only">{visual.caption}</p>
     </div>
   );
 }

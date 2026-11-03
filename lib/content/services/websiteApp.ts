@@ -93,6 +93,16 @@ export type WebsiteAppPortfolioCard = {
   alt: string;
 };
 
+export type WebsiteAppCollageItem = {
+  id: string;
+  label: string;
+  tag: string;
+  ratio: "landscape" | "portrait";
+  src?: string;
+  alt: string;
+  shotLabel: string;
+};
+
 export type WebsiteAppPortfolio = {
   eyebrow: string;
   heading: string;
@@ -127,6 +137,8 @@ export type WebsiteAppContent = {
   whatWeBuild: WebsiteAppWhatWeBuild;
   deliverables: WebsiteAppDeliverables;
   portfolio: WebsiteAppPortfolio;
+  heroCollage: WebsiteAppCollageItem[];
+  collageForBuild: Record<string, string>;
 };
 
 const emiEnabled = true;
@@ -437,6 +449,70 @@ export const websiteApp: WebsiteAppContent = {
         src: "/website-sampleworks/UI.webp",
       },
     ],
+  },
+  heroCollage: [
+    {
+      id: "c1",
+      label: "Business website",
+      tag: "Website",
+      ratio: "landscape",
+      src: "/website-sampleworks/business_website.webp",
+      alt: "Business website design",
+      shotLabel: "Add: business website homepage (landscape 3:2, 1400x940)",
+    },
+    {
+      id: "c2",
+      label: "Online store",
+      tag: "Online store",
+      ratio: "portrait",
+      src: "/website-sampleworks/product-page.webp",
+      alt: "Online store design",
+      shotLabel: "Add: online store page (portrait 3:4, 900x1200)",
+    },
+    {
+      id: "c3",
+      label: "Mobile app",
+      tag: "Mobile app",
+      ratio: "portrait",
+      src: "/website-sampleworks/mobile-app-screen.webp",
+      alt: "Mobile app screen design",
+      shotLabel: "Add: mobile app screen (portrait 9:16, 750x1330)",
+    },
+    {
+      id: "c4",
+      label: "Web application",
+      tag: "Web app",
+      ratio: "landscape",
+      src: "/website-sampleworks/webapp.webp",
+      alt: "Web application interface",
+      shotLabel: "Add: web app dashboard (landscape 3:2, 1400x940)",
+    },
+    {
+      id: "c5",
+      label: "Customer portal",
+      tag: "Portal",
+      ratio: "landscape",
+      src: "/website-sampleworks/customer Panel.webp",
+      alt: "Customer portal design",
+      shotLabel: "Add: customer portal (landscape 3:2, 1400x940)",
+    },
+    {
+      id: "c6",
+      label: "UI/UX design",
+      tag: "UI/UX",
+      ratio: "portrait",
+      src: "/website-sampleworks/UI.webp",
+      alt: "UI/UX prototype design",
+      shotLabel: "Add: UI/UX prototype screen (portrait 3:4, 900x1200)",
+    },
+  ],
+  collageForBuild: {
+    websites: "c1",
+    ecommerce: "c2",
+    mobile: "c3",
+    webapp: "c4",
+    portals: "c5",
+    saas: "c6",
   },
 };
 
