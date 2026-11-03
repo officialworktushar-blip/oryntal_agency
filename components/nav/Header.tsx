@@ -10,6 +10,14 @@ import MegaMenu from "@/components/nav/MegaMenu";
 import MobileDrawer from "@/components/nav/MobileDrawer";
 import { cn } from "@/lib/cn";
 
+const TRANSPARENT_TOP_ROUTES = [
+  "/",
+  "/services/business-packages",
+  "/services/individual-services",
+  "/services/consultation",
+  "/services/consultation/three-month-engagement",
+];
+
 function NavLink({ href, label }: { href: string; label: string }) {
   const pathname = usePathname();
   const active = pathname === href;
@@ -38,11 +46,15 @@ export default function Header() {
   const pathname = usePathname();
   const [megaOpen, setMegaOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const isTransparentTop = TRANSPARENT_TOP_ROUTES.includes(pathname as (typeof TRANSPARENT_TOP_ROUTES)[number]);
 
   return (
     <>
       <header
-        className="sticky top-0 z-50 border-b border-white/[0.08]"
+        className={cn(
+          "sticky top-0 z-50",
+          isTransparentTop ? "border-b border-transparent" : "border-b border-white/[0.08]"
+        )}
         onMouseLeave={() => setMegaOpen(false)}
       >
         <div

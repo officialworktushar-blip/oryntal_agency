@@ -107,7 +107,7 @@ export const menuDomains: NavMenuDomain[] = [
     href: "/services/consultation",
     items: [
       {
-        href: "/services/consultation",
+        href: "/services/consultation/three-month-engagement",
         label: "Three-Month Engagement",
         description: "Discovery to launch with one dedicated team.",
         icon: CalendarRange,
