@@ -1,10 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Bot,
-  Brain,
   CalendarRange,
-  ClipboardCheck,
-  Database,
   FileText,
   Globe,
   LineChart,
@@ -101,18 +98,6 @@ export const menuDomains: NavMenuDomain[] = [
         description: "Review collection and reputation system.",
         icon: QrCode,
       },
-      {
-        href: "/services/products",
-        label: "Client Database & Call-Handling System",
-        description: "Shared inbox, call logging, and client records.",
-        icon: Database,
-      },
-      {
-        href: "/services/products",
-        label: "Industry-Specific Recommendation System",
-        description: "A recommendation engine tuned to your catalogue.",
-        icon: Brain,
-      },
     ],
   },
   {
@@ -126,12 +111,6 @@ export const menuDomains: NavMenuDomain[] = [
         label: "Three-Month Engagement",
         description: "Discovery to launch with one dedicated team.",
         icon: CalendarRange,
-      },
-      {
-        href: "/services/consultation",
-        label: "Business & Systems Evaluation",
-        description: "Audit of processes, tools, and opportunities.",
-        icon: ClipboardCheck,
       },
       {
         href: "/services/consultation",
