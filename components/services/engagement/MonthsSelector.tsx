@@ -25,7 +25,6 @@ import {
   CheckCheck,
   ArrowRight,
   ArrowUpRight,
-  ChevronDown,
   ShieldCheck,
   Boxes,
 } from "lucide-react";
@@ -56,33 +55,43 @@ export default function MonthsSelector() {
   const gridRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { amount: 0.35, once: false });
 
+  const [activeMonthId, setActiveMonthId] = useState("m1");
   const [activeId, setActiveId] = useState("m1-model");
   const [paused, setPaused] = useState(false);
   const [copied, setCopied] = useState(false);
   const [typedText, setTypedText] = useState("");
   const [showComments, setShowComments] = useState(false);
+  const [monthAnnouncement, setMonthAnnouncement] = useState("");
 
   const allTasks = useMemo(() => {
-    const tasks: Array<{ task: typeof engagementMonths.months[0]["tasks"][0]; monthLabel: string; monthTitle: string; monthNumber: number }> = [];
+    const tasks: Array<{ task: typeof engagementMonths.months[0]["tasks"][0]; monthLabel: string; monthTitle: string; monthNumber: number; monthId: string }> = [];
     engagementMonths.months.forEach((month, monthIdx) => {
       month.tasks.forEach((task) => {
-        tasks.push({ task, monthLabel: month.label, monthTitle: month.title, monthNumber: monthIdx + 1 });
+        tasks.push({ task, monthLabel: month.label, monthTitle: month.title, monthNumber: monthIdx + 1, monthId: month.id });
       });
     });
     return tasks;
   }, []);
 
+  const activeMonth = useMemo(() => {
+    return engagementMonths.months.find((m) => m.id === activeMonthId);
+  }, [activeMonthId]);
+
   const activeTask = useMemo(() => {
-    return allTasks.find((t) => t.task.id === activeId)?.task;
-  }, [activeId, allTasks]);
+    return activeMonth?.tasks.find((t) => t.id === activeId);
+  }, [activeId, activeMonth]);
 
   const activeMonthData = useMemo(() => {
     return allTasks.find((t) => t.task.id === activeId);
   }, [activeId, allTasks]);
 
-  const focusedIndex = useMemo(() => {
-    return allTasks.findIndex((t) => t.task.id === activeId);
-  }, [activeId, allTasks]);
+  const focusedTaskIndex = useMemo(() => {
+    return activeMonth?.tasks.findIndex((t) => t.id === activeId) ?? 0;
+  }, [activeId, activeMonth]);
+
+  const focusedMonthIndex = useMemo(() => {
+    return engagementMonths.months.findIndex((m) => m.id === activeMonthId);
+  }, [activeMonthId]);
 
   const handleCopy = useCallback(async () => {
     const text = `ORYNTAL: Three-Month Engagement\nMonth: ${activeMonthData?.monthLabel} (${activeMonthData?.monthTitle})\nTask: ${activeTask?.label}\nWhat I want to achieve: `;
@@ -103,6 +112,21 @@ export default function MonthsSelector() {
       setTimeout(() => setCopied(false), 1800);
     }
   }, [activeMonthData, activeTask]);
+
+  const handleMonthSelect = useCallback((monthId: string) => {
+    const month = engagementMonths.months.find((m) => m.id === monthId);
+    if (month && month.tasks.length > 0) {
+      setActiveMonthId(monthId);
+      setActiveId(month.tasks[0].id);
+      setPaused(true);
+      setMonthAnnouncement(`Showing Month ${engagementMonths.months.findIndex((m) => m.id === monthId) + 1}: ${month.title}`);
+    }
+  }, []);
+
+  const handleTaskSelect = useCallback((taskId: string) => {
+    setActiveId(taskId);
+    setPaused(true);
+  }, []);
 
   useEffect(() => {
     if (reduced) {
@@ -138,33 +162,57 @@ export default function MonthsSelector() {
     if (paused) return;
 
     const interval = setInterval(() => {
-      setActiveId((prev) => {
-        const currentIndex = allTasks.findIndex((t) => t.task.id === prev);
+      setActiveId((prevTaskId) => {
+        const currentIndex = allTasks.findIndex((t) => t.task.id === prevTaskId);
         const nextIndex = (currentIndex + 1) % allTasks.length;
-        return allTasks[nextIndex].task.id;
+        const nextTask = allTasks[nextIndex];
+
+        if (nextTask.monthId !== activeMonthId) {
+          setActiveMonthId(nextTask.monthId);
+          setMonthAnnouncement(`Showing Month ${nextTask.monthNumber}: ${nextTask.monthTitle}`);
+        }
+
+        return nextTask.task.id;
       });
     }, 6000);
 
     return () => clearInterval(interval);
-  }, [inView, paused, allTasks, reduced]);
+  }, [inView, paused, allTasks, activeMonthId, reduced]);
 
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    let nextIndex = focusedIndex;
-    if (e.key === "ArrowDown") {
-      nextIndex = (focusedIndex + 1) % allTasks.length;
-    } else if (e.key === "ArrowUp") {
-      nextIndex = (focusedIndex - 1 + allTasks.length) % allTasks.length;
+  const handleMonthKeyDown = useCallback((e: React.KeyboardEvent) => {
+    let nextIndex = focusedMonthIndex;
+    if (e.key === "ArrowRight") {
+      nextIndex = (focusedMonthIndex + 1) % engagementMonths.months.length;
+    } else if (e.key === "ArrowLeft") {
+      nextIndex = (focusedMonthIndex - 1 + engagementMonths.months.length) % engagementMonths.months.length;
     } else if (e.key === "Home") {
       nextIndex = 0;
     } else if (e.key === "End") {
-      nextIndex = allTasks.length - 1;
+      nextIndex = engagementMonths.months.length - 1;
     } else {
       return;
     }
     e.preventDefault();
-    setActiveId(allTasks[nextIndex].task.id);
-    setPaused(true);
-  }, [focusedIndex, allTasks]);
+    handleMonthSelect(engagementMonths.months[nextIndex].id);
+  }, [focusedMonthIndex, handleMonthSelect]);
+
+  const handleTaskKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (!activeMonth) return;
+    let nextIndex = focusedTaskIndex;
+    if (e.key === "ArrowDown") {
+      nextIndex = (focusedTaskIndex + 1) % activeMonth.tasks.length;
+    } else if (e.key === "ArrowUp") {
+      nextIndex = (focusedTaskIndex - 1 + activeMonth.tasks.length) % activeMonth.tasks.length;
+    } else if (e.key === "Home") {
+      nextIndex = 0;
+    } else if (e.key === "End") {
+      nextIndex = activeMonth.tasks.length - 1;
+    } else {
+      return;
+    }
+    e.preventDefault();
+    handleTaskSelect(activeMonth.tasks[nextIndex].id);
+  }, [activeMonth, focusedTaskIndex, handleTaskSelect]);
 
   return (
     <section
@@ -214,63 +262,128 @@ export default function MonthsSelector() {
           onFocus={() => setPaused(true)}
           onBlur={() => setPaused(false)}
         >
-          <div
-            role="tablist"
-            aria-orientation="vertical"
-            className="flex flex-col gap-2.5"
-            onKeyDown={handleKeyDown}
-          >
-            {engagementMonths.months.map((month, monthIdx) => (
-              <div key={month.id}>
-                <div className="flex items-center gap-3 px-1 mt-3 first:mt-0">
-                  <div
-                    className="grid h-[26px] w-[26px] place-items-center rounded-full text-[11px] font-semibold"
-                    style={{ background: "rgba(139,124,255,0.18)", border: "1px solid rgba(139,124,255,0.4)", color: "#CFC4FF" }}
+          <div className="lg:min-h-[420px]">
+            <div
+              role="tablist"
+              aria-label="Engagement months"
+              className="grid grid-cols-3 gap-2"
+              onKeyDown={handleMonthKeyDown}
+            >
+              {engagementMonths.months.map((month, monthIdx) => {
+                const isActive = month.id === activeMonthId;
+                return (
+                  <button
+                    key={month.id}
+                    role="tab"
+                    id={`eng-month-tab-${month.id}`}
+                    aria-selected={isActive}
+                    aria-controls="eng-month-list"
+                    tabIndex={isActive ? 0 : -1}
+                    onClick={() => handleMonthSelect(month.id)}
+                    className="relative h-[64px] px-3 flex flex-col items-center justify-center text-center rounded-[14px] transition-all duration-200"
+                    style={{
+                      background: isActive ? "#232327" : "#17171A",
+                      border: isActive ? "1.5px solid #8B7CFF" : "1px solid rgba(255,255,255,0.08)",
+                    }}
                   >
-                    {monthIdx + 1}
-                  </div>
-                  <span className="text-[13px] uppercase tracking-[0.16em] text-white/55">{month.label}</span>
-                  <span className="text-[14px] font-medium text-white/85 truncate">{month.title}</span>
-                </div>
-
-                <div className="mt-2 space-y-1.5">
-                  {month.tasks.map((task) => {
-                    const isActive = task.id === activeId;
-                    const Icon = ICONS[task.icon];
-                    return (
-                      <button
-                        key={task.id}
-                        role="tab"
-                        id={`tab-${task.id}`}
-                        aria-selected={isActive}
-                        aria-controls="eng-panel"
-                        tabIndex={isActive ? 0 : -1}
-                        onClick={() => setActiveId(task.id)}
-                        className="relative h-[58px] w-full rounded-[14px] px-4 flex items-center gap-3.5 text-left text-[16px] font-medium transition-all duration-200"
-                        style={{
-                          background: isActive ? "#232327" : "#17171A",
-                          border: isActive ? "1.5px solid #8B7CFF" : "1px solid rgba(255,255,255,0.08)",
-                          color: isActive ? "white" : "rgba(255,255,255,0.9)",
-                          boxShadow: isActive ? "0 0 0 1px rgba(139,124,255,0.25), 0 8px 24px rgba(99,61,230,0.18)" : "none",
-                        }}
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="grid h-[22px] w-[22px] place-items-center rounded-full text-[11px] font-semibold"
+                        style={{ background: "rgba(139,124,255,0.18)", border: "1px solid rgba(139,124,255,0.4)", color: "#CFC4FF" }}
                       >
-                        <Icon className="size-[19px]" style={{ color: isActive ? "#8B7CFF" : "rgba(255,255,255,0.65)" }} aria-hidden="true" />
-                        <span className="flex-1 truncate">{task.label}</span>
-                        <ArrowRight className="size-[17px]" style={{ color: isActive ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.4)" }} aria-hidden="true" />
-                        {isActive && !reduced && (
-                          <motion.div
-                            layoutId="engActive"
-                            className="absolute inset-0 rounded-[14px]"
-                            style={{ pointerEvents: "none" }}
-                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                          />
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
+                        {monthIdx + 1}
+                      </div>
+                      <span
+                        className="text-[13px] font-semibold uppercase tracking-[0.12em]"
+                        style={{ color: isActive ? "white" : "rgba(255,255,255,0.7)" }}
+                      >
+                        {month.label}
+                      </span>
+                    </div>
+                    {isActive && !reduced && (
+                      <motion.div
+                        layoutId="engMonthActive"
+                        className="absolute inset-0 rounded-[14px]"
+                        style={{ pointerEvents: "none", boxShadow: "0 0 0 1px rgba(139,124,255,0.25), 0 8px 24px rgba(99,61,230,0.18)" }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            <AnimatePresence mode="wait">
+              {activeMonth && (
+                <motion.div
+                  key={activeMonthId}
+                  initial={reduced ? false : { opacity: 0.6, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduced ? { opacity: 1 } : { opacity: 0.6, y: -6 }}
+                  transition={{ duration: reduced ? 0.15 : 0.2 }}
+                  className="mt-4 px-1"
+                >
+                  <p className="text-[15px] font-medium text-white/85">{activeMonth.title}</p>
+                  <p className="mt-1 text-[12.5px] text-white/50">{activeMonth.tasks.length} steps</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <AnimatePresence mode="wait">
+              {activeMonth && (
+                <motion.div
+                  key={activeMonthId}
+                  initial={reduced ? false : { opacity: 0.6, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={reduced ? { opacity: 1 } : { opacity: 0.6, x: -8 }}
+                  transition={{ duration: reduced ? 0.15 : 0.24 }}
+                >
+                  <div
+                    id="eng-month-list"
+                    role="tablist"
+                    aria-orientation="vertical"
+                    aria-label="Tasks in the selected month"
+                    className="mt-3 flex flex-col gap-2.5"
+                    onKeyDown={handleTaskKeyDown}
+                  >
+                    {activeMonth.tasks.map((task, taskIdx) => {
+                      const isActive = task.id === activeId;
+                      const Icon = ICONS[task.icon];
+                      return (
+                        <button
+                          key={task.id}
+                          role="tab"
+                          id={`tab-${task.id}`}
+                          aria-selected={isActive}
+                          aria-controls="eng-panel"
+                          tabIndex={isActive ? 0 : -1}
+                          onClick={() => handleTaskSelect(task.id)}
+                          className="relative h-[58px] w-full rounded-[14px] px-4 flex items-center gap-3.5 text-left text-[16px] font-medium transition-all duration-200"
+                          style={{
+                            background: isActive ? "#232327" : "#17171A",
+                            border: isActive ? "1.5px solid #8B7CFF" : "1px solid rgba(255,255,255,0.08)",
+                            color: isActive ? "white" : "rgba(255,255,255,0.9)",
+                            boxShadow: isActive ? "0 0 0 1px rgba(139,124,255,0.25), 0 8px 24px rgba(99,61,230,0.18)" : "none",
+                          }}
+                        >
+                          <Icon className="size-[19px]" style={{ color: isActive ? "#8B7CFF" : "rgba(255,255,255,0.65)" }} aria-hidden="true" />
+                          <span className="flex-1 truncate">{task.label}</span>
+                          <ArrowRight className="size-[17px]" style={{ color: isActive ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.4)" }} aria-hidden="true" />
+                          {isActive && !reduced && (
+                            <motion.div
+                              layoutId="engActive"
+                              className="absolute inset-0 rounded-[14px]"
+                              style={{ pointerEvents: "none" }}
+                              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           <div
@@ -462,6 +575,7 @@ export default function MonthsSelector() {
         </ol>
 
         <div aria-live="polite" className="sr-only">{copied ? "Copied to clipboard" : ""}</div>
+        <div aria-live="polite" className="sr-only">{monthAnnouncement}</div>
       </div>
     </section>
   );

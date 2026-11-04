@@ -486,3 +486,113 @@ export const engagementMonths: EngagementMonthsContent = {
   ],
   srSummary: "A proposed three-month engagement. Month 1: business understanding and planning. Month 2: development and implementation. Month 3: integration, testing and refinement, then deployment or handover as agreed.",
 };
+
+// Bars describe capabilities, not claims of existing clients or results.
+export type EngagementEvaluateBar = {
+  id: string;
+  title: string;
+  description: string;
+  bestFor: string;
+  points: string[];
+  linkLabel: string;
+  href: string;
+};
+
+export type EngagementEvaluateContent = {
+  heading: string;
+  sub: string;
+  chipLabel: string;
+  defaultActive: number;
+  bars: EngagementEvaluateBar[];
+  closing: {
+    text: string;
+    cta: EngagementCta;
+    trust: string;
+  };
+  footnote: string;
+  srSummary: string;
+};
+
+export const engagementEvaluate: EngagementEvaluateContent = {
+  heading: "We look at your whole business, not just the next feature",
+  sub: "Beyond building, we help you see where your systems hold you back and what to improve first. Pick a topic to see how we help.",
+  chipLabel: "Best for:",
+  defaultActive: 1,
+  bars: [
+    {
+      id: "evaluate",
+      title: "Evaluate your systems and workflows",
+      description: "We review the systems and workflows you run today, so you know what is working, what is not, and where the biggest gains are.",
+      bestFor: "Teams that want a clear starting point",
+      points: [
+        "Existing business systems reviewed",
+        "Workflows mapped end to end",
+        "Clear view of what to improve first",
+      ],
+      linkLabel: "Review my systems",
+      href: "/contact?interest=three-month-engagement&topic=evaluate-systems",
+    },
+    {
+      id: "disconnected",
+      title: "Spot disconnected systems",
+      description: "We find tools and processes that do not talk to each other or are hard to maintain, and show how to bring them together.",
+      bestFor: "Teams running on several disconnected tools",
+      points: [
+        "Disconnected or difficult-to-maintain systems identified",
+        "Where information is copied by hand",
+        "Simple ways to connect them",
+      ],
+      linkLabel: "Find the gaps",
+      href: "/contact?interest=three-month-engagement&topic=disconnected-systems",
+    },
+    {
+      id: "architecture",
+      title: "Recommend better architecture",
+      description: "We suggest improvements to how your systems are structured, so they are easier to run, extend, and keep reliable.",
+      bestFor: "Businesses planning to grow their systems",
+      points: [
+        "Architecture improvements recommended",
+        "Easier to maintain and extend",
+        "Suited to your current and future needs",
+      ],
+      linkLabel: "Improve my setup",
+      href: "/contact?interest=three-month-engagement&topic=architecture",
+    },
+    {
+      id: "planning",
+      title: "Plan custom software and automation",
+      description: "We turn your priorities into a clear plan for custom software and automation, so you know what to build and in what order.",
+      bestFor: "Businesses with specific, unique operations",
+      points: [
+        "Custom software planned around your operations",
+        "Automation opportunities prioritised",
+        "A plan you can approve before building",
+      ],
+      linkLabel: "Plan my build",
+      href: "/contact?interest=three-month-engagement&topic=plan-build",
+    },
+    {
+      id: "partners",
+      title: "Coordinate specialists and partners",
+      description: "When your project needs extra expertise, we coordinate external specialists, and connect you with suppliers or partners through our available contacts.",
+      bestFor: "Projects needing outside expertise",
+      points: [
+        "External specialists coordinated when required",
+        "Suppliers and partners connected where suitable",
+        "One point of contact for it all",
+      ],
+      linkLabel: "Bring in the right people",
+      href: "/contact?interest=three-month-engagement&topic=specialists-partners",
+    },
+  ],
+  closing: {
+    text: "Not sure where to start? Tell us how your business runs and we'll show you the simplest next step.",
+    cta: {
+      label: "Book a consultation",
+      href: "/contact?interest=three-month-engagement",
+    },
+    trust: "Scoped and priced in a proposal before we start",
+  },
+  footnote: "Specialist and partner connections are made through ORYNTAL's available contacts, where suitable. Scope, timeline, and pricing are agreed in your proposal.",
+  srSummary: "ORYNTAL evaluates existing business systems and workflows, identifies disconnected or hard-to-maintain systems, recommends architecture improvements, plans custom software and automation solutions, coordinates external specialists when required, and connects businesses with suppliers or partners through available contacts.",
+};
