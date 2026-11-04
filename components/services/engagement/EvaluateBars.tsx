@@ -17,6 +17,9 @@ const AUTOPLAY_MS = 6500;
 const activeLayer =
   "radial-gradient(70% 55% at 100% 100%, rgba(140,120,255,.85) 0%, rgba(140,120,255,0) 70%), linear-gradient(160deg, #2A1B66 0%, #3A24A0 45%, #5B3FD8 100%)";
 
+const collapsedLayer =
+  "linear-gradient(180deg, rgba(255,255,255,.045) 0%, rgba(120,90,255,.10) 100%)";
+
 function Stagger({
   index,
   open,
@@ -159,14 +162,24 @@ export default function EvaluateBars() {
   });
 
   const activeBackground = (open: boolean) => (
-    <motion.div
-      aria-hidden="true"
-      initial={false}
-      animate={{ opacity: open ? 1 : 0 }}
-      transition={reduced ? { duration: 0.15 } : SPRING}
-      className="pointer-events-none absolute inset-0"
-      style={{ backgroundImage: activeLayer }}
-    />
+    <>
+      <motion.div
+        aria-hidden="true"
+        initial={false}
+        animate={{ opacity: open ? 1 : 0 }}
+        transition={reduced ? { duration: 0.15 } : SPRING}
+        className="pointer-events-none absolute inset-0"
+        style={{ backgroundImage: activeLayer }}
+      />
+      <motion.div
+        aria-hidden="true"
+        initial={false}
+        animate={{ opacity: open ? 0 : 1 }}
+        transition={reduced ? { duration: 0.15 } : SPRING}
+        className="pointer-events-none absolute inset-0"
+        style={{ backgroundImage: collapsedLayer }}
+      />
+    </>
   );
 
   const renderContent = (bar: EngagementEvaluateBar, open: boolean, desktop: boolean) => (
@@ -279,6 +292,7 @@ export default function EvaluateBars() {
               borderColor: open ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.06)",
               ...enter.animate,
             }}
+            style={{ flexBasis: 0, backgroundColor: "#140E33" }}
             transition={
               reduced
                 ? {
@@ -289,7 +303,6 @@ export default function EvaluateBars() {
                   }
                 : { ...SPRING, ...enter.transition }
             }
-            style={{ flexBasis: 0 }}
             onPointerEnter={() => scheduleHover(index)}
             onPointerLeave={cancelHover}
             className="eval-bar relative min-w-0 overflow-hidden rounded-[24px] border backdrop-blur-sm"
@@ -352,6 +365,7 @@ export default function EvaluateBars() {
                 ? { height: { duration: 0 }, borderColor: { duration: 0.15 }, ...enter.transition }
                 : { ...SPRING, ...enter.transition }
             }
+            style={{ backgroundColor: "#140E33" }}
             className="eval-bar relative overflow-hidden rounded-[24px] border"
           >
             {activeBackground(open)}
@@ -416,20 +430,10 @@ export default function EvaluateBars() {
           {sub}
         </motion.p>
 
-        {isDesktop ? (
-          <div className="hidden lg:flex">{renderBars()}</div>
-        ) : (
-          <div className="lg:hidden" aria-hidden="true">
-            {renderAccordion()}
-          </div>
-        )}
-        {isDesktop ? (
-          <div className="lg:hidden" aria-hidden="true">
-            {renderAccordion()}
-          </div>
-        ) : (
-          <div className="hidden lg:flex">{renderBars()}</div>
-        )}
+        <div className="hidden lg:flex">{renderBars()}</div>
+        <div className="lg:hidden" aria-hidden="true">
+          {renderAccordion()}
+        </div>
 
         <motion.div
           initial={reduced ? false : { y: 16, opacity: 0.6 }}
