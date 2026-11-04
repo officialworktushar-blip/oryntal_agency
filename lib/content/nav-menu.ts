@@ -113,9 +113,9 @@ export const menuDomains: NavMenuDomain[] = [
         icon: CalendarRange,
       },
       {
-        href: "/services/consultation",
+        href: "/services/custom-proposal",
         label: "Custom Proposal",
-        description: "Scope and price after a free consultation.",
+        description: "Scope and price around your requirements.",
         icon: FileText,
       },
     ],
