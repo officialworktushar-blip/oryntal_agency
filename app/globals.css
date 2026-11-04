@@ -3652,3 +3652,63 @@
   }
 }
 
+@keyframes gs-tile-float {
+  from {
+    transform: translateY(calc(var(--gs-distance, 5px) * -0.5));
+  }
+  to {
+    transform: translateY(calc(var(--gs-distance, 5px) * 0.5));
+  }
+}
+
+@keyframes gs-glow-pulse {
+  from {
+    box-shadow: 0 0 22px rgba(124, 92, 232, 0.3);
+  }
+  to {
+    box-shadow: 0 0 36px rgba(124, 92, 232, 0.55);
+  }
+}
+
+@keyframes gs-cursor-float {
+  from {
+    transform: translateY(-3px);
+  }
+  to {
+    transform: translateY(4px);
+  }
+}
+
+@keyframes gs-plus-pulse {
+  from {
+    opacity: 0.78;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gs-tile {
+    animation: gs-tile-float var(--gs-duration, 6s) ease-in-out var(--gs-delay, 0s)
+      infinite alternate;
+    will-change: transform;
+  }
+
+  .gs-tile-active {
+    animation:
+      gs-tile-float var(--gs-duration, 6s) ease-in-out var(--gs-delay, 0s)
+        infinite alternate,
+      gs-glow-pulse 3.2s ease-in-out infinite alternate;
+    will-change: transform, box-shadow;
+  }
+
+  .gs-cursor {
+    animation: gs-cursor-float 4s ease-in-out infinite alternate;
+  }
+
+  .gs-plus-grid {
+    animation: gs-plus-pulse 10s ease-in-out infinite alternate;
+  }
+}
+

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import GetStarted from "@/components/services/custom-proposal/GetStarted";
 import GrowYourBusiness from "@/components/services/custom-proposal/GrowYourBusiness";
 import SampleRequests from "@/components/services/custom-proposal/SampleRequests";
 import ScopeBuilder from "@/components/services/custom-proposal/ScopeBuilder";
@@ -131,6 +132,8 @@ export default function CustomProposalPage() {
       <WhyOryntal />
 
       <ScopeBuilder />
+
+      <GetStarted />
     </main>
   );
 }
