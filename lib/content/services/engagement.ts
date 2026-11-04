@@ -596,3 +596,92 @@ export const engagementEvaluate: EngagementEvaluateContent = {
   footnote: "Specialist and partner connections are made through ORYNTAL's available contacts, where suitable. Scope, timeline, and pricing are agreed in your proposal.",
   srSummary: "ORYNTAL evaluates existing business systems and workflows, identifies disconnected or hard-to-maintain systems, recommends architecture improvements, plans custom software and automation solutions, coordinates external specialists when required, and connects businesses with suppliers or partners through available contacts.",
 };
+
+// Bars describe capabilities, not claims of existing clients or results.
+export type EngagementClosingTab = {
+  id: string;
+  label: string;
+  icon: "Search" | "Hammer" | "Rocket" | "PackageCheck";
+  prompts: [string, string, string];
+};
+
+export type EngagementClosingContent = {
+  eyebrow: string;
+  heading: string;
+  sub: string;
+  ctaRow: {
+    label: string;
+    href: string;
+  };
+  link: {
+    label: string;
+    href: string;
+  };
+  trust: string;
+  note: string;
+  tabs: EngagementClosingTab[];
+  cardChipLabel: string;
+  badgeText: string;
+  srSummary: string;
+};
+
+export const engagementClosing: EngagementClosingContent = {
+  eyebrow: "Book a consultation",
+  heading: "Your business, your plan. Let's start with a conversation.",
+  sub: "Tell us how your business runs today. We'll map a clear three-month plan around it, from understanding to a working system.",
+  ctaRow: {
+    label: "Book a consultation",
+    href: "/contact?interest=three-month-engagement",
+  },
+  link: {
+    label: "Compare all services",
+    href: "/services",
+  },
+  trust: "Scoped and priced in a proposal before we start",
+  note: "The timeline can be adjusted to project complexity, dependencies, and your requirements. Scope, features, and pricing are agreed in your proposal.",
+  tabs: [
+    {
+      id: "m1",
+      label: "Month 1",
+      icon: "Search",
+      prompts: [
+        "Understand how my business works",
+        "Find where time is being lost",
+        "Agree the solution and scope",
+      ],
+    },
+    {
+      id: "m2",
+      label: "Month 2",
+      icon: "Hammer",
+      prompts: [
+        "Build the systems we agreed",
+        "Connect my tools and services",
+        "Set up my dashboards and panels",
+      ],
+    },
+    {
+      id: "m3",
+      label: "Month 3",
+      icon: "Rocket",
+      prompts: [
+        "Test my major workflows",
+        "Refine it with my feedback",
+        "Fix issues within the agreed scope",
+      ],
+    },
+    {
+      id: "handover",
+      label: "Handover",
+      icon: "PackageCheck",
+      prompts: [
+        "Prepare my system for launch",
+        "Walk my team through it",
+        "Confirm the next steps together",
+      ],
+    },
+  ],
+  cardChipLabel: "Plan",
+  badgeText: "BOOK A CONSULTATION",
+  srSummary: "Book a consultation to plan a three-month engagement: Month 1 understanding and planning, Month 2 building and connecting systems, Month 3 testing and refinement, then handover as agreed.",
+};
