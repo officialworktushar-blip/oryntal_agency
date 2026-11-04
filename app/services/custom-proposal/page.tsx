@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SampleRequests from "@/components/services/custom-proposal/SampleRequests";
 import WhatWeBuild from "@/components/services/custom-proposal/WhatWeBuild";
 
 const title = "Custom Proposal | ORYNTAL";
@@ -119,6 +120,8 @@ export default function CustomProposalPage() {
       </section>
 
       <WhatWeBuild />
+
+      <SampleRequests />
     </main>
   );
 }
