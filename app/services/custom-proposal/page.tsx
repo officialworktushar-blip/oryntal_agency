@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import GrowYourBusiness from "@/components/services/custom-proposal/GrowYourBusiness";
 import SampleRequests from "@/components/services/custom-proposal/SampleRequests";
+import ScopeBuilder from "@/components/services/custom-proposal/ScopeBuilder";
 import WhatWeBuild from "@/components/services/custom-proposal/WhatWeBuild";
 import WhyOryntal from "@/components/services/custom-proposal/WhyOryntal";
 
@@ -128,6 +129,8 @@ export default function CustomProposalPage() {
       <GrowYourBusiness />
 
       <WhyOryntal />
+
+      <ScopeBuilder />
     </main>
   );
 }
