@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import GrowYourBusiness from "@/components/services/custom-proposal/GrowYourBusiness";
 import SampleRequests from "@/components/services/custom-proposal/SampleRequests";
 import WhatWeBuild from "@/components/services/custom-proposal/WhatWeBuild";
 
@@ -122,6 +123,8 @@ export default function CustomProposalPage() {
       <WhatWeBuild />
 
       <SampleRequests />
+
+      <GrowYourBusiness />
     </main>
   );
 }

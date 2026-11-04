@@ -3455,3 +3455,29 @@
   }
 }
 
+@keyframes gyb-drift {
+  from {
+    transform: translateX(-6px);
+  }
+  to {
+    transform: translateX(6px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gyb-row-1 {
+    animation: gyb-drift 8s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .gyb-row-2 {
+    animation: gyb-drift 10s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .gyb-row-3 {
+    animation: gyb-drift 12s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+}
+
