@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import EngagementHero from "@/components/services/engagement/Hero";
 import PlanBanner from "@/components/services/engagement/PlanBanner";
+import MonthsSelector from "@/components/services/engagement/MonthsSelector";
 
 export const metadata: Metadata = {
   title: "Three-Month Engagement | Custom Business Consultation & Development | ORYNTAL",
@@ -69,6 +70,7 @@ export default function ThreeMonthEngagementPage() {
       <main>
         <EngagementHero />
         <PlanBanner />
+        <MonthsSelector />
         {/* TODO next: what we evaluate, FAQ, closing CTA */}
       </main>
     </>
