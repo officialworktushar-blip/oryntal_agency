@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import GrowYourBusiness from "@/components/services/custom-proposal/GrowYourBusiness";
 import SampleRequests from "@/components/services/custom-proposal/SampleRequests";
 import WhatWeBuild from "@/components/services/custom-proposal/WhatWeBuild";
+import WhyOryntal from "@/components/services/custom-proposal/WhyOryntal";
 
 const title = "Custom Proposal | ORYNTAL";
 const description =
@@ -125,6 +126,8 @@ export default function CustomProposalPage() {
       <SampleRequests />
 
       <GrowYourBusiness />
+
+      <WhyOryntal />
     </main>
   );
 }
