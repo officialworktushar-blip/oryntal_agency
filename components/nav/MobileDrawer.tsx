@@ -17,7 +17,7 @@ type MobileDrawerProps = {
 const links = [
   { href: "/", label: "Home" },
   { href: "/services", label: "About" },
-  { href: "/#how-it-works", label: "Case Study" },
+  { href: "/services/individual-services/website-and-app-development", label: "Case Study" },
   { href: "/contact", label: "Contact" },
 ];
 

@@ -84,7 +84,7 @@ export default function Header() {
             <NavLink href="/" label="Home" />
             <MegaMenu open={megaOpen} onOpenChange={setMegaOpen} />
             <NavLink href="/services" label="About" />
-            <NavLink href="/#how-it-works" label="Case Study" />
+            <NavLink href="/services/individual-services/website-and-app-development" label="Case Study" />
             <NavLink href="/contact" label="Contact" />
           </nav>
 

@@ -61,7 +61,7 @@ export default function Footer() {
           <h3 className="text-sm font-semibold text-ink">Company</h3>
           <ul className="mt-4 flex flex-col gap-2.5">
             <li>
-              <Link href="/#how-it-works" className="link-muted">
+              <Link href="/services/individual-services/website-and-app-development" className="link-muted">
                 Case Study
               </Link>
             </li>
