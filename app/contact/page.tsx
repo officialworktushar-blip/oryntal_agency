@@ -10,7 +10,7 @@ import {
   Send,
   MapPin,
 } from "lucide-react";
-import PageHeader from "@/components/PageHeader";
+import ContactHero from "@/components/contact/ContactHero";
 import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
 import { businessAutomation } from "@/lib/content/packages/businessAutomation";
@@ -39,13 +39,9 @@ export default function ContactPage() {
 
   return (
     <>
-      <PageHeader
-        eyebrow="Contact"
-        title="Let's plan your 3-month Custom Business Consultation"
-        description="Tell us about your business and the challenges you're looking to solve. We'll get back to you with a clear next step within one business day."
-      />
+      <ContactHero />
 
-      <section className="container-x py-16 lg:py-20">
+      <section id="contact-form" className="container-x scroll-mt-24 py-16 lg:py-20">
         <div className="grid gap-8 lg:grid-cols-5">
           {/* Left: Contact Info */}
           <Reveal className="lg:col-span-2">
