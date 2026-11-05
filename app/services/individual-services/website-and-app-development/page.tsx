@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import WebAppHero from "@/components/services/website-app/Hero";
+import ProjectCollageHero from "@/components/ProjectCollageHero";
 import WhatWeBuild from "@/components/services/website-app/WhatWeBuild";
 import Deliverables from "@/components/services/website-app/Deliverables";
 import Portfolio from "@/components/services/website-app/Portfolio";
@@ -113,7 +113,7 @@ export default function WebsiteAndAppDevelopmentPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(deliverablesList) }}
       />
 
-      <WebAppHero />
+      <ProjectCollageHero />
 
       <WhatWeBuild data={websiteApp.whatWeBuild} />
 
