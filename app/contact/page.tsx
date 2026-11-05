@@ -11,6 +11,7 @@ import {
   MapPin,
 } from "lucide-react";
 import ContactHero from "@/components/contact/ContactHero";
+import EnquiryForm from "@/components/contact/EnquiryForm";
 import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
 import { businessAutomation } from "@/lib/content/packages/businessAutomation";
@@ -40,6 +41,10 @@ export default function ContactPage() {
   return (
     <>
       <ContactHero />
+
+      <Suspense fallback={null}>
+        <EnquiryForm />
+      </Suspense>
 
       <section id="contact-form" className="container-x scroll-mt-24 py-16 lg:py-20">
         <div className="grid gap-8 lg:grid-cols-5">

@@ -41,7 +41,7 @@ export default function ContactHero() {
   }, []);
 
   function handleScrollToForm(event: React.MouseEvent<HTMLAnchorElement>) {
-    const target = document.getElementById("contact-form");
+    const target = document.getElementById("enquiry");
     if (!target) return;
     event.preventDefault();
     target.scrollIntoView({
@@ -121,7 +121,7 @@ export default function ContactHero() {
             </p>
 
             <a
-              href="#contact-form"
+              href="#enquiry"
               onClick={handleScrollToForm}
               className="group mt-10 inline-flex items-center gap-2 rounded-xl bg-[#673DE6] px-10 py-4 text-lg font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#5025D1] hover:shadow-[0_12px_32px_rgba(99,61,230,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6]/50 focus-visible:ring-offset-2"
             >
