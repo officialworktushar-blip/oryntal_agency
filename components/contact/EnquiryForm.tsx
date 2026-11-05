@@ -3,7 +3,6 @@
 // Form data is not sent anywhere yet. Connect onSubmit to your email/CRM/API.
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   Package,
@@ -71,7 +70,6 @@ async function submitEnquiry(payload: EnquiryPayload): Promise<void> {
 }
 
 export default function EnquiryForm() {
-  const searchParams = useSearchParams();
   const reduceMotion = useReducedMotion();
 
   const [step, setStep] = useState(0);
@@ -134,9 +132,10 @@ export default function EnquiryForm() {
     if (didPrefill.current) return;
     didPrefill.current = true;
 
-    const interest = searchParams.get("interest") ?? "";
-    const topic = searchParams.get("topic") ?? "";
-    const message = searchParams.get("message");
+    const params = new URLSearchParams(window.location.search);
+    const interest = params.get("interest") ?? "";
+    const topic = params.get("topic") ?? "";
+    const message = params.get("message");
 
     let nextDomain: string | null = null;
     let nextOption: string | null = null;
@@ -194,7 +193,7 @@ export default function EnquiryForm() {
     if (message) {
       setValues((previous) => ({ ...previous, message }));
     }
-  }, [searchParams, allOptionIds]);
+  }, [allOptionIds]);
 
   useEffect(() => {
     if (status === "sent") {
