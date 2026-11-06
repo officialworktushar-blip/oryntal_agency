@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import AboutHero from "@/components/about/AboutHero";
 import AboutWhyOryntal from "@/components/about/AboutWhyOryntal";
 import AboutBuildup from "@/components/about/AboutBuildup";
+import AboutProcess from "@/components/about/AboutProcess";
 import AboutGlobe from "@/components/about/AboutGlobe";
 
 const title = "About | ORYNTAL";
@@ -22,6 +23,7 @@ export default function AboutPage() {
       <AboutHero />
       <AboutWhyOryntal />
       <AboutBuildup />
+      <AboutProcess />
       <AboutGlobe />
     </main>
   );
