@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import ContactHero from "@/components/contact/ContactHero";
 import EnquiryForm from "@/components/contact/EnquiryForm";
+import Team from "@/components/home/Team";
 
 export default function ContactPage() {
   return (
@@ -9,6 +10,7 @@ export default function ContactPage() {
       <Suspense fallback={null}>
         <EnquiryForm />
       </Suspense>
+      <Team />
     </>
   );
 }
