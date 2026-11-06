@@ -60,6 +60,20 @@ const DEMO_ACCENTS = [
   "#6366f1",
 ];
 
+// PLACEHOLDER: replace with real client quotes, with the client's permission, before publishing.
+const TESTIMONIALS = [
+  { businessType: "Online store", quote: "Add a real client quote here about their website or online store, in their own words.", name: "Client name", initials: "CN", role: "Owner, retail business", href: "" },
+  { businessType: "Clinic", quote: "Add a real client quote here about bookings, reminders or WhatsApp replies.", name: "Client name", initials: "CN", role: "Clinic owner", href: "" },
+  { businessType: "Wholesale business", quote: "Add a real client quote here about order tracking or supplier sourcing.", name: "Client name", initials: "CN", role: "Founder, wholesale business", href: "" },
+  { businessType: "Working with ORYNTAL", quote: "Add a real client quote here about the process: the clear proposal, the updates and the delivery.", name: "Client name", initials: "CN", role: "Business owner", href: "" },
+];
+
+// To add photos, put transparent PNG or WebP cut-outs in /public/testimonials/ and set src, for example "/testimonials/client-left.png".
+const LEFT_PHOTO = { src: "", alt: "" };
+const RIGHT_PHOTO = { src: "", alt: "" };
+
+const AVATAR_COLORS = ["#c9b8ff", "#a5e3dc", "#a9d8f5", "#fbd5b5"];
+
 const chipIcons = [
   // monitor / website
   <svg key="web" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="size-3.5">
@@ -232,6 +246,100 @@ function DemoPreview({
               }}
             />
           </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TestimonialCard({
+  item,
+  index,
+}: {
+  item: (typeof TESTIMONIALS)[number];
+  index: number;
+}) {
+  return (
+    <article className="cxf-reveal rounded-[20px] bg-white p-[30px] shadow-[0_10px_40px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(124,92,232,0.30)]">
+      <span className="inline-flex rounded-full bg-[#f1edff] px-3.5 py-1 text-[13px] font-semibold text-[#5b3de0]">
+        {item.businessType}
+      </span>
+      <p className="mt-4 text-[18px] font-light leading-[1.5] text-[#0d0d0f] md:text-[20px]">
+        &ldquo;{item.quote}&rdquo;
+      </p>
+      <div className="mt-8 flex items-center gap-4">
+        <span
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-[14px] font-medium text-[#0d0d0f]"
+          style={{ background: AVATAR_COLORS[index % AVATAR_COLORS.length] }}
+        >
+          {item.initials}
+        </span>
+        <div className="min-w-0">
+          <p className="text-[18px] font-bold text-[#0d0d0f]">{item.name}</p>
+          <p className="text-[14px] text-[#6b6b76]">{item.role}</p>
+        </div>
+        {item.href ? (
+          <Link
+            href={item.href}
+            className="ml-auto inline-flex shrink-0 items-center gap-1 text-[15px] font-semibold text-[#5b3de0] underline-offset-4 transition-colors hover:text-[#3b2a9e] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5b3de0]/50"
+          >
+            Read the case study
+            <ArrowRightIcon className="size-4" />
+          </Link>
+        ) : null}
+      </div>
+    </article>
+  );
+}
+
+function FeedbackStack() {
+  return (
+    <div className="flex flex-col gap-5">
+      {TESTIMONIALS.map((item, index) => (
+        <TestimonialCard key={index} item={item} index={index} />
+      ))}
+      <p className="mt-10 text-center text-[16px] text-white/80">
+        Want to be our next case study?{" "}
+        <Link
+          href="/services/custom-proposal"
+          className="rounded-sm font-medium text-[#c4b5fd] underline underline-offset-4 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b7bff]"
+        >
+          Request a proposal
+        </Link>
+      </p>
+    </div>
+  );
+}
+
+function PhotoSpace({
+  photo,
+  side,
+}: {
+  photo: { src: string; alt: string };
+  side: "left" | "right";
+}) {
+  return (
+    <div className="relative min-h-[560px]">
+      {!photo.src && (
+        <div
+          aria-hidden
+          className="absolute bottom-8 left-1/2 h-[360px] w-[360px] -translate-x-1/2 rounded-full bg-[#7c5ce8]/25 blur-3xl"
+        />
+      )}
+      {photo.src && (
+        <div
+          aria-hidden={photo.alt ? undefined : true}
+          className={`pointer-events-none absolute bottom-0 h-[640px] w-[560px] ${
+            side === "left" ? "right-[-48px]" : "left-[-48px]"
+          }`}
+        >
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            fill
+            sizes="560px"
+            className="object-contain object-bottom"
+          />
         </div>
       )}
     </div>
@@ -516,6 +624,72 @@ export default function CaseStudiesPage() {
                 </article>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="client-feedback"
+        aria-labelledby="client-feedback-heading"
+        className="relative overflow-hidden pb-16 pt-16 text-white md:pt-24 lg:pb-0"
+        style={{
+          background:
+            "linear-gradient(180deg, #0d0d0f 0%, #120a2e 25%, #2a1f6e 60%, #5b3de0 100%)",
+        }}
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%] blur-3xl"
+          style={{
+            background:
+              "radial-gradient(ellipse 45% 80% at 50% 100%, rgba(155,135,224,0.35) 0%, rgba(155,135,224,0) 70%)",
+          }}
+        />
+        <style>{`
+          @keyframes cxf-reveal {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: none; }
+          }
+          @media (prefers-reduced-motion: no-preference) {
+            @supports (animation-timeline: view()) {
+              .cxf-reveal {
+                animation: cxf-reveal linear both;
+                animation-timeline: view();
+                animation-range: entry 0% entry 45%;
+              }
+              .cxf-reveal:nth-of-type(2) { animation-range: entry 8% entry 52%; }
+              .cxf-reveal:nth-of-type(3) { animation-range: entry 16% entry 60%; }
+              .cxf-reveal:nth-of-type(4) { animation-range: entry 24% entry 68%; }
+            }
+          }
+        `}</style>
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-[900px] text-center">
+            <h2
+              id="client-feedback-heading"
+              className="text-[40px] font-light leading-[1.05] tracking-[-0.04em] md:text-[56px] lg:text-[72px]"
+            >
+              What our clients say
+              <br />
+              about working with us
+            </h2>
+            <p className="mx-auto mt-5 max-w-[640px] text-[16px] leading-relaxed text-white/70 sm:text-[18px]">
+              Real feedback from businesses we have built websites, apps and
+              workflows for.
+            </p>
+          </div>
+
+          <div className="mt-16 grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,490px)_1fr] lg:items-end">
+            <div className="hidden lg:block">
+              <PhotoSpace photo={LEFT_PHOTO} side="left" />
+            </div>
+            <div className="relative z-10 mx-auto w-full max-w-[560px] lg:max-w-none lg:pb-24">
+              <FeedbackStack />
+            </div>
+            <div className="hidden lg:block">
+              <PhotoSpace photo={RIGHT_PHOTO} side="right" />
+            </div>
           </div>
         </div>
       </section>
