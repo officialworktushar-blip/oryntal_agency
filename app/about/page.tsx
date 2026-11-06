@@ -3,6 +3,8 @@ import AboutHero from "@/components/about/AboutHero";
 import AboutWhyOryntal from "@/components/about/AboutWhyOryntal";
 import AboutBuildup from "@/components/about/AboutBuildup";
 import AboutGlobe from "@/components/about/AboutGlobe";
+import FaqSection from "@/components/FaqSection";
+import { ABOUT_FAQS } from "@/components/about/aboutFaqs";
 
 const title = "About | ORYNTAL";
 const description =
@@ -23,6 +25,12 @@ export default function AboutPage() {
       <AboutWhyOryntal />
       <AboutBuildup />
       <AboutGlobe />
+      <FaqSection
+        id="faq"
+        title="ORYNTAL FAQs"
+        subtitle="Get answers to the most common questions about working with ORYNTAL."
+        items={ABOUT_FAQS}
+      />
     </main>
   );
 }
