@@ -435,11 +435,11 @@ export default function AboutHowWeWork() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-[30px] lg:grid-cols-2">
+        <div className="mt-14 grid gap-[30px] md:grid-cols-2">
           {CARDS.map((card) => (
             <article
               key={card.title}
-              className="hww-card group relative flex min-h-0 flex-col overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-b from-[#1a1438] to-[#2b2060] p-6 transition-colors duration-300 hover:border-[#8b7bff]/30 md:min-h-[620px] md:p-9"
+              className="hww-card group relative flex min-h-0 flex-col overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-b from-[#1a1438] to-[#2b2060] p-6 transition-colors duration-300 hover:border-[#8b7bff]/30 md:min-h-[460px] md:p-8 lg:p-9"
             >
               <div
                 aria-hidden
@@ -451,25 +451,27 @@ export default function AboutHowWeWork() {
                 }}
               />
 
-              <div className="relative flex h-full flex-col">
-                <span className="inline-flex w-fit rounded-full bg-white/10 px-3.5 py-2 text-[14px] text-white">
-                  {card.tag}
-                </span>
-                <h3 className="mt-6 text-[26px] font-normal leading-tight tracking-[-0.02em] text-white md:text-[34px]">
-                  {card.title}
-                </h3>
-                <p className="mt-3 max-w-[620px] text-[16px] leading-[1.55] text-white/75 md:text-[18px]">
-                  {card.description}
-                </p>
-                <Link
-                  href={card.href}
-                  className="group/link mt-5 inline-flex w-fit items-center gap-1.5 text-[15px] font-semibold text-[#c4b5fd] underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b7bff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1438]"
-                >
-                  {card.linkLabel}
-                  <ArrowIcon className="size-4 transition-transform duration-200 group-hover/link:translate-x-1" />
-                </Link>
+              <div className="relative flex h-full flex-col md:flex-row md:items-center md:gap-8 lg:gap-10">
+                <div className="md:min-w-0 md:flex-1">
+                  <span className="inline-flex w-fit rounded-full bg-white/10 px-3.5 py-2 text-[14px] text-white">
+                    {card.tag}
+                  </span>
+                  <h3 className="mt-6 text-[26px] font-normal leading-tight tracking-[-0.02em] text-white md:text-[30px] lg:text-[34px]">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 max-w-[620px] text-[16px] leading-[1.55] text-white/75 md:text-[18px]">
+                    {card.description}
+                  </p>
+                  <Link
+                    href={card.href}
+                    className="group/link mt-5 inline-flex w-fit items-center gap-1.5 text-[15px] font-semibold text-[#c4b5fd] underline-offset-4 transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b7bff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1438]"
+                  >
+                    {card.linkLabel}
+                    <ArrowIcon className="size-4 transition-transform duration-200 group-hover/link:translate-x-1" />
+                  </Link>
+                </div>
 
-                <div className="relative mt-auto pt-10">
+                <div className="relative mt-10 md:mt-0 md:w-[44%] md:shrink-0 lg:w-[46%]">
                   {card.diagram === "hub" ? <HubDiagram /> : <FormDiagram />}
                 </div>
               </div>
