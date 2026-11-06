@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 
+type CSSVars = CSSProperties & Record<`--${string}`, string | number>;
+
 const CARDS = [
   {
     tag: "Connected to your tools",
@@ -218,7 +220,7 @@ function HubDiagram() {
                 "radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,0.10) 0%, rgba(58,45,120,0.6) 65%)",
               "--fd": tile.float,
               "--fdel": `${(tile.pos.length * 1.3) % 3}s`,
-            } as CSSProperties}
+            } as CSSVars}
           >
             {tile.icon ? (
               <CardIcon name={tile.icon} className={tile.iconClass} />
@@ -258,7 +260,7 @@ function FormDiagram() {
                   {
                     "--w": `${phrase.length}ch`,
                     animationDelay: `${phraseIndex * 4}s`,
-                  } as CSSProperties
+                  } as CSSVars
                 }
               >
                 {phrase}

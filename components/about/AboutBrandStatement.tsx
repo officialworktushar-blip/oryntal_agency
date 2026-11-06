@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 
+type CSSVars = CSSProperties & Record<`--${string}`, string | number>;
+
 const ROTATING_WORDS = [
   "websites",
   "apps",
@@ -233,7 +235,7 @@ export default function AboutBrandStatement() {
                 key={letterIndex}
                 aria-hidden="true"
                 className="bs-letter inline-block"
-                style={{ "--i": letterIndex } as CSSProperties}
+                style={{ "--i": letterIndex } as CSSVars}
               >
                 {letter}
               </span>
