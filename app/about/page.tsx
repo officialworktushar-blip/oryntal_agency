@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import AboutHero from "@/components/about/AboutHero";
 import AboutWhyOryntal from "@/components/about/AboutWhyOryntal";
+import AboutBuildup from "@/components/about/AboutBuildup";
 
 const title = "About | ORYNTAL";
 const description =
@@ -19,6 +20,7 @@ export default function AboutPage() {
     <main className="bg-[#0d0f0e] text-white">
       <AboutHero />
       <AboutWhyOryntal />
+      <AboutBuildup />
     </main>
   );
 }
