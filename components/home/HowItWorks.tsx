@@ -111,7 +111,7 @@ export default function HowItWorks() {
           Scope, timelines, and support are confirmed in your proposal. For
           custom engagements we typically plan a three-month engagement.{" "}
           <Link
-            href="/services/consultation"
+            href="/services"
             className="underline decoration-muted underline-offset-4 transition-colors hover:text-brand"
           >
             See the 3-month engagement

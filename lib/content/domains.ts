@@ -15,7 +15,7 @@ export const domainCards: DomainCard[] = [
   {
     id: "business-packages",
     title: "Business Packages",
-    href: "/services/business-packages",
+    href: "/services",
     description:
       "Fixed-scope packages from ₹30,000, built for every stage of your business.",
     icon: Package,
@@ -24,7 +24,7 @@ export const domainCards: DomainCard[] = [
   {
     id: "individual-services",
     title: "Individual Technology Services",
-    href: "/services/individual-services",
+    href: "/services",
     description:
       "Pick only what you need: web and apps, AI, integrations, sourcing support.",
     icon: Layers,
@@ -33,7 +33,7 @@ export const domainCards: DomainCard[] = [
   {
     id: "products",
     title: "Pre-Built Products & AI Models",
-    href: "/services/products",
+    href: "/services",
     description:
       "Ready-to-use products like QR2 Review, built for real business workflows.",
     icon: Boxes,
@@ -42,7 +42,7 @@ export const domainCards: DomainCard[] = [
   {
     id: "consultation",
     title: "Custom Consultation & Development",
-    href: "/services/consultation",
+    href: "/services",
     description:
       "A three-month engagement designed around your operations.",
     icon: Compass,

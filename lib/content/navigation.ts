@@ -41,7 +41,7 @@ export const domains: NavDomain[] = [
     id: "business-packages",
     number: "01",
     label: "Business Packages",
-    href: "/services/business-packages",
+    href: "/services",
     summary:
       "Fixed-scope, ready-to-launch packages for the most common business needs.",
     items: [
@@ -69,7 +69,7 @@ export const domains: NavDomain[] = [
     id: "individual-services",
     number: "02",
     label: "Individual Technology Services",
-    href: "/services/individual-services",
+    href: "/services",
     summary:
       "Hire ORYNTAL for a single capability instead of a full engagement.",
     items: [
@@ -115,7 +115,7 @@ export const domains: NavDomain[] = [
     id: "products",
     number: "03",
     label: "Pre-Built Products & AI Models",
-    href: "/services/products",
+    href: "/services",
     summary:
       "Ready-made systems we can adapt to your business instead of building from scratch.",
     items: [
@@ -161,7 +161,7 @@ export const domains: NavDomain[] = [
     id: "consultation",
     number: "04",
     label: "Custom Business Consultation & Development",
-    href: "/services/consultation",
+    href: "/services",
     summary:
       "When your problem is not a package: a 3-month engagement, discovery to launch.",
     items: [

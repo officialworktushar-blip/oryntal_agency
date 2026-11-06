@@ -19,7 +19,7 @@ export const howItWorks = {
   heading: "A clear process, from first conversation to launch",
   description:
     "Every engagement follows the same transparent path, whether it is a two-week website or a three-month custom build.",
-  cta: { href: "/services/consultation", label: "See the 3-month engagement" },
+  cta: { href: "/services", label: "See the 3-month engagement" },
   steps: [
     {
       number: "01",

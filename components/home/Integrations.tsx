@@ -73,7 +73,7 @@ export default function Integrations() {
 
           <m.div variants={item} className="mt-6">
             <Link
-              href="/services/individual-services"
+              href="/services"
               className="group inline-flex items-center gap-2 text-sm font-medium text-white underline decoration-white/40 underline-offset-4 outline-none transition-colors hover:decoration-white focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#110B2B]"
             >
               <span>See what we integrate</span>

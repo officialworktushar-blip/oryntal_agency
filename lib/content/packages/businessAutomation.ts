@@ -400,7 +400,7 @@ export const businessAutomation: BusinessAutomationContent = {
     },
     secondary: {
       label: "Compare all packages",
-      href: "/services/business-packages",
+      href: "/services",
     },
     footnote:
       "This comparison is general and describes typical manual or DIY setups, not any specific provider. Specific integrations and automation capabilities depend on the agreed scope. AI chatbots are included when required and agreed. Third-party subscriptions and transaction fees may be separate.",
@@ -414,7 +414,7 @@ export const businessAutomation: BusinessAutomationContent = {
     },
     secondary: {
       label: "View all packages",
-      href: "/services/business-packages",
+      href: "/services",
     },
     trust: "Clear scope and pricing before we start",
     feeNote:

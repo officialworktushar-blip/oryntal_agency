@@ -19,7 +19,7 @@ export const finalCtaContent = {
     "Whether you need a website, an AI agent, or a fully connected system, ORYNTAL starts by understanding how your business runs, then recommends the simplest solution that fits. Tell us where time is being lost, and we'll map the next step with you.",
   primary: { href: "/contact?interest=consultation", label: "Book a consultation" },
   secondary: {
-    href: "/services/business-packages",
+    href: "/services",
     label: "View packages",
   },
   secondaryPrefix: "Prefer to compare first? ",

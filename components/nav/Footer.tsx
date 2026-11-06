@@ -50,7 +50,7 @@ export default function Footer() {
               </li>
             ))}
             <li>
-              <Link href="/services/consultation" className="link-muted">
+              <Link href="/services" className="link-muted">
                 Custom Consultation
               </Link>
             </li>

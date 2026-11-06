@@ -23,7 +23,6 @@ export type NavMenuDomain = {
   id: string;
   number: string;
   label: string;
-  href: string;
   items: NavMenuItem[];
 };
 
@@ -32,7 +31,6 @@ export const menuDomains: NavMenuDomain[] = [
     id: "business-packages",
     number: "01",
     label: "Business Packages",
-    href: "/services/business-packages",
     items: [
       {
         href: "/services/business-packages/digital-foundation",
@@ -58,7 +56,6 @@ export const menuDomains: NavMenuDomain[] = [
     id: "individual-services",
     number: "02",
     label: "Individual Technology Services",
-    href: "/services/individual-services",
     items: [
       {
         href: "/services/individual-services/website-and-app-development",
@@ -90,7 +87,6 @@ export const menuDomains: NavMenuDomain[] = [
     id: "products",
     number: "03",
     label: "Pre-Built Products & AI Models",
-    href: "/services/products",
     items: [
       {
         href: "/services/individual-services/qr2-review",
@@ -104,7 +100,6 @@ export const menuDomains: NavMenuDomain[] = [
     id: "consultation",
     number: "04",
     label: "Custom Business Consultation & Development",
-    href: "/services/consultation",
     items: [
       {
         href: "/services/consultation/three-month-engagement",

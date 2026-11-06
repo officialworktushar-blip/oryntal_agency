@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -23,6 +23,7 @@ const links = [
 
 export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
   const pathname = usePathname();
+  const baseId = useId();
   const [servicesOpen, setServicesOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
   const onCloseRef = useRef(onClose);
@@ -114,6 +115,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                 <button
                   type="button"
                   aria-expanded={servicesOpen}
+                  aria-controls={`${baseId}-services`}
                   onClick={() => setServicesOpen((v) => !v)}
                   className="flex w-full items-center justify-between rounded-lg px-3 py-3 text-base font-medium text-white/90 transition-colors hover:bg-white/10 hover:text-white"
                 >
@@ -129,6 +131,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                 <AnimatePresence initial={false}>
                   {servicesOpen ? (
                     <m.div
+                      id={`${baseId}-services`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -143,6 +146,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                               <button
                                 type="button"
                                 aria-expanded={isOpen}
+                                aria-controls={`${baseId}-${domain.id}`}
                                 onClick={() =>
                                   setExpanded(isOpen ? null : domain.id)
                                 }
@@ -160,6 +164,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                               <AnimatePresence initial={false}>
                                 {isOpen ? (
                                   <m.div
+                                    id={`${baseId}-${domain.id}`}
                                     initial={{ height: 0, opacity: 0 }}
                                     animate={{ height: "auto", opacity: 1 }}
                                     exit={{ height: 0, opacity: 0 }}
@@ -196,13 +201,6 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                                           </Link>
                                         );
                                       })}
-                                      <Link
-                                        href={domain.href}
-                                        onClick={onClose}
-                                        className="mt-1 px-3 text-xs font-semibold text-white/75 transition-colors hover:text-white"
-                                      >
-                                        View all {domain.label.toLowerCase()} →
-                                      </Link>
                                     </div>
                                   </m.div>
                                 ) : null}

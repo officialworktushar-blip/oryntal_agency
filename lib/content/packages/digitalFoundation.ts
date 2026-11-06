@@ -382,7 +382,7 @@ export const includedFooter = {
   ideal:
     "Ideal for startups, local businesses, service providers, and small businesses looking to establish their online presence.",
   cta: { label: "Get started", href: "/contact?interest=digital-foundation-package" },
-  secondary: { label: "View all packages", href: "/services/business-packages" },
+  secondary: { label: "View all packages", href: "/services" },
 };
 
 export const digitalFoundation: DigitalFoundationContent = {
@@ -826,7 +826,7 @@ export const digitalFoundation: DigitalFoundationContent = {
     upsell: {
       text: "Need payments, shipping, or CRM connections?",
       linkLabel: "See the Business Automation Package",
-      href: "/services/business-packages",
+      href: "/services",
     },
     // CONFIRM: keep only connections ORYNTAL actually sets up in this package. "Relevant basic third-party integrations" are chosen per business.
     items: [
@@ -1023,7 +1023,7 @@ export const digitalFoundation: DigitalFoundationContent = {
       },
     ],
     cta: { label: "Get started", href: "/contact?interest=digital-foundation-package" },
-    secondary: { label: "Compare all packages", href: "/services/business-packages" },
+    secondary: { label: "Compare all packages", href: "/services" },
     footnote:
       "This comparison is general and describes typical DIY or template setups, not any specific provider. Final scope, features, and third-party costs are confirmed in your proposal.",
   },

@@ -96,7 +96,7 @@ export const launchTab: HowItWorksTab = {
     "A good-looking website is not the same as a business that works. Before you go live, we connect payments, WhatsApp updates, and shipping, secure the site, and test every major workflow, so your first customer meets a system that is ready.",
   cta: {
     label: "Explore business packages",
-    href: "/services/business-packages",
+    href: "/services",
   },
   keywordLine:
     "Payment gateway · WhatsApp notifications · Shipping integrations · SSL/HTTPS · Pre-launch testing",
@@ -209,7 +209,7 @@ export const manageTab: ManageAccordionTab = {
     "Orders in one app, clients in a spreadsheet, conversations on a phone. ORYNTAL connects them into dashboards, admin panels, and databases you can actually run the business from.",
   cta: {
     label: "Talk about a custom system",
-    href: "/services/consultation",
+    href: "/services",
   },
   keywordLine:
     "Admin dashboards · Databases · Analytics & BI · CRM integrations · Workflow automation",

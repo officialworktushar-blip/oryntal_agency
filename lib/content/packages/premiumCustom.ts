@@ -470,7 +470,7 @@ export const premiumCustom: PremiumCustomContent = {
     sub: "Tell us how your business runs. We'll scope it together before anything is built.",
     cta: { label: "Book a consultation", href: "/contact?interest=premium-custom-system" },
     trust: "Scoped and priced in a proposal before we build",
-    link: { label: "Compare all packages", href: "/services/business-packages" },
+    link: { label: "Compare all packages", href: "/services" },
     footnote:
       "Final pricing, timeline, features, integrations, and support depend on project scope and the agreed proposal.",
   },

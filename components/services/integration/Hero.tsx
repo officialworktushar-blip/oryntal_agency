@@ -88,7 +88,7 @@ export default function IntegrationHero() {
         <li className="flex items-center gap-2">
           <ChevronRight className="size-4" aria-hidden="true" />
           <Link
-            href="/services/individual-services"
+            href="/services"
             className="rounded transition-colors hover:text-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             Individual Services
