@@ -156,7 +156,7 @@ export default function AboutBuildup() {
     <section
       id="about-buildup"
       aria-labelledby="about-buildup-title"
-      className="relative overflow-hidden border-y border-black/5 bg-[#f6f5fb] px-5 pt-16 pb-[30px] text-[#0d0d0f] sm:px-6 md:pt-24 md:pb-[30px] lg:px-8"
+      className="relative overflow-hidden border-y border-black/5 bg-[#f6f5fb] px-5 py-16 text-[#0d0d0f] sm:px-6 md:py-24 lg:px-8"
     >
       <style>{`
         @keyframes ab-fade-up {
