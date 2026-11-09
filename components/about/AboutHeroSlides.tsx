@@ -158,16 +158,6 @@ export default function AboutHeroSlides() {
                 }}
               />
 
-              <p
-                className={`absolute bottom-6 left-6 max-w-[9rem] text-[22px] font-medium leading-[1.25] text-white transition-all duration-700 md:text-[26px] ${
-                  active
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-3 opacity-0"
-                }`}
-              >
-                {slide.label}
-              </p>
-
               {slide.videoHref ? (
                 <Link
                   href={slide.videoHref}
