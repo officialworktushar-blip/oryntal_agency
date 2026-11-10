@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const SLIDES = [
-  { src: "/Tushar_Purple.webp", alt: "Tushar Srivastav, CEO of ORYNTAL" },
-  { src: "/Dipesh_Purple.webp", alt: "Dipesh Mayla, CBO of ORYNTAL" },
-  { src: "/Parth_Purple.webp", alt: "Parth Srivastav, CMO of ORYNTAL" },
+  { src: "/Tushar_Oryntal.webp", alt: "Tushar Srivastav, CEO of ORYNTAL" },
+  { src: "/Dipesh_Oryntal.webp", alt: "Dipesh Mayla, CBO of ORYNTAL" },
+  { src: "/Parth_Oryntal.webp", alt: "Parth Srivastav, CMO of ORYNTAL" },
 ];
 
 const DURATION_MS = 5000;

@@ -6,19 +6,19 @@ import { useEffect, useRef, useState } from "react";
 
 const PEOPLE = [
   {
-    src: "/Tushar_Oryntal.webp",
+    src: "/Tushar_Purple.webp",
     alt: "Tushar Srivastav, CEO of ORYNTAL",
     caption: "Tushar Srivastav, CEO",
     dot: "Show Tushar Srivastav",
   },
   {
-    src: "/Dipesh_Oryntal.webp",
+    src: "/Dipesh_Purple.webp",
     alt: "Dipesh Mayla, CBO of ORYNTAL",
     caption: "Dipesh Mayla, CBO",
     dot: "Show Dipesh Mayla",
   },
   {
-    src: "/Parth_Oryntal.webp",
+    src: "/Parth_Purple.webp",
     alt: "Parth Srivastav, CMO of ORYNTAL",
     caption: "Parth Srivastav, CMO",
     dot: "Show Parth Srivastav",
