@@ -2,15 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 const SLIDES = [
-  { src: "", alt: "", label: "Retail business", videoHref: "", from: "#5b3de0", to: "#8b7bff" },
-  { src: "", alt: "", label: "Clinic", videoHref: "", from: "#3b2a9e", to: "#7c5ce8" },
-  { src: "", alt: "", label: "Wholesale business", videoHref: "", from: "#4c1d95", to: "#6a4fe0" },
+  { src: "/Tushar_Purple.webp", alt: "Tushar Srivastav, CEO of ORYNTAL" },
+  { src: "/Dipesh_Purple.webp", alt: "Dipesh Mayla, CBO of ORYNTAL" },
+  { src: "/Parth_Purple.webp", alt: "Parth Srivastav, CMO of ORYNTAL" },
 ];
-
-// To add images: put portrait photos (about 4:5, for example 900x1125) in /public/about/ and set src, for example "/about/slide-1.jpg". The label is the text shown at the bottom left.
 
 const DURATION_MS = 5000;
 const TICK_MS = 100;
@@ -22,7 +19,6 @@ export default function AboutHeroSlides() {
   const [inView, setInView] = useState(true);
   const [docHidden, setDocHidden] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [announce, setAnnounce] = useState<string | null>(null);
 
   const cardRef = useRef<HTMLDivElement>(null);
   const elapsedRef = useRef(0);
@@ -78,7 +74,6 @@ export default function AboutHeroSlides() {
   function goToSlide(next: number) {
     elapsedRef.current = 0;
     lastTickRef.current = 0;
-    setAnnounce(`Slide ${next + 1}: ${SLIDES[next].label}`);
     setIndex(next);
   }
 
@@ -95,12 +90,6 @@ export default function AboutHeroSlides() {
         onBlur={() => setFocusPause(false)}
         className="relative mx-auto aspect-[4/5] w-full max-w-[460px] overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_80px_rgba(124,92,232,0.28)]"
       >
-        {announce ? (
-          <p className="sr-only" aria-live="polite">
-            {announce}
-          </p>
-        ) : null}
-
         {SLIDES.map((slide, slideIndex) => {
           const active = slideIndex === index;
           return (
@@ -111,43 +100,16 @@ export default function AboutHeroSlides() {
                 active ? "z-10 opacity-100" : "z-0 opacity-0"
               }`}
             >
-              {slide.src ? (
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  sizes="(min-width:1024px) 460px, 90vw"
-                  priority={slideIndex === 0}
-                  className={`object-cover object-top transition-transform duration-700 ${
-                    active ? "scale-100" : "scale-[1.04]"
-                  }`}
-                />
-              ) : (
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: `linear-gradient(165deg, ${slide.from} 0%, ${slide.to} 100%)`,
-                  }}
-                >
-                  <div
-                    aria-hidden
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "radial-gradient(60% 45% at 50% 22%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 70%)",
-                    }}
-                  />
-                  <div
-                    aria-hidden
-                    className="absolute inset-0"
-                    style={{
-                      backgroundImage:
-                        "radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1.5px)",
-                      backgroundSize: "18px 18px",
-                    }}
-                  />
-                </div>
-              )}
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                sizes="(min-width:1024px) 360px, 90vw"
+                priority={slideIndex === 0}
+                className={`object-cover object-top transition-transform duration-700 ${
+                  active ? "scale-100" : "scale-[1.04]"
+                }`}
+              />
 
               <div
                 aria-hidden
@@ -157,25 +119,6 @@ export default function AboutHeroSlides() {
                     "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 100%)",
                 }}
               />
-
-              {slide.videoHref ? (
-                <Link
-                  href={slide.videoHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Play video: ${slide.label}`}
-                  className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full bg-white/15 backdrop-blur transition-colors hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    className="ml-0.5 h-4 w-4 text-white"
-                  >
-                    <path d="M8 5.5v13l11-6.5-11-6.5Z" />
-                  </svg>
-                </Link>
-              ) : null}
             </div>
           );
         })}
