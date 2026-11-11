@@ -128,9 +128,9 @@ export default function BuildShowcase() {
     <div
       ref={rootRef}
       aria-label="Examples of business websites and tools"
-      className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-[linear-gradient(135deg,#f8f5ff_0%,#fceff7_52%,#eeeaff_100%)] shadow-[0_20px_60px_rgba(103,61,230,0.12)] ring-1 ring-white/70"
+      className="relative aspect-[4/3] w-full overflow-visible bg-transparent"
     >
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-visible">
         {SLIDES.map((slide, index) => {
           const position = reducedMotion
             ? index === current ? "center" : "hidden"
@@ -146,7 +146,7 @@ export default function BuildShowcase() {
                   ? { duration: 0 }
                   : { duration: SLIDE_DURATION / 1000, ease: "easeInOut" }
               }
-              className="absolute left-1/2 top-1/2 aspect-[3/4] w-[64%] overflow-hidden rounded-2xl bg-white shadow-[0_14px_35px_rgba(37,24,70,0.2)] ring-1 ring-black/5 sm:w-[56%]"
+              className="absolute left-1/2 top-1/2 aspect-[3/4] w-1/2 overflow-hidden rounded-2xl bg-white shadow-[0_14px_35px_rgba(37,24,70,0.2)] ring-1 ring-black/5 sm:w-[56%]"
             >
               {failedImages.has(slide.src) ? (
                 <div className="h-full w-full bg-[linear-gradient(145deg,#e8defe,#f9d9e8_55%,#d9e9ff)]" />
@@ -170,7 +170,7 @@ export default function BuildShowcase() {
 
       <div
         aria-live="polite"
-        className="absolute inset-x-3 bottom-3 z-10 flex min-h-12 items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-[#ec4899] via-[#a855f7] to-[#6366f1] p-[1.5px] shadow-[0_8px_24px_rgba(103,61,230,0.2)] sm:inset-x-5 sm:bottom-5 sm:min-h-14"
+        className="absolute inset-x-3 bottom-6 z-10 flex min-h-12 items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-[#ec4899] via-[#a855f7] to-[#6366f1] p-[1.5px] shadow-[0_8px_24px_rgba(103,61,230,0.2)] sm:inset-x-5 sm:min-h-14"
       >
         <div className="flex min-h-[42px] flex-1 items-center rounded-[14px] bg-white px-3 text-xs leading-snug text-ink sm:min-h-[50px] sm:px-4 sm:text-sm">
           <span className="line-clamp-2">{showCaption ? typedCaption : ""}</span>

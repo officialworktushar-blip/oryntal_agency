@@ -87,7 +87,7 @@ export default function HowItWorksPanel({
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-15% 0px" }}
-          className="relative"
+          className="relative overflow-x-clip"
         >
           <BuildShowcase />
         </m.div>
