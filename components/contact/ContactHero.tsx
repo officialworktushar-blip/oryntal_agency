@@ -12,8 +12,8 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 
-const HERO_IMAGE_SRC = "/contact-hero.webp";
-const HERO_HAS_IMAGE = false;
+const HERO_IMAGE_SRC = "/contact.webp";
+const HERO_HAS_IMAGE = true;
 
 const CANVAS_WIDTH = 640;
 const CANVAS_HEIGHT = 560;

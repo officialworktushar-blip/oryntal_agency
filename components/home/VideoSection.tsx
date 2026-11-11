@@ -9,7 +9,7 @@ import {
   useReducedMotion,
   type Variants,
 } from "framer-motion";
-import { Play, X } from "lucide-react";
+import { X } from "lucide-react";
 import MediaPlaceholder from "@/components/ui/MediaPlaceholder";
 import { videoSection } from "@/lib/content/home";
 
@@ -162,26 +162,6 @@ export default function VideoSection() {
                 />
               )}
 
-              <button
-                ref={triggerRef}
-                type="button"
-                aria-label="Play ORYNTAL demo video"
-                onClick={() => {
-                  if (hasVideo) setOpen(true);
-                }}
-                className="group absolute inset-0 grid place-items-center focus-visible:outline-none"
-              >
-                <span className="relative grid size-20 place-items-center rounded-full bg-brand text-white shadow-lift transition-transform duration-200 group-hover:scale-[1.06] group-focus-visible:ring-4 group-focus-visible:ring-brand/40">
-                  <span
-                    aria-hidden
-                    className="play-pulse absolute inset-0 rounded-full bg-brand"
-                  />
-                  <Play
-                    className="relative size-8 translate-x-0.5"
-                    fill="currentColor"
-                  />
-                </span>
-              </button>
             </div>
           </m.div>
         </m.div>

@@ -26,9 +26,9 @@ const FEATURED = {
 };
 
 const CASE_STUDIES = [
-  { date: "Add date", businessType: "Retail business", thumbTitle: "Online store with payments and WhatsApp updates", title: "An online store with payments and WhatsApp order updates", excerpt: "From a simple requirement to a working store, built around how the business sells.", icon: "store", image: "", href: "" },
-  { date: "Add date", businessType: "Clinic", thumbTitle: "Bookings and reminders on autopilot", title: "Clinic bookings and automatic reminders", excerpt: "Fewer missed appointments and faster replies to patient enquiries.", icon: "calendar", image: "", href: "" },
-  { date: "Add date", businessType: "Wholesale business", thumbTitle: "Orders and sourcing without spreadsheets", title: "Order tracking and supplier sourcing for a wholesale business", excerpt: "One place to track orders, chase payments and find the right suppliers.", icon: "truck", image: "", href: "" },
+  { date: "Add date", businessType: "Retail business", thumbTitle: "Online store with payments and WhatsApp updates", title: "An online store with payments and WhatsApp order updates", excerpt: "From a simple requirement to a working store, built around how the business sells.", icon: "store", image: "/cs1.webp", href: "" },
+  { date: "Add date", businessType: "Clinic", thumbTitle: "Bookings and reminders on autopilot", title: "Clinic bookings and automatic reminders", excerpt: "Fewer missed appointments and faster replies to patient enquiries.", icon: "calendar", image: "/cs2.webp", href: "" },
+  { date: "Add date", businessType: "Wholesale business", thumbTitle: "Orders and sourcing without spreadsheets", title: "Order tracking and supplier sourcing for a wholesale business", excerpt: "One place to track orders, chase payments and find the right suppliers.", icon: "truck", image: "/cs3.webp", href: "" },
 ];
 
 type DemoShot = {
@@ -184,10 +184,11 @@ function CaseStudyThumb({
       {item.image ? (
         <Image
           src={item.image}
-          alt={item.title}
+          alt={`${item.title} case study`}
           fill
-          sizes="(min-width:1024px) 380px, (min-width:640px) 45vw, 90vw"
-          className="object-cover object-top"
+          sizes="(min-width:1024px) 420px, 90vw"
+          className="object-cover"
+          priority={index === 0}
         />
       ) : (
         <div
