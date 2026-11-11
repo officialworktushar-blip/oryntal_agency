@@ -10,22 +10,22 @@ type ShowcaseSlide = { src: string; alt: string; caption: string };
 
 const SLIDES: ShowcaseSlide[] = [
   {
-    src: "/build-showcase/slide-1.webp",
+    src: "/build/build1.webp",
     alt: "Website preview for a local business",
     caption: "Create a website that matches my brand and brings in more enquiries.",
   },
   {
-    src: "/build-showcase/slide-2.webp",
+    src: "/build/build2.webp",
     alt: "Online shop preview for a small business",
     caption: "Help customers browse my products and place orders online.",
   },
   {
-    src: "/build-showcase/slide-3.webp",
+    src: "/build/build3.webp",
     alt: "Booking page preview for a service business",
     caption: "Let customers book a time that works for them.",
   },
   {
-    src: "/build-showcase/slide-4.webp",
+    src: "/build/build4.webp",
     alt: "Business dashboard preview",
     caption: "Bring my daily sales and customer details into one clear view.",
   },
