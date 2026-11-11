@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 
 const title = "Case Studies | ORYNTAL";
 const description =
@@ -30,34 +31,56 @@ const CASE_STUDIES = [
   { date: "Add date", businessType: "Wholesale business", thumbTitle: "Orders and sourcing without spreadsheets", title: "Order tracking and supplier sourcing for a wholesale business", excerpt: "One place to track orders, chase payments and find the right suppliers.", icon: "truck", image: "", href: "" },
 ];
 
-const DEMOS_HREF = "#website-demos";
+type DemoShot = {
+  kind: "shot";
+  label: string;
+  title: string;
+  shotName: string;
+  height: number;
+  alt: string;
+  image?: string;
+};
 
-const DEMOS = [
-  { title: "Jewellery store", category: "Online store", image: "", href: "" },
-  { title: "Resin art studio", category: "Online store", image: "", href: "" },
-  { title: "Candle shop", category: "Online store", image: "", href: "" },
-  { title: "Clinic", category: "Bookings and replies", image: "", href: "" },
-  { title: "Salon", category: "Bookings and reviews", image: "", href: "" },
-  { title: "Real estate broker", category: "Listings and enquiries", image: "", href: "" },
-  { title: "Cafe and restaurant", category: "Menu and orders", image: "", href: "" },
-  { title: "Personal portfolio", category: "Portfolio", image: "", href: "" },
+type DemoNote = {
+  kind: "note";
+  title: string;
+  text: string;
+  height: number;
+};
+
+type DemoVisual = {
+  kind: "visual";
+  title: string;
+  subtitle: string;
+  height: number;
+};
+
+type DemoWallItem = DemoShot | DemoNote | DemoVisual;
+
+const demoWall: DemoWallItem[] = [
+  { kind: "shot", label: "Online store", title: "Jewellery store", shotName: "jewellery-store", height: 360, alt: "Jewellery store website design", image: "" },
+  { kind: "note", title: "Built around your business", text: "Every site starts from your services, products and requirements, not a generic template.", height: 300 },
+  { kind: "shot", label: "Online store", title: "Resin art studio", shotName: "resin-art-studio", height: 360, alt: "Resin art studio website design", image: "" },
+  { kind: "visual", title: "E-commerce", subtitle: "Online stores built around your products", height: 500 },
+  { kind: "visual", title: "Service businesses", subtitle: "Websites that turn visitors into enquiries", height: 460 },
+  { kind: "shot", label: "Bookings and replies", title: "Clinic", shotName: "clinic", height: 340, alt: "Clinic website design", image: "" },
+  { kind: "note", title: "Ready for what comes next", text: "Lead capture, WhatsApp and integrations can be connected from day one, so your site grows with you.", height: 300 },
+  { kind: "shot", label: "Bookings and reviews", title: "Salon", shotName: "salon", height: 340, alt: "Salon website design", image: "" },
+  { kind: "shot", label: "Online store", title: "Candle shop", shotName: "candle-shop", height: 340, alt: "Candle shop website design", image: "" },
+  { kind: "shot", label: "Listings and enquiries", title: "Real estate broker", shotName: "real-estate-broker", height: 360, alt: "Real estate broker website design", image: "" },
+  { kind: "shot", label: "Menu and orders", title: "Cafe and restaurant", shotName: "cafe-and-restaurant", height: 360, alt: "Cafe and restaurant website design", image: "" },
+  { kind: "shot", label: "Portfolio", title: "Personal portfolio", shotName: "personal-portfolio", height: 340, alt: "Personal portfolio website design", image: "" },
 ];
+
+const demoColumns: DemoWallItem[][] = [[], [], [], []];
+demoWall.forEach((item, index) => {
+  demoColumns[index % 4].push(item);
+});
 
 const STUDY_GRADIENTS = [
   "linear-gradient(135deg, #5b3de0 0%, #7c5ce8 100%)",
   "linear-gradient(135deg, #3b2a9e 0%, #6a4fe0 100%)",
   "linear-gradient(135deg, #4c1d95 0%, #8b7bff 100%)",
-];
-
-const DEMO_ACCENTS = [
-  "#7c5ce8",
-  "#3b82f6",
-  "#e8a317",
-  "#10b981",
-  "#ec4899",
-  "#14b8a6",
-  "#ef4444",
-  "#6366f1",
 ];
 
 // PLACEHOLDER: replace with real client quotes, with the client's permission, before publishing.
@@ -199,56 +222,168 @@ function CaseStudyThumb({
   );
 }
 
-function DemoPreview({
-  item,
-  index,
-}: {
-  item: (typeof DEMOS)[number];
-  index: number;
-}) {
-  const accent = DEMO_ACCENTS[index % DEMO_ACCENTS.length];
+function DemoCard({ item, index }: { item: DemoWallItem; index: number }) {
+  const heightStyle = { "--dw-h": `${item.height}px` } as CSSProperties;
 
-  return (
-    <div className="relative aspect-[8/5] overflow-hidden rounded-2xl border border-white/10 bg-[#15151a] transition-colors duration-300 group-hover:border-[#8b7bff]/70">
-      {item.image ? (
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          sizes="(min-width:1024px) 280px, (min-width:640px) 45vw, 90vw"
-          className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-        />
-      ) : (
-        <div className="flex h-full flex-col p-4" aria-hidden>
-          <div className="flex gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-white/15" />
-            <span className="h-1.5 w-1.5 rounded-full bg-white/15" />
-            <span className="h-1.5 w-1.5 rounded-full bg-white/15" />
-          </div>
-          <div className="mt-3 flex gap-2">
-            <span className="h-1.5 w-8 rounded-full bg-white/20" />
-            <span className="h-1.5 w-6 rounded-full bg-white/20" />
-            <span className="h-1.5 w-7 rounded-full bg-white/20" />
-          </div>
-          <div className="mt-4 flex min-h-0 flex-1 items-center gap-3">
-            <div className="min-w-0 flex-1">
-              <div className="h-3 w-4/5 rounded bg-white/75" />
-              <div className="mt-2 h-3 w-3/5 rounded bg-white/75" />
-              <div
-                className="mt-3 h-6 w-16 rounded-md"
-                style={{ background: accent }}
-              />
-            </div>
-            <div
-              className="h-full w-[38%] shrink-0 rounded-xl"
-              style={{
-                background: `linear-gradient(135deg, ${accent} 0%, ${accent}66 100%)`,
-              }}
+  if (item.kind === "note") {
+    return (
+      <article
+        className="dw-card group relative overflow-hidden rounded-[22px] bg-[#F4F4F5] text-[#1D1E20]"
+        style={heightStyle}
+      >
+        <div className="dw-rise flex h-full flex-col p-[30px]">
+          <div className="flex items-center gap-2.5">
+            <span
+              aria-hidden
+              className="h-[9px] w-[9px] shrink-0 rounded-[2px] bg-[#673DE6]"
             />
+            <h3 className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#673DE6]">
+              {item.title}
+            </h3>
+          </div>
+          <p className="mt-4 text-[22px] font-normal leading-snug text-[#1D1E20]">
+            {item.text}
+          </p>
+          <div className="mt-auto flex items-center gap-2 pt-6">
+            <Image
+              src="/logo.png"
+              alt=""
+              aria-hidden
+              width={28}
+              height={28}
+              className="h-7 w-7 object-contain"
+            />
+            <span className="text-[15px] font-medium text-[#1D1E20]">
+              ORYNTAL
+            </span>
           </div>
         </div>
-      )}
-    </div>
+      </article>
+    );
+  }
+
+  if (item.kind === "visual") {
+    return (
+      <article
+        className="dw-card group relative overflow-hidden rounded-[22px] text-white"
+        style={heightStyle}
+      >
+        <div className="dw-rise relative h-full w-full">
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(160deg, #6B43E8 0%, #5B34D6 40%, #3A1F9E 100%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(60% 50% at 70% 20%, rgba(180,160,255,.45), transparent 70%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-40"
+            style={{
+              backgroundImage:
+                "radial-gradient(rgba(255,255,255,0.35) 1px, transparent 1.5px)",
+              backgroundSize: "18px 18px",
+            }}
+          />
+          <div className="relative flex h-full flex-col p-7">
+            <div className="flex flex-1 items-center justify-center">
+              <div
+                aria-hidden
+                className="w-[124px] rounded-xl border border-white/45 bg-white/5 p-2.5"
+              >
+                <div className="flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                </div>
+                <div className="mt-2 h-1.5 w-3/4 rounded-full bg-white/55" />
+                <div className="mt-1.5 h-1.5 w-1/2 rounded-full bg-white/35" />
+                <div className="mt-2.5 h-9 rounded-md border border-white/35 bg-white/10" />
+              </div>
+            </div>
+            <div className="mt-auto">
+              <h3 className="text-[24px] font-medium leading-tight text-white">
+                {item.title}
+              </h3>
+              <p className="mt-1 text-[15px] leading-snug text-white/80">
+                {item.subtitle}
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+    );
+  }
+
+  const gradient =
+    index % 2 === 0
+      ? "linear-gradient(160deg, #2B2F36 0%, #14171C 100%)"
+      : "linear-gradient(160deg, #3C6E8F 0%, #1E3A52 100%)";
+
+  return (
+    <article
+      className="dw-card group relative overflow-hidden rounded-[22px]"
+      style={heightStyle}
+      data-shot={item.shotName}
+    >
+      <div
+        role="img"
+        aria-label={item.image ? item.alt : `${item.label} website demo`}
+        className="dw-rise relative h-full w-full"
+      >
+        {item.image ? (
+          <Image
+            src={item.image}
+            alt=""
+            fill
+            sizes="(min-width:1024px) 300px, (min-width:640px) 45vw, 90vw"
+            className="dw-shot-media object-cover object-top"
+          />
+        ) : (
+          <>
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{ background: gradient }}
+            />
+            <div
+              aria-hidden
+              className="dw-shot-media absolute inset-0 flex flex-col items-center justify-center p-6"
+            >
+              <div className="w-full max-w-[220px] rounded-lg border border-white/10 bg-white/[0.03] p-3">
+                <div className="flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
+                </div>
+                <div className="mt-3 h-2 w-3/4 rounded-full bg-white/35" />
+                <div className="mt-2 h-1.5 w-full rounded-full bg-white/20" />
+                <div className="mt-1.5 h-1.5 w-2/3 rounded-full bg-white/20" />
+                <div className="mt-3 h-16 rounded-md border border-white/15 bg-white/[0.06]" />
+              </div>
+            </div>
+            <div
+              aria-hidden
+              className="absolute bottom-4 left-4 rounded-full bg-black/35 px-3 py-1 text-[11px] text-white/85 backdrop-blur"
+            >
+              Add: {item.title} website screenshot (1400x1000)
+            </div>
+          </>
+        )}
+        <span className="absolute left-4 top-4 rounded-lg bg-[#2E3A46]/85 px-3.5 py-1.5 text-[14px] font-semibold text-white backdrop-blur">
+          {item.label}
+        </span>
+      </div>
+    </article>
   );
 }
 
@@ -569,61 +704,72 @@ export default function CaseStudiesPage() {
         aria-labelledby="website-demos-heading"
         className="border-t border-white/5 bg-[#0d0d0f] px-5 py-16 text-white sm:px-6 sm:py-24 lg:px-8"
       >
+        <style>{`
+          .dw-card {
+            height: calc(var(--dw-h) * 0.85);
+            transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+          }
+          @media (min-width: 1024px) {
+            .dw-card { height: var(--dw-h); }
+          }
+          .dw-shot-media {
+            transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+          }
+          @media (hover: hover) {
+            .dw-card:hover { transform: translateY(-6px); }
+            .dw-card:hover .dw-shot-media { transform: scale(1.04); }
+          }
+          @keyframes dw-rise {
+            from { opacity: 0.6; transform: translateY(24px); }
+            to { opacity: 1; transform: none; }
+          }
+          @media (prefers-reduced-motion: no-preference) {
+            @supports (animation-timeline: view()) {
+              .dw-rise {
+                animation: dw-rise linear both;
+                animation-timeline: view();
+                animation-range: entry 0% entry 40%;
+              }
+              .dw-card:nth-child(2) .dw-rise { animation-range: entry 6% entry 46%; }
+              .dw-card:nth-child(3) .dw-rise { animation-range: entry 12% entry 52%; }
+            }
+          }
+        `}</style>
+
         <div className="mx-auto w-full max-w-7xl">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-[640px] text-center sm:text-left">
-              <p className="text-[13px] font-semibold uppercase tracking-widest text-[#8b7bff]">
-                WEBSITE DEMOS
-              </p>
-              <h2
-                id="website-demos-heading"
-                className="mt-3 text-[32px] font-light leading-[1.1] tracking-[-0.04em] sm:text-[40px] lg:text-[48px]"
-              >
-                Websites we can build for your business
-              </h2>
-              <p className="mx-auto mt-4 max-w-[640px] text-[16px] leading-relaxed text-white/70 sm:mx-0 sm:text-[18px]">
-                Sample websites for different kinds of business. Each one is
-                customized around your needs.
-              </p>
-            </div>
-            <Link
-              href={DEMOS_HREF}
-              className="group inline-flex items-center gap-2 self-center text-[16px] font-semibold text-[#8b7bff] transition-colors duration-150 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b7bff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0d0f] sm:self-auto"
+          <div className="max-w-[640px] text-center sm:text-left">
+            <p className="text-[13px] font-semibold uppercase tracking-widest text-[#8b7bff]">
+              WEBSITE DEMOS
+            </p>
+            <h2
+              id="website-demos-heading"
+              className="mt-3 text-[32px] font-light leading-[1.1] tracking-[-0.04em] sm:text-[40px] lg:text-[48px]"
             >
-              View all demos
-              <ArrowRightIcon className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-            </Link>
+              Real websites, shaped around real businesses
+            </h2>
+            <p className="mx-auto mt-4 max-w-[640px] text-[16px] leading-relaxed text-white/70 sm:mx-0 sm:text-[18px]">
+              Sample websites for different kinds of business. Each one is
+              customized around the needs of the business behind it.
+            </p>
           </div>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {DEMOS.map((item, index) => {
-              const cardClass =
-                "group csx-reveal block transition-all duration-300 hover:-translate-y-1";
-              const body = (
-                <>
-                  <DemoPreview item={item} index={index} />
-                  <h3 className="mt-4 truncate text-[20px] font-medium text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1 text-[16px] text-white/60">
-                    {item.category}
-                  </p>
-                </>
-              );
-              return item.href ? (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  className={`${cardClass} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b7bff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0d0f]`}
-                >
-                  {body}
-                </Link>
-              ) : (
-                <article key={item.title} className={cardClass}>
-                  {body}
-                </article>
-              );
-            })}
+          <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {demoColumns.map((column, columnIndex) => (
+              <div
+                key={columnIndex}
+                className={`flex flex-col gap-5 ${
+                  columnIndex === 1 || columnIndex === 3 ? "lg:mt-12" : ""
+                }`}
+              >
+                {column.map((item, itemIndex) => (
+                  <DemoCard
+                    key={`${columnIndex}-${itemIndex}`}
+                    item={item}
+                    index={columnIndex + itemIndex * 4}
+                  />
+                ))}
+              </div>
+            ))}
           </div>
         </div>
       </section>
