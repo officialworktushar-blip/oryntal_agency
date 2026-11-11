@@ -45,7 +45,7 @@ export default function BusinessAutomationHero() {
       className="relative overflow-hidden df-hero-gradient text-white -mt-[72px] pt-[calc(var(--header-h)+64px)] md:pt-[calc(var(--header-h)+72px)] pb-14 md:pb-20"
     >
       <div className="container-x relative grid items-center gap-10 lg:grid-cols-2 lg:gap-8">
-        <div className="relative z-10 min-w-0">
+        <div className="relative z-10 min-w-0 lg:[transform:translateX(max(-20%,calc(-1*(max(0px,(100vw_-_1280px)/2)_+_8px))))]">
           <nav aria-label="Breadcrumb" className="text-sm text-white/60">
             <ol className="flex items-center gap-2 flex-wrap">
               <li>

@@ -46,7 +46,7 @@ export default function DigitalFoundationHero() {
     >
       <div className="container-x relative grid items-center gap-8 lg:grid-cols-2 lg:gap-6">
         {/* LEFT */}
-        <div className="relative z-10 min-w-0">
+        <div className="relative z-10 min-w-0 lg:[transform:translateX(max(-20%,calc(-1*(max(0px,(100vw_-_1280px)/2)_+_8px))))]">
           <h1 id="df-hero-title" className="mt-4 font-normal tracking-[-0.03em]">
             <m.span
               className="block whitespace-nowrap text-4xl leading-[1.1] md:text-[clamp(28px,3vw,50px)]"
