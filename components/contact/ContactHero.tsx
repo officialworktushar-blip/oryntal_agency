@@ -60,7 +60,7 @@ export default function ContactHero() {
       }}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid min-h-[560px] items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-8">
+        <div className="grid min-h-0 items-center gap-10 sm:min-h-[560px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-8">
           <div className="min-w-0">
             <nav aria-label="Breadcrumb" className="text-sm text-[#1D1E20]/55">
               <ol className="flex items-center gap-2">
@@ -123,7 +123,7 @@ export default function ContactHero() {
             <a
               href="#enquiry"
               onClick={handleScrollToForm}
-              className="group mt-10 inline-flex items-center gap-2 rounded-xl bg-[#673DE6] px-10 py-4 text-lg font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#5025D1] hover:shadow-[0_12px_32px_rgba(99,61,230,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6]/50 focus-visible:ring-offset-2"
+              className="group mt-10 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#673DE6] px-10 py-4 text-lg font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#5025D1] hover:shadow-[0_12px_32px_rgba(99,61,230,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6]/50 focus-visible:ring-offset-2 sm:w-auto"
             >
               Send your details
               <ArrowRight
@@ -258,7 +258,7 @@ export default function ContactHero() {
               </motion.div>
 
               <div
-                className="absolute left-[40px] top-[400px] z-30 w-[300px]"
+                className="absolute left-[40px] top-[400px] z-30 hidden w-[300px] sm:block"
                 aria-hidden="true"
               >
                 <motion.div
@@ -306,7 +306,7 @@ export default function ContactHero() {
               </div>
 
               <div
-                className="absolute left-[90px] top-[478px] z-40 w-[330px]"
+                className="absolute left-[90px] top-[478px] z-40 hidden w-[330px] sm:block"
                 aria-hidden="true"
               >
                 <motion.div

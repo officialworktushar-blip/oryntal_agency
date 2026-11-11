@@ -29,7 +29,7 @@ export default function AboutHero() {
     <section
       id="about-hero"
       aria-labelledby="about-hero-title"
-      className="relative isolate flex min-h-[max(720px,100vh)] w-full items-center overflow-hidden bg-[#0d0f0e] px-5 pb-16 pt-28 sm:px-6 lg:px-8"
+      className="relative isolate flex min-h-0 w-full items-center overflow-hidden bg-[#0d0f0e] px-5 pb-16 pt-28 sm:min-h-[max(720px,100vh)] sm:px-6 lg:px-8"
     >
       <style>{`
         @keyframes ah-fade-up {
@@ -101,7 +101,7 @@ export default function AboutHero() {
 
             <h1
               id="about-hero-title"
-              className="ah-in mt-4 max-w-[620px] text-[40px] font-light leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-[64px]"
+              className="ah-in mt-4 max-w-[620px] text-4xl font-light leading-[1.05] tracking-[-0.03em] text-white sm:text-6xl sm:tracking-[-0.04em] lg:text-[64px]"
               style={{ animationDelay: "80ms" }}
             >
               Technology that fits
@@ -128,18 +128,18 @@ export default function AboutHero() {
             </p>
 
             <div
-              className="ah-in mt-8 flex flex-wrap items-center gap-4"
+              className="ah-in mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
               style={{ animationDelay: "320ms" }}
             >
               <Link
                 href="/services/custom-proposal"
-                className="inline-flex h-14 items-center justify-center rounded-xl bg-white px-8 text-base font-medium text-[#0d0f0e] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_44px_rgba(124,92,232,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0f0e]"
+                className="inline-flex h-14 w-full items-center justify-center rounded-xl bg-white px-8 text-base font-medium text-[#0d0f0e] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_44px_rgba(124,92,232,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0f0e] sm:w-auto"
               >
                 Request a proposal
               </Link>
               <Link
                 href="/case-studies"
-                className="inline-flex h-14 items-center justify-center rounded-xl border border-white/30 px-8 text-base font-medium text-white transition-colors duration-200 hover:border-[#8b7bff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b7bff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0f0e]"
+                className="inline-flex h-14 w-full items-center justify-center rounded-xl border border-white/30 px-8 text-base font-medium text-white transition-colors duration-200 hover:border-[#8b7bff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b7bff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0f0e] sm:w-auto"
               >
                 See our work
               </Link>

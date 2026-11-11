@@ -173,7 +173,7 @@ export default function Team() {
                     {member.role}
                   </span>
                   <h3
-                    className="mt-3 text-[28px] font-medium leading-tight tracking-[-0.01em] text-white md:text-[30px]"
+                    className="mt-3 break-words text-[28px] font-medium leading-tight tracking-[-0.01em] text-white md:text-[30px]"
                     style={{ textShadow: "0 2px 18px rgba(0,0,0,0.45)" }}
                   >
                     {member.name}
@@ -181,7 +181,7 @@ export default function Team() {
                   <p className="mt-1 text-[15px] text-white/80">
                     {member.roleTitle}
                   </p>
-                  <p className="mt-3 text-[15px] leading-relaxed text-white/75">
+                  <p className="mt-3 break-words text-[15px] leading-relaxed text-white/75">
                     {member.bio}
                   </p>
                 </div>

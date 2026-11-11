@@ -488,7 +488,7 @@ export default function CaseStudiesPage() {
       <section
         id="case-studies-hero"
         aria-labelledby="case-studies-title"
-        className="relative isolate flex min-h-[max(720px,100vh)] w-full flex-col items-center justify-center overflow-hidden bg-[#0d0f0e] px-5 pb-20 pt-28 text-center sm:px-6 lg:px-8"
+        className="relative isolate flex min-h-0 w-full flex-col items-center justify-center overflow-hidden bg-[#0d0f0e] px-5 pb-20 pt-28 text-center sm:min-h-[max(720px,100vh)] sm:px-6 lg:px-8"
       >
         <style>{`
           @keyframes cs-fade-up {
@@ -556,7 +556,7 @@ export default function CaseStudiesPage() {
         <div className="relative z-10 mx-auto w-full max-w-[900px]">
           <h1
             id="case-studies-title"
-            className="cs-in text-[40px] font-light leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-[72px]"
+            className="cs-in text-4xl font-light leading-[1.05] tracking-[-0.03em] text-white sm:text-6xl sm:tracking-[-0.04em] lg:text-[72px]"
             style={{ animationDelay: "0.05s" }}
           >
             See what we&apos;ve built
@@ -654,7 +654,7 @@ export default function CaseStudiesPage() {
             </p>
             <h2
               id="case-studies-heading"
-              className="mt-3 text-[32px] font-light leading-[1.1] tracking-[-0.04em] sm:text-[40px] lg:text-[48px]"
+              className="mt-3 text-3xl font-light leading-[1.1] tracking-[-0.03em] sm:text-[40px] sm:tracking-[-0.04em] lg:text-[48px]"
             >
               From requirement to working solution
             </h2>
@@ -674,10 +674,10 @@ export default function CaseStudiesPage() {
                   <p className="mt-5 text-[16px] text-[#26262b]">
                     {item.date} · {item.businessType}
                   </p>
-                  <h3 className="mt-3 line-clamp-2 text-[20px] font-medium leading-snug sm:text-[24px]">
+                  <h3 className="mt-3 text-[20px] font-medium leading-snug sm:line-clamp-2 sm:text-[24px]">
                     {item.title}
                   </h3>
-                  <p className="mt-3 line-clamp-2 text-[16px] leading-relaxed text-[#4b4b55]">
+                  <p className="mt-3 text-[16px] leading-relaxed text-[#4b4b55] sm:line-clamp-2">
                     {item.excerpt}
                   </p>
                 </>
@@ -744,7 +744,7 @@ export default function CaseStudiesPage() {
             </p>
             <h2
               id="website-demos-heading"
-              className="mt-3 text-[32px] font-light leading-[1.1] tracking-[-0.04em] sm:text-[40px] lg:text-[48px]"
+              className="mt-3 text-3xl font-light leading-[1.1] tracking-[-0.03em] sm:text-[40px] sm:tracking-[-0.04em] lg:text-[48px]"
             >
               Real websites, shaped around real businesses
             </h2>
@@ -815,7 +815,7 @@ export default function CaseStudiesPage() {
           <div className="mx-auto max-w-[900px] text-center">
             <h2
               id="client-feedback-heading"
-              className="text-[40px] font-light leading-[1.05] tracking-[-0.04em] md:text-[56px] lg:text-[72px]"
+              className="text-4xl font-light leading-[1.05] tracking-[-0.03em] sm:text-[40px] sm:tracking-[-0.04em] md:text-[56px] lg:text-[72px]"
             >
               What our clients say
               <br />

@@ -57,7 +57,7 @@ export default function Integrations() {
           <m.h2
             id="integrations-title"
             variants={item}
-            className="mt-5 text-5xl font-medium leading-[1.1] tracking-[-0.03em] text-white md:text-6xl"
+            className="mt-5 break-words text-balance text-4xl font-medium leading-[1.1] tracking-[-0.03em] text-white sm:text-5xl md:text-6xl"
           >
             Bring your tools
           </m.h2>

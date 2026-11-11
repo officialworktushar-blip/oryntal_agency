@@ -1,0 +1,11 @@
+# Mobile rules (apply mobile-first; desktop >= 1024px must stay unchanged)
+1. No horizontal page overflow at 360px. Any element wider than the screen must be fixed: replace fixed widths (w-[Npx], min-w-[Npx]) with `w-full max-w-[Npx]`; negative offsets (-mr-*, -ml-*, left-[-Npx], right-[-Npx], translate-x) must be `lg:` only; full-bleed rails keep their own overflow-hidden wrapper.
+2. Text: headings start small (h1 text-4xl, h2 text-3xl) and grow with sm:/md:/lg:; add `text-balance` and `break-words`; remove `whitespace-nowrap` below sm (use `sm:whitespace-nowrap`); body text min 15px; letter-spacing never tighter than -0.03em on mobile.
+3. Layout: grids are `grid-cols-1` by default; flex rows become `flex-col sm:flex-row` or `flex-wrap`; button groups stack full-width below sm (primary first); tap targets at least 44px high.
+4. Absolutely positioned "design canvases" (fixed px coordinates, scaled with a ResizeObserver or useScaledCanvas): the wrapper keeps its aspect ratio and `overflow-hidden`; below 640px hide purely decorative layers (extra tiles, rocks, secondary glows, connector lines, floating chips, labels under tiles) with `hidden sm:block`; keep only the 4-6 most important elements; effective text size inside canvases must stay >= 10px (if the scale makes it smaller, hide that text on mobile or clamp the scale to a minimum of 0.6 and crop evenly).
+5. Heights: replace large fixed h-[..px]/min-h-[..px] (>= 400px) with responsive values (`min-h-0 md:min-h-[..px]`); heroes use smaller padding on mobile (pt-[calc(var(--header-h,64px)+24px)] pb-12).
+6. Touch devices: no cursor-following effects, parallax, 3D tilts, hover-only reveals or animated cursors below lg (use `@media (hover: hover)` / `lg:` only); keep infinite animations light (max 2-3 per section); content must never depend on an animation finishing (no opacity-0 base styles).
+7. Wide content (tables, code boxes, logo rails) lives in its own `overflow-x-auto` container or becomes stacked cards below md.
+8. Images: next/image with `sizes`, fixed aspect ratio, `object-cover`; no layout shift.
+9. Sticky/anchored UI: sections that are scroll targets keep `scroll-mt-24`; nothing may hide behind the sticky header or the chat button; the chat floating button must not cover primary CTAs.
+10. Never change copy, links, data or desktop design in a mobile pass.

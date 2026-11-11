@@ -76,7 +76,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             transition={{ type: "tween", duration: 0.25, ease: "easeOut" }}
             className="nav-gradient fixed inset-y-0 right-0 z-[60] flex w-full max-w-sm flex-col shadow-pop"
           >
-            <div className="flex h-[72px] shrink-0 items-center justify-between border-b border-white/10 px-4">
+            <div className="flex h-16 shrink-0 items-center justify-between border-b border-white/10 px-4 sm:h-[72px]">
               <Link href="/" aria-label="Oryntal home" onClick={onClose} className="flex items-center gap-2.5">
                 <Image
                   src="/oryntal-logo.png"
@@ -93,13 +93,13 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
                 type="button"
                 onClick={onClose}
                 aria-label="Close menu"
-                className="rounded-lg p-2 text-white transition-colors hover:text-white/75"
+                className="grid size-11 place-items-center rounded-lg text-white transition-colors hover:text-white/75"
               >
                 <X className="size-6" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-4 py-4">
+            <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-4">
               <Link
                 href="/"
                 onClick={onClose}

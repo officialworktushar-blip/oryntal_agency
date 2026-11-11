@@ -11,7 +11,7 @@ export default function QR2ReviewHero({
   return (
     <section
       aria-label="QR2 Review"
-      className="relative overflow-hidden isolate text-white min-h-[620px] lg:min-h-[680px] flex items-center justify-center px-4 py-20"
+      className="relative overflow-hidden isolate text-white min-h-0 sm:min-h-[620px] lg:min-h-[680px] flex items-center justify-center px-4 py-20"
       style={{
         backgroundColor: "#05020f",
         background:
@@ -116,7 +116,7 @@ export default function QR2ReviewHero({
 
       {/* Content */}
       <div className="relative z-10 text-center max-w-[1000px] mx-auto">
-        <h1 className="text-[56px] sm:text-[88px] lg:text-[112px] font-bold tracking-tight leading-[0.95] text-white">
+        <h1 className="text-4xl sm:text-[88px] lg:text-[112px] font-bold tracking-tight leading-[0.95] text-white">
           QR2 Review
         </h1>
 
@@ -142,7 +142,7 @@ export default function QR2ReviewHero({
           </svg>
 
           {/* Price pill */}
-          <div className="bg-[#ff4545] rounded-2xl px-6 py-2 sm:px-8 text-white font-bold text-[40px] sm:text-[64px] lg:text-[80px] leading-none">
+          <div className="bg-[#ff4545] rounded-2xl px-6 py-2 sm:px-8 text-white font-bold text-3xl sm:text-[64px] lg:text-[80px] leading-none">
             ₹399/month
           </div>
         </div>
@@ -153,7 +153,7 @@ export default function QR2ReviewHero({
 
         <Link
           href={href}
-          className="mt-8 inline-flex items-center gap-3 bg-white text-[#14092e] rounded-2xl px-10 py-4 text-lg font-medium hover:bg-[#ece6ff] transition motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+          className="mt-8 inline-flex w-full items-center justify-center gap-3 bg-white text-[#14092e] rounded-2xl px-10 py-4 text-lg font-medium hover:bg-[#ece6ff] transition motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:w-auto"
         >
           Get QR2 Review
           <ArrowRight className="h-5 w-5" aria-hidden="true" />

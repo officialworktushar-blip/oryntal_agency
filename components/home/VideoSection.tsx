@@ -117,7 +117,7 @@ export default function VideoSection() {
           </m.div>
 
           {/* Headline — the two lines reveal separately */}
-          <h2 className="mx-auto mt-6 max-w-4xl text-center text-4xl font-medium leading-[1.1] sm:text-5xl lg:text-6xl">
+          <h2 className="mx-auto mt-6 max-w-4xl break-words text-balance text-center text-4xl font-medium leading-[1.1] sm:text-5xl lg:text-6xl">
             <m.span variants={reveal} className="block text-ink">
               {videoSection.headingTop}
             </m.span>

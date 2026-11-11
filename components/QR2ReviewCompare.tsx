@@ -38,7 +38,7 @@ export default function QR2ReviewCompare() {
       style={{ backgroundColor: "#000000" }}
       className="text-white py-16 lg:py-24 px-4 lg:px-8"
     >
-      <h2 className="text-center text-[34px] sm:text-[46px] lg:text-[56px] font-medium tracking-tight leading-[1.1] max-w-[820px] mx-auto">
+      <h2 className="text-center text-3xl sm:text-[46px] lg:text-[56px] font-medium tracking-[-0.03em] sm:tracking-tight leading-[1.1] max-w-[820px] mx-auto">
         QR2 Review vs. collecting reviews manually
       </h2>
       <p className="text-center text-base lg:text-lg text-white/65 max-w-[720px] mx-auto mt-5 leading-relaxed">
@@ -56,7 +56,7 @@ export default function QR2ReviewCompare() {
 
         <div className="grid grid-cols-2">
           {/* Header row */}
-          <div className="flex items-center px-5 sm:px-10 py-4 border-b border-white/10 min-h-[104px]">
+          <div className="flex items-center px-3 sm:px-10 py-4 border-b border-white/10 min-h-[104px]">
             <div>
               <div className="text-lg sm:text-2xl font-bold tracking-[0.2em] text-white">
                 ORYNTAL
@@ -64,7 +64,7 @@ export default function QR2ReviewCompare() {
               <div className="text-sm text-white/60">QR2 Review</div>
             </div>
           </div>
-          <div className="flex items-center px-5 sm:px-10 py-4 border-b border-white/10 min-h-[104px]">
+          <div className="flex items-center px-3 sm:px-10 py-4 border-b border-white/10 min-h-[104px]">
             <div className="text-sm sm:text-base font-semibold text-white">
               Collecting reviews manually
             </div>
@@ -73,8 +73,8 @@ export default function QR2ReviewCompare() {
           {/* Data rows */}
           {ROWS.map((row, index) => (
             <div key={index} className="contents">
-              <div className="flex items-center justify-between px-5 sm:px-10 py-4 border-b border-white/10 min-h-[84px]">
-                <span className="text-sm sm:text-base font-semibold text-white">
+              <div className="flex items-center justify-between px-3 sm:px-10 py-4 border-b border-white/10 min-h-[84px]">
+                <span className="break-words text-sm sm:text-base font-semibold text-white">
                   {row.ours}
                 </span>
                 <CheckCircle2
@@ -82,8 +82,8 @@ export default function QR2ReviewCompare() {
                   aria-hidden="true"
                 />
               </div>
-              <div className="flex items-center px-5 sm:px-10 py-4 border-b border-white/10 min-h-[84px]">
-                <span className="text-sm sm:text-lg text-white/85 font-normal">
+              <div className="flex items-center px-3 sm:px-10 py-4 border-b border-white/10 min-h-[84px]">
+                <span className="break-words text-sm sm:text-lg text-white/85 font-normal">
                   {row.theirs}
                 </span>
               </div>
@@ -98,7 +98,7 @@ export default function QR2ReviewCompare() {
         </p>
         <Link
           href={contactHref}
-          className="mt-6 inline-flex items-center gap-3 bg-[#673DE6] hover:bg-[#5a33cf] text-white rounded-xl px-8 py-4 text-base font-medium transition motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+          className="mt-6 inline-flex w-full items-center justify-center gap-3 bg-[#673DE6] hover:bg-[#5a33cf] text-white rounded-xl px-8 py-4 text-base font-medium transition motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:w-auto"
         >
           Get QR2 Review
           <ArrowRight className="h-[18px] w-[18px]" aria-hidden="true" />

@@ -39,7 +39,7 @@ export default function ProductsPage() {
         title="Purpose-built tools to scale your business"
         description="Own, operate, or integrate these products into your workflow — each is built from real deployments and refined for usability."
       >
-        <Link href="/contact" className="btn-primary">
+        <Link href="/contact" className="btn-primary w-full sm:w-auto">
           Book Consultation
           <ArrowRight className="h-4 w-4" />
         </Link>
@@ -73,12 +73,12 @@ export default function ProductsPage() {
                     ))}
                   </ul>
 
-                  <div className="mt-8 flex flex-wrap gap-3">
-                    <Link href="/contact" className="btn-primary">
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                    <Link href="/contact" className="btn-primary w-full justify-center sm:w-auto">
                       Get Access / Quote
                       <ArrowRight className="h-4 w-4" />
                     </Link>
-                    <Link href="/services" className="btn-secondary">
+                    <Link href="/services" className="btn-secondary w-full justify-center sm:w-auto">
                       See How It Connects
                     </Link>
                   </div>

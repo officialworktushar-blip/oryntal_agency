@@ -87,7 +87,7 @@ export default function HowItWorksPanel({
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-15% 0px" }}
-          className="relative"
+          className="relative order-2 lg:order-1"
         >
           <BuildShowcase />
         </m.div>
@@ -98,7 +98,7 @@ export default function HowItWorksPanel({
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-15% 0px" }}
-          className="flex flex-col p-4 md:p-6 lg:p-8"
+          className="order-1 flex flex-col p-4 md:p-6 lg:order-2 lg:p-8"
         >
           <m.div variants={copyItem}>
             <StageHeader
@@ -137,7 +137,7 @@ export default function HowItWorksPanel({
             <Link
               href={tab.cta.href}
               className={cn(
-                "group inline-flex items-center gap-2 rounded-lg bg-brand px-6 py-3.5 text-base font-medium text-white shadow-cta outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-brand ring-offset-2 ring-offset-white",
+                "group inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3.5 text-base font-medium text-white shadow-cta outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-brand ring-offset-2 ring-offset-white sm:w-auto",
                 !reduced &&
                   "hover:-translate-y-0.5 hover:bg-brand-hover hover:shadow-lift",
               )}

@@ -27,7 +27,7 @@ export default function Hero() {
   const reduced = useReducedMotion();
 
   return (
-    <section className="hero-gradient relative -mt-[72px] pt-[72px] text-white">
+    <section className="hero-gradient relative -mt-16 pt-16 text-white lg:-mt-[72px] lg:pt-[72px]">
       {/* Decorative layer: drifting blobs + grain (clipped to the hero) */}
       <div className="hero-noise pointer-events-none absolute inset-0 overflow-hidden">
         <m.div
@@ -62,7 +62,7 @@ export default function Hero() {
             initial={reduced ? "show" : "hidden"}
             animate="show"
             variants={headline}
-            className="mt-12 max-w-4xl text-5xl font-medium leading-[1.05] tracking-[-0.04em] text-white sm:text-6xl lg:text-[76px]"
+            className="mt-12 max-w-4xl break-words text-4xl font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-6xl sm:tracking-[-0.04em] lg:text-[76px]"
           >
             {line1.map((w) => (
               <m.span
@@ -84,13 +84,13 @@ export default function Hero() {
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
             <Link
               href="/contact"
-              className="rounded-lg bg-white px-7 py-3.5 text-base font-medium text-ink shadow-[0_10px_30px_-12px_rgba(255,255,255,0.5)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_-14px_rgba(255,255,255,0.65)]"
+              className="w-full rounded-lg bg-white px-7 py-3.5 text-center text-base font-medium text-ink shadow-[0_10px_30px_-12px_rgba(255,255,255,0.5)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_18px_30px_-14px_rgba(255,255,255,0.65)] sm:w-auto"
             >
               Get started
             </Link>
             <Link
               href="#services"
-              className="rounded-lg border border-white/30 px-7 py-3.5 text-base font-medium text-white transition-colors duration-200 hover:bg-white/10"
+              className="w-full rounded-lg border border-white/30 px-7 py-3.5 text-center text-base font-medium text-white transition-colors duration-200 hover:bg-white/10 sm:w-auto"
             >
               Explore services
             </Link>

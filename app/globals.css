@@ -3712,3 +3712,14 @@
   }
 }
 
+/* ===== mobile safety net ===== */
+html, body { max-width: 100%; overflow-x: clip; }
+img, video, svg, canvas, iframe { max-width: 100%; }
+h1, h2, h3, h4 { overflow-wrap: break-word; text-wrap: balance; }
+p, li { overflow-wrap: break-word; }
+@media (max-width: 639px) {
+  h1, h2, h3, h1 *, h2 *, h3 * { white-space: normal !important; }
+  :root { --header-h: 64px; }
+}
+@media (hover: none) { .no-touch { display: none !important; } }
+

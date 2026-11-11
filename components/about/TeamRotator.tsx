@@ -118,7 +118,7 @@ export default function TeamRotator({ children }: { children?: ReactNode }) {
               aria-label={person.dot}
               aria-current={active ? "true" : undefined}
               onClick={() => goTo(personIndex)}
-              className="flex h-4 items-center rounded-full px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f6f5fb]"
+              className="flex h-11 items-center rounded-full px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f6f5fb] sm:h-4"
             >
               <span
                 className={`block h-1.5 rounded-full transition-all duration-300 ${

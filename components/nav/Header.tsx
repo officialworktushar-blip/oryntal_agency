@@ -61,7 +61,7 @@ export default function Header() {
           aria-hidden
           className="nav-gradient absolute inset-0 -z-10 opacity-100 backdrop-blur-md shadow-[0_16px_40px_-24px_rgba(0,0,0,0.75)]"
         />
-        <div className="mx-auto flex h-[72px] w-full max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 w-full max-w-7xl items-center gap-8 px-4 sm:px-6 lg:h-[72px] lg:px-8">
           <Link
             href="/"
             aria-label="Oryntal home"
@@ -104,7 +104,7 @@ export default function Header() {
               aria-label={drawerOpen ? "Close menu" : "Open menu"}
               aria-expanded={drawerOpen}
               onClick={() => setDrawerOpen((v) => !v)}
-              className="rounded-lg p-2 text-white transition-colors hover:text-white/75 lg:hidden"
+              className="grid size-11 place-items-center rounded-lg text-white transition-colors hover:text-white/75 lg:hidden"
             >
               {drawerOpen ? <X className="size-6" /> : <Menu className="size-6" />}
             </button>

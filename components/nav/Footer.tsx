@@ -7,8 +7,8 @@ import { legalDocs } from "@/lib/legal";
 export default function Footer() {
   return (
     <footer className="border-t border-line bg-white">
-      <div className="container-x grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
-        <div className="lg:col-span-2">
+      <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="min-w-0 lg:col-span-2">
           <Link href="/" aria-label="Oryntal home" className="inline-block">
             <Image
               src="/oryntal-logo.png"
@@ -24,13 +24,13 @@ export default function Footer() {
             your process is complex.
           </p>
           <div className="mt-5 flex flex-col gap-1 text-sm text-muted">
-            <a href={`mailto:${site.email}`} className="transition-colors hover:text-brand">
+            <a href={`mailto:${site.email}`} className="break-words transition-colors hover:text-brand">
               {site.email}
             </a>
             {site.phone ? (
               <a
                 href={`tel:${site.phone.replace(/[^+\d]/g, "")}`}
-                className="transition-colors hover:text-brand"
+                className="break-words transition-colors hover:text-brand"
               >
                 {site.phone}
               </a>

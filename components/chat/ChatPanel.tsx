@@ -92,7 +92,7 @@ export default function ChatPanel({
             transition={{ duration: 0.2, ease: "easeOut" }}
             className={
               "absolute inset-x-0 z-30 mx-auto flex max-h-[460px] w-full flex-col overflow-hidden rounded-3xl border border-white/15 bg-[#140C38]/90 shadow-2xl backdrop-blur-xl " +
-              "max-md:fixed max-md:inset-x-0 max-md:bottom-0 max-md:top-auto max-md:z-50 max-md:max-h-[75vh] max-md:rounded-b-none max-md:rounded-t-3xl"
+              "max-md:fixed max-md:inset-x-0 max-md:bottom-2 max-md:top-auto max-md:z-50 max-md:max-h-[80dvh] max-md:w-[calc(100vw-24px)] max-md:rounded-b-none max-md:rounded-t-3xl"
             }
           >
             {/* Header */}

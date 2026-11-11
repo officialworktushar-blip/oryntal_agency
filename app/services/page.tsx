@@ -84,11 +84,11 @@ export default function ServicesPage() {
         title="Technology that fits how your business actually works"
         description="From development to AI automation and integrations, each service is designed to connect seamlessly with the rest of your stack."
       >
-        <Link href="/contact" className="btn-primary">
+        <Link href="/contact" className="btn-primary w-full sm:w-auto">
           Book Consultation
           <ArrowRight className="h-4 w-4" />
         </Link>
-        <Link href="/packages" className="btn-secondary">
+        <Link href="/packages" className="btn-secondary w-full sm:w-auto">
           View Packages
         </Link>
       </PageHeader>
@@ -118,12 +118,12 @@ export default function ServicesPage() {
                     ))}
                   </ul>
 
-                  <div className="mt-8 flex flex-wrap gap-3">
-                    <Link href="/contact" className="btn-primary">
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                    <Link href="/contact" className="btn-primary w-full justify-center sm:w-auto">
                       Discuss This Service
                       <ArrowRight className="h-4 w-4" />
                     </Link>
-                    <Link href="/packages" className="btn-secondary">
+                    <Link href="/packages" className="btn-secondary w-full justify-center sm:w-auto">
                       See Relevant Package
                     </Link>
                   </div>

@@ -372,7 +372,7 @@ export default function ManageBars({ tab, headingId }: ManageBarsProps) {
     ) : (
       <h4
         id={`manage-card-title-${card.id}`}
-        className="text-xl font-medium tracking-tight text-white"
+        className="break-words text-xl font-medium tracking-tight text-white"
       >
         {card.title}
       </h4>

@@ -334,7 +334,7 @@ function CardShell({
 
   return (
     <article
-      className="aw-card group relative min-h-[440px] overflow-hidden rounded-3xl border border-white/5 p-6 transition-colors duration-300 hover:border-[#8b7bff]/30 sm:min-h-[500px] sm:p-8"
+      className="aw-card group relative min-h-[380px] overflow-hidden rounded-3xl border border-white/5 p-6 transition-colors duration-300 hover:border-[#8b7bff]/30 sm:min-h-[500px] sm:p-8"
       style={style}
     >
       <div className="relative z-10">
@@ -630,7 +630,7 @@ export default function AboutWhyOryntal() {
         <div className="text-center">
           <h2
             id="why-oryntal-title"
-            className="text-[38px] font-light leading-[1.05] tracking-[-0.04em] text-white sm:text-5xl lg:text-[64px]"
+            className="text-4xl font-light leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl sm:tracking-[-0.04em] lg:text-[64px]"
           >
             {sectionCopy.heading}
           </h2>

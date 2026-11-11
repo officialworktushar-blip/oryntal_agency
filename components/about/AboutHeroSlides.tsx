@@ -134,7 +134,7 @@ export default function AboutHeroSlides() {
               aria-label={`Show slide ${slideIndex + 1} of ${SLIDES.length}`}
               aria-current={active ? "true" : undefined}
               onClick={() => goToSlide(slideIndex)}
-              className="flex h-4 w-12 items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b7bff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0f0e]"
+              className="flex h-11 w-12 items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b7bff] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0f0e] sm:h-4"
             >
               <span className="relative h-1 w-full overflow-hidden rounded-full bg-white/20">
                 {active ? (

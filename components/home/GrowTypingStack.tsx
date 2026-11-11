@@ -170,7 +170,7 @@ export default function GrowTypingStack({
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-15% 0px" }}
-          className="relative mx-auto w-full max-w-[760px] pb-14"
+          className="relative order-2 mx-auto w-full max-w-[760px] pb-14 lg:order-1"
         >
           <div
             className="relative aspect-[3/2.1]"
@@ -328,7 +328,7 @@ export default function GrowTypingStack({
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-15% 0px" }}
-          className="flex flex-col"
+          className="order-1 flex flex-col lg:order-2"
         >
           <m.div variants={revealItem} className="mb-6">
             <TrendingUp
@@ -363,7 +363,7 @@ export default function GrowTypingStack({
             </Link>
           </m.div>
 
-          <m.div variants={revealItem} className="mt-8 flex items-center gap-4">
+          <m.div variants={revealItem} className="mt-8 flex flex-wrap items-center gap-4">
             <div className="flex shrink-0 items-center -space-x-2">
               {tab.chips.map((chip) => {
                 const Icon = iconMap[chip.icon];
@@ -381,7 +381,7 @@ export default function GrowTypingStack({
                 );
               })}
             </div>
-            <p className="max-w-[16rem] text-sm text-muted">{tab.chipsIntro}</p>
+            <p className="min-w-0 max-w-[16rem] text-sm text-muted">{tab.chipsIntro}</p>
           </m.div>
         </m.div>
       </div>

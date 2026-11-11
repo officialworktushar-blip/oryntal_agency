@@ -32,7 +32,7 @@ export default function StageHeader({
       <h3
         id={headingId}
         className={cn(
-          "mt-4 text-4xl font-medium leading-[1.12] tracking-[-0.03em] md:text-[46px]",
+          "mt-4 break-words text-4xl font-medium leading-[1.12] tracking-[-0.03em] md:text-[46px]",
           dark ? "text-white" : "text-ink",
         )}
       >

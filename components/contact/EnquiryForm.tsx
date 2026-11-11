@@ -52,13 +52,13 @@ const initialValues: FormValues = {
 };
 
 const primaryButton =
-  "inline-flex items-center justify-center gap-2 rounded-xl bg-[#673DE6] px-8 py-3.5 text-base font-semibold text-white transition-colors duration-150 hover:bg-[#5025D1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6]/50 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-[#C9C2E6] disabled:hover:bg-[#C9C2E6]";
+  "inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#673DE6] px-8 py-3.5 text-base font-semibold text-white transition-colors duration-150 hover:bg-[#5025D1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6]/50 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-[#C9C2E6] disabled:hover:bg-[#C9C2E6] sm:w-auto";
 
 const ghostButton =
-  "inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-base font-semibold text-[#4A2FB8] transition-colors duration-150 hover:bg-[#F1EEFF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6]/50";
+  "inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-base font-semibold text-[#4A2FB8] transition-colors duration-150 hover:bg-[#F1EEFF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6]/50 sm:w-auto";
 
 function inputClass(hasError: boolean) {
-  return `w-full rounded-xl border bg-white px-4 py-3 text-[15px] text-[#1D1E20] outline-none transition focus:border-[#673DE6]/50 focus:ring-2 focus:ring-[#673DE6]/30 ${
+  return `w-full rounded-xl border bg-white px-4 py-3 text-base text-[#1D1E20] outline-none transition focus:border-[#673DE6]/50 focus:ring-2 focus:ring-[#673DE6]/30 sm:text-[15px] ${
     hasError ? "border-red-400" : "border-[#E3E4E8]"
   }`;
 }
@@ -382,7 +382,7 @@ export default function EnquiryForm() {
                   onClick={() => goToStep(index)}
                   disabled={index >= step}
                   aria-current={isActive ? "step" : undefined}
-                  className="flex shrink-0 items-center gap-2 rounded-xl p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6]/50 disabled:cursor-default"
+                  className="flex shrink-0 items-center gap-2 rounded-xl p-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#673DE6]/50 disabled:cursor-default sm:p-1"
                 >
                   <span
                     className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
@@ -890,7 +890,7 @@ export default function EnquiryForm() {
                       <button
                         type="submit"
                         disabled={sending}
-                        className={`${primaryButton} w-full sm:w-auto`}
+                        className={primaryButton}
                       >
                         {sending ? "Sending..." : contactForm.buttons.send}
                         <Send

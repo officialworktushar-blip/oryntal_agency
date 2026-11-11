@@ -53,7 +53,7 @@ export default function QR2ReviewFeatures() {
       className="text-white py-16 lg:py-24"
     >
       <div className="mx-auto max-w-[1400px] px-4 lg:px-8">
-        <h2 className="text-center text-[36px] sm:text-[48px] lg:text-[56px] font-medium tracking-tight leading-[1.1] max-w-[820px] mx-auto">
+        <h2 className="text-center text-3xl sm:text-[48px] lg:text-[56px] font-medium tracking-tight leading-[1.1] max-w-[820px] mx-auto">
           What QR2 Review can do for you
         </h2>
 

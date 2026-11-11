@@ -20,11 +20,11 @@ export default function PackagesPage() {
         title="Clear pricing. Defined outcomes."
         description="Compare each package, see what's included, and pick the right starting point for your growth roadmap."
       >
-        <Link href="/contact" className="btn-primary">
+        <Link href="/contact" className="btn-primary w-full sm:w-auto">
           Book Consultation
           <ArrowRight className="h-4 w-4" />
         </Link>
-        <Link href="/services" className="btn-secondary">
+        <Link href="/services" className="btn-secondary w-full sm:w-auto">
           Explore Services
         </Link>
       </PageHeader>

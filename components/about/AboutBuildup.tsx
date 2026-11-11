@@ -85,7 +85,7 @@ export default function AboutBuildup() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-24 -top-24 h-[420px] w-[420px] rounded-full"
+        className="pointer-events-none absolute -left-24 -top-24 hidden h-[420px] w-[420px] rounded-full sm:block"
         style={{
           background:
             "radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 70%)",
@@ -105,7 +105,7 @@ export default function AboutBuildup() {
 
             <h2
               id="about-buildup-title"
-              className="ab-in mt-4 whitespace-pre-line text-[38px] font-light leading-[1.05] tracking-[-0.04em] text-[#0d0d0f] sm:text-5xl lg:text-[64px]"
+              className="ab-in mt-4 whitespace-pre-line text-4xl font-light leading-[1.05] tracking-[-0.03em] text-[#0d0d0f] sm:text-5xl sm:tracking-[-0.04em] lg:text-[64px]"
               style={{ animationDelay: "80ms" }}
             >
               {copy.heading}
@@ -127,7 +127,7 @@ export default function AboutBuildup() {
 
             <Link
               href={copy.ctaHref}
-              className="ab-in mt-8 inline-flex h-[60px] items-center justify-center rounded-xl bg-[#6a3fe0] px-9 text-base font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#5b32d0] hover:shadow-[0_16px_40px_rgba(91,61,224,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6a3fe0] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f6f5fb]"
+              className="ab-in mt-8 inline-flex h-[60px] w-full items-center justify-center rounded-xl bg-[#6a3fe0] px-9 text-base font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#5b32d0] hover:shadow-[0_16px_40px_rgba(91,61,224,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6a3fe0] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f6f5fb] sm:w-auto"
               style={{ animationDelay: "320ms" }}
             >
               {copy.cta}

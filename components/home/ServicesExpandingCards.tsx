@@ -154,7 +154,7 @@ export default function ServicesExpandingCards() {
 
                   {/* Title + description */}
                   <div className="mt-4 lg:h-24">
-                    <h3 className="text-xl font-medium text-white">
+                    <h3 className="break-words text-xl font-medium text-white">
                       {card.title}
                     </h3>
                     <m.p
@@ -169,7 +169,7 @@ export default function ServicesExpandingCards() {
                       transition={
                         reduced ? { duration: 0 } : { duration: 0.25, ease: "easeOut" }
                       }
-                      className="mt-2 text-sm leading-relaxed text-white/80"
+                      className="mt-2 break-words text-sm leading-relaxed text-white/80"
                     >
                       {card.description}
                     </m.p>

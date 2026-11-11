@@ -200,7 +200,7 @@ export default function FinalCta() {
             <m.h2
               id="cta-title"
               variants={textItem}
-              className="mt-4 max-w-xl text-4xl font-medium leading-[1.12] tracking-[-0.03em] text-white md:text-[46px] lg:text-5xl"
+              className="mt-4 max-w-xl break-words text-balance text-4xl font-medium leading-[1.12] tracking-[-0.03em] text-white md:text-[46px] lg:text-5xl"
             >
               {finalCtaContent.heading}
             </m.h2>
@@ -241,7 +241,7 @@ export default function FinalCta() {
             ref={compRef}
             onMouseEnter={() => setPointerOver(true)}
             onMouseLeave={() => setPointerOver(false)}
-            className="relative min-h-[420px] min-w-0 overflow-visible md:min-h-[440px] lg:min-h-[520px]"
+            className="relative min-h-[360px] min-w-0 overflow-visible md:min-h-[440px] lg:min-h-[520px]"
           >
             {/* Screen-reader copy of every example prompt */}
             <ul className="sr-only" aria-label="Examples of what ORYNTAL can build">
@@ -477,7 +477,7 @@ export default function FinalCta() {
               <m.div
                 aria-hidden
                 style={{ x: cursorX, y: cursorY }}
-                className="pointer-events-none absolute left-0 top-0 z-[45] hidden md:block"
+                className="pointer-events-none absolute left-0 top-0 z-[45] hidden lg:block"
               >
                 <m.span
                   key={`cursor-press-${activeIndex}`}
@@ -540,7 +540,7 @@ export default function FinalCta() {
                   ? { duration: 0.3 }
                   : { type: "spring", stiffness: 260, damping: 16, delay: 0.7 }
               }
-              className="absolute bottom-[84px] right-0 z-50 md:bottom-[-2%] md:right-[-1%]"
+              className="absolute bottom-[84px] right-0 z-50 hidden md:bottom-[-2%] md:right-[-1%] md:block"
             >
               <Link
                 href={finalCtaContent.primary.href}

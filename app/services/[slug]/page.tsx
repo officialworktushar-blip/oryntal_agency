@@ -21,10 +21,10 @@ export default async function DomainPage({
   return (
     <>
       <PageHeader eyebrow={`Domain ${domain.number}`} title={domain.label} description={domain.summary}>
-        <Link href="/contact" className="btn-primary">
+        <Link href="/contact" className="btn-primary w-full sm:w-auto">
           Book a consultation
         </Link>
-        <Link href="/packages" className="btn-secondary">
+        <Link href="/packages" className="btn-secondary w-full sm:w-auto">
           See packages
         </Link>
       </PageHeader>
