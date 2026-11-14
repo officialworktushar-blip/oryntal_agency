@@ -172,7 +172,7 @@ export default function AiHero() {
             <BuildSelector build={build} activeId={activeId} onChange={setActiveId} onUserInteract={handleUserInteract} />
           </div>
 
-          <div className="min-w-0">
+          <div className="mx-auto w-full min-w-0 max-w-[420px] sm:max-w-none">
             <HeroVisual activeId={activeId} onCycle={handleCycle} paused={paused || userInteracted} onUserInteract={handleUserInteract} onActiveChange={setActiveId} />
           </div>
         </div>

@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import { useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { aiDev } from "@/lib/content/services/aiDev";
-import { useScaledCanvas } from "@/hooks/useScaledCanvas";
 
 type HeroVisualProps = {
   activeId: string;
@@ -15,15 +14,31 @@ type HeroVisualProps = {
   onActiveChange?: (id: string) => void;
 };
 
+const DESIGN_WIDTH = 600;
+const DESIGN_HEIGHT = 460;
+
 export default function HeroVisual({ activeId, onCycle, paused, onUserInteract, onActiveChange }: HeroVisualProps) {
   const reduced = useReducedMotion() ?? false;
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.3 });
-  const { wrapperRef, scale } = useScaledCanvas(600, 0.7);
+  const [scale, setScale] = useState(1);
   const [showCapabilityIcon, setShowCapabilityIcon] = useState(false);
   const [hoveredTile, setHoveredTile] = useState<string | null>(null);
 
   const activeItem = aiDev.build.find((item) => item.id === activeId) || aiDev.build[0];
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => {
+      const width = el.getBoundingClientRect().width;
+      if (width > 0) setScale(Math.min(1, width / DESIGN_WIDTH));
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Cycle timer
   useEffect(() => {
@@ -75,23 +90,25 @@ export default function HeroVisual({ activeId, onCycle, paused, onUserInteract, 
   const isTileActive = (id: string) => id === activeId || id === hoveredTile;
 
   return (
-    <div
-      ref={ref}
-      id="ai-visual"
-      role="tabpanel"
-      aria-label={aiDev.visual.srCaption}
-      className="relative w-full max-w-[600px] aspect-[600/460] lg:justify-self-end"
-    >
-      <div ref={wrapperRef} className="relative w-full h-full">
+    <div className="w-full min-w-0">
+      <div
+        ref={ref}
+        id="ai-visual"
+        role="tabpanel"
+        aria-label={aiDev.visual.srCaption}
+        className="relative mx-auto aspect-[600/460] w-full min-w-0 max-w-[600px] overflow-hidden lg:justify-self-end"
+      >
         <div
-          className="absolute inset-0 bg-black"
-          style={{ transform: `scale(${scale})`, transformOrigin: "top left" }}
+          className="absolute left-0 top-0 h-[460px] w-[600px] origin-top-left bg-black"
+          style={{ transform: `scale(${scale})` }}
         >
           {/* Grid lines */}
           <svg
+            width={DESIGN_WIDTH}
+            height={DESIGN_HEIGHT}
             viewBox="0 0 600 460"
             fill="none"
-            className="absolute inset-0 w-full h-full"
+            className="absolute left-0 top-0 hidden sm:block"
             aria-hidden="true"
           >
             {/* Horizontal lines */}
@@ -109,9 +126,11 @@ export default function HeroVisual({ activeId, onCycle, paused, onUserInteract, 
 
           {/* Lilac segments - frame edges */}
           <svg
+            width={DESIGN_WIDTH}
+            height={DESIGN_HEIGHT}
             viewBox="0 0 600 460"
             fill="none"
-            className="absolute inset-0 w-full h-full"
+            className="absolute left-0 top-0"
             aria-hidden="true"
           >
             <path
@@ -186,11 +205,11 @@ export default function HeroVisual({ activeId, onCycle, paused, onUserInteract, 
             {/* Logo or capability icon */}
             <div className="absolute inset-0 flex items-center justify-center">
               {showCapabilityIcon && activeItem ? (
-                <div className="relative w-[76px] h-[76px] rounded-2xl bg-[#17171A] border border-white/10 flex items-center justify-center">
+                <div className="relative flex h-[76px] w-[76px] items-center justify-center rounded-2xl border border-white/10 bg-[#17171A]">
                   <activeItem.icon size={56} className="text-white" />
                 </div>
               ) : (
-                <div className="relative w-[96px] h-[96px]">
+                <div className="relative h-[96px] w-[96px]">
                   <Image
                     src="/logo.png"
                     alt="ORYNTAL"
@@ -225,7 +244,7 @@ export default function HeroVisual({ activeId, onCycle, paused, onUserInteract, 
             return (
               <div
                 key={tile.id}
-                className="absolute rounded-[18px] cursor-pointer transition-transform duration-200 hover:scale-105"
+                className="absolute cursor-pointer rounded-[18px] transition-transform duration-200 lg:hover:scale-105"
                 style={{
                   left: tile.left,
                   top: tile.top,
@@ -249,32 +268,23 @@ export default function HeroVisual({ activeId, onCycle, paused, onUserInteract, 
                 </div>
                 {/* Label on hover/active */}
                 {(active || hoveredTile === tile.id) && (
-                  <div
-                    className="absolute bottom-0 left-0 right-0 text-center text-[11px] text-white/50 pb-2"
-                  >
+                  <div className="absolute bottom-0 left-0 right-0 hidden pb-2 text-center text-[11px] text-white/50 sm:block">
                     {item.title}
                   </div>
                 )}
               </div>
             );
           })}
+        </div>
+      </div>
 
-          {/* Caption chip */}
-          <div
-            className="absolute rounded-full bg-white/8 border border-white/12 backdrop-blur px-4 py-2 text-[13px] text-white"
-            style={{
-              left: 300,
-              top: 420,
-              transform: "translateX(-50%)",
-            }}
-          >
-            <div className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#19d3a2] animate-pulse" />
-              <span>
-                {activeItem.title} · {activeItem.caption}
-              </span>
-            </div>
-          </div>
+      {/* Caption pill */}
+      <div className="mt-4 flex justify-center">
+        <div className="inline-flex w-auto max-w-full items-center gap-2 whitespace-normal rounded-full border border-white/12 bg-white/8 px-4 py-2 text-center text-[13px] leading-snug text-white backdrop-blur">
+          <span className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-[#19d3a2]" aria-hidden="true" />
+          <span>
+            {activeItem.title} · {activeItem.caption}
+          </span>
         </div>
       </div>
     </div>
