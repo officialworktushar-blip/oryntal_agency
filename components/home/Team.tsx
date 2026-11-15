@@ -99,8 +99,9 @@ export default function Team() {
                       src={member.photo}
                       alt={member.alt}
                       fill
-                      sizes="(min-width:768px) 400px, 90vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      sizes="(min-width:1024px) 380px, 90vw"
+                      className="object-cover object-top"
+                      priority={index === 0}
                     />
                   ) : (
                     <div

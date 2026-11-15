@@ -32,8 +32,8 @@ export const team: TeamContent = {
       role: "CEO",
       roleTitle: "Chief Executive Officer",
       bio: "Leads ORYNTAL's vision and direction, and makes sure every project is built around the client's business.",
-      photo: "/team/tushar.webp",
-      hasPhoto: false,
+      photo: "/Tushar_Cont.webp",
+      hasPhoto: true,
       shotLabel:
         "Add: portrait of Tushar Srivastav (vertical 3:4, 1200x1600, WebP) as /public/team/tushar.webp",
       alt: "Tushar Srivastav, CEO of ORYNTAL",
@@ -44,8 +44,8 @@ export const team: TeamContent = {
       role: "CBO",
       roleTitle: "Chief Business Officer",
       bio: "Looks after business and partnerships, helping clients find the right solution and the right people.",
-      photo: "/team/dipesh.webp",
-      hasPhoto: false,
+      photo: "/Dipesh_Cont.webp",
+      hasPhoto: true,
       shotLabel:
         "Add: portrait of Dipesh Mayla (vertical 3:4, 1200x1600, WebP) as /public/team/dipesh.webp",
       alt: "Dipesh Mayla, CBO of ORYNTAL",
@@ -56,8 +56,8 @@ export const team: TeamContent = {
       role: "CMO",
       roleTitle: "Chief Marketing Officer",
       bio: "Leads marketing and communication, so clients' stories reach the customers who need them.",
-      photo: "/team/parth.webp",
-      hasPhoto: false,
+      photo: "/Parth_Cont.webp",
+      hasPhoto: true,
       shotLabel:
         "Add: portrait of Parth Srivastav (vertical 3:4, 1200x1600, WebP) as /public/team/parth.webp",
       alt: "Parth Srivastav, CMO of ORYNTAL",
