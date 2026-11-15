@@ -56,7 +56,7 @@ export const team: TeamContent = {
       role: "CMO",
       roleTitle: "Chief Marketing Officer",
       bio: "Leads marketing and communication, so clients' stories reach the customers who need them.",
-      photo: "/Parth_Cont.webp",
+      photo: "/Parth_Cont.webp?v=2",
       hasPhoto: true,
       shotLabel:
         "Add: portrait of Parth Srivastav (vertical 3:4, 1200x1600, WebP) as /public/team/parth.webp",
