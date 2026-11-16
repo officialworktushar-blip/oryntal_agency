@@ -95,23 +95,7 @@ export default function EngagementHero() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center justify-center gap-2 text-sm text-white/55">
-            <li>Services</li>
-            <li className="flex items-center gap-2">
-              <ChevronRight className="size-4" aria-hidden="true" />
-              <span>Custom Consultation & Development</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <ChevronRight className="size-4" aria-hidden="true" />
-              <span className="text-white/80" aria-current="page">
-                Three-Month Engagement
-              </span>
-            </li>
-          </ol>
-        </nav>
-
-        <p className="mt-6 text-[15px] font-medium md:text-base" style={{ color: "#9B95FF" }}>
+        <p className="mt-10 text-[15px] font-medium md:text-base" style={{ color: "#9B95FF" }}>
           {engagement.eyebrow}
         </p>
 

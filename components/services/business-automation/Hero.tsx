@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { m, useReducedMotion } from "framer-motion";
-import { Check, ChevronRight, ShieldCheck } from "lucide-react";
+import { Check, ShieldCheck } from "lucide-react";
 import { businessAutomation } from "@/lib/content/packages/businessAutomation";
 import HeroCards from "@/components/services/business-automation/HeroCards";
 
@@ -46,25 +46,7 @@ export default function BusinessAutomationHero() {
     >
       <div className="container-x relative grid items-center gap-10 lg:grid-cols-2 lg:gap-8">
         <div className="relative z-10 min-w-0 lg:[transform:translateX(max(-20%,calc(-1*(max(0px,(100vw_-_1280px)/2)_+_8px))))]">
-          <nav aria-label="Breadcrumb" className="text-sm text-white/60">
-            <ol className="flex items-center gap-2 flex-wrap">
-              <li>
-                <span>Services</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <ChevronRight className="size-4" aria-hidden="true" />
-                <span>Business Packages</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <ChevronRight className="size-4" aria-hidden="true" />
-                <span className="text-white" aria-current="page">
-                  Business Automation
-                </span>
-              </li>
-            </ol>
-          </nav>
-
-          <h1 id="ba-hero-title" className="mt-6 font-normal tracking-[-0.03em]">
+          <h1 id="ba-hero-title" className="mt-10 font-normal tracking-[-0.03em]">
             <m.span
               className="block whitespace-nowrap text-4xl leading-[1.08] sm:text-4xl md:whitespace-nowrap md:text-[clamp(28px,3.4vw,50px)]"
               style={{ color: LILAC }}

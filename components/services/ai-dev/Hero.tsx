@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
-import { ArrowRight, ChevronRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { aiDev } from "@/lib/content/services/aiDev";
 import { cn } from "@/lib/cn";
 import BuildSelector from "./BuildSelector";
@@ -74,36 +74,6 @@ export default function AiHero() {
     setUserInteracted(true);
   };
 
-  const breadcrumb = (
-    <nav aria-label="Breadcrumb">
-      <ol className="flex flex-wrap items-center gap-2 text-sm text-white/45">
-        <li>
-          <Link
-            href="/services"
-            className="rounded transition-colors hover:text-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-          >
-            Services
-          </Link>
-        </li>
-        <li className="flex items-center gap-2">
-          <ChevronRight className="size-4" aria-hidden="true" />
-          <Link
-            href="/services"
-            className="rounded transition-colors hover:text-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-          >
-            Individual Services
-          </Link>
-        </li>
-        <li className="flex items-center gap-2">
-          <ChevronRight className="size-4" aria-hidden="true" />
-          <span className="text-white/70" aria-current="page">
-            AI Development &amp; Automation
-          </span>
-        </li>
-      </ol>
-    </nav>
-  );
-
   return (
     <section
       ref={sectionRef}
@@ -124,9 +94,7 @@ export default function AiHero() {
       <div className="relative z-10 mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-10 pb-14 md:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-12 md:pb-16">
           <div className="relative z-10 min-w-0">
-            {breadcrumb}
-
-            <div className="mt-6 flex items-center gap-2.5">
+            <div className="mt-10 flex items-center gap-2.5">
               <span className="h-[9px] w-[9px] bg-[#8B7CFF]" aria-hidden="true" />
               <p className="text-[13px] font-medium uppercase tracking-[0.18em] text-[#8B7CFF] md:text-sm">
                 {eyebrow}

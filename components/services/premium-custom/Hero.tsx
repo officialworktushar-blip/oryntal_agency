@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { m, useReducedMotion } from "framer-motion";
-import { Check, ChevronRight, ShieldCheck } from "lucide-react";
+import { Check, ShieldCheck } from "lucide-react";
 import { premiumCustom } from "@/lib/content/packages/premiumCustom";
 import SystemDiagram from "@/components/services/premium-custom/SystemDiagram";
 
@@ -58,25 +58,7 @@ export default function PremiumHero() {
 
       <div className="container-x relative grid items-center gap-10 lg:grid-cols-2 lg:gap-8">
         <div className="relative z-10 min-w-0">
-          <nav aria-label="Breadcrumb" className="text-sm text-white/60">
-            <ol className="flex items-center gap-2 flex-wrap">
-              <li>
-                <span>Services</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <ChevronRight className="size-4" aria-hidden="true" />
-                <span>Business Packages</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <ChevronRight className="size-4" aria-hidden="true" />
-                <span className="text-white" aria-current="page">
-                  Premium Custom System
-                </span>
-              </li>
-            </ol>
-          </nav>
-
-          <h1 id="pc-hero-title" className="mt-6 font-normal tracking-[-0.03em] leading-[1.08]">
+          <h1 id="pc-hero-title" className="mt-10 font-normal tracking-[-0.03em] leading-[1.08]">
             <m.span
               className="block text-[#9B95FF] whitespace-normal sm:whitespace-nowrap"
               style={{ fontSize: "clamp(28px,3.1vw,48px)" }}

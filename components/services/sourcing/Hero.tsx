@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ChevronRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { sourcing } from "@/lib/content/services/sourcing";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -135,25 +135,9 @@ export default function SourcingHero() {
             paddingBottom: "64px",
           }}
         >
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="text-sm text-white/55">
-            <ol className="flex items-center justify-center gap-2">
-              <li>Services</li>
-              <ChevronRight className="h-4 w-4" aria-hidden="true" />
-              <li>Individual Services</li>
-              <ChevronRight className="h-4 w-4" aria-hidden="true" />
-              <li
-                className="text-white/80"
-                aria-current="page"
-              >
-                Business Operations & Sourcing Support
-              </li>
-            </ol>
-          </nav>
-
           {/* Eyebrow */}
           <motion.p
-            className="mt-6 text-[15px] md:text-base font-medium"
+            className="mt-10 text-[15px] md:text-base font-medium"
             style={{ color: "#9B95FF" }}
             {...textVariants}
           >

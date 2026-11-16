@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   Sparkles,
@@ -62,31 +61,9 @@ export default function ContactHero() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid min-h-0 items-center gap-10 sm:min-h-[560px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-8">
           <div className="min-w-0">
-            <nav aria-label="Breadcrumb" className="text-sm text-[#1D1E20]/55">
-              <ol className="flex items-center gap-2">
-                <li>
-                  <Link
-                    href="/"
-                    className="transition-colors hover:text-[#1D1E20]/80"
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li aria-hidden="true">/</li>
-                <li>
-                  <span
-                    aria-current="page"
-                    className="text-[#1D1E20]/80"
-                  >
-                    Contact
-                  </span>
-                </li>
-              </ol>
-            </nav>
-
             <h1
               id="contact-hero-title"
-              className="mt-6 max-w-xl text-balance text-4xl font-normal leading-[1.08] tracking-[-0.035em] text-[#1D1E20] sm:text-5xl md:text-6xl lg:text-[68px]"
+              className="mt-10 max-w-xl text-balance text-4xl font-normal leading-[1.08] tracking-[-0.035em] text-[#1D1E20] sm:text-5xl md:text-6xl lg:text-[68px]"
             >
               <motion.span
                 className="block"
