@@ -52,7 +52,7 @@ export default function ContactHero() {
   return (
     <section
       aria-labelledby="contact-hero-title"
-      className="relative overflow-hidden pt-[calc(var(--header-h,72px)+40px)] pb-16 md:pb-24"
+      className="relative overflow-hidden pt-[calc(var(--header-h,72px)+20px)] pb-16 md:pb-24"
       style={{
         background:
           "linear-gradient(180deg, #F5F3FC 0%, #F8F7FD 55%, #FFFFFF 100%)",
@@ -63,7 +63,7 @@ export default function ContactHero() {
           <div className="min-w-0">
             <h1
               id="contact-hero-title"
-              className="mt-10 max-w-xl text-balance text-4xl font-normal leading-[1.08] tracking-[-0.035em] text-[#1D1E20] sm:text-5xl md:text-6xl lg:text-[68px]"
+              className="mt-5 max-w-xl text-balance text-4xl font-normal leading-[1.08] tracking-[-0.035em] text-[#1D1E20] sm:text-5xl md:text-6xl lg:text-[68px]"
             >
               <motion.span
                 className="block"

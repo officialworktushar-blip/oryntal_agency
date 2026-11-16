@@ -42,7 +42,7 @@ export default function PremiumHero() {
   return (
     <section
       aria-labelledby="pc-hero-title"
-      className="relative overflow-hidden pc-hero-bg text-white -mt-[72px] pt-[calc(var(--header-h)+64px)] md:pt-[calc(var(--header-h)+72px)] pb-14 md:pb-20"
+      className="relative overflow-hidden pc-hero-bg text-white -mt-[72px] pt-[calc(var(--header-h)+32px)] md:pt-[calc(var(--header-h)+36px)] pb-14 md:pb-20"
     >
       <div aria-hidden className="pc-bands absolute inset-0 pointer-events-none">
         <div className="pc-band pc-band-1" style={{ width: "12.2%" }} />
@@ -58,7 +58,7 @@ export default function PremiumHero() {
 
       <div className="container-x relative grid items-center gap-10 lg:grid-cols-2 lg:gap-8">
         <div className="relative z-10 min-w-0">
-          <h1 id="pc-hero-title" className="mt-10 font-normal tracking-[-0.03em] leading-[1.08]">
+          <h1 id="pc-hero-title" className="mt-5 font-normal tracking-[-0.03em] leading-[1.08]">
             <m.span
               className="block text-[#9B95FF] whitespace-normal sm:whitespace-nowrap"
               style={{ fontSize: "clamp(28px,3.1vw,48px)" }}

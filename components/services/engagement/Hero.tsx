@@ -24,12 +24,12 @@ export default function EngagementHero() {
       ref={sectionRef}
       aria-labelledby="eng-hero-title"
       className="relative isolate overflow-hidden text-center text-white"
-      style={{ backgroundColor: "#0C0D0D", paddingTop: "calc(var(--header-h, 72px) + 64px)", paddingBottom: "72px", minHeight: "720px" }}
+      style={{ backgroundColor: "#0C0D0D", paddingTop: "calc(var(--header-h, 72px) + 32px)", paddingBottom: "72px", minHeight: "720px" }}
     >
       <style jsx>{`
         @media (min-width: 768px) {
           section {
-            padding-top: calc(var(--header-h, 72px) + 72px) !important;
+            padding-top: calc(var(--header-h, 72px) + 36px) !important;
             padding-bottom: 96px !important;
           }
         }
@@ -95,7 +95,7 @@ export default function EngagementHero() {
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <p className="mt-10 text-[15px] font-medium md:text-base" style={{ color: "#9B95FF" }}>
+        <p className="mt-5 text-[15px] font-medium md:text-base" style={{ color: "#9B95FF" }}>
           {engagement.eyebrow}
         </p>
 

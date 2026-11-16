@@ -131,13 +131,13 @@ export default function SourcingHero() {
         <div
           className="min-h-[680px] flex flex-col items-center justify-center"
           style={{
-            paddingTop: "calc(var(--header-h, 72px) + 64px)",
+            paddingTop: "calc(var(--header-h, 72px) + 32px)",
             paddingBottom: "64px",
           }}
         >
           {/* Eyebrow */}
           <motion.p
-            className="mt-10 text-[15px] md:text-base font-medium"
+            className="mt-5 text-[15px] md:text-base font-medium"
             style={{ color: "#9B95FF" }}
             {...textVariants}
           >

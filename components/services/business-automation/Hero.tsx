@@ -42,11 +42,11 @@ export default function BusinessAutomationHero() {
   return (
     <section
       aria-labelledby="ba-hero-title"
-      className="relative overflow-hidden df-hero-gradient text-white -mt-[72px] pt-[calc(var(--header-h)+64px)] md:pt-[calc(var(--header-h)+72px)] pb-14 md:pb-20"
+      className="relative overflow-hidden df-hero-gradient text-white -mt-[72px] pt-[calc(var(--header-h)+32px)] md:pt-[calc(var(--header-h)+36px)] pb-14 md:pb-20"
     >
       <div className="container-x relative grid items-center gap-10 lg:grid-cols-2 lg:gap-8">
         <div className="relative z-10 min-w-0 lg:[transform:translateX(max(-20%,calc(-1*(max(0px,(100vw_-_1280px)/2)_+_8px))))]">
-          <h1 id="ba-hero-title" className="mt-10 font-normal tracking-[-0.03em]">
+          <h1 id="ba-hero-title" className="mt-5 font-normal tracking-[-0.03em]">
             <m.span
               className="block whitespace-nowrap text-4xl leading-[1.08] sm:text-4xl md:whitespace-nowrap md:text-[clamp(28px,3.4vw,50px)]"
               style={{ color: LILAC }}
