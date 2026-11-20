@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import MotionProvider from "@/components/motion/MotionProvider";
 import Header from "@/components/nav/Header";
 import Footer from "@/components/nav/Footer";
 import JsonLd from "@/components/JsonLd";
+import IntroSplash from "@/components/intro/IntroSplash";
+import PageTransition from "@/components/intro/PageTransition";
 import { site } from "@/lib/site";
 
 const dmSans = DM_Sans({
@@ -47,6 +50,10 @@ export default function RootLayout({
       <body
         className={`${dmSans.variable} flex min-h-dvh flex-col bg-white text-ink`}
       >
+        <IntroSplash />
+        <Suspense fallback={null}>
+          <PageTransition />
+        </Suspense>
         <MotionProvider>
           <JsonLd />
           <Header />
